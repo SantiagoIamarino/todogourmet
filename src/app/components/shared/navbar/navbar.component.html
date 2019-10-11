@@ -1,0 +1,35 @@
+<header>
+
+    <div class="logo animated fadeInDown">
+        <img src="../../../../assets/img/logo.webp" alt="">
+    </div>
+
+    <nav class="gourmet-navbar">
+        
+        <ul *ngIf="page === '/home' ">
+            <li routerLink='/home' routerLinkActive="active"
+                class='animated fadeInDown'>Inicio</li>
+            <li routerLink='/tienda' routerLinkActive="active"
+                class='animated fadeInDown' (click)="page = 'tienda'">Catalogo</li>
+            <li onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
+            <li onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
+        </ul>
+
+        <ul class='tienda-navbar' *ngIf="page !== '/home'">
+            <li routerLink='/home' routerLinkActive="active"
+                class='animated fadeInDown' (click)="page = 'home'">Inicio</li>
+            <li routerLink='/tienda' routerLinkActive="active"
+                class='animated fadeInDown'>Catalogo</li>
+            <li routerLink='/login' routerLinkActive="active"
+                class='animated fadeInDown'>Iniciar sesión</li>
+            <li class='animated fadeInDown'>
+                <a target='_blank' href="https://docs.wixstatic.com/ugd/a3b5ea_1aa4aa12196f4b16ac8ea4f9ac8ae04f.pdf">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    Lista de precios
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
