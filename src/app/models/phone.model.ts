@@ -1,6 +1,6 @@
 export class Phone {
     constructor(
-      public country = '+54',
+      public country = '54',
       public area = '9',
       public prefix = '11',
       public line?: string
@@ -9,7 +9,17 @@ export class Phone {
     getPhoneNumer() {
       // tslint:disable-next-line: variable-name
       const number = this.country + this.area + this.prefix + this.line;
-      return number;
+      return `+${number}`;
+    }
+
+    isValid() {
+      if ( this.country && this.area && this.prefix && this.line ) {
+        if (this.line.length > 7) {
+          return true;
+        }
+      } else {
+        return false;
+      }
     }
 
 }

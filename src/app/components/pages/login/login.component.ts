@@ -3,6 +3,8 @@ import { LoginService } from '../../../services/login/login.service';
 import { Phone } from '../../../models/phone.model';
 
 import * as firebase from 'firebase';
+import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,30 +17,62 @@ export class LoginComponent implements OnInit {
 
   windowRef: any;
 
+  verificationCode: string;
+  numberError = false;
+  showLogin = true;
+
+  user: any;
+
   constructor(
-    private loginService: LoginService
-  ) { }
-
-  ngOnInit() {
-    // firebase.auth().languageCode = 'es';
-
-    // this.windowRef = this.loginService.windowRef;
-    // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-    //   'size': 'invisible',
-    //   'callback': function(response) {
-    //     // reCAPTCHA solved, allow signInWithPhoneNumber.
-    //     onSignInSubmit();
-    //   }
-    // });
-
-    // this.windowRef.recaptchaVerifier.render();
+    private loginService: LoginService,
+    private router: Router
+  ) {
   }
 
-  login() {
-    if (this.phone.line) {
-      const phoneNumber = this.phone.getPhoneNumer();
-      this.loginService.login(phoneNumber);
+  ngOnInit() {
+
+    this.windowRef = this.loginService.windowRef;
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+
+    this.windowRef.recaptchaVerifier.render();
+  }
+
+  sendLoginCode() {
+
+    const appVerifier = this.windowRef.recaptchaVerifier;
+
+    if (!this.phone.line) {
+      return;
     }
+
+    const num: any = this.phone.getPhoneNumer();
+
+
+    firebase.auth().signInWithPhoneNumber(num, appVerifier)
+            .then(result => {
+
+                this.windowRef.confirmationResult = result;
+                this.showLogin = false;
+
+            })
+            .catch( error => {
+              this.numberError = true;
+              console.log(error );
+             } );
+
+  }
+
+  verifyLoginCode() {
+    this.windowRef.confirmationResult
+                  .confirm(this.verificationCode)
+                  .then( result => {
+
+                    this.user = result.user;
+                    this.loginService.createOrGetUser(this.user);
+                    this.router.navigate(['/tienda']);
+
+    })
+    .catch( error => console.log(error, 'Incorrect code entered?'));
   }
 
 

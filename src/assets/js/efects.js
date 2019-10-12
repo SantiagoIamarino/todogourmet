@@ -50,19 +50,48 @@ function slideControls( prevOrNext ){
     const slider_container = $('.slider-container');
     const slider = $('.slider-container ul');
 
+
     if(prevOrNext === 'prev'){
+        const slider_left = parseInt($(slider).css('margin-left'));
+
+        if(slider_left === -1400){
+            $(prev).css({
+                'display': 'none'
+            })
+            $(next).css({
+                'display': 'flex'
+            })
+        }
+
         if($(slider).css('margin-left') !== '0px'){
             $(slider).animate({
                 'margin-left': '+=100%'
             }, "slow")
         }
+
     }else{
+
+        const slider_left = parseInt($(slider).css('margin-left'));
+        const slider_width = parseInt($(slider).css('width'));
+        
+
+        if(slider_left - 1400 === (slider_width * -1)) {
+            $(next).css({
+                'display': 'none'
+            })
+            $(prev).css({
+                'display': 'flex'
+            })
+        }
+
+
         if('-' + $(slider_container).css('width') !==  $(slider).css('margin-left')){
             $(slider).animate({
                 'margin-left': '-=100%'
             }, "slow")
         }
     }
+
 
 }
 
@@ -72,44 +101,71 @@ function slideControls( prevOrNext ){
 function sliderMarcas(){
 
     const display = $('.nuestras-marcas .display .display-container');
+    imgsToSlide = $(display).children().length - 6;
 
     timesRight = 0;
-    timesLeft = 0;
-
     goingTo = 'right';
 
-    setInterval(() => {
 
-        if(timesRight < 13  && goingTo === 'right'){
+
+    function slideMarcas(changeTo){
+
+        if(changeTo){
+            goingTo = changeTo;
+        }
+        
+        if(timesRight < imgsToSlide  && goingTo === 'right'){
             $(display).animate({
                 'left': '-=16.5%'
             }, 700)
 
             timesRight++;
 
-            if(timesRight === 13){
-                timesRight = 0;
+            if(timesRight === imgsToSlide){
                 goingTo = 'left';
             }
 
             return;
         }
-        if(timesLeft < 13  && goingTo === 'left'){
+        if(timesRight > 0  && goingTo === 'left'){
             $(display).animate({
                 'left': '+=16.5%'
             }, 700)
 
-            timesLeft++;
+            timesRight--;
 
-            if(timesLeft === 13){
-                timesLeft = 0;
+            if(timesRight === 0){
                 goingTo = 'right';
             }
 
             return;
         } 
+    }
+
+    const slide = setInterval(() => {
+
+
+        slideMarcas();
 
     }, 1800);
+    
+
+    $('#marcas_left').click( function(){
+
+
+        clearInterval(slide);
+
+        slideMarcas('left');
+
+    } )
+    
+    $('#marcas_right').click( function(){
+        clearInterval(slide);
+
+        slideMarcas('right');
+
+    } )
+            
 }
 
 // } )

@@ -1,18 +1,56 @@
-<!-- <div class="login text-center">
+<div class="login text-center animated fadeIn faster" >
     <div class="container">
         <div class="login-form">
             <h2 class='mb-4'>Inicia sesión</h2>
-            <div class="d-flex" style='justify-content: center'>
-                <form (ngSubmit)="login()" class='col-sm-6 d-flex flex-sm-column align-items-sm-center'>
-                    <input [(ngModel)]="phone.country" name='country' class='form-control mb-3' type="text" placeholder="+54">
-                    <input [(ngModel)]="phone.area" name='area' class='form-control mb-3' type="text">
-                    <input [(ngModel)]="phone.prefix" name='prefix' class='form-control mb-3' type="text">
-                    <input [(ngModel)]="phone.line" name='line' class='form-control mb-3' type="text" placeholder="12345678">
-                    <button id='sign-in-button' type='submit' class="btn-outline-danger btn">Ingresar</button>
+            <div class="explanation">
+                <p>Ingresa tu numero, completa el CAPTCHA y te enviaremos un codigo para verificar tu identidad!</p>
+            </div>
+            <div class='form-content' >
+                <form class='sign-in-form'>
+                    <div class="phone-number">
+                        <div class="number-item little">
+                            <label for="pais">País</label>
+                            <div class="country">
+                                <span>+</span>
+                                <input id="pais" [(ngModel)]="phone.country" name='country' maxlength="2" 
+                                class='form-control mb-3' type="text" placeholder="54">
+                            </div>
+                        </div>
+                        <div class="number-item little">
+                            <label for="area">Area</label>
+                            <input id="area" [(ngModel)]="phone.area" name='area' maxlength="3" 
+                            class='form-control mb-3' type="text">
+                        </div>
+                        <div class="number-item little">
+                            <label for="prefijo">Prefijo</label>
+                            <input id="prefijo" [(ngModel)]="phone.prefix" name='prefix' maxlength="3" 
+                            class='form-control mb-3' type="text">
+                        </div>
+                        <div class="number-item">
+                            <label for="numero">Número</label>
+                            <input id="numero" [(ngModel)]="phone.line" name='line' maxlength="8"
+                            class='form-control mb-3' type="text" placeholder="12345678">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="recaptcha-container" id='recaptcha-container'></div>
+                    <button (click)="sendLoginCode()" [disabled]="!phone.isValid()"
+                        type='submit' class="btn-outline-danger btn">Enviar codigo de verificación</button>
                 </form>
-                <div class="recaptcha-container" id='recaptcha-container'></div>
             </div>
         </div>
+
+        <div class='animated fadeIn faster verification-code' *ngIf="windowRef.confirmationResult">
+            <hr>
+            <h4>Ingresa tu codigo de verificación</h4>
+            <div class="col-sm-6 code-input">
+                <input name="code" [(ngModel)]="verificationCode"
+                       class='form-control' type="text" placeholder="Ingresa el código">
+                <button class='mt-4 btn btn-success' 
+                        (click)="verifyLoginCode()">Verificar</button>
+            </div>
+        </div>
+        
+
     </div>
-</div> -->
-<h2 style='padding:20px'>En desarrollo</h2>
+</div>

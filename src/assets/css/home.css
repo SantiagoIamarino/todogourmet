@@ -36,6 +36,7 @@ header{
 header .logo img{
     height: 80px;
     width: auto;
+    cursor: pointer;
 }
 header nav ul{
    display:flex; 

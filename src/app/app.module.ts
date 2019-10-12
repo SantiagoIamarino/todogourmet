@@ -5,6 +5,7 @@ import { ServicesModule } from './services/services.module';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
@@ -19,6 +20,7 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { TiendaComponent } from './components/pages/tienda/tienda.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 
 
 
@@ -31,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     PageNotFoundComponent,
     TiendaComponent,
-    LoginComponent
+    LoginComponent,
+    QuienesSomosComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebase, 'todo-gourmet'),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ServicesModule
   ],
   providers: [],
