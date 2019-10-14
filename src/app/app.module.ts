@@ -21,6 +21,7 @@ import { TiendaComponent } from './components/pages/tienda/tienda.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
+import { AdminComponent } from './components/pages/admin/admin.component';
 
 
 
@@ -34,7 +35,8 @@ import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-
     PageNotFoundComponent,
     TiendaComponent,
     LoginComponent,
-    QuienesSomosComponent
+    QuienesSomosComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

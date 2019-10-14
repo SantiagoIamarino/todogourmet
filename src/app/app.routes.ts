@@ -5,6 +5,7 @@ import { TiendaComponent } from './components/pages/tienda/tienda.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 import { LoginGuard } from './guards/login.guard';
+import { AdminComponent } from './components/pages/admin/admin.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: 'tienda', component: TiendaComponent },
     { path: 'login', component: LoginComponent },
     { path: 'nosotros', component: QuienesSomosComponent },
+    { path: 'admin', component: AdminComponent },
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: '**', component: PageNotFoundComponent },
 ];

@@ -204,101 +204,13 @@
             </div>
             <div class="display">
                 <div class="display-container">
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/heredia.webp" alt="">
+
+                    <div class="img col-sm-2 col-md-2" *ngFor='let marca of marcas'>
+                        <a [href]='marca.url' target='_blank'>
+                            <img [src]="'../../../../assets/img/marcas/' + marca.imagen" alt="">
                         </a>
                     </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/verdeflor.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/cabaña_mico.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/montecitos.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/banda_naranja.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/gran_valle.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/nina.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/vivet.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/la_choza.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/crudda.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/green_food_makers.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/prasat.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/tammy.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/beaudroit.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/guadalest.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/sal_de_aqui.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/fit_fruit.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/schatzi.webp" alt="">
-                        </a>
-                    </div>
-                    <div class="img col-sm-2 col-md-2">
-                        <a>
-                            <img src="../../../../assets/img/marcas/life_supergood.webp" alt="">
-                        </a>
-                    </div>
+
                 </div>
             </div>
 
