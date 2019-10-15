@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { HomeService } from 'src/app/services/home.service';
 
-declare function sliderMarcas();
+declare function sliderMarcas(imgsToSlide);
 
 @Component({
   selector: 'app-home',
@@ -20,13 +20,12 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    sliderMarcas();
   }
 
   getMarcas() {
     this.homeService.getMarcas().subscribe( marcas => {
       this.marcas = marcas;
-      console.log(this.marcas);
+      sliderMarcas(this.marcas.length);
     } );
   }
 

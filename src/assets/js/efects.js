@@ -1,18 +1,17 @@
-
 // $(document).ready( function(){
-    
+
 // Navbar Scroll--------------------------------------------------
 
 
-function scrollToDiv( slideTo ){
+function scrollToDiv(slideTo) {
     const marcas_div = $('.nuestras-marcas').offset().top;
     const contactanos_div = $('.contactanos').offset().top;
 
-    if( slideTo == 'contact' ){
+    if (slideTo == 'contact') {
         $('html, body').animate({
             scrollTop: contactanos_div - 10
         }, 500);
-    }else{
+    } else {
         $('html, body').animate({
             scrollTop: marcas_div - 10
         }, 500);
@@ -20,10 +19,10 @@ function scrollToDiv( slideTo ){
 }
 
 
-    
+
 // Button to top-----------------------------------------------
 
-$(window).scroll(function(){
+$(window).scroll(function() {
     if ($(this).scrollTop() > 600) {
         $('.to-top').fadeIn(300);
     } else {
@@ -31,9 +30,9 @@ $(window).scroll(function(){
     }
 })
 
-function goToTop(){
+function goToTop() {
     $('html, body').animate({
-        scrollTop : 0
+        scrollTop: 0
     }, 500);
     return false;
 }
@@ -43,7 +42,7 @@ function goToTop(){
 // Slider--------------------------------------------------------
 
 
-function slideControls( prevOrNext ){
+function slideControls(prevOrNext) {
 
     const prev = $('#slider_control_prev');
     const next = $('#slider_control_next');
@@ -51,10 +50,10 @@ function slideControls( prevOrNext ){
     const slider = $('.slider-container ul');
 
 
-    if(prevOrNext === 'prev'){
+    if (prevOrNext === 'prev') {
         const slider_left = parseInt($(slider).css('margin-left'));
 
-        if(slider_left === -1400){
+        if (slider_left === -1400) {
             $(prev).css({
                 'display': 'none'
             })
@@ -63,19 +62,19 @@ function slideControls( prevOrNext ){
             })
         }
 
-        if($(slider).css('margin-left') !== '0px'){
+        if ($(slider).css('margin-left') !== '0px') {
             $(slider).animate({
                 'margin-left': '+=100%'
             }, "slow")
         }
 
-    }else{
+    } else {
 
         const slider_left = parseInt($(slider).css('margin-left'));
         const slider_width = parseInt($(slider).css('width'));
-        
 
-        if(slider_left - 1400 === (slider_width * -1)) {
+
+        if (slider_left - 1400 === (slider_width * -1)) {
             $(next).css({
                 'display': 'none'
             })
@@ -85,7 +84,7 @@ function slideControls( prevOrNext ){
         }
 
 
-        if('-' + $(slider_container).css('width') !==  $(slider).css('margin-left')){
+        if ('-' + $(slider_container).css('width') !== $(slider).css('margin-left')) {
             $(slider).animate({
                 'margin-left': '-=100%'
             }, "slow")
@@ -98,75 +97,76 @@ function slideControls( prevOrNext ){
 
 // Slider marcas----------------------------------------
 
-function sliderMarcas(){
+function sliderMarcas(imgsToSlide) {
 
     const display = $('.nuestras-marcas .display .display-container');
-    imgsToSlide = $(display).children().length - 6;
 
-    console.log($(display));
+    
+    imgsMaxToShow = 6;
+
+    imgsToSlide = imgsToSlide - imgsMaxToShow;
 
     timesRight = 0;
     goingTo = 'right';
 
 
 
-    // function slideMarcas(changeTo){
+    function slideMarcas(changeTo) {
 
-    //     if(changeTo){
-    //         goingTo = changeTo;
-    //     }
-    //     console.log(timesRight, imgsToSlide, goingTo);
-    //     if(timesRight < imgsToSlide  && goingTo === 'right'){
-    //         $(display).animate({
-    //             'left': '-=16.5%'
-    //         }, 700)
+        if (changeTo) {
+            goingTo = changeTo;
+        }
+        if (timesRight < imgsToSlide && goingTo === 'right') {
+            $(display).animate({
+                'left': '-=16.6%'
+            }, 700)
 
-    //         timesRight++;
+            timesRight++;
 
-    //         if(timesRight === imgsToSlide){
-    //             goingTo = 'left';
-    //         }
+            if (timesRight === imgsToSlide) {
+                goingTo = 'left';
+            }
 
-    //         return;
-    //     }
-    //     if(timesRight > 0  && goingTo === 'left'){
-    //         $(display).animate({
-    //             'left': '+=16.5%'
-    //         }, 700)
+            return;
+        }
+        if (timesRight > 0 && goingTo === 'left') {
+            $(display).animate({
+                'left': '+=16.6%'
+            }, 700)
 
-    //         timesRight--;
+            timesRight--;
 
-    //         if(timesRight === 0){
-    //             goingTo = 'right';
-    //         }
+            if (timesRight === 0) {
+                goingTo = 'right';
+            }
 
-    //         return;
-    //     } 
-    // }
+            return;
+        }
+    }
 
-    // const slide = setInterval(() => {
+    const slide = setInterval(() => {
 
-    //     slideMarcas();
+        slideMarcas();
 
-    // }, 1800);
-    
+    }, 1800);
 
-    $('#marcas_left').click( function(){
+
+    $('#marcas_left').click(function() {
 
 
         clearInterval(slide);
 
         slideMarcas('left');
 
-    } )
-    
-    $('#marcas_right').click( function(){
+    })
+
+    $('#marcas_right').click(function() {
         clearInterval(slide);
 
         slideMarcas('right');
 
-    } )
-            
+    })
+
 }
 
 // } )
