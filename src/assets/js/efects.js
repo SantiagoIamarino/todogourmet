@@ -1,4 +1,3 @@
-// $(document).ready( function(){
 
 // Navbar Scroll--------------------------------------------------
 
@@ -97,6 +96,8 @@ function slideControls(prevOrNext) {
 
 // Slider marcas----------------------------------------
 
+let slideInterval = null;
+
 function sliderMarcas(imgsToSlide) {
 
     const display = $('.nuestras-marcas .display .display-container');
@@ -144,7 +145,7 @@ function sliderMarcas(imgsToSlide) {
         }
     }
 
-    const slide = setInterval(() => {
+    slideInterval = setInterval(() => {
 
         slideMarcas();
 
@@ -154,14 +155,14 @@ function sliderMarcas(imgsToSlide) {
     $('#marcas_left').click(function() {
 
 
-        clearInterval(slide);
+        clearInterval(slideInterval);
 
         slideMarcas('left');
 
     })
 
     $('#marcas_right').click(function() {
-        clearInterval(slide);
+        clearInterval(slideInterval);
 
         slideMarcas('right');
 
@@ -169,4 +170,7 @@ function sliderMarcas(imgsToSlide) {
 
 }
 
-// } )
+function stopSliderMarcas(){
+   clearInterval(slideInterval);
+}
+

@@ -1,29 +1,23 @@
-.container{
+.container {
     overflow: hidden;
 }
-.quienes-somos{
-    background: #dcdcdc;
-    padding: 20px 0;
-}
-h2{
+
+
+h2 {
     margin-bottom: 20px;
 }
-p, ul{
-    margin:0 auto;
+
+p,
+ul {
+    margin: 0 auto;
     margin-bottom: 15px;
     /* width: 80%; */
 }
-ul{
+
+ul {
     text-align: left;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
     margin: 30px 0;
-}
-.encontranos-en{
-    margin-top: 35px;
-    margin-bottom: 40px;
-}
-.encontranos-en .mapa iframe{
-    width: 100%;
 }

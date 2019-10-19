@@ -1,0 +1,16 @@
+.container {
+    overflow: hidden;
+}
+
+.encontranos-en {
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.encontranos-en h2{
+    margin-bottom:20px;
+}
+
+.encontranos-en .mapa iframe {
+    width: 100%;
+}

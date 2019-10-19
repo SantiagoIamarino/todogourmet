@@ -1,34 +1,24 @@
-<header>
+﻿<header>
 
     <div class="logo animated fadeInDown" routerLink='/home'>
         <img src="../../../../assets/img/logo.webp" alt="">
     </div>
 
     <nav class="gourmet-navbar">
-        
-        <ul *ngIf="page === '/home' ">
-            <li routerLink='/home' routerLinkActive="active"
-                class='animated fadeInDown'>Inicio</li>
-            <li routerLink='/tienda' routerLinkActive="active"
-                class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
-            <li onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
-            <li onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
+
+        <ul *ngIf='page === "/home"'>
+            <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
+            <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
+            <li routerLink='/home' onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
+            <li routerLink='/home' onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
         </ul>
 
-        <ul class='tienda-navbar animated fadeIn' *ngIf="page !== '/home'">
-            <li routerLink='/home' routerLinkActive="active"
-                (click)="page = 'home'">Inicio</li>
-            <li routerLink='/tienda' routerLinkActive="active">Tienda</li>
-            <li routerLink='/login' routerLinkActive="active" *ngIf='!loginService.user._uid'>Iniciar sesión</li>
-            <li *ngIf='loginService.user._uid' (click)='logout()'>Mi cuenta</li>
-            <li>
-                <a target='_blank' href="https://docs.wixstatic.com/ugd/a3b5ea_1aa4aa12196f4b16ac8ea4f9ac8ae04f.pdf">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                    Lista de precios
-                </a>
-            </li>
+        <ul *ngIf="page !== '/home'">
+            <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
+            <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
+            <li routerLink='/home/marcas' class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
+            <li routerLink='/home/contact' class='contacto-btn animated fadeInDown'>Contactanos!</li>
         </ul>
 
     </nav>
 </header>
-

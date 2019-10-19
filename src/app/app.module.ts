@@ -22,6 +22,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
+import { EncontranosEnComponent } from './components/pages/encontranos-en/encontranos-en.component';
 
 
 
@@ -36,7 +37,8 @@ import { AdminComponent } from './components/pages/admin/admin.component';
     TiendaComponent,
     LoginComponent,
     QuienesSomosComponent,
-    AdminComponent
+    AdminComponent,
+    EncontranosEnComponent
   ],
   imports: [
     BrowserModule,

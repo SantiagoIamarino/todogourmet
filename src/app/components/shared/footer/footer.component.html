@@ -1,4 +1,4 @@
-<footer>
+﻿<footer>
     <div class="container">
         <div class="site-info">
             <div class="footer-title">
@@ -7,7 +7,7 @@
             <div class="footer-content site-info-content">
                 <ul class='left'>
                     <li>
-                        <a onclick='goToTop()' >
+                        <a routerLink='/home' onclick='goToTop()'>
                             HOME
                         </a>
                     </li>
@@ -17,27 +17,27 @@
                         </a>
                     </li>
                     <li>
-                        <a routerLink='/nosotros'>
+                        <a routerLink='/quienes-somos'>
                             QUIENES SOMOS
                         </a>
                     </li>
                 </ul>
                 <ul class='right'>
-                        <li>
-                            <a onclick="scrollToDiv('contact')">
-                                CONTACTO
-                            </a>
-                        </li>
-                        <li>
-                            <a routerLink='/nosotros'>
-                                ENCONTRANOS EN
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="scrollToDiv('marcas')">
-                                NUESTRAS MARCAS
-                            </a>
-                        </li>
+                    <li>
+                        <a routerLink='/home/contact' onclick="scrollToDiv('contact')">
+                            CONTACTO
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink='/encontranos-en'>
+                            ENCONTRANOS EN
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink='/home/marcas' onclick="scrollToDiv('marcas')">
+                            NUESTRAS MARCAS
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
