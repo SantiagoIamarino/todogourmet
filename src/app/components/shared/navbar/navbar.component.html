@@ -6,14 +6,14 @@
 
     <nav class="gourmet-navbar">
 
-        <ul *ngIf='page === "/home"'>
+        <ul *ngIf="page.indexOf('/home') >= 0"> <!-- In home -->
             <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
-            <li routerLink='/home' onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
-            <li routerLink='/home' onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
+            <li onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
+            <li onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
         </ul>
 
-        <ul *ngIf="page !== '/home'">
+        <ul *ngIf="page.indexOf('/home') === -1"> <!-- Not in home -->
             <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
             <li routerLink='/home/marcas' class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>

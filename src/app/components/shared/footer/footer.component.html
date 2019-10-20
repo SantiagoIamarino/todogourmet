@@ -22,9 +22,9 @@
                         </a>
                     </li>
                 </ul>
-                <ul class='right'>
+                <ul class='right home-page' *ngIf="page && page.indexOf('/home') >= 0">
                     <li>
-                        <a routerLink='/home/contact' onclick="scrollToDiv('contact')">
+                        <a onclick="scrollToDiv('contact')">
                             CONTACTO
                         </a>
                     </li>
@@ -34,7 +34,24 @@
                         </a>
                     </li>
                     <li>
-                        <a routerLink='/home/marcas' onclick="scrollToDiv('marcas')">
+                        <a onclick="scrollToDiv('marcas')">
+                            NUESTRAS MARCAS
+                        </a>
+                    </li>
+                </ul>
+                <ul class='right other-page' *ngIf="page && page.indexOf('/home') === -1">
+                    <li>
+                        <a routerLink='/home/contact'>
+                            CONTACTO
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink='/encontranos-en'>
+                            ENCONTRANOS EN
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink='/home/marcas'>
                             NUESTRAS MARCAS
                         </a>
                     </li>

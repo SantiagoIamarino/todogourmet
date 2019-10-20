@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     public loginService: LoginService
     ) {
 
-    router.events.subscribe(event => {
+    this.router.events.subscribe(event => {
 
       if (event instanceof NavigationEnd ) {
         this.page = event.url;
