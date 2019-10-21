@@ -14,15 +14,16 @@
 }
 .form-content .phone-number{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
 }
 .form-content .phone-number .number-item{
     margin-left: 10px;
     min-width: 40%;
 }
 .form-content .phone-number .little{
-    min-width: 10%;
-    width: 10%;
+    min-width: 15%;
+    width: 15%;
 }
 .form-content .phone-number .number-item .country{
     display: flex;
@@ -43,4 +44,28 @@
 }
 .verification-code .code-input{
     margin:0 auto;
+}
+.login-button{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgb(194, 54, 49);
+    color: white;
+    padding: 15px 60px;
+    border: 1px solid rgb(194, 54, 49);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    opacity: .9;
+}
+.login-button i{
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.login-button:hover{
+    transition: .3s all ease;
+    background: white;
+    color: rgb(194, 54, 49);
 }

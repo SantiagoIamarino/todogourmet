@@ -3,8 +3,9 @@ import { LoginService } from '../../../services/login/login.service';
 import { Phone } from '../../../models/phone.model';
 
 import * as firebase from 'firebase';
-import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+
+declare function hideModal();
 
 @Component({
   selector: 'app-login',
@@ -30,11 +31,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.windowRef = this.loginService.windowRef;
+      this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
 
-    this.windowRef = this.loginService.windowRef;
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-
-    this.windowRef.recaptchaVerifier.render();
+      this.windowRef.recaptchaVerifier.render();
   }
 
   sendLoginCode() {
@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
 
                 this.windowRef.confirmationResult = result;
                 this.showLogin = false;
-
             })
             .catch( error => {
               this.numberError = true;
@@ -70,6 +69,8 @@ export class LoginComponent implements OnInit {
                     this.user = result.user;
                     this.loginService.createOrGetUser(this.user);
                     this.router.navigate(['/tienda']);
+                    console.log(this.user);
+                    hideModal();
 
     })
     .catch( error => console.log(error, 'Incorrect code entered?'));

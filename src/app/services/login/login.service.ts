@@ -15,6 +15,8 @@ export class LoginService {
 
   user: User = new User();
 
+  loading = true;
+
   constructor(
     public afs: AngularFirestore,
     private router: Router
@@ -25,6 +27,8 @@ export class LoginService {
     firebase.auth().onAuthStateChanged( user => {
       if (user) {
         this.createOrGetUser(user);
+      } else {
+        this.loading = false;
       }
     } );
 
@@ -49,6 +53,8 @@ export class LoginService {
             this.user = newUser;
           } );
         }
+
+        this.loading = false;
 
       } );
   }

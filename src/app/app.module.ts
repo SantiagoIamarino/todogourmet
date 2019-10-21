@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
 import { EncontranosEnComponent } from './components/pages/encontranos-en/encontranos-en.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 
 
@@ -38,7 +39,8 @@ import { EncontranosEnComponent } from './components/pages/encontranos-en/encont
     LoginComponent,
     QuienesSomosComponent,
     AdminComponent,
-    EncontranosEnComponent
+    EncontranosEnComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

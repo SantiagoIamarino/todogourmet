@@ -48,7 +48,38 @@ header nav ul li{
     font-weight: 700;
     font-size: 18px;
 }
-header nav ul li:hover{
+header nav ul .account{
+    position: relative;
+    z-index: 9;
+}
+header nav ul .account li{
+    z-index: 99;
+}
+header nav ul li.account-btn ul{
+    position: absolute;
+    left:0;
+    top:40px;
+    width: 200px;
+    display:flex;
+    flex-direction: column;
+    z-index: 9;
+    background: white;
+    box-shadow: 1px 1px 3px gray;
+    border-radius: 0 0 3px 3px;
+    display:none;
+}
+header nav ul li.account-btn ul li{
+    color: black;
+    font-weight: normal;
+    font-size: 16px;
+    cursor:pointer;
+}
+header nav ul li.account-btn ul li i{
+    opacity: .7;
+}
+
+header nav ul.navbar li:hover,
+header nav ul li.account-btn ul li:hover{
     transition: .3s all ease;
     color: #2D8D40;
 }
@@ -85,46 +116,17 @@ header nav ul li a:hover{
     color:rgb(45,141,64);
 }
 .main .slider{
-    position: relative;
     width: 1400px;
-    margin:0 auto;
-}
-.main .slider .slider-control{
-    position: absolute;
-    top:0;
-    height: 100%;
-    display:flex;
-    align-items: center;
-    padding: 0 30px;
-    cursor: pointer;
-}
-.main .slider .slider-control i{
-    font-size: 65px;
-    color:white;
-}
-.main .slider .control-right{
-    right: 0;
-}
-.main .slider .slider-container{
-    flex-wrap: nowrap;
-    width: 100%;
-    overflow: hidden;
+    max-width: 100%;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
-.main .slider .slider-container ul{
-    display: flex;
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    width: 30px;
+    height: 30px;
 }
-.main .slider .slider-container li{
-    list-style: none;
-    margin-right: 15px;
-}
-.main .slider .slider-container li:last-child{
-    margin-right: 0;
-}
-.main .slider .slider-container li img{
-    height: 496px;
-    width: auto;
-    vertical-align: top;
+.main .slider img{
+    height: 500px;
 }
 .main .productos-destacados{
     padding: 40px;
@@ -300,6 +302,10 @@ header nav ul li a:hover{
     justify-content: space-between;
     align-items: center;
     position: relative;
+}
+.main .nuestras-marcas .display .display-container .img a{
+    display: flex;
+    justify-content: center;
 }
 .main .nuestras-marcas .display .display-container .img img{
     cursor: pointer;

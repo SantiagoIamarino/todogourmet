@@ -1,0 +1,69 @@
+.loading-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1001;
+    transition: .3s all ease;
+}
+.box{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    z-index: 999;
+}
+.box .circle{
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border-left: 4px solid;
+    border-right: 4px solid;
+    border-top: 4px solid transparent !important;
+    border-bottom: 4px solid transparent !important;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    animation: rotate 2s infinite;
+}
+.box .circle1{
+    border-color: #2D8D40;
+    width: 120px;
+    height: 120px;
+}
+.box .circle2{
+    border-color: #DE1B1B;
+    width: 100px;
+    height: 100px;
+    animation-delay: .2s;
+}
+.box .circle3{
+    border-color: #2D8D40;
+    width: 80px;
+    height: 80px;
+    animation-delay: .4s;
+}
+.box .circle4{
+    border-color: #DE1B1B;
+    width: 60px;
+    height: 60px;
+    animation-delay: .6s;
+}
+
+@keyframes rotate{
+    0%{
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    50%{
+        transform: translate(-50%, -50%) rotate(-180deg);
+    }
+    100%{
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}
