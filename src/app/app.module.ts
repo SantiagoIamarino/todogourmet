@@ -19,11 +19,12 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { TiendaComponent } from './components/pages/tienda/tienda.component';
 import { LoginComponent } from './components/pages/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
 import { EncontranosEnComponent } from './components/pages/encontranos-en/encontranos-en.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { ContactoComponent } from './components/pages/home/contacto/contacto.component';
 
 
 
@@ -40,11 +41,13 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     QuienesSomosComponent,
     AdminComponent,
     EncontranosEnComponent,
-    LoadingComponent
+    LoadingComponent,
+    ContactoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     APP_ROUTES,
     AngularFireModule.initializeApp(environment.firebase, 'todo-gourmet'),
     AngularFirestoreModule,

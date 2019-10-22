@@ -10,7 +10,7 @@ function showDropdown(){
 
 function scrollToDiv(slideTo) {
     const marcas_div = $('.nuestras-marcas').offset().top;
-    const contactanos_div = $('.contactanos').offset().top + 200;
+    const contactanos_div = $('.contactanos').offset().top + 150;
 
     if (slideTo == 'contact') {
         $('html, body').animate({

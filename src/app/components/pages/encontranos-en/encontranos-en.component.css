@@ -13,4 +13,6 @@
 
 .encontranos-en .mapa iframe {
     width: 100%;
+    border: 2px solid red;
+    border-radius: 3px;
 }

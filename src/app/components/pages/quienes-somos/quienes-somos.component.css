@@ -2,6 +2,26 @@
     overflow: hidden;
 }
 
+.quienes-somos .quienes-somos-flex{
+    display: flex;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.quienes-somos .quienes-somos-flex .img{
+    margin-right: 5px;
+}
+
+.quienes-somos .quienes-somos-flex .img img{
+    vertical-align: top;
+    max-width: 600px;
+    max-height: 600px;
+}
+
+.quienes-somos .quienes-somos-flex .text{
+    text-align: left;
+    margin-left: 10px;
+}
 
 h2 {
     margin-bottom: 20px;
@@ -11,7 +31,6 @@ p,
 ul {
     margin: 0 auto;
     margin-bottom: 15px;
-    /* width: 80%; */
 }
 
 ul {

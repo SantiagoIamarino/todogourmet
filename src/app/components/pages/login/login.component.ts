@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 
 declare function hideModal();
 
+import sweetAlert from 'sweetalert';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
   user: any;
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private router: Router
   ) {
   }
@@ -68,12 +70,21 @@ export class LoginComponent implements OnInit {
 
                     this.user = result.user;
                     this.loginService.createOrGetUser(this.user);
-                    this.router.navigate(['/tienda']);
-                    console.log(this.user);
                     hideModal();
+                    sweetAlert(
+                      'Inicio de sesión',
+                      'Iniciaste sesión correctamente!',
+                      'success'
+                     );
 
     })
-    .catch( error => console.log(error, 'Incorrect code entered?'));
+    .catch( error => {
+      sweetAlert(
+        'Error',
+        'El codigo ingresado no es correcto, intenta nuevamente',
+        'error'
+       );
+    });
   }
 
 
