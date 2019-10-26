@@ -1,0 +1,91 @@
+.tienda-content{
+    width: 100%;
+    max-width: 1400px;
+    margin:0 auto;
+}
+
+.title-top-tienda{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #DE1B1B;
+}
+
+.title-top-tienda .title{
+    width: 30%;
+}
+
+.title-top-tienda .title h2{
+    font-size: 21px;
+    font-weight: normal;
+    margin: 0 0 12px 0;
+    padding: 14px 0 0;
+    color: #DE1B1B ;
+}
+
+.title-top-tienda .search{
+    width: 50%;
+}
+
+.title-top-tienda .search .input-text{
+    border: 1px solid rgba(222, 27, 27, .7);
+    border-radius: 2px;
+}
+
+.title-top-tienda .search .input-text input[type='text']{
+    padding: 12px;
+}
+
+
+.title-top-tienda  .search .input-text button{
+    height: 39px;
+}
+
+.title-top-tienda  .search .input-text button i{
+    font-size: 18px;
+}
+
+.tienda .bottom-tienda{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tienda .bottom-tienda .sidebar{
+    width: 23%;
+    padding: 20px 10px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(144, 140, 140, .6);
+}
+
+.tienda .bottom-tienda .sidebar h4{
+    font-size: 18px;
+}
+
+.tienda .bottom-tienda .sidebar .selects-category .select{
+    margin-top: 20px;
+}
+
+.tienda .bottom-tienda .sidebar .selects-category .select .input-select{
+    margin-top: 0;
+}
+
+.tienda .bottom-tienda .sidebar .selects-category .select-title label{
+    margin-bottom: 0 !important;
+    font-size: 14px;
+    color: #5c5858;
+    padding-left: 5px;
+}
+
+.tienda .bottom-tienda .products{
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: space-between;
+}
+
+.tienda .bottom-tienda .products app-product{
+    width: 24%;
+    box-shadow: 1px 1px 3px rgb(173, 165, 165);
+    margin-bottom: 20px;
+    border-radius: 3px;
+}

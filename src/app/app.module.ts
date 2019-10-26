@@ -25,6 +25,7 @@ import { AdminComponent } from './components/pages/admin/admin.component';
 import { EncontranosEnComponent } from './components/pages/encontranos-en/encontranos-en.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { ContactoComponent } from './components/pages/home/contacto/contacto.component';
+import { ProductComponent } from './components/shared/product/product.component';
 
 
 
@@ -42,7 +43,8 @@ import { ContactoComponent } from './components/pages/home/contacto/contacto.com
     AdminComponent,
     EncontranosEnComponent,
     LoadingComponent,
-    ContactoComponent
+    ContactoComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+.input-select{
+    margin-right: 0;
+    height: 36px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    display: flex;
+    flex: 100%;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-top: 8px;
+    -webkit-appearance: none;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8l10 9 10-9' stroke-linecap='round' stroke='%23DE1B1B' fill='none'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    border: 1px solid #DE1B1B;
+    border-radius: 2px;
+    color: #DE1B1B;
+    font-size: 14px;
+    padding: 8px 40px 8px 8px;
+    width: 100%;
+    background: transparent url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8l10 9 10-9' stroke-linecap='round' stroke='%23DE1B1B' fill='none'/%3E%3C/svg%3E") no-repeat right 10px center;
+    text-transform: none;
+}
+
+.input-text {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+}
+
+.input-text input[type='text'] {
+    padding: 15px;
+    border: none;
+    border-radius: 3px 0 0 3px;
+    width: 100%;
+}
+
+.input-text button {
+    border: none;
+    background: white;
+    height: 47px;
+    padding: 0 15px;
+    border-radius: 0 3px 3px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-text button i {
+    font-size: 20px;
+    color: #dcdcdc;
+}
+
+.input-text input[type='text']:focus+.submit-btn button i {
+    transition: .3s all ease;
+    color: #DE1B1B;
+}
