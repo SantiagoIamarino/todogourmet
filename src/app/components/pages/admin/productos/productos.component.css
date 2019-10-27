@@ -2,10 +2,36 @@ h2{
     text-align: center;
     margin-bottom: 20px;
 }
+.productos .admin-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-.productos h2{
+.productos .admin-title h2{
     text-align: left;
     padding-left: 20px;
+    font-size: 25px;
+    width: 40%;
+    margin-bottom: 0;
+}
+
+.productos .search{
+    width: 50%;
+}
+
+.productos .search .input-text{
+    border: 1px solid rgb(211, 45, 45);
+    border-radius: 2px;
+}
+
+.productos .search .input-text input[type='text'] {
+    padding: 12px;
+}
+
+.productos .search .input-text button{
+    height: 38px;
 }
 
 .admin-products{
@@ -22,13 +48,8 @@ h2{
     min-width: 280px;
 }
 
-.productos .product-item{
-    vertical-align: center;
-}
-
-.productos .product-item .title,
-.productos .product-item .price{
-    padding: 25px .75rem 0 .75rem;
+.table td, .table th{
+    vertical-align: middle;
 }
 
 .productos .product-item .img img{
@@ -42,4 +63,40 @@ h2{
 
 .productos .product-item .controls .edit{
     margin-right: 5px;
+}
+
+.productos .product-list table{
+    position: relative;
+}
+.productos .product-list .loading{
+    margin-top: 100px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.productos .product-list .loading .loading-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.productos .product-list .loading .loading-content .text p{
+    font-size: 20px;
+}
+
+.modal-dialog{
+    display: flex;
+    justify-content: center;
+    margin: 5rem auto;
+}
+
+.modal-content{
+    max-width: 320px;
+    min-width: 280px;
+}
+
+.modal-body{
+    padding:0;
 }

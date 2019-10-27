@@ -136,7 +136,12 @@ function stopSliderMarcas(){
 
 // Edit products images---------------------------------
 
-function openFileSelector(){
-    const fileSelector = document.getElementById('file_selector');
-    fileSelector.click();
+function openFileSelector( target ){
+    if( target === 'edit' ){
+        const fileSelector = document.getElementById('edit_file_selector');
+        fileSelector.click();
+    }else{
+        const fileSelector = document.getElementById('file_selector');
+        fileSelector.click();
+    }
 }

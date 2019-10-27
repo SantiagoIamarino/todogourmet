@@ -95,6 +95,21 @@
     justify-content: space-between;
 }
 
+.main .title .see-more button {
+    background: rgb(194, 54, 49);
+    border: 1px solid rgb(194, 54, 49);
+    color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-size: 15px;
+}
+
+.main .title .see-more button:hover {
+    transition: .3s all ease;
+    background: #dcdcdd;
+    color: rgb(194, 54, 49);
+}
+
 .main .title .controls button {
     background: rgb(194, 54, 49);
     border: 1px solid rgb(194, 54, 49);
@@ -111,6 +126,7 @@
     margin-right: 5px;
 }
 
+
 .main .title .controls button i {
     padding: 8px 15px;
     font-size: 18px;
@@ -121,20 +137,12 @@
     color: rgb(194, 54, 49);
 }
 
-.main .productos-destacados{
-    padding-bottom: 550px;
-}
-
-.main .productos-destacados .container{
-    /* position: relative; */
-}
 
 .main .productos-destacados .productos {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    position: absolute;
 }
 
 .main .productos-destacados .productos app-product{

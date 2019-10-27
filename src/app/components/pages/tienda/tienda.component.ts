@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare function goToTop(animationTime);
+
 @Component({
   selector: 'app-tienda',
   templateUrl: './tienda.component.html',
@@ -10,6 +12,7 @@ export class TiendaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    goToTop(0);
   }
 
 }

@@ -12,6 +12,23 @@ export class ProductService {
   ) {
    }
 
+  getProducts() {
+    return this.afs.collection('products').valueChanges();
+  }
+
+  getProduct(id: string) {
+    return this.afs.collection('products', ref => ref.where('id', '==', id))
+      .valueChanges();
+  }
+
+  searchProducts( term: string ) {
+    return this.afs.collection('products',
+       ref => ref.orderBy('name')
+                 .startAt(term)
+                 .endAt(term + '\uf8ff')
+    ).valueChanges();
+  }
+
   uploadProduct( product: Product) {
 
     product.id = new Date().valueOf().toString();

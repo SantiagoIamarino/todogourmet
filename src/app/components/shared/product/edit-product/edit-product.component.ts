@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from '../../../../services/product.service';
 import { UploadFileService } from '../../../../services/upload-file.service';
@@ -11,9 +11,9 @@ import sweetAlert from 'sweetalert';
   styleUrls: ['../product.component.css',
               './edit-product.component.css']
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnChanges {
 
-  product: Product =  new Product();
+  @Input() product: Product = new Product();
 
   imgToUpload: any;
 
@@ -27,10 +27,14 @@ export class EditProductComponent implements OnInit {
   ) {
    }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.tempImg = null;
+    this.imgToUpload = null; // Restarting vars when modal info changes
+    this.uploadProgress = null;
   }
 
   imgSelected( event ) {
+
     if (event.target.files.length > 0) {
       this.imgToUpload = event.target.files[0];
 
@@ -41,6 +45,22 @@ export class EditProductComponent implements OnInit {
         this.tempImg = reader.result;
       };
     }
+  }
+
+  editProduct() {
+    if (!this.imgToUpload  && !this.product.img) {
+      sweetAlert('Error', 'Debes agregar una imagen', 'error');
+      return;
+    }
+
+    const validation = this.product.validateProduct();
+
+    if (!validation.isValid) {
+      sweetAlert('Error', validation.errors, 'error');
+      return;
+    }
+
+    this.uploadProgress = 'loading';
   }
 
   uploadProduct() {

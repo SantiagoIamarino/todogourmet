@@ -1,14 +1,25 @@
 <div class="producto">
     <div class="img">
-        <img class='img-fluid' *ngIf='!tempImg' 
+        <img class='img-fluid' *ngIf='!tempImg && !product.img' 
             src="../../../../assets/img/not-found.png" alt="">
 
-        <img class='img-fluid' *ngIf="tempImg"
+        <img class='img-fluid' *ngIf="product.img && !tempImg"
+        [src]="product.img" alt="">
+
+        <img class='img-fluid temp' *ngIf="tempImg"
         [src]="tempImg" alt="">
 
-        <div class="background-on-hover" onclick='openFileSelector()'>
+        <div class="background-on-hover" onclick='openFileSelector("new")'>
             <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
-            <input type="file" (change)='imgSelected($event)' id='file_selector'>
+
+            <input type="file"  (change)='imgSelected($event)' id='file_selector'>
+        </div>
+
+        <div onclick='openFileSelector("edit")' *ngIf='product.id'
+             class="background-on-hover">
+            <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
+
+            <input type="file" (change)='imgSelected($event)' id='edit_file_selector'>
         </div>
     </div>
     <div class="info">
@@ -55,9 +66,14 @@
         </div>
     </div>
     <div class="add-to-cart">
-        <button (click)='uploadProduct()'>
+        <button (click)='uploadProduct()' *ngIf='!product.id'>
             <i class="fa fa-save mr-1"></i>
             SUBIR PRODUCTO
+        </button>
+
+        <button (click)='editProduct()' *ngIf='product.id'>
+            <i class="fa fa-save mr-1"></i>
+            EDITAR PRODUCTO
         </button>
     </div>
 </div> 
