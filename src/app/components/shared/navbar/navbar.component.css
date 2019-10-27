@@ -1,0 +1,169 @@
+header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    height: 80px;
+    width: auto;
+    cursor: pointer;
+}
+header nav .mobile-menu-button{
+    display: none;
+}
+header nav ul {
+    display: flex;
+}
+
+header nav ul li {
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+header nav ul .account {
+    position: relative;
+    z-index: 9;
+}
+
+header nav ul .account li {
+    z-index: 99;
+}
+
+header nav ul li.account-btn ul {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+    background: white;
+    box-shadow: 1px 1px 3px gray;
+    border-radius: 0 0 3px 3px;
+    display: none;
+}
+
+header nav ul li.account-btn ul li {
+    color: black;
+    font-weight: normal;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+header nav ul li.account-btn ul li i {
+    opacity: .7;
+}
+
+header nav ul.navbar li:hover,
+header nav ul li.account-btn ul li:hover {
+    transition: .3s all ease;
+    color: #2D8D40;
+}
+
+header nav ul li.active,
+header nav ul li.active:hover {
+    color: #C23631;
+}
+
+header nav ul li a,
+header nav ul li a:hover {
+    color: black;
+}
+
+header nav ul li a:hover {
+    transition: .3s all ease;
+    color: #2D8D40;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 1200px){
+    header{
+        padding: 10px;
+    }
+    .navbar{
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .animated{
+        animation-duration: 0ms !important;
+    }
+    header{
+        position: relative;
+    }
+    header .gourmet-navbar ul{
+        display: none;
+        text-align: center;
+        position: absolute;
+        left:0;
+        top: 100px;
+        width: 100%;
+        border-top: 1px solid #dcdcdc;
+        padding: 0 10px;
+        z-index: 99;
+        background: white;
+    }
+    header nav ul li.account-btn ul{
+        width: 100%;
+    }
+    header .gourmet-navbar .mobile-menu-button{
+        padding: 7px 40px;
+        margin-right: 10px;
+        list-style: none;
+        border: 1px solid rgb(194, 54, 49);
+        border-radius: 3px;
+        font-size: 17px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background: rgb(194, 54, 49);
+        color:white
+    }
+
+    header .gourmet-navbar .mobile-menu-button i{
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+    header .gourmet-navbar .mobile-menu-button:hover{
+        transition: .3s all ease;
+        background: white;
+        color:rgb(194, 54, 49);
+    }
+}
+
+@media screen and (max-width: 600px){
+    header .logo img{
+        height: 60px;
+    }
+    header .gourmet-navbar ul{
+        top: 80px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    header .gourmet-navbar ul{
+        top: 75px;
+    }
+    header .logo img{
+        height: 55px;
+    }
+
+    header .gourmet-navbar .mobile-menu-button{
+        padding: 7px 20px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+
+    header nav ul li{
+        font-size: 17px;
+    }
+}
+

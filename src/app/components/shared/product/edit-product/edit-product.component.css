@@ -1,0 +1,67 @@
+.producto .img{
+    position: relative;
+    cursor: pointer;
+}
+
+.producto .img .background-on-hover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.8);
+    cursor:pointer;
+    transition: .3s all ease;
+}
+
+.producto .img:hover .background-on-hover{
+    display: flex;
+}
+
+.producto .img .background-on-hover input[type='file']{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.producto .img .background-on-hover i{
+    color: rgba(255,255,255,.8);
+}
+
+.edit-input{
+    border: 1px solid #DE1B1B;
+    margin-left: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    max-width: 100px;
+    border-radius: 3px;
+}
+
+.product-name .edit-input{
+    max-width: 100%;
+    min-width: 80%;
+    margin-left: 0;
+    margin-bottom: 5px;
+}
+
+.product-info{
+    padding-bottom: 5px;
+}
+
+.product-prices .edit-input{
+    margin-left: 0;
+}
+
+.progreso{
+    padding: 5px 10px;
+}
+
+.progreso p{
+    font-size: 14px;
+}

@@ -1,0 +1,301 @@
+.to-top {
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    cursor: pointer;
+    display: none;
+}
+
+.to-top i {
+    color: rgb(194, 54, 49);
+    font-size: 22px;
+    padding: 4px 9px;
+    border-radius: 50%;
+    border: 1px solid rgb(194, 54, 49);
+}
+
+.to-top i:hover {
+    transition: .3s all ease;
+    border: 1px solid rgb(45, 141, 64);
+    color: rgb(45, 141, 64);
+}
+
+.main .slider {
+    width: 1400px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.main .slider img {
+    height: 500px;
+}
+
+.main .productos-destacados {
+    padding: 40px;
+    background: #e1e1e1;
+}
+
+.main .productos-destacados .categories {
+    padding-bottom: 30px;
+}
+
+.main .productos-destacados .categories .categories-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .productos-destacados .categories .categories-container .category {
+    width: 30%;
+}
+
+.main .productos-destacados .categories .categories-container .category {
+    width: 360px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.main .productos-destacados .categories .categories-container .category .category-content:hover {
+    transition: .3s all ease;
+    transform: scale(1.20);
+}
+
+.main .productos-destacados .categories .categories-container .category img {
+    vertical-align: top;
+    width: 360px;
+    height: 240px;
+}
+
+.main .productos-destacados .categories .categories-container .category .text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .productos-destacados .categories .categories-container .category .text h4 {
+    color: white;
+}
+
+.main .productos-destacados .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .title .controls button {
+    background: rgb(194, 54, 49);
+    border: 1px solid rgb(194, 54, 49);
+    color: white;
+    border-radius: 5px;
+}
+
+.main .title .controls button:hover {
+    transition: .3s all ease;
+    background: white;
+}
+
+.main .title .controls button:first-child {
+    margin-right: 5px;
+}
+
+.main .title .controls button i {
+    padding: 8px 15px;
+    font-size: 18px;
+}
+
+.main .title .controls button:hover i {
+    transition: .3s all ease;
+    color: rgb(194, 54, 49);
+}
+
+.main .productos-destacados{
+    padding-bottom: 550px;
+}
+
+.main .productos-destacados .container{
+    /* position: relative; */
+}
+
+.main .productos-destacados .productos {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: absolute;
+}
+
+.main .productos-destacados .productos app-product{
+    width: 24%;
+}
+
+.main .nuestras-marcas {
+    padding-top: 30px;
+}
+
+.main .nuestras-marcas .container {
+    background: white;
+    padding: 20px;
+}
+
+.main .nuestras-marcas .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #DE1B1B;
+    padding-bottom: 9px;
+}
+
+.main .nuestras-marcas .title h2 {
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: normal;
+    color: #DE1B1B;
+}
+
+.main .nuestras-marcas .title .controls button i {
+    padding: 5px 11px;
+}
+
+.main .nuestras-marcas .display {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.main .nuestras-marcas .display .display-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.main .nuestras-marcas .display .display-container .img a {
+    display: flex;
+    justify-content: center;
+}
+
+.main .nuestras-marcas .display .display-container .img img {
+    cursor: pointer;
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+
+.main .nuestras-marcas .banners {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: 20px;
+}
+
+.main .nuestras-marcas .banners img {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.main .donde-estamos {
+    padding: 30px 0;
+    margin-bottom: 20px;
+}
+
+.main .donde-estamos .title h2 {
+    font-weight: 200;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main .donde-estamos .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .donde-estamos .map {
+    width: 65%;
+    border-right: 2px dotted #888686;
+    padding-right: 20px;
+}
+
+.main .donde-estamos .map iframe {
+    width: 100%;
+}
+
+.main .donde-estamos .contact-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 17px;
+    padding: 0 20px;
+    width: 35%;
+}
+
+.main .donde-estamos .contact-info p,
+.main .donde-estamos .contact-info a {
+    margin-bottom: 10px;
+    color: black;
+}
+
+.main .donde-estamos .contact-info .social {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.main .donde-estamos .contact-info .social a {
+    text-decoration: none;
+}
+
+.main .donde-estamos .contact-info .social i {
+    font-size: 25px;
+    color: white;
+    background: rgb(211, 66, 66);
+    border: 1px solid rgb(211, 66, 66);
+    border-radius: 50%;
+    padding: 14px 17px;
+}
+
+.main .donde-estamos .contact-info .social i.fa-facebook {
+    padding: 13px 19px;
+}
+
+.main .donde-estamos .contact-info .social i:hover {
+    transition: .3s all ease;
+    background: white;
+    color: rgb(211, 66, 66);
+}
+
+@media screen and (max-width: 1200px){
+    .main .productos-destacados .categories .categories-container .category{
+        width: 33%;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        width: auto;
+        height: 210px;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .main .productos-destacados{
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 991px){
+    .container{
+        max-width: 100% !important;
+    }
+}

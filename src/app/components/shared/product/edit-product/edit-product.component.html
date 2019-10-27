@@ -1,0 +1,63 @@
+<div class="producto">
+    <div class="img">
+        <img class='img-fluid' *ngIf='!tempImg' 
+            src="../../../../assets/img/not-found.png" alt="">
+
+        <img class='img-fluid' *ngIf="tempImg"
+        [src]="tempImg" alt="">
+
+        <div class="background-on-hover" onclick='openFileSelector()'>
+            <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
+            <input type="file" (change)='imgSelected($event)' id='file_selector'>
+        </div>
+    </div>
+    <div class="info">
+        <div class="product-name">
+            <input type="text" [(ngModel)]="product.name" name='name'
+                class='edit-input' placeholder="Título del producto">
+        </div>
+        <div class="product-info">
+            <p>
+                Marca: 
+                <input [(ngModel)]="product.marca" name='marca'
+                    type="text" placeholder="Marca"  class='edit-input'>
+            </p>
+            <p>
+                Presentación: 
+                <input [(ngModel)]="product.presentacion" name='presentacion'
+                    type="text" placeholder="Bulto cerrado" class='edit-input'>
+            </p>
+        </div>
+        <div class="product-prices">
+            <div class="unidad">
+                <p>Unidad</p>
+                <span>$
+                    <input type="text" [(ngModel)]="product.precioUnit" name='precioUnit'
+                        class='edit-input' placeholder="Precio">
+                </span>
+            </div>
+            <div class="cantidad">
+                <p>5 unidades</p>
+                <span>$
+                    <input type="text" [(ngModel)]="product.precioPor5" name='precioPor5'
+                    class='edit-input' placeholder="Precio">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="progreso" *ngIf="uploadProgress">
+        <p>Subiendo..</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" 
+                style="width: 100%" aria-valuenow="100" 
+                aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+    </div>
+    <div class="add-to-cart">
+        <button (click)='uploadProduct()'>
+            <i class="fa fa-save mr-1"></i>
+            SUBIR PRODUCTO
+        </button>
+    </div>
+</div> 

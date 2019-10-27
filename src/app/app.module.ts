@@ -26,6 +26,8 @@ import { EncontranosEnComponent } from './components/pages/encontranos-en/encont
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { ContactoComponent } from './components/pages/home/contacto/contacto.component';
 import { ProductComponent } from './components/shared/product/product.component';
+import { ProductosComponent } from './components/pages/admin/productos/productos.component';
+import { EditProductComponent } from './components/shared/product/edit-product/edit-product.component';
 
 
 
@@ -40,11 +42,13 @@ import { ProductComponent } from './components/shared/product/product.component'
     TiendaComponent,
     LoginComponent,
     QuienesSomosComponent,
-    AdminComponent,
     EncontranosEnComponent,
     LoadingComponent,
     ContactoComponent,
-    ProductComponent
+    ProductComponent,
+    AdminComponent,
+    ProductosComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

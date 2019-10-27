@@ -1,0 +1,67 @@
+.contactanos {
+    padding: 40px 0;
+    background: #e4e4e4;
+}
+
+.contactanos .title h2 {
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.contactanos .title h2.question {
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.contactanos .contact-form {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.contactanos .contact-form .group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contactanos .contact-form input[type='text'],
+.contactanos .contact-form textarea {
+    border: none;
+    background: none;
+    color: black;
+    padding: 20px;
+    border: 1px solid rgb(194, 54, 49);
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.contactanos .contact-form .group input {
+    width: 48%;
+}
+
+.contactanos .contact-form textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 200px;
+    max-height: 300px;
+}
+
+.contactanos .contact-form .button {
+    display: flex;
+    justify-content: center;
+}
+
+.contactanos .contact-form button {
+    background: rgb(194, 54, 49);
+    border: 1px solid rgb(194, 54, 49);
+    font-size: 14px;
+    color: white;
+    padding: 15px 20%;
+}
+
+.contactanos .contact-form button:hover {
+    transition: .3s all ease;
+    background: #e4e4e4;
+    color: rgb(194, 54, 49);
+}

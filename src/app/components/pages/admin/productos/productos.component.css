@@ -1,0 +1,45 @@
+h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.productos h2{
+    text-align: left;
+    padding-left: 20px;
+}
+
+.admin-products{
+    padding: 20px 40px;
+}
+
+.new-product{
+    display: flex;
+    justify-content: center;
+}
+
+.new-product app-edit-product{
+    max-width: 300px;
+    min-width: 280px;
+}
+
+.productos .product-item{
+    vertical-align: center;
+}
+
+.productos .product-item .title,
+.productos .product-item .price{
+    padding: 25px .75rem 0 .75rem;
+}
+
+.productos .product-item .img img{
+    max-width: 55px;
+    border-radius: 50%;
+}
+
+.productos .product-item .controls{
+    display: flex;
+}
+
+.productos .product-item .controls .edit{
+    margin-right: 5px;
+}

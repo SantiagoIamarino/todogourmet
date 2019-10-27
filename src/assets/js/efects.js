@@ -23,7 +23,11 @@ function scrollToDiv(slideTo) {
     }
 }
 
+// Mobile navbar-----------------------------------------------
 
+function showMenu(){
+    $('header .gourmet-navbar ul.navbar').slideToggle(200); 
+}
 
 // Button to top-----------------------------------------------
 

@@ -6,6 +6,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { QuienesSomosComponent } from './components/pages/quienes-somos/quienes-somos.component';
 import { AdminComponent } from './components/pages/admin/admin.component';
 import { EncontranosEnComponent } from './components/pages/encontranos-en/encontranos-en.component';
+import { ProductosComponent } from './components/pages/admin/productos/productos.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,14 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'quienes-somos', component: QuienesSomosComponent },
     { path: 'encontranos-en', component: EncontranosEnComponent },
-    { path: 'admin', component: AdminComponent },
+    {
+        path: 'admin',
+        children: [
+            { path: '', redirectTo: 'admin', pathMatch: 'full' },
+            { path: 'productos', component: ProductosComponent },
+        ],
+        component: AdminComponent
+    },
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: '**', component: PageNotFoundComponent },
 ];

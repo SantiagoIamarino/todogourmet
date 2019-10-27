@@ -133,3 +133,10 @@ function sliderMarcas(imgsToSlide) {
 function stopSliderMarcas(){
    clearInterval(slideInterval);
 }
+
+// Edit products images---------------------------------
+
+function openFileSelector(){
+    const fileSelector = document.getElementById('file_selector');
+    fileSelector.click();
+}

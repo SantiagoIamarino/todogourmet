@@ -7,7 +7,7 @@ import sweetAlert from 'sweetalert';
 @Component({
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
-  styles: []
+  styleUrls: ['./contacto.component.css']
 })
 export class ContactoComponent implements OnInit {
 

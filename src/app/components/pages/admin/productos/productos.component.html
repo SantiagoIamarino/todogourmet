@@ -1,0 +1,51 @@
+<div class="container-fluid admin-products mt-2">
+    <div class="row">
+        <div class="col-md-8 productos">
+            <h2>Lista de productos</h2>
+            <div class="product-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Imagén</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Precio u.</th>
+                        <th scope="col">Controles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='product-item'>
+                            <th scope="row">
+                                <div class="img">
+                                        <img class='img-fluid img-circle' 
+                                        src="../../../../assets/img/not-found.png" alt="">
+                                </div>
+                            </th>
+                            <td class='title'>loasdloasld</td>
+                            <td class='price'>$154</td>
+                            <td class='controls'>
+                                <div class="edit">
+                                    <button class="btn btn-outline-success">
+                                        Editar
+                                    </button>
+                                </div>
+                                <div class="delete">
+                                    <button class="btn btn-outline-danger">
+                                        Borrar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>Agregar un producto</h2>
+            <div class="row justify-content-center">
+                <div class="new-product col-md-12">
+                    <app-edit-product></app-edit-product>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

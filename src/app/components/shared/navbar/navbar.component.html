@@ -6,6 +6,11 @@
 
     <nav class="gourmet-navbar">
 
+        <li class='mobile-menu-button' onclick='showMenu()'>
+            <i class="fa fa-bars"></i>
+            Menú
+        </li>
+
         <ul class='navbar' *ngIf="page.indexOf('/home') >= 0"> <!-- In home -->
             <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" 
