@@ -4,6 +4,23 @@
     background: white;
     border-radius: 5px;
     padding-bottom: .001rem;
+    position: relative;
+}
+
+.producto .esta-refrigerado-o-no{
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+.producto .esta-refrigerado-o-no i{
+    padding: 8px 9px;
+    margin: 5px;
+    font-size: 18px;
+    /* background: rgb(105, 117, 218); */
+    background: rgb(230, 109, 109);
+    color: white;
+    border-radius: 50%;
 }
 
 .producto .img {

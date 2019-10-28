@@ -1,8 +1,8 @@
 <div class="tienda animated fadeIn faster">
-    <div class="mt-2 tienda-content">
+    <div class="tienda-content">
         <div class="title-top-tienda">
-            <div class="title">
-                <h2>NUESTROS PRODUCTOS</h2>
+            <div class="pl-2 title">
+                <h2>TIENDA</h2>
             </div>
             <div class="search">
                 <div class="input-group input-text">
@@ -15,56 +15,99 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="display-type">
+            <p>Vista</p>
+            <div class="normal active">
+                <i class="fa fa-th-large" aria-hidden="true"></i>
+            </div>
+            <div class="list">
+                <i class="fa fa-th-list" aria-hidden="true"></i>
+            </div>
+        </div> -->
         <div class="bottom-tienda">
             <div class="sidebar">
                 <div class="sidebar-title">
                     <h4>Filtros de búsqueda</h4>
                     <hr>
                 </div>
-                <div class="selects-category">
-                    <div class="select">
-                        <div class="select-title">
-                            <label for="certificacion">Certificación</label>
+                <div class="filters">
+                    <div class="filter certificacion">
+                        <div class="filter-title">
+                            <label for="">Certificación</label>
                         </div>
-                        <select class="input-select" id='certificacion'>
-                            <option value="">Selecciona certificación</option>
-                            <option value="sin_tac">Alimentos sin tacc</option>
-                            <option value="veganos">Alimentos veganos</option>
-                            <option value="sin_azucar">Alimentos sin azúcar agregado</option>
-                            <option value="organicos">Alimentos orgánicos</option>
-                            <option value="convencioales">Alimentos convencionales</option>
-                        </select>
-                    </div>
-    
-                    <div class="select">
-                        <div class="select-title">
-                            <label for="rubro">Rubro</label>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let certificacion of certificaciones'>
+                                    <input type="checkbox" [attr.id]='certificacion.filterName'  
+                                            [attr.value]='certificacion.filterName'>
+                                    <label [attr.for]='certificacion.filterName'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ certificacion.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
                         </div>
-                        <select class="input-select" id='rubro'>
-                            <option value="">Selecciona rubro</option>
-                            <option value="almacen">Productos de Almacen</option>
-                            <option value="dietetica">Productos de Dietética</option>
-                            <option value="farmacia">Productos de Farmacia</option>
-                            <option value="kisco">Productos de Kiosko</option>
-                        </select>
                     </div>
-    
-                    <div class="select">
-                        <div class="select-title">
-                            <label for="tipo">Tipo</label>
+                    <div class="filter rubros">
+                        <div class="filter-title">
+                            <label for="">Rubros</label>
                         </div>
-                        <select class="input-select" id='tipo'>
-                            <option value="">Selecciona tipo</option>
-                            <option value="lacteos">Lacteos</option>
-                            <option value="infusiones">Infusiones</option>
-                            <option value="snack_y_galletitas">Snack y Galletitas</option>
-                            <option value="miel_y_mermeladas">Miel y Mermeladas</option>
-                        </select>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let rubro of rubros'>
+                                    <input type="checkbox" [attr.id]='rubro.filterName'  
+                                            [attr.value]='rubro.filterName'>
+                                    <label [attr.for]='rubro.filterName'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ rubro.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                        
+                    <div class="filter tipos">
+                        <div class="filter-title">
+                            <label for="">Certificación</label>
+                        </div>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let tipo of tipos'>
+                                    <input type="checkbox" [attr.id]='tipo.filterName'  
+                                            [attr.value]='tipo.filterName'>
+                                    <label [attr.for]='tipo.filterName'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ tipo.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter esta-refrigerado">    
+                        <div class="filter-title">
+                            <label for="refrigerado">Refrigerado</label>
+                        </div>
+                        <div class="filter-options">
+                            <div class="checkbox-new">
+                                <p>No</p>
+                                <div class="checkbox-input">
+                                    <input type="checkbox" id="refrigerado" style="display:none" />
+                                    <label for="refrigerado" class="toggle">
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <p>Si</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters-submit-button">
+                    <button>Aplicar filtros</button>
                 </div>
             </div>
-            <div class="products">
+            <div class="products normal-display">
                 <app-product></app-product>
                 <app-product></app-product>
                 <app-product></app-product>

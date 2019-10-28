@@ -14,7 +14,7 @@ export class Phone {
 
     isValid() {
       if ( this.country && this.area && this.prefix && this.line ) {
-        if (this.line.length > 7) {
+        if (this.line.length > 6) {
           return true;
         }
       } else {
