@@ -70,7 +70,9 @@ export class TiendaComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor() {
+    // this.
+   }
 
   ngOnInit() {
     goToTop(0);

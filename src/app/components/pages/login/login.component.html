@@ -1,75 +1,68 @@
 <div class="login-content">
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesion</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            </div>
-            <div class="modal-body">
-                <div class="login text-center animated fadeIn faster" >
-                    <div class="login-container">
-                        <div class="login-form">
-                            <div class="explanation">
-                                <p>Ingresa tu numero, completa el CAPTCHA y te enviaremos un codigo para verificar tu identidad!</p>
-                            </div>
-                            <div class='form-content' >
-                                <form class='sign-in-form'>
-                                    <div class="phone-number">
-                                        <div class="number-item little">
-                                            <label for="pais">País</label>
-                                            <div class="country">
-                                                <span>+</span>
-                                                <input id="pais" [(ngModel)]="phone.country" name='country' maxlength="2" 
-                                                class='form-control mb-3' type="text" placeholder="54" disabled>
+                </div>
+                <div class="modal-body">
+                    <div class="login text-center animated fadeIn faster">
+                        <div class="login-container">
+                            <div class="login-form">
+                                <div class="explanation">
+                                    <p>Ingresa tu numero, completa el CAPTCHA y te enviaremos un codigo para verificar tu identidad!</p>
+                                </div>
+                                <div class='form-content'>
+                                    <form class='sign-in-form'>
+                                        <div class="phone-number">
+                                            <div class="number-item little">
+                                                <label for="pais">País</label>
+                                                <div class="country">
+                                                    <span>+</span>
+                                                    <input id="pais" [(ngModel)]="phone.country" name='country' maxlength="2" class='form-control mb-3' type="text" placeholder="54" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="number-item little">
+                                                <label for="area">Area</label>
+                                                <input id="area" [(ngModel)]="phone.area" name='area' maxlength="3" class='form-control mb-3' type="text" disabled>
+                                            </div>
+                                            <div class="number-item little">
+                                                <label for="prefijo">Prefijo</label>
+                                                <input id="prefijo" [(ngModel)]="phone.prefix" name='prefix' maxlength="3" class='form-control mb-3' type="text">
+                                            </div>
+                                            <div class="number-item">
+                                                <label for="numero">Número</label>
+                                                <input id="numero" [(ngModel)]="phone.line" name='line' maxlength="8" class='form-control mb-3' type="text" placeholder="12345678">
                                             </div>
                                         </div>
-                                        <div class="number-item little">
-                                            <label for="area">Area</label>
-                                            <input id="area" [(ngModel)]="phone.area" name='area' maxlength="3" 
-                                            class='form-control mb-3' type="text" disabled>
-                                        </div>
-                                        <div class="number-item little">
-                                            <label for="prefijo">Prefijo</label>
-                                            <input id="prefijo" [(ngModel)]="phone.prefix" name='prefix' maxlength="3" 
-                                            class='form-control mb-3' type="text">
-                                        </div>
-                                        <div class="number-item">
-                                            <label for="numero">Número</label>
-                                            <input id="numero" [(ngModel)]="phone.line" name='line' maxlength="8"
-                                            class='form-control mb-3' type="text" placeholder="12345678">
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="recaptcha-container" id='recaptcha-container'></div>
-                                </form>
+                                        <hr>
+                                        <div class="recaptcha-container" id='recaptcha-container'></div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                
-                        <div class='animated fadeIn faster verification-code' *ngIf="windowRef.confirmationResult">
-                            <hr>
-                            <h4>Ingresa tu codigo de verificación</h4>
-                            <div class="col-sm-6 code-input">
-                                <input name="code" [(ngModel)]="verificationCode"
-                                    class='form-control' type="text" placeholder="Ingresa el código">
-                                <button class='mt-4 btn btn-success' 
-                                        (click)="verifyLoginCode()">Verificar</button>
+
+                            <div class='animated fadeIn faster verification-code' *ngIf="windowRef.confirmationResult">
+                                <hr>
+                                <h4>Ingresa tu codigo de verificación</h4>
+                                <div class="col-sm-6 code-input">
+                                    <input name="code" [(ngModel)]="verificationCode" class='form-control' type="text" placeholder="Ingresa el código">
+                                    <button class='mt-4 btn btn-success' (click)="verifyLoginCode()">Verificar</button>
+                                </div>
                             </div>
+
                         </div>
-                
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
                 Cerrar
             </button>
-            <button (click)="sendLoginCode()" [disabled]="!phone.isValid()"
-                    type='submit' class="btn-outline-success btn">Enviar codigo</button>
+                    <button (click)="sendLoginCode()" [disabled]="!phone.isValid()" type='submit' class="btn-outline-success btn">Enviar codigo</button>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 

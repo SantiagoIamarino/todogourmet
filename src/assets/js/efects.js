@@ -1,6 +1,6 @@
 // Header account btn-------------------------------------------
 
-function showDropdown(){
+function showDropdown() {
     $('.account .account-dropdown').slideToggle(300);
 }
 
@@ -25,8 +25,8 @@ function scrollToDiv(slideTo) {
 
 // Mobile navbar-----------------------------------------------
 
-function showMenu(){
-    $('header .gourmet-navbar ul.navbar').slideToggle(200); 
+function showMenu() {
+    $('header .gourmet-navbar ul.navbar').slideToggle(200);
 }
 
 // Button to top-----------------------------------------------
@@ -48,9 +48,33 @@ function goToTop(animationTime = 500) {
 
 // Close login modal---------------------------------------------
 
-function hideModal(){
+function hideModal() {
     $('#loginModal').modal('hide');
 }
 
+// Sidebar admin effects-------------------------------------------
 
+var overlay = $('.overlay'),
+    isClosed = true;
 
+function hamburger_cross() {
+
+    if (isClosed) {
+        console.log('open');
+        overlay.show();
+        $('#hamburger_btn').removeClass('is-closed');
+        $('#hamburger_btn').addClass('is-open')
+        isClosed = false;
+    } else {
+        console.log('close');
+        overlay.hide();
+        $('#hamburger_btn').removeClass('is-open');
+        $('#hamburger_btn').addClass('is-closed');
+        isClosed = true;
+    }
+    $('#wrapper').toggleClass('toggled');
+}
+
+$('[data-toggle="offcanvas"]').click(function() {
+    $('#wrapper').toggleClass('toggled');
+});
