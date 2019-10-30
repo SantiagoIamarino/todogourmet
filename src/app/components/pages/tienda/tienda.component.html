@@ -37,7 +37,7 @@
                         </div>
                         <div class="filter-options">
                             <ul class="ks-cboxtags">
-                                <li *ngFor='let certificacion of certificaciones'>
+                                <li *ngFor='let certificacion of filters.certificaciones'>
                                     <input type="checkbox" [attr.id]='certificacion.filterName'  
                                             [attr.value]='certificacion.filterName'>
                                     <label [attr.for]='certificacion.filterName'>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="filter-options">
                             <ul class="ks-cboxtags">
-                                <li *ngFor='let rubro of rubros'>
+                                <li *ngFor='let rubro of filters.rubros'>
                                     <input type="checkbox" [attr.id]='rubro.filterName'  
                                             [attr.value]='rubro.filterName'>
                                     <label [attr.for]='rubro.filterName'>
@@ -69,11 +69,11 @@
                     </div>
                     <div class="filter tipos">
                         <div class="filter-title">
-                            <label for="">Certificación</label>
+                            <label for="">Tipos</label>
                         </div>
                         <div class="filter-options">
                             <ul class="ks-cboxtags">
-                                <li *ngFor='let tipo of tipos'>
+                                <li *ngFor='let tipo of filters.tipos'>
                                     <input type="checkbox" [attr.id]='tipo.filterName'  
                                             [attr.value]='tipo.filterName'>
                                     <label [attr.for]='tipo.filterName'>
@@ -106,9 +106,9 @@
                         <div class="select-title">
                             <label for="tipo">Marcas</label>
                         </div>
-                        <select class="input-select" id="tipo">
+                        <select class="input-select" id="tipo" *ngIf="!loadingService.loading">
                             <option value="">Selecciona una marca</option>
-                            <option [value]="marca.nombre  | value" *ngFor='let marca of marcas'>
+                            <option [value]="marca.nombre  | value" *ngFor='let marca of filters.marcas'>
                                 {{ marca.nombre }}
                             </option>
                         </select>

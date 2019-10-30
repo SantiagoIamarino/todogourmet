@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../components/shared/loading/loading.service';
 
 
 @Injectable({
@@ -15,12 +16,13 @@ export class LoginService {
 
   user: User = new User();
 
-  loading = true;
-
   constructor(
     public afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    public loadingService: LoadingService
   ) {
+    this.loadingService.loading = true;
+
     firebase.initializeApp(environment.firebase);
     firebase.auth().languageCode = 'es';
 
@@ -28,7 +30,7 @@ export class LoginService {
       if (user) {
         this.createOrGetUser(user);
       } else {
-        this.loading = false;
+        this.loadingService.loading = false;
       }
     } );
 
@@ -54,7 +56,7 @@ export class LoginService {
           } );
         }
 
-        this.loading = false;
+        this.loadingService.loading = false;
 
       } );
   }

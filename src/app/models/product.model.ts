@@ -8,7 +8,7 @@ export class Product {
     constructor(
         public name?: string,
         public img?: any,
-        public marca?: string,
+        public marca = '',
         public presentacion = 'Bulto cerrado',
         public precioUnit?: number,
         public precioPorBulto?: number,

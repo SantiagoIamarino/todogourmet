@@ -28,10 +28,14 @@
                 class='edit-input' placeholder="Título del producto">
         </div>
         <div class="product-info">
-            <p>
+            <p class='marca'>
                 Marca: 
-                <input [(ngModel)]="product.marca" name='marca'
-                    type="text" placeholder="Marca"  class='edit-input'>
+                <select [(ngModel)]="product.marca" name="marca" class="input-select">
+                    <option value="">Selecciona una marca</option>
+                    <option  *ngFor='let marca of filters.marcas'>
+                        {{ marca.nombre }}
+                    </option>
+                </select>
             </p>
         </div>
         <div class="product-prices">

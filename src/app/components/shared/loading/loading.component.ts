@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../../services/login/login.service';
+import { LoadingService } from './loading.service';
 
 @Component({
   selector: 'app-loading',
@@ -9,7 +9,7 @@ import { LoginService } from '../../../services/login/login.service';
 export class LoadingComponent implements OnInit {
 
   constructor(
-    public loginService: LoginService
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {

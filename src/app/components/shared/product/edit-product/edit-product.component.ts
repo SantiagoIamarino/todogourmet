@@ -4,6 +4,7 @@ import { ProductService } from '../../../../services/product.service';
 import { UploadFileService } from '../../../../services/upload-file.service';
 
 import sweetAlert from 'sweetalert';
+import { TiendaService } from '../../../../services/tienda.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -21,10 +22,20 @@ export class EditProductComponent implements OnChanges {
 
   uploadProgress = null;
 
+  filters = {
+    marcas: []
+  };
+
   constructor(
     private productService: ProductService,
     private uploadFileService: UploadFileService,
+    private tiendaService: TiendaService
   ) {
+    this.tiendaService.getAllFilters().then( (filters: any) => {
+      this.filters.marcas = filters.marcas;
+    } ).catch( err => {
+      this.filters.marcas = [];
+    } );
    }
 
   ngOnChanges(changes: SimpleChanges): void {

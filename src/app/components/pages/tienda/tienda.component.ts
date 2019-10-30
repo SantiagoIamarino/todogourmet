@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TiendaService } from '../../../services/tienda.service';
+import { LoadingService } from '../../shared/loading/loading.service';
 
 declare function goToTop(animationTime);
 
@@ -9,80 +10,27 @@ declare function goToTop(animationTime);
   styleUrls: ['./tienda.component.css']
 })
 export class TiendaComponent implements OnInit {
-
-  marcas = [];
-
-  certificaciones = [
-    {
-      nombre: 'Sin tacc',
-      filterName: 'sintacc'
-    },
-    {
-      nombre: 'Sin azúcar',
-      filterName: 'sinazucar'
-    },
-    {
-      nombre: 'Veganos',
-      filterName: 'veganos'
-    },
-    {
-      nombre: 'Orgánicos',
-      filterName: 'organicos'
-    },
-    {
-      nombre: 'Convencionales',
-      filterName: 'convencionales'
-    },
-  ];
-
-  rubros = [
-    {
-      nombre: 'Almacen',
-      filterName: 'almacen'
-    },
-    {
-      nombre: 'Dietética',
-      filterName: 'dietética'
-    },
-    {
-      nombre: 'Farmacia',
-      filterName: 'farmacia'
-    },
-    {
-      nombre: 'Kiosko',
-      filterName: 'kiosko'
-    },
-  ];
-
-  tipos = [
-    {
-      nombre: 'Infusiones',
-      filterName: 'infusiones'
-    },
-    {
-      nombre: 'Snack y Galletitas',
-      filterName: 'snackygalletitas'
-    },
-    {
-      nombre: 'Miel y mermeladas',
-      filterName: 'mielymermeladas'
-    },
-    {
-      nombre: 'Lacteos',
-      filterName: 'lacteos'
-    }
-  ];
+  filters = {
+    marcas: [],
+    certificaciones: [],
+    rubros: [],
+    tipos: []
+  };
 
   constructor(
-    private tiendaService: TiendaService
-  ) {
-    this.tiendaService.getMarcas().subscribe( marcas => {
-      this.marcas = marcas;
+    private tiendaService: TiendaService,
+    public loadingService: LoadingService
+    ) {
+    this.loadingService.loading = true;
+
+    this.tiendaService.getAllFilters().then( (filters: any) => {
+      this.filters = this.tiendaService.filters;
+      this.loadingService.loading = false;
     } );
-   }
+
+  }
 
   ngOnInit() {
     goToTop(0);
   }
-
 }
