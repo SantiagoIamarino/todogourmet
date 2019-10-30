@@ -14,4 +14,8 @@ export class AdminService {
   uploadMarca( marca ) {
     return this.afs.collection('marcas').add( marca );
   }
+
+  uploadFilter( filter, filterType ) {
+    return this.afs.collection(filterType).add( filter );
+  }
 }

@@ -10297,9 +10297,17 @@ button,
 }
 
 .app-header__logo .logo-src {
-    height: 23px;
-    width: 97px;
-    background: url(../admin/images/logo-inverse.png)
+    margin-bottom: -5px;
+    color: green;
+    cursor: pointer;
+}
+
+.app-header__logo .logo-src h4{
+    font-weight: bold;
+}
+
+.app-header__logo .logo-src span{
+    color: red;
 }
 
 .app-header__menu,
@@ -10576,7 +10584,7 @@ button,
     font-size: .8rem;
     margin: .75rem 0;
     font-weight: bold;
-    color: #3f6ad8;
+    color: #DE1B1B;
     white-space: nowrap;
     position: relative
 }
@@ -10645,7 +10653,8 @@ button,
     color: #343a40;
     white-space: nowrap;
     transition: all .2s;
-    margin: .1rem 0
+    margin: .1rem 0;
+    cursor:pointer;
 }
 
 .vertical-nav-menu li a:hover {
@@ -10706,7 +10715,7 @@ button,
     height: 100%;
     opacity: 1;
     width: 3px;
-    background: #e0f3ff;
+    background: rgb(245, 184, 184);
     position: absolute;
     left: 20px;
     top: 0;
@@ -10808,7 +10817,7 @@ button,
 .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner,
 .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::before,
 .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner::after {
-    background-color: rgba(255, 255, 255, 0.8)
+    background-color: #DE1B1B;
 }
 
 .app-sidebar.sidebar-text-dark {
@@ -22477,7 +22486,7 @@ legend {
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-    background-color: #3f6ad8
+    background-color: #DE1B1B
 }
 
 .hamburger-box {
@@ -22498,7 +22507,7 @@ legend {
 .hamburger-inner::after {
     width: 24px;
     height: 2px;
-    background-color: #3f6ad8;
+    background-color: #DE1B1B;
     border-radius: 10px;
     position: absolute;
     transition-property: transform;

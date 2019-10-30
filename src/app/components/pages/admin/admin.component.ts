@@ -28,14 +28,4 @@ export class AdminComponent implements OnInit, OnDestroy {
     destroyScript();
   }
 
-  uploadMarca() {
-    this.adminService.uploadMarca( this.marca ).then( res =>{
-      console.log(res);
-      this.marca = {
-        imagen: '',
-        url: ''
-      };
-    } );
-  }
-
 }

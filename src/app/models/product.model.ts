@@ -11,7 +11,12 @@ export class Product {
         public marca?: string,
         public presentacion = 'Bulto cerrado',
         public precioUnit?: number,
-        public precioPor5?: number,
+        public precioPorBulto?: number,
+        public precioComercio?: number,
+        public estaRefrigerado = false,
+        public certificaciones = [],
+        public rubros = [],
+        public tipos = [],
         public id?: string
     ) {}
 

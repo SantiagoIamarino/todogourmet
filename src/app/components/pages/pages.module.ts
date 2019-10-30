@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -10,9 +13,6 @@ import { LoginComponent } from './login/login.component';
 import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
 import { EncontranosEnComponent } from './encontranos-en/encontranos-en.component';
 import { ContactoComponent } from './home/contacto/contacto.component';
-import { ProductComponent } from '../shared/product/product.component';
-import { SharedModule } from '../shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     PAGES_ROUTES,

@@ -52,6 +52,7 @@ function hideModal() {
     $('#loginModal').modal('hide');
 }
 
+
 // Sidebar admin effects-------------------------------------------
 
 var overlay = $('.overlay'),

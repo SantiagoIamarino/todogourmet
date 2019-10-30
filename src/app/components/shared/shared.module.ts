@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProductComponent } from './product/product.component';
+import { ValuePipe } from 'src/app/pipes/value.pipe';
 
 
 
@@ -13,16 +15,19 @@ import { ProductComponent } from './product/product.component';
     FooterComponent,
     NavbarComponent,
     LoadingComponent,
-    ProductComponent
+    ProductComponent,
+    ValuePipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     LoadingComponent,
-    ProductComponent
+    ProductComponent,
+    ValuePipe
   ]
 })
 export class SharedModule { }

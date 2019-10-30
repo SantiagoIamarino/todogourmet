@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TiendaService } from '../../../services/tienda.service';
 
 declare function goToTop(animationTime);
 
@@ -8,6 +9,8 @@ declare function goToTop(animationTime);
   styleUrls: ['./tienda.component.css']
 })
 export class TiendaComponent implements OnInit {
+
+  marcas = [];
 
   certificaciones = [
     {
@@ -70,8 +73,12 @@ export class TiendaComponent implements OnInit {
     }
   ];
 
-  constructor() {
-    // this.
+  constructor(
+    private tiendaService: TiendaService
+  ) {
+    this.tiendaService.getMarcas().subscribe( marcas => {
+      this.marcas = marcas;
+    } );
    }
 
   ngOnInit() {

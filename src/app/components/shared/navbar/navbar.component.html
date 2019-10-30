@@ -7,54 +7,59 @@
     <nav class="gourmet-navbar">
 
         <li class='mobile-menu-button' onclick='showMenu()'>
-            <i class="fa fa-bars"></i>
-            Menú
+            <i class="fa fa-bars"></i> Menú
         </li>
 
-        <ul class='navbar' *ngIf="page.indexOf('/home') >= 0"> <!-- In home -->
-            <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
+        <ul class='navbar' *ngIf="page.indexOf('/home') >= 0">
+            <!-- In home -->
+            <li routerLink='/home' routerLinkActive="active" 
+                class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" 
                 class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
             <div class="account" *ngIf='loginService.user._uid'>
-                <li onclick='showDropdown()' class='animated fadeInDown account-btn' >
+                <li onclick='showDropdown()' class='animated fadeInDown account-btn'>
                     Mi cuenta
                     <i class="fa fa-chevron-down"></i>
 
                     <ul class='account-dropdown'>
                         <li>
-                            <i class="fa fa-cutlery" aria-hidden="true"></i>
-                            Mi surtido
+                            <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
+                        </li>
+                        <li routerLink='/admin'>
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            Administración
                         </li>
                         <li (click)='logout()'>
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Cerrar sesion
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion
                         </li>
                     </ul>
-                    
+
                 </li>
             </div>
             <li onclick="scrollToDiv('marcas')" class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
             <li onclick="scrollToDiv('contact')" class='contacto-btn animated fadeInDown'>Contactanos!</li>
         </ul>
 
-        <ul class='navbar' *ngIf="page.indexOf('/home') === -1"> <!-- Not in home -->
+        <ul class='navbar' *ngIf="page.indexOf('/home') === -1">
+            <!-- Not in home -->
             <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
-            <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' 
-                (click)="page = 'tienda'">Tienda</li>
+            <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
             <div class="account" *ngIf='loginService.user._uid'>
-                <li class='animated fadeInDown account-btn' >
-                Mi cuenta
-                <i class="fa fa-chevron-down"></i>
-                <ul class='account-dropdown'>
-                    <li (click)='logout()'>
-                        <i class="fa fa-cutlery" aria-hidden="true"></i>
-                        Mi surtido
-                    </li>
-                    <li>
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        Cerrar sesion
-                    </li>
-                </ul>
+                <li onclick='showDropdown()' class='animated fadeInDown account-btn'>
+                    Mi cuenta
+                    <i class="fa fa-chevron-down"></i>
+                    <ul class='account-dropdown'>
+                        <li (click)='logout()'>
+                            <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
+                        </li>
+                        <li routerLink='/admin'>
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            Administración
+                        </li>
+                        <li>
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion
+                        </li>
+                    </ul>
                 </li>
             </div>
             <li routerLink='/home/marcas' class='marcas-btn animated fadeInDown'>Nuestras Marcas</li>
