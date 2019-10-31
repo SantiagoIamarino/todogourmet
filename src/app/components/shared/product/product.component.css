@@ -68,10 +68,54 @@
 
 .producto .info .product-info {
     border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 5px;
 }
 
 .producto .info .product-info p {
     font-size: 14px;
+}
+
+.producto .info .certifications{
+    padding: 5px 0;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.producto .info .certifications .imgs{
+    display: flex;
+    justify-content: space-between;
+}
+
+.producto .info .certifications .imgs .certification-img{
+    width: 24%;
+    cursor: pointer;
+    position: relative;
+}
+
+.producto .info .certifications .imgs .certification-img img{
+    max-height: 40px;
+}
+
+.producto .info .certifications .imgs .certification-img .certification-popover{
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    left: -22px;
+    /* background: rgb(231, 87, 87); */
+    background: rgb(99, 190, 104);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    display: none;
+}
+
+.producto .info .certifications .imgs .certification-img:hover .certification-popover{
+    display: block;
+    width: 85px;
+}
+
+.producto .info .certifications .imgs .certification-img .certification-popover p{
+    font-size: 13px;
+    /* white-space: nowrap; */
 }
 
 .producto .info .product-prices>div {
@@ -98,7 +142,7 @@
 
 .producto .add-to-cart {
     padding: 5px 10px;
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
 .producto .add-to-cart button {

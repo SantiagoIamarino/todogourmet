@@ -53,4 +53,8 @@ export class ProductosComponent implements OnInit {
     this.productToEdit = product;
   }
 
+  deleteProduct( productId: string ) {
+    this.productService.deleteProduct(productId);
+  }
+
 }
