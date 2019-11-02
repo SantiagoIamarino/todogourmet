@@ -32,7 +32,7 @@
                 Marca: 
                 <select [(ngModel)]="product.marca" name="marca" class="input-select">
                     <option value="">Selecciona una marca</option>
-                    <option  *ngFor='let marca of filters.marcas'>
+                    <option [value]='marca.nombre' *ngFor='let marca of filters.marcas'>
                         {{ marca.nombre }}
                     </option>
                 </select>
@@ -47,10 +47,17 @@
                 </span>
             </div>
             <div class="cantidad">
-                <p>5 unidades</p>
+                <p>Desc. por bulto</p>
+                <span>%
+                    <input type="text" [(ngModel)]="product.descuentoPorBulto" name='descuentoPorBulto'
+                    class='edit-input' placeholder="Descuento">
+                </span>
+            </div>
+            <div class="comercio">
+                <p>Comercio</p>
                 <span>$
-                    <input type="text" [(ngModel)]="product.precioPor5" name='precioPor5'
-                    class='edit-input' placeholder="Precio">
+                    <input type="text" [(ngModel)]="product.precioComercio" name='precioComercio'
+                        class='edit-input' placeholder="Precio">
                 </span>
             </div>
         </div>

@@ -26,8 +26,7 @@ import { ValuePipe } from 'src/app/pipes/value.pipe';
     FooterComponent,
     NavbarComponent,
     LoadingComponent,
-    ProductComponent,
-    ValuePipe
+    ProductComponent
   ]
 })
 export class SharedModule { }

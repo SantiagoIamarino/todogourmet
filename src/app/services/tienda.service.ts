@@ -80,8 +80,7 @@ export class TiendaService {
         if (collection === 'marcas') {
           this.filters.marcas = filter;
         }
-
-        resolve('Filter obtained');
+        resolve('Filter');
       } );
     } );
   }

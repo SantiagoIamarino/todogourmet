@@ -32,7 +32,8 @@ export class EditProductComponent implements OnChanges {
     private tiendaService: TiendaService
   ) {
     this.tiendaService.getAllFilters().then( (filters: any) => {
-      this.filters.marcas = filters.marcas;
+      this.filters = this.tiendaService.filters;
+      console.log(this.filters);
     } ).catch( err => {
       this.filters.marcas = [];
     } );
@@ -89,7 +90,7 @@ export class EditProductComponent implements OnChanges {
 
     this.uploadProgress = 'loading';
 
-    this.uploadFileService.uploadImage( this.imgToUpload ).subscribe( percentage => {
+    this.uploadFileService.uploadImage( this.imgToUpload, 'products' ).subscribe( percentage => {
 
       this.uploadFileService.downloadUrl.subscribe( url => {
         if (url && !this.product.img && this.product.validators.isValid) {

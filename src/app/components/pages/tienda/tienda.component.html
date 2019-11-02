@@ -108,7 +108,7 @@
                         </div>
                         <select class="input-select" id="tipo" *ngIf="!loadingService.loading">
                             <option value="">Selecciona una marca</option>
-                            <option [value]="marca.nombre  | value" *ngFor='let marca of filters.marcas'>
+                            <option [value]="marca.nombre" *ngFor='let marca of filters.marcas'>
                                 {{ marca.nombre }}
                             </option>
                         </select>
