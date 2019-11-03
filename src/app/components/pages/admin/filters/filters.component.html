@@ -1,4 +1,4 @@
-<div class="container-fluid admin-products mt-2">
+<div class="container-fluid admin-products mt-2 animated fadeIn faster">
     <div class="row">
         <div class="col-md-8 productos">
             <div class="admin-title">
@@ -6,7 +6,7 @@
                 <div class="search">
                     <div class="input-group input-text">
                         <input #term type="text" (keyup)='searchFilters(term.value, $event)'
-                            placeholder="Busca un producto">
+                            [attr.placeholder]="'Busca ' + filterType">
                         <div class="submit-btn">
                             <button type='button'>
                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -19,37 +19,35 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Imagén</th>
+                            <th *ngIf="filterType !== 'tipos' && filterType !== 'rubros'"
+                                scope="col">
+                                Imagén
+                            </th>
                             <th scope="col">Nombre</th>
-                            <!-- <th scope="col">Precio u.</th> -->
                             <th scope="col">Controles</th>
                         </tr>
                     </thead>
                     <tbody *ngIf='!loading'>
                         <tr class='product-item' *ngFor='let filter of filters'>
-                            <th scope="row" *ngIf='filter.img'>
+                            <th  *ngIf="filter.imagen && filterType !== 'tipos' && filterType !== 'rubros'"
+                                scope="row">
                                 <div class="img">
                                     <img class='img-fluid img-circle' 
-                                    [src]="filter.img" alt="">
+                                    [src]="filter.imagen" alt="">
                                 </div>
                             </th>
                             <td class='title'>{{ filter.nombre }}</td>
-                            <!-- <td class='price'>$ {{ filter.precioUnit }}</td> -->
                             <td class='controls'>
                                 <div class="edit">
-                                    <!-- <button (click)='openEditModal(product)'
+                                    <button (click)='openEditModal(filter)'
                                         class="btn btn-outline-success"
-                                        data-toggle="modal" data-target="#editModal">
-                                        Editar
-                                    </button> -->
-                                    <button
-                                        class="btn btn-outline-success"
-                                        data-toggle="modal" data-target="#editModal">
+                                        data-toggle="modal" data-target="#editFilter">
                                         Editar
                                     </button>
                                 </div>
                                 <div class="delete">
-                                    <button class="btn btn-outline-danger">
+                                    <button (click)='deleteFilter(filter)'
+                                        class="btn btn-outline-danger">
                                         Borrar
                                     </button>
                                 </div>
@@ -80,30 +78,25 @@
         <div class="col-md-4">
             <h2 class='mb-4'>Agregar {{ filterType }}</h2>
             <div class="row justify-content-center">
-                <div class="new-filter col-md-12 mt-4">
-                    <form action="">
-                        <div class="form-group d-flex flex-column">
-                            <label for="imagen">Imágen</label>
-                            <input type="file" (change)='imgSelected( $event )' id='imagen'>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input class='form-control' [(ngModel)]="filter.nombre" name='nombre'
-                                type="text" id='nombre' placeholder="Nombre">
-                        </div>
-                        <div class="form-group" *ngIf="filterType === 'marcas'">
-                            <label for="url">Link</label>
-                            <input class='form-control' [(ngModel)]="filter.url" name='url'
-                                type="text" id='url' placeholder="Url">
-                        </div>
-                        <div class="submit-btn text-center">
-                            <button (click)='uploadFilter()' class='btn btn-outline-danger'>
-                                Subir {{ filterType }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <div class="form-container col-md-10">
+                <app-filters-form [filterType]='filterType'></app-filters-form>
             </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit-Modal -->
+<div class="modal editModal fade" *ngIf="filterToEdit"
+    id="editFilter" tabindex="-1" role="dialog" 
+    aria-labelledby="editFilterLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <app-filters-form [filter]='filterToEdit' [filterType]='filterType'>
+
+            </app-filters-form>
+        </div>
         </div>
     </div>
 </div>

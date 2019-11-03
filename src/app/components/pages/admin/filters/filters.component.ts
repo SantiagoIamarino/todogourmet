@@ -5,7 +5,7 @@ import { FiltersService } from './filters.service';
 import { Filter } from '../../../../models/filter.model';
 import { UploadFileService } from '../../../../services/upload-file.service';
 
-import sweetAlert from 'sweetalert';
+declare function closeEditModal( modalId );
 
 @Component({
   selector: 'app-filters',
@@ -19,8 +19,7 @@ export class FiltersComponent implements OnInit {
   filterType: string;
   filter: Filter = new Filter();
 
-  imgToUpload: any;
-  uploadProgress: any;
+  filterToEdit: any;
 
   loading = false;
 
@@ -32,7 +31,6 @@ export class FiltersComponent implements OnInit {
     private router: Router
   ) {
     this.redirectIfIsIncorretType();
-    this.getFilters(this.filterType);
    }
 
   ngOnInit() {
@@ -41,6 +39,7 @@ export class FiltersComponent implements OnInit {
   redirectIfIsIncorretType() {
     this.route.paramMap.subscribe( params => {
       this.filterType =  params.get('tipo');
+      this.getFilters(this.filterType);
 
       if (
           this.filterType !== 'marcas' && this.filterType !== 'tipos' && // Allowed filters
@@ -61,61 +60,52 @@ export class FiltersComponent implements OnInit {
     } );
   }
 
-  imgSelected( event ) {
+  searchFilters( term: string, event ) {
+    if (term) {
+      this.loading = true;
 
-    if (event.target.files.length > 0) {
-      this.imgToUpload = event.target.files[0];
+      this.filtersService.searchfilters(term, this.filterType)
+        .subscribe( (results: any) => {
+          this.filters = results;
+          this.loading = false;
+        } );
 
-      // const reader = new FileReader();
-      // const urlImgTemp = reader.readAsDataURL( this.imgToUpload );
-
-      // reader.onloadend = () => {
-      //   this.tempImg = reader.result;
-      // };
+    } else {
+      this.getFilters(this.filterType);
     }
   }
 
-  uploadMarca() {
-    
+  openEditModal( filter ) {
+    this.filterToEdit = null;
+    this.filterToEdit = filter;
 
-  }
-
-  uploadFilter() {
-    if (!this.imgToUpload) {
-      sweetAlert('Error', 'Debes agregar una imagen', 'error');
-      return;
-    }
-
-    if (!this.filter.nombre) {
-      sweetAlert('Error', 'Debes agregar un nombre/titúlo', 'error');
-      return;
-    }
-
-    this.uploadProgress = 'loading';
-
-    this.uploadFileService.uploadImage( this.imgToUpload, this.filterType ).subscribe( percentage => {
-
-      this.uploadFileService.downloadUrl.subscribe( url => {
-        if (url && !this.filter.imagen) {
-          this.filter.imagen = url; // Getting download URL
-          this.filtersService.uploadFilter(this.filter, this.filterType).then( res => {
-
-            sweetAlert(
-              'Producto subido',
-              'El producto se ha subido correctamente',
-              'success'
-            );
-
-            this.filter = new Filter();
-
-            this.uploadProgress = null;
-
-            // this.tempImg = null;
-
-          } );
-        }
+    const listener =
+      this.filtersService.filterUploaded.subscribe( res => {
+        listener.unsubscribe();
+        this.filterToEdit = null;
+        closeEditModal('editFilter');
       } );
 
+  }
+
+  deleteFilter( filter: Filter ) {
+
+    sweetAlert('Estas seguro que deseas eliminar esto?', {
+      buttons: ['Cancelar', 'Aceptar'],
+      icon: 'warning'
+    }).then( wantsToDelete => {
+      if (wantsToDelete) {
+        this.filtersService.deleteFilter( filter, this.filterType );
+
+        const listener =
+          this.filtersService.filterDeleted.subscribe( res => {
+            sweetAlert(
+              'Filtro eliminado',
+              'El filtro se ha subido correctamente',
+              'success'
+            );
+          });
+      }
     } );
   }
 

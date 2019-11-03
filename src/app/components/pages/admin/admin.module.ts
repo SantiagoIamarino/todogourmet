@@ -6,13 +6,15 @@ import { ADMIN_ROUTES } from './admin.routes';
 import { FiltersComponent } from './filters/filters.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { FiltersFormComponent } from './filters/filters-form/filters-form.component';
 
 
 
 
 @NgModule({
   declarations: [
-    FiltersComponent
+    FiltersComponent,
+    FiltersFormComponent
   ],
   imports: [
     CommonModule,

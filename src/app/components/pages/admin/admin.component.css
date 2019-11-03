@@ -1,1 +1,10 @@
 @import '../../../../assets/css/admin.css';
+
+.fixed-header .app-header{
+    z-index: 99 !important;
+}
+.app-main{
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    z-index: unset !important;
+}

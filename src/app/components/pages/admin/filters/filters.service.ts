@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Filter } from '../../../../models/filter.model';
 
@@ -7,9 +7,16 @@ import { Filter } from '../../../../models/filter.model';
 })
 export class FiltersService {
 
+  filterUploaded = new EventEmitter();
+
+  filterDeleted = new EventEmitter();
+
+  tempImg: any;
+
   constructor(
     private afs: AngularFirestore
-  ) { }
+  ) {
+   }
 
   // tslint:disable: prefer-for-of
   sanitizeFilter(filter) {
@@ -40,10 +47,54 @@ export class FiltersService {
     return this.afs.collection(collection).valueChanges();
   }
 
+  searchfilters( term: string, collection ) {
+    return this.afs.collection(collection,
+       ref => ref.orderBy('nombre')
+                 .startAt(term)
+                 .endAt(term + '\uf8ff')
+    ).valueChanges();
+  }
+
   uploadFilter( filter: Filter, collection ) {
+    filter.formattedFilter = this.sanitizeFilter(filter.nombre);
+    filter.id = new Date().valueOf().toString();
+
     filter = JSON.parse(JSON.stringify(filter));
 
     return this.afs.collection(collection).add( filter );
+  }
+
+  editFilter( filter: Filter, collection ) {
+    const subscribe =
+      this.afs.collection(collection, ref => ref.where('id', '==', filter.id))
+          .snapshotChanges().subscribe( res => {
+            const filterId = res[0].payload.doc.id;
+            const filterDoc = this.afs.doc(collection + '/' + filterId);
+
+            filter = JSON.parse(JSON.stringify(filter));
+
+            subscribe.unsubscribe();
+
+            filterDoc.update(filter).then( () => {
+              this.filterUploaded.emit('Filter uploaded');
+            } );
+          });
+  }
+
+  deleteFilter( filter: Filter, collection ) {
+    this.afs.collection(collection, ref => ref.where('id', '==', filter.id))
+        .snapshotChanges().subscribe( res => {
+          if (res.length > 0) {
+            const filterId = res[0].payload.doc.id;
+            const filterDoc = this.afs.doc(collection + '/' + filterId);
+
+            filter = JSON.parse(JSON.stringify(filter));
+
+            filterDoc.delete().then( () => {
+              this.filterDeleted.emit('Filter deleted');
+            } );
+          }
+        });
   }
 
 }

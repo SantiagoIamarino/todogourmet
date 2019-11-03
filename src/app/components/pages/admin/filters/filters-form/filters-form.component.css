@@ -1,0 +1,56 @@
+.new-filter{
+    padding: 20px;
+    box-shadow: 1px 1px 3px gray;
+}
+.new-filter .img{
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.new-filter .img img{
+    max-width: 100%;
+    height: auto;
+}
+
+.new-filter .img .background-on-hover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.8);
+    cursor:pointer;
+    transition: .3s all ease;
+}
+
+.new-filter .img:hover .background-on-hover{
+    display: flex;
+}
+
+.new-filter .img .background-on-hover input[type='file']{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.new-filter .img .background-on-hover i{
+    color: rgba(255,255,255,.8);
+}
+
+.progreso{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.progreso p{
+    font-size: 14px;
+}

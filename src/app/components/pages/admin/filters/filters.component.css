@@ -1,4 +1,14 @@
-.new-filter{
-    padding: 20px;
-    box-shadow: 1px 1px 3px gray;
+.modal-dialog{
+    display: flex;
+    justify-content: center;
+    margin: 5rem auto;
+}
+
+.modal-content{
+    max-width: 320px;
+    min-width: 280px;
+}
+
+.modal-body{
+    padding:0;
 }

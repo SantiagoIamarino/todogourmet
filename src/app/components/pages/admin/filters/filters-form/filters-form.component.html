@@ -1,0 +1,57 @@
+<div class="new-filter">
+    <form action="">
+        <div *ngIf="filterType === 'marcas' || filterType === 'certificaciones'"
+             class="img" >
+            <img class='img-fluid' *ngIf='!tempImg && !filter.imagen' 
+                src="../../../../assets/img/not-found.png" alt="">
+    
+            <img class='img-fluid' *ngIf="filter.imagen && !tempImg"
+            [src]="filter.imagen" alt="">
+    
+            <img class='img-fluid temp' *ngIf="tempImg"
+            [src]="tempImg" alt="">
+    
+            <div class="background-on-hover" onclick='openFileSelector("new")'>
+                <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
+    
+                <input type="file"  (change)='imgSelected($event)' id='file_selector'>
+            </div>
+    
+            <div onclick='openFileSelector("edit")' *ngIf='filter.formattedFilter'
+                    class="background-on-hover">
+                <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
+    
+                <input type="file" (change)='imgSelected($event)' id='edit_file_selector'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class='form-control' [(ngModel)]="filter.nombre" name='nombre'
+                type="text" id='nombre' placeholder="Nombre">
+        </div>
+        <div class="form-group" *ngIf="filterType === 'marcas'">
+            <label for="url">Link</label>
+            <input class='form-control' [(ngModel)]="filter.url" name='url'
+                type="text" id='url' placeholder="Url">
+        </div>
+         <div class="progreso" *ngIf="uploadProgress"> 
+            <p>Subiendo..</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" 
+                    style="width: 100%" aria-valuenow="100" 
+                    aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+        <div class="submit-btn text-center" *ngIf='!filter.formattedFilter'>
+            <button (click)='uploadFilter()' class='btn btn-outline-danger'>
+                Subir {{ filterType }}
+            </button>
+        </div>
+        <div class="submit-btn text-center" *ngIf='filter.formattedFilter'>
+            <button (click)='editFilter()' class='btn btn-outline-danger'>
+                Editar {{ filterType }}
+            </button>
+        </div>
+    </form>
+</div>

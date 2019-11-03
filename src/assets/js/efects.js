@@ -79,3 +79,16 @@ function hamburger_cross() {
 $('[data-toggle="offcanvas"]').click(function() {
     $('#wrapper').toggleClass('toggled');
 });
+
+// Close admin editmodal -----------------------------------
+
+function closeEditModal( modalId ){
+    $('#' + modalId).modal('hide');
+    const modalBackdrops = document.getElementsByClassName('modal-backdrop');
+
+    for (const modal of modalBackdrops) {
+        modal.style.display = 'none';
+    }
+
+    
+}
