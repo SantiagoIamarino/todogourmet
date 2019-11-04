@@ -100,3 +100,9 @@ h2{
 .modal-body{
     padding:0;
 }
+
+.editModal .modal-content{
+    min-width: 100% !important;
+    max-width: 100% !important;
+    top: -5vh !important;
+}

@@ -1,4 +1,4 @@
-<div class="container-fluid admin-products mt-2 animated fadeIn faster">
+<div class="container-fluid admin-products mt-2">
     <div class="row">
         <div class="col-md-8 productos">
             <div class="admin-title">
@@ -37,12 +37,7 @@
                             <td class='price'>$ {{ product.precioUnit }}</td>
                             <td class='controls'>
                                 <div class="edit">
-                                    <!-- <button (click)='openEditModal(product)'
-                                        class="btn btn-outline-success"
-                                        data-toggle="modal" data-target="#editModal">
-                                        Editar
-                                    </button> -->
-                                    <button
+                                    <button (click)='openEditModal(product)'
                                         class="btn btn-outline-success"
                                         data-toggle="modal" data-target="#editModal">
                                         Editar

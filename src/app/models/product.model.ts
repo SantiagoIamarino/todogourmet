@@ -33,6 +33,15 @@ export class Product {
         if (!this.precioUnit || isNaN(this.precioUnit)) {
             this.validators.errors = 'Debes agregar un precio unitario valido';
             return this.validators;
+        }
+
+        if (!this.descuentoPorBulto || isNaN(this.descuentoPorBulto)) {
+            this.validators.errors = 'Debes agregar un descuento por bulto valido';
+            return this.validators;
+        }
+        if (!this.precioComercio || isNaN(this.precioComercio)) {
+            this.validators.errors = 'Debes agregar un precio para comerciantes valido';
+            return this.validators;
         } else {
             this.validators.isValid = true;
             return this.validators;

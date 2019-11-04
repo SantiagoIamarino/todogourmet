@@ -89,6 +89,4 @@ function closeEditModal( modalId ){
     for (const modal of modalBackdrops) {
         modal.style.display = 'none';
     }
-
-    
 }

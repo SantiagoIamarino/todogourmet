@@ -8,65 +8,9 @@ export class TiendaService {
 
   filters = {
     marcas: [],
-
-    certificaciones: [
-      {
-        nombre: 'Sin tacc',
-        filterName: 'sintacc'
-      },
-      {
-        nombre: 'Sin azúcar',
-        filterName: 'sinazucar'
-      },
-      {
-        nombre: 'Veganos',
-        filterName: 'veganos'
-      },
-      {
-        nombre: 'Orgánicos',
-        filterName: 'organicos'
-      },
-      {
-        nombre: 'Convencionales',
-        filterName: 'convencionales'
-      }
-    ],
-    rubros: [
-      {
-        nombre: 'Almacen',
-        filterName: 'almacen'
-      },
-      {
-        nombre: 'Dietética',
-        filterName: 'dietética'
-      },
-      {
-        nombre: 'Farmacia',
-        filterName: 'farmacia'
-      },
-      {
-        nombre: 'Kiosko',
-        filterName: 'kiosko'
-      }
-    ],
-    tipos: [
-      {
-        nombre: 'Infusiones',
-        filterName: 'infusiones'
-      },
-      {
-        nombre: 'Snack y Galletitas',
-        filterName: 'snackygalletitas'
-      },
-      {
-        nombre: 'Miel y mermeladas',
-        filterName: 'mielymermeladas'
-      },
-      {
-        nombre: 'Lacteos',
-        filterName: 'lacteos'
-      }
-    ]
+    certificaciones: [],
+    rubros: [],
+    tipos: []
   };
 
   constructor(
@@ -79,6 +23,15 @@ export class TiendaService {
       this.afs.collection(collection).valueChanges().subscribe( (filter: any) => {
         if (collection === 'marcas') {
           this.filters.marcas = filter;
+        }
+        if (collection === 'rubros') {
+          this.filters.rubros = filter;
+        }
+        if (collection === 'certificaciones') {
+          this.filters.certificaciones = filter;
+        }
+        if (collection === 'tipos') {
+          this.filters.tipos = filter;
         }
         resolve('Filter');
       } );

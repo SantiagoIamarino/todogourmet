@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../models/product.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
@@ -6,6 +6,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
   providedIn: 'root'
 })
 export class ProductService {
+
+  productUpdated = new EventEmitter();
 
   constructor(
     private afs: AngularFirestore
@@ -34,6 +36,24 @@ export class ProductService {
     product.id = new Date().valueOf().toString();
 
     product = JSON.parse(JSON.stringify(product));
+
+    return this.afs.collection('products').add( product );
+  }
+
+  editProduct( product: Product) {
+
+    product = JSON.parse(JSON.stringify(product));
+
+    this.afs.collection('products', ref => ref.where('id', '==', product.id))
+      .snapshotChanges().subscribe( res => {
+        const productDBId = res[0].payload.doc.id;
+        const productItem = this.afs.doc('products/' + productDBId);
+
+        productItem.update(product).then( () => {
+          this.productUpdated.emit('Product updated');
+        } )
+
+      } );
 
     return this.afs.collection('products').add( product );
   }
