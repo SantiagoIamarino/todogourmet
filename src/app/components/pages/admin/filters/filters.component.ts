@@ -101,7 +101,7 @@ export class FiltersComponent implements OnInit {
           this.filtersService.filterDeleted.subscribe( res => {
             sweetAlert(
               'Filtro eliminado',
-              'El filtro se ha subido correctamente',
+              'El filtro se ha eliminado correctamente',
               'success'
             );
           });

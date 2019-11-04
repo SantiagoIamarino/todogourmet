@@ -20,8 +20,6 @@ export class UploadFileService {
 
    uploadImage(image, path) {
 
-    console.log(image);
-
     const file = image;
     image.path = '/' + path + '/' + image.name;
     const fileRef = this.storage.ref(image.path);

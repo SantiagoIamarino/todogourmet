@@ -1,10 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
 import { Product } from 'src/app/models/product.model';
+
 import { ProductService } from '../../../../services/product.service';
 import { UploadFileService } from '../../../../services/upload-file.service';
+import { TiendaService } from '../../../../services/tienda.service';
+import { ValidationsService } from '../../../../services/validations.service';
 
 import sweetAlert from 'sweetalert';
-import { TiendaService } from '../../../../services/tienda.service';
+import { resolve } from 'q';
+
 
 declare function closeEditModal( modalId );
 
@@ -33,7 +38,8 @@ export class EditProductComponent implements OnChanges {
   constructor(
     private productService: ProductService,
     private uploadFileService: UploadFileService,
-    private tiendaService: TiendaService
+    private tiendaService: TiendaService,
+    private validationsService: ValidationsService
   ) {
     this.tiendaService.getAllFilters().then( (filters: any) => {
       this.filters = this.tiendaService.filters;
@@ -101,18 +107,29 @@ export class EditProductComponent implements OnChanges {
     }
   }
 
-  uploadImages(){
+  uploadImages() {
     return new Promise( (resolve, reject) => {
+
+      if ( this.product.img && !this.imgToUpload ) {
+        resolve('Theres no image to upload');
+      }
+
       this.uploadProgress = 'loading';
 
-      this.uploadFileService.uploadImage( this.imgToUpload, 'products' ).subscribe( percentage => {
+      const uploadImageSubscriber =
+        this.uploadFileService.uploadImage( this.imgToUpload, 'products' ).subscribe( percentage => {
 
-        this.uploadFileService.downloadUrl.subscribe( url => {
-          if (url && !this.product.img && this.product.validators.isValid) {
-            this.product.img = url; // Getting download URL
-            resolve('images uploaded');
-          }
-        } );
+          const getDownloadUrlSubscriber =
+            this.uploadFileService.downloadUrl.subscribe( url => {
+                if (url) {
+                  this.product.img = url; // Getting download URL
+
+                  uploadImageSubscriber.unsubscribe();
+                  getDownloadUrlSubscriber.unsubscribe();
+
+                  resolve('images uploaded');
+                }
+              } );
 
       } );
     } );
@@ -120,7 +137,6 @@ export class EditProductComponent implements OnChanges {
 
   closeEditModal() {
     closeEditModal( 'editModal' );
-    console.log(this.product);
   }
 
   editProduct() {
@@ -129,33 +145,29 @@ export class EditProductComponent implements OnChanges {
       return;
     }
 
-    let product: Product = new Product();
+    const validation = this.validationsService.validateProduct( this.product );
 
-    product = this.product;
+    if (!validation.isValid) {
+      sweetAlert('Error', validation.errors, 'error');
+      return;
+    }
 
-    const validation = product.validateProduct();
+    this.uploadImages().then( () => {
+      this.productService.editProduct(this.product);
 
-    // if (!validation.isValid) {
-    //   sweetAlert('Error', validation.errors, 'error');
-    //   return;
-    // }
+      this.productService.productUpdated.subscribe( () => {
+        sweetAlert(
+          'Producto editado',
+          'El producto se ha editado correctamente',
+          'success'
+        );
 
-    // this.uploadImages().then( () => {
-    //   this.productService.editProduct(this.product);
-
-    //   this.productService.productUpdated.subscribe( () => {
-    //     sweetAlert(
-    //       'Producto editado',
-    //       'El producto se ha editado correctamente',
-    //       'success'
-    //     );
-
-    //     closeEditModal('uploadProduct');
-    //     this.product = new Product();
-    //     this.uploadProgress = null;
-    //     this.tempImg = null;
-    //   } );
-    // } );
+        closeEditModal('uploadProduct');
+        this.product = new Product();
+        this.uploadProgress = null;
+        this.tempImg = null;
+      } );
+    } );
   }
 
   uploadProduct() {
@@ -164,7 +176,7 @@ export class EditProductComponent implements OnChanges {
       return;
     }
 
-    const validation = this.product.validateProduct();
+    const validation = this.validationsService.validateProduct( this.product );
 
     if (!validation.isValid) {
       sweetAlert('Error', validation.errors, 'error');

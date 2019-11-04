@@ -53,8 +53,25 @@ export class ProductosComponent implements OnInit {
     this.productToEdit = product;
   }
 
-  deleteProduct( productId: string ) {
-    this.productService.deleteProduct(productId);
+  deleteProduct( product: Product ) {
+
+    sweetAlert('Estas seguro que deseas eliminar este producto?', {
+      buttons: ['Cancelar', 'Aceptar'],
+      icon: 'warning'
+    }).then( wantsToDelete => {
+      if (wantsToDelete) {
+        this.productService.deleteProduct( product );
+
+        const listener =
+          this.productService.productDeleted.subscribe( res => {
+            sweetAlert(
+              'Producto eliminado',
+              'El producto se ha eliminado correctamente',
+              'success'
+            );
+          });
+      }
+    } );
   }
 
 }

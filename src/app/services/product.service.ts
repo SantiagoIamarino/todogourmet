@@ -9,6 +9,8 @@ export class ProductService {
 
   productUpdated = new EventEmitter();
 
+  productDeleted = new EventEmitter();
+
   constructor(
     private afs: AngularFirestore
   ) {
@@ -51,14 +53,24 @@ export class ProductService {
 
         productItem.update(product).then( () => {
           this.productUpdated.emit('Product updated');
-        } )
+        } );
 
       } );
 
     return this.afs.collection('products').add( product );
   }
 
-  deleteProduct( productId: string ) {
-    
+  deleteProduct( product: Product ) {
+    this.afs.collection('products', ref => ref.where('id', '==', product.id))
+        .snapshotChanges().subscribe( res => {
+          if (res.length > 0) {
+            const productId = res[0].payload.doc.id;
+            const productDoc = this.afs.doc('products' + '/' + productId);
+
+            productDoc.delete().then( () => {
+              this.productDeleted.emit('Product deleted');
+            } );
+          }
+        });
   }
 }
