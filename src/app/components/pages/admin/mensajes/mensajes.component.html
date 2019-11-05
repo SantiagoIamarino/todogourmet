@@ -1,0 +1,43 @@
+<div class="container admin-products mt-2 animated fadeIn faster">
+    <div class="row">
+        <div class="col-md-12 productos">
+            <div class="admin-title">
+                <h2>Lista de mensajes</h2>
+            </div>
+            <div class="mensajes mt-4">
+                <div id="accordion">
+                    <div class="card" *ngFor='let message of messages'>
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                            <button class="btn btn-link w-100 collapsed d-flex justify-content-between" 
+                                data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Mensaje recibido de {{ message.email }}
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="info d-flex justify-content-between">
+                                    <p>Nombre: {{ message.name + ' ' + message.lastName }}</p>
+                                    <p>Telefono: {{ message.phone }}</p>
+                                    <p>Asunto: {{ message.affair }}</p>
+                                </div>
+                                <hr>
+                                <div class="message mt-4">
+                                    <p>{{ message.message }}</p>
+                                </div>
+                                <div class="check text-center mt-2">
+                                    <button (click)='removeMessage(message)'
+                                        class='btn btn-outline-info'>
+                                        Marcar como leido
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

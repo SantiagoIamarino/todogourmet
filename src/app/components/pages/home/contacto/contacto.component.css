@@ -65,3 +65,44 @@
     background: #e4e4e4;
     color: rgb(194, 54, 49);
 }
+
+@media screen and (max-width: 991px){
+    .contactanos .container{
+        max-width: 98% !important;
+    }
+}
+
+@media screen and (max-width: 670px){
+    .contactanos .title h2{
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 550px){
+    .contactanos .title h2.question{
+        margin-bottom: 20px;
+    }
+    .contactanos .button button{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .contactanos .container{
+        max-width: 99% !important;
+        padding: 5px;
+    }
+    .contactanos .contact-form .group{
+        flex-direction: column;
+    }
+    .contactanos .contact-form .group:first-child{
+        flex-direction: row;
+    }
+    .contactanos .contact-form .group input{
+        width: 100%;
+    }
+    .contactanos .contact-form .group:first-child input{
+        width: 49%;
+    }
+}
+

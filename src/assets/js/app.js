@@ -74,12 +74,25 @@ function sliderMarcas(imgsToSlide) {
 
     function slideMarcas(changeTo) {
 
+        const screenWidth = $(window).width();
+
+        let marcaWidth = '16.6%';
+
+        if(screenWidth < 768 && screenWidth > 576){
+            marcaWidth = '25%';
+        }
+
+        if(screenWidth < 576){
+            marcaWidth = '33.3%';
+        }
+
+
         if (changeTo) {
             goingTo = changeTo;
         }
         if (timesRight < imgsToSlide && goingTo === 'right') {
             $(display).animate({
-                'left': '-=16.6%'
+                'left': '-=' + marcaWidth
             }, 700)
 
             timesRight++;
@@ -92,7 +105,7 @@ function sliderMarcas(imgsToSlide) {
         }
         if (timesRight > 0 && goingTo === 'left') {
             $(display).animate({
-                'left': '+=16.6%'
+                'left': '+=' + marcaWidth
             }, 700)
 
             timesRight--;

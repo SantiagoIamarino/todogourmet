@@ -16,3 +16,12 @@
     border: 2px solid red;
     border-radius: 3px;
 }
+
+@media screen and (max-width:500px){
+    .encontranos-en h2{
+        font-size: 30px;
+    }
+    .encontranos-en .mapa iframe{
+        max-height:350px ;
+    }
+}

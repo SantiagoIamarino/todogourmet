@@ -37,6 +37,66 @@ ul {
     text-align: left;
     margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin: 30px 0;
+}
+
+@media screen and (max-width: 1200px){
+    .quienes-somos .container{
+        max-width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .quienes-somos .quienes-somos-flex{
+        align-items: flex-start;
+    }
+    ul{
+        margin-left: 10px;
+    }
+    ul li{
+        width: 48%;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    h2{
+        margin-top: 20px;
+    }
+    .quienes-somos .quienes-somos-flex{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .quienes-somos .quienes-somos-flex .img{
+        margin-bottom: 30px;
+    }
+
+    .quienes-somos .quienes-somos-flex .text{
+        margin-left: 0;
+    }
+
+    .quienes-somos .quienes-somos-flex .text p{
+        text-align: justify;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .quienes-somos .quienes-somos-flex .img{
+        max-width: 98%;
+        margin: 0 auto;
+        margin-bottom: 40px;
+    }
+    .quienes-somos .quienes-somos-flex .img img{
+        max-height: 400px;
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .quienes-somos .quienes-somos-flex .img img{
+        width: 100%;
+        height: auto;
+    }
 }

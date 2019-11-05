@@ -285,6 +285,13 @@
     color: rgb(211, 66, 66);
 }
 
+
+@media screen and (max-width: 1400px){
+    .main .slider img{
+        height: auto;
+    }
+}
+
 @media screen and (max-width: 1200px){
     .main .productos-destacados .categories .categories-container .category{
         width: 33%;
@@ -306,4 +313,84 @@
     .container{
         max-width: 100% !important;
     }
+    .main .donde-estamos .container{
+        flex-direction: column;
+        padding: 0;
+        width: 98%;
+        margin: 0 auto;
+    }
+    .main .donde-estamos .container > div{
+        width: 100%;
+    }
+    .main .donde-estamos .container .map {
+        padding: 0;
+        border: none;
+    }
+    .main .donde-estamos .container .contact-info{
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    .main .donde-estamos .container .contact-info .social{
+        width: 100%;
+    }
 }
+
+@media screen and (max-width: 768px){
+    .main .nuestras-marcas .banners{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin:0 auto;
+        margin-top: 30px;
+    }
+    .main .nuestras-marcas .banners > div:first-child{
+        width: 80%;
+        margin-bottom: 15px;
+        align-self: flex-start;
+        padding: 0;
+    }
+    .main .nuestras-marcas .banners > div:last-child{
+        width: 80%;
+        margin-top: 15px;
+        align-self: flex-end;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .main .slider{
+        margin-bottom: 0;
+    }
+
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon{
+        width: 24px;
+        height: 24px;
+    }
+
+    .main .nuestras-marcas .banners > div:last-child,
+    .main .nuestras-marcas .banners > div:first-child{
+        align-self:center ;
+        width: 100%;
+    }
+
+    .main .donde-estamos .map iframe{
+        max-height: 300px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .main .donde-estamos .title h2{
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .main .nuestras-marcas .title h2{
+        font-size: 18px;
+    }
+}
+
+

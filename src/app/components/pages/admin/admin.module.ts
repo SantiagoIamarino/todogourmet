@@ -7,6 +7,7 @@ import { FiltersComponent } from './filters/filters.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { FiltersFormComponent } from './filters/filters-form/filters-form.component';
+import { MensajesComponent } from './mensajes/mensajes.component';
 
 
 
@@ -14,7 +15,8 @@ import { FiltersFormComponent } from './filters/filters-form/filters-form.compon
 @NgModule({
   declarations: [
     FiltersComponent,
-    FiltersFormComponent
+    FiltersFormComponent,
+    MensajesComponent
   ],
   imports: [
     CommonModule,

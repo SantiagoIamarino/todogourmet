@@ -121,3 +121,9 @@ ul.ks-cboxtags li input[type="checkbox"] {
 ul.ks-cboxtags li input[type="checkbox"]:focus+label {
     border: 1px solid rgba(211, 45, 45, .5);
 }
+
+@media screen and (max-width: 991px){
+    .container{
+        max-width: 98% !important;
+    }
+}

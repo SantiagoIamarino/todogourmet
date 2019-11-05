@@ -8,7 +8,8 @@ export class contactMessage {
         public address?: string,
         public phone?: number,
         public affair?: string,
-        public message?: string
+        public message?: string,
+        public id?: string
     ) {}
 
 }

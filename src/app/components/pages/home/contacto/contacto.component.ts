@@ -3,6 +3,7 @@ import { contactMessage } from '../../../../models/contact-message.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import sweetAlert from 'sweetalert';
+import { ContactoService } from './contacto.service';
 
 @Component({
   selector: 'app-contacto',
@@ -15,7 +16,9 @@ export class ContactoComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor() {
+  constructor(
+    private contactoService: ContactoService
+  ) {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       lastName: new FormControl(''),
@@ -38,10 +41,16 @@ export class ContactoComponent implements OnInit {
   }
 
   contactFormSubmit() {
-    console.log(this.form);
 
     if (this.form.valid) {
+      this.contactoService.uploadMessage( this.form.value ).then( () => {
+        sweetAlert(
+          'Mensaje enviado',
+          'Mensaje enviado correctamente, en breve responderemos!',
+          'success');
 
+        this.form.reset();
+      } );
     } else {
 
       if (this.form.controls.name.errors) {
