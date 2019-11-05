@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import * as firebase from 'firebase';
 
@@ -13,6 +13,8 @@ import { LoadingService } from '../../components/shared/loading/loading.service'
   providedIn: 'root'
 })
 export class LoginService {
+
+  userState = new EventEmitter();
 
   user: User = new User();
 
@@ -31,6 +33,7 @@ export class LoginService {
         this.createOrGetUser(user);
       } else {
         this.loadingService.loading = false;
+        this.userState.emit('No user');
       }
     } );
 
@@ -57,6 +60,7 @@ export class LoginService {
         }
 
         this.loadingService.loading = false;
+        this.userState.emit('User obtained');
 
       } );
   }

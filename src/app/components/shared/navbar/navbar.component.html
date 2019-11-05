@@ -25,7 +25,8 @@
                         <li>
                             <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
                         </li>
-                        <li routerLink='/admin'>
+                        <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
+                            routerLink='/admin'>
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             Administración
                         </li>
@@ -52,7 +53,8 @@
                         <li (click)='logout()'>
                             <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
                         </li>
-                        <li routerLink='/admin'>
+                        <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
+                            routerLink='/admin'>
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             Administración
                         </li>

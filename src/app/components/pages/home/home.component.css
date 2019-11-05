@@ -39,7 +39,7 @@
 
 .main .productos-destacados {
     padding: 40px;
-    background: #e1e1e1;
+    /* background: #e1e1e1; Uncomment this  */
 }
 
 .main .productos-destacados .categories {
@@ -307,6 +307,14 @@
     .main .productos-destacados{
         padding-bottom: 20px;
     }
+    .main .productos-destacados .categories .categories-container .category{
+        width: 31.5%;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        width: auto;
+        height: 190px;
+    }
 }
 
 @media screen and (max-width: 991px){
@@ -337,6 +345,21 @@
     }
 }
 
+@media screen and (max-width: 900px){
+    .main .productos-destacados .categories .categories-container .category{
+        width: 32.5%;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        width: auto;
+        height: 180px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category .text h4{
+        font-size: 22px;
+    }
+}
+
 @media screen and (max-width: 768px){
     .main .nuestras-marcas .banners{
         display: flex;
@@ -356,6 +379,26 @@
         margin-top: 15px;
         align-self: flex-end;
         padding: 0;
+    }
+
+    .main .productos-destacados .categories .categories-container{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main .productos-destacados .categories .categories-container .category{
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 15px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category:last-child{
+        margin-bottom: 0;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        width: 100%;
+        height: 250px;
     }
 }
 
@@ -385,11 +428,46 @@
     .main .donde-estamos .title h2{
         font-size: 32px;
     }
+
+    .main .productos-destacados .categories .categories-container .category{
+        max-width: 350px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        height: 220px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .main .productos-destacados .categories .categories-container .category{
+        max-width: 320px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        height: 200px;
+    }
+
+    .main .productos-destacados{
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .main .productos-destacados .categories .container{
+        max-width: 100% !important;
+    }
 }
 
 @media screen and (max-width: 400px) {
     .main .nuestras-marcas .title h2{
         font-size: 18px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category img{
+        height: 190px;
+    }
+
+    .main .productos-destacados .categories .categories-container .category .text h4{
+        font-size: 20px;
     }
 }
 

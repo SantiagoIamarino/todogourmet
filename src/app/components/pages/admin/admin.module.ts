@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { FiltersFormComponent } from './filters/filters-form/filters-form.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { AdminComponent } from './admin.component';
 
 
 
 
 @NgModule({
   declarations: [
+    AdminComponent,
     FiltersComponent,
     FiltersFormComponent,
     MensajesComponent

@@ -3,6 +3,6 @@ export class User {
         // tslint:disable-next-line: variable-name
         public _uid?: string,
         public phoneNumber?: string,
-        public role = 'USER'
+        public role = 'USER_ROLE'
     ) {}
 }

@@ -16,10 +16,10 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminComponent } from './components/pages/admin/admin.component';
 import { ProductosComponent } from './components/pages/admin/productos/productos.component';
 import { EditProductComponent } from './components/shared/product/edit-product/edit-product.component';
 import { PagesModule } from './components/pages/pages.module';
+import { SharedModule } from './components/shared/shared.module';
 
 
 
@@ -28,7 +28,6 @@ import { PagesModule } from './components/pages/pages.module';
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    AdminComponent,
     ProductosComponent,
     EditProductComponent
   ],
