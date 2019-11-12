@@ -11,6 +11,7 @@
     position:absolute;
     top:0;
     right:0;
+    z-index:9;
 }
 
 .producto .esta-refrigerado-o-no i{
@@ -48,11 +49,23 @@
     max-height: 270px;
     overflow: hidden;
     border-bottom: 1px solid #e1e1e1;
+    position: relative;
 }
 
 .producto .img img {
     width: 100%;
     border-radius: 5px 5px 0 0;
+}
+
+.producto .img .img-loading{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+}
+
+.producto .img .img-loading img{
+    width: 100%;
 }
 
 .producto .info {
@@ -82,7 +95,7 @@
 
 .producto .info .certifications .imgs{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .producto .info .certifications .imgs .certification-img{

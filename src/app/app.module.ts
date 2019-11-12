@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductosComponent } from './components/pages/admin/productos/productos.component';
 import { EditProductComponent } from './components/shared/product/edit-product/edit-product.component';
 import { PagesModule } from './components/pages/pages.module';
-import { SharedModule } from './components/shared/shared.module';
 
 
 

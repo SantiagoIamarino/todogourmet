@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TiendaService } from '../../../services/tienda.service';
 import { LoadingService } from '../../shared/loading/loading.service';
+import { Product } from '../../../models/product.model';
 
 declare function goToTop(animationTime);
 
@@ -17,6 +18,8 @@ export class TiendaComponent implements OnInit {
     tipos: []
   };
 
+  products: Product[] = [];
+
   constructor(
     private tiendaService: TiendaService,
     public loadingService: LoadingService
@@ -32,5 +35,14 @@ export class TiendaComponent implements OnInit {
 
   ngOnInit() {
     goToTop(0);
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.loadingService.loading = true;
+    this.tiendaService.getProducts().subscribe( (products: any) => {
+      this.products = products;
+      this.loadingService.loading = false;
+    } );
   }
 }

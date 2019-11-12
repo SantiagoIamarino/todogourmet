@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProductComponent } from './product/product.component';
 import { ValuePipe } from 'src/app/pipes/value.pipe';
+import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
 
 
 
@@ -16,7 +17,8 @@ import { ValuePipe } from 'src/app/pipes/value.pipe';
     NavbarComponent,
     LoadingComponent,
     ProductComponent,
-    ValuePipe
+    ValuePipe,
+    PrecioBultoPipe
   ],
   imports: [
     CommonModule,

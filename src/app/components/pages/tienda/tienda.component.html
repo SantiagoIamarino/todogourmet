@@ -1,4 +1,4 @@
-<!-- <div class="tienda animated fadeIn faster">
+<div class="tienda animated fadeIn faster">
     <div class="tienda-content">
         <div class="title-top-tienda">
             <div class="pl-2 title">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- <div class="display-type">
             <p>Vista</p>
             <div class="normal active">
@@ -24,7 +24,7 @@
                 <i class="fa fa-th-list" aria-hidden="true"></i>
             </div>
         </div> -->
-        <!-- <div class="bottom-tienda">
+        <div class="bottom-tienda">
             <div class="sidebar">
                 <div class="sidebar-title">
                     <h4>Filtros de búsqueda</h4>
@@ -119,17 +119,12 @@
                 </div>
             </div>
             <div class="products normal-display">
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>
-                <app-product></app-product>  
+                <app-product *ngFor='let product of products'
+                    [product]='product'>
+                </app-product>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
-<h2>Seccion en desarrolo, proximamente...</h2>
+<!-- <h2>Seccion en desarrolo, proximamente...</h2> -->

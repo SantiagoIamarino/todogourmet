@@ -9,7 +9,7 @@ const AdminRoutes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AdminGuard],
+        // canActivate: [AdminGuard],
         children: [
             { path: 'productos', component: ProductosComponent },
             { path: 'filtros/:tipo', component: FiltersComponent },

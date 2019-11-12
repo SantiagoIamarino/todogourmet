@@ -154,18 +154,18 @@
     pointer-events: none;
 }
 
-.filters .esta-refrigerado #refrigerado:checked+.toggle:before {
+.filters .esta-refrigerado input:checked+.toggle:before {
     background: rgb(223, 144, 144);
 }
 
-.filters .esta-refrigerado #refrigerado:checked+.toggle span {
+.filters .esta-refrigerado input:checked+.toggle span {
     background: rgb(211, 45, 45);
     transform: translateX(20px);
     transition: all .2s cubic-bezier(.8, .4, .3, 1.25), background .15s ease;
     box-shadow: 0 3px 8px rgba(rgba(211, 45, 45), .2);
 }
 
-.filters .esta-refrigerado #refrigerado:checked+.toggle span:before {
+.filters .esta-refrigerado input:checked+.toggle span:before {
     transform: scale(1);
     opacity: 0;
     transition: all .4s ease;

@@ -1,44 +1,30 @@
 <div class="producto">
-    <div class="esta-refrigerado-o-no">
+    <div class="esta-refrigerado-o-no" *ngIf='product.estaRefrigerado'>
         <i class="fa fa-snowflake-o" aria-hidden="true"></i>
         <div class="product-popover">
             <p>Refrigerado</p>
         </div>
     </div>
     <div class="img">
-        <img src="../../../../assets/img/productos/1783.jpg" alt="">
+        <img [src]="product.img" alt="" (load)='imageLoaded = true'>
+        <div class="img-loading" *ngIf="!imageLoaded">
+            <img src="../../../../assets/img/not-found.png" alt="">
+        </div>
     </div>
     <div class="info">
         <div class="product-name">
-            <p>CRACKERS SCHAR 210GR</p>
+            <p>{{ product.name }}</p>
         </div>
         <div class="product-info">
-            <p>Marca: <span>SCHAR</span></p>
+            <p>Marca: <span>{{ product.marca }}</span></p>
         </div>
         <div class="certifications">
             <div class="imgs">
-                <div class="certification-img">
-                    <img class='img-fluid' src="../../../../assets/img/filtros/sin_tacc.jpeg" alt="">
+                <div *ngFor='let certification of certificaciones'
+                     class="certification-img">
+                    <img class='img-fluid' [src]='certification.imagen' alt="">
                     <div class="certification-popover">
-                        <p>Sin Tacc</p>
-                    </div>
-                </div>
-                <div class="certification-img">
-                    <img class='img-fluid' src="../../../../assets/img/filtros/sin_lactosa.jpeg" alt="">
-                    <div class="certification-popover">
-                        <p>Sin Lactosa</p>
-                    </div>
-                </div>
-                <div class="certification-img">
-                    <img class='img-fluid' src="../../../../assets/img/filtros/veganos.jpeg" alt="">
-                    <div class="certification-popover">
-                        <p>Apto Veganos</p>
-                    </div>
-                </div>
-                <div class="certification-img">
-                    <img class='img-fluid' src="../../../../assets/img/filtros/organico.jpeg" alt="">
-                    <div class="certification-popover">
-                        <p>Organico</p>
+                        <p>{{ certification.nombre }}</p>
                     </div>
                 </div>
             </div>
@@ -46,11 +32,11 @@
         <div class="product-prices">
             <div class="unidad">
                 <p>Unidad</p>
-                <span>$112.57</span>
+                <span>${{ product.precioUnit | number : '1.2-2' }}</span>
             </div>
             <div class="cantidad">
                 <p>Bulto (5 u.)</p>
-                <span>$929.07</span>
+                <span>${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}</span>
             </div>
         </div>
     </div>

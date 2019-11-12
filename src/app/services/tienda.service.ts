@@ -47,4 +47,8 @@ export class TiendaService {
     ]);
   }
 
+  getProducts() {
+    return this.afs.collection('products').valueChanges();
+  }
+
 }

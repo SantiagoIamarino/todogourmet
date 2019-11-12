@@ -46,18 +46,17 @@ export class ProductService {
 
     product = JSON.parse(JSON.stringify(product));
 
-    this.afs.collection('products', ref => ref.where('id', '==', product.id))
-      .snapshotChanges().subscribe( res => {
-        const productDBId = res[0].payload.doc.id;
-        const productItem = this.afs.doc('products/' + productDBId);
+    const subscriber =
+      this.afs.collection('products', ref => ref.where('id', '==', product.id))
+        .snapshotChanges().subscribe( res => {
+          const productDBId = res[0].payload.doc.id;
+          const productItem = this.afs.doc('products/' + productDBId);
 
-        productItem.update(product).then( () => {
-          this.productUpdated.emit('Product updated');
+          productItem.update(product).then( () => {
+            this.productUpdated.emit('Product updated');
+            subscriber.unsubscribe();
+          } );
         } );
-
-      } );
-
-    return this.afs.collection('products').add( product );
   }
 
   deleteProduct( product: Product ) {

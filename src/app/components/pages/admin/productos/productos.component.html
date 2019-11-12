@@ -37,15 +37,15 @@
                             <td class='price'>$ {{ product.precioUnit }}</td>
                             <td class='controls'>
                                 <div class="edit">
-                                    <!-- <button (click)='openEditModal(product)'
+                                    <button (click)='openEditModal(product)'
                                         class="btn btn-outline-success"
                                         data-toggle="modal" data-target="#editModal">
                                         Editar
-                                    </button> -->
-
-                                    <button class="btn btn-outline-success">
-                                        Editar
                                     </button>
+
+                                    <!-- <button class="btn btn-outline-success">
+                                        Editar
+                                    </button> -->
                                 </div>
                                 <div class="delete" (click)='deleteProduct( product )' >
                                     <button class="btn btn-outline-danger">

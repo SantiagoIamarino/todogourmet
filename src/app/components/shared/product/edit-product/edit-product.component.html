@@ -71,10 +71,10 @@
                 <ul class="ks-cboxtags">
                     <li *ngFor='let certificacion of filters.certificaciones'>
                         <input type="checkbox" 
-                                [attr.id]='certificacion.formattedFilter'  
+                                [attr.id]="certificacion.formattedFilter + '_edit'"
                                 [attr.value]='certificacion.formattedFilter'>
                         <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
-                                [attr.for]='certificacion.formattedFilter'>
+                                [attr.for]="certificacion.formattedFilter + '_edit'">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ certificacion.nombre }}
@@ -90,17 +90,17 @@
             <div class="filter-options">
                 <ul class="ks-cboxtags">
                     <li *ngFor='let rubro of filters.rubros'>
-                        <input type="checkbox" [attr.id]='rubro.formattedFilter'  
+                        <input type="checkbox" [attr.id]="rubro.formattedFilter + '_edit'"
                                 [attr.value]='rubro.formattedFilter'>
                         <label (click)="filterChanged('rubro', rubro.formattedFilter)"
-                                [attr.for]='rubro.formattedFilter'>
+                                [attr.for]="rubro.formattedFilter + '_edit'">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ rubro.nombre }}
                         </label>
                     </li>
                 </ul>
-        </div>
+            </div>
         </div>
         <div class="filter tipos">
             <div class="filter-title">
@@ -109,10 +109,10 @@
             <div class="filter-options">
                 <ul class="ks-cboxtags">
                     <li *ngFor='let tipo of filters.tipos'>
-                        <input type="checkbox" [attr.id]='tipo.formattedFilter'  
+                        <input type="checkbox" [attr.id]="tipo.formattedFilter + '_edit'"
                                 [attr.value]='tipo.formattedFilter'>
                         <label (click)="filterChanged('tipo', tipo.formattedFilter)"
-                                [attr.for]='tipo.formattedFilter'>
+                                [attr.for]="tipo.formattedFilter + '_edit'">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ tipo.nombre }}
@@ -129,9 +129,9 @@
                 <div class="checkbox-new">
                     <p>No</p>
                     <div class="checkbox-input">
-                        <input type="checkbox" id="refrigerado" style="display:none"
+                        <input type="checkbox" id="refrigerado_edit" style="display:none"
                                 [(ngModel)]="product.estaRefrigerado" name='estaRefrigerado'/>
-                        <label for="refrigerado" class="toggle">
+                        <label for="refrigerado_edit" class="toggle">
                             <span></span>
                         </label>
                     </div>
