@@ -1,0 +1,69 @@
+<div class="container">
+    <div class=" title">
+        <h2>Mi carrito</h2>
+        <hr>
+    </div>
+    <div class="product-list mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Imagén</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col">Remover</th>
+                </tr>
+            </thead>
+            <tbody *ngIf='!loading'>
+                <tr class='product-item'>
+                    <th scope="row">
+                        <div class="img">
+                            <img class='img-fluid img-circle' 
+                            src="../../../../assets/img/productos/1783.jpg">
+                        </div>
+                    </th>
+                    <td class='title'>Lorem ipsum dolor sit amet.</td>
+                    <td class='quantity'>
+                        <input type="number">
+                    </td>
+                    <td class='price'>$200</td>
+                    <td class="subtotal">$300</td>
+                    <td class="remove-item">
+                        <button class='btn btn-outline-danger'>
+                            Remover
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <div class="loading" *ngIf='false'>
+                <div class="loading-content">
+                    <div class="text">
+                        <p>Cargando productos</p>
+                    </div>
+                    <div class="icons">
+                        <div class="spinner-grow text-danger" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-danger" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </table>
+        <div class="bottom">
+            <div class="total">
+                <p>Total: <span>$450</span></p>
+            </div>
+            <div class="pay">
+                <button class='btn-pay'>
+                    Pagar ahora
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { LoadingService } from '../loading/loading.service';
+import { ProductService } from '../../../services/product.service';
+import { Router } from '@angular/router';
+import sweetAlert from 'sweetalert';
+
+declare var swal;
 
 @Component({
   selector: 'app-product',
@@ -18,32 +22,48 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private afs: AngularFirestore,
-    private loadingService: LoadingService
+    private router: Router,
+    private productService: ProductService
   ) { }
 
   ngOnInit() {
-    this.getCertifications();
+    if (this.product.certificaciones.length > 0) {
+      this.productService.getCertifications(this.product.certificaciones)
+      .then( (certifications: any) => {
+        this.certificaciones = certifications;
+      } );
+    }
   }
 
-  getCertifications() {
-    if (this.product.certificaciones) {
-      this.loadingService.loading = true;
+  addToCart() {
 
-      this.product.certificaciones.forEach((certification, index) => {
-        const subscriber =
-        this.afs.collection('certificaciones', ref =>
-        ref.where('formattedFilter', '==', certification).limit(1))
-        .valueChanges().subscribe( (DBCert: any) => {
-            this.certificaciones.push(DBCert[0]);
-
-            subscriber.unsubscribe();
-
-            if (index === this.certificaciones.length - 1) {
-              this.loadingService.loading = false;
-            }
-          } );
-      });
-    }
+    swal(
+      '¿Deseas añadir este producto al carrito?',
+      'Ofrecemos opciones de compra por bulto o unidad, ¿Cual deseas?',
+      'warning', {
+      buttons: {
+        cancel: 'Cancelar',
+        catch: {
+          text: 'Por bulto',
+          value: 'bulto'
+        },
+        defeat: {
+          text: 'Por unidad',
+          value: 'unidad'
+        },
+      },
+    }).then( metodo => {
+      if (metodo) {
+        swal('Producto agregado al carrito', {
+          buttons: ['Seguir comprando', 'Ir al carrito'],
+          icon: 'success'
+        }).then( goToCart => {
+          if (goToCart) {
+            this.router.navigate(['/carrito']);
+          }
+        } );
+      }
+    } );
   }
 
 }

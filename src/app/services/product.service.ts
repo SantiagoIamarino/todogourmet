@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../models/product.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { LoadingService } from '../components/shared/loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ProductService {
   productDeleted = new EventEmitter();
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private loadingService: LoadingService
   ) {
    }
 
@@ -23,6 +25,28 @@ export class ProductService {
   getProduct(id: string) {
     return this.afs.collection('products', ref => ref.where('id', '==', id))
       .valueChanges();
+  }
+
+  getCertifications(certificaciones) {
+    return new Promise((resolve, reject) => {
+      const certs = [];
+
+      certificaciones.forEach((certification, index) => {
+        const subscriber =
+        this.afs.collection('certificaciones', ref =>
+        ref.where('formattedFilter', '==', certification).limit(1))
+        .valueChanges().subscribe( (DBCert: any) => {
+            certs.push(DBCert[0]);
+
+            subscriber.unsubscribe();
+
+            if (index === certs.length - 1) {
+              this.loadingService.loading = false;
+              resolve(certs);
+            }
+          } );
+      });
+    });
   }
 
   searchProducts( term: string ) {

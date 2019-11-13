@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
 import { EncontranosEnComponent } from './encontranos-en/encontranos-en.component';
 import { ContactoComponent } from './home/contacto/contacto.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -25,6 +26,7 @@ import { ContactoComponent } from './home/contacto/contacto.component';
     QuienesSomosComponent,
     EncontranosEnComponent,
     ContactoComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,72 @@
+.product-list table{
+    position: relative;
+}
+.product-list .loading{
+    margin-top: 100px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.product-list .loading .loading-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-list .loading .loading-content .text p{
+    font-size: 20px;
+}
+
+.table td, .table th{
+    vertical-align: middle;
+}
+
+.product-list .product-item .img img{
+    max-width: 55px;
+    border-radius: 50%;
+}
+
+/* .product-list .quantity{
+    display: flex;
+} */
+
+.product-list .quantity input{
+    max-width: 70px;
+}
+
+.bottom{
+    border-top: 1px solid #dcdcdc;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px 0;
+}
+
+.bottom .total {
+    font-size: 20px;
+    padding: 0px 7rem;
+}
+
+.bottom .total span{
+    margin-left: 7rem;
+}
+
+.bottom .pay button{
+    margin-top: 30px;
+    padding: 12px 40px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background: rgb(211, 45, 45);
+    border: 1px solid rgb(211, 45, 45);
+    margin-right: 40px;
+}
+
+.bottom .pay button:hover{
+    transition: .3s all ease;
+    background: white;
+    color: rgb(211, 45, 45);
+}

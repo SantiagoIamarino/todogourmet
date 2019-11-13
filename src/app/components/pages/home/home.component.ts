@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingService } from '../../shared/loading/loading.service';
+import { ProductService } from '../../../services/product.service';
+import { Product } from 'src/app/models/product.model';
 
 declare function sliderMarcas(imgsToSlide);
 
@@ -15,11 +18,15 @@ declare function stopSliderMarcas();
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  products: Product[] = [];
+
   marcas: any[] = [];
 
   constructor(
     private homeService: HomeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService,
+    private productsService: ProductService
   ) {
     this.getMarcas();
    }
@@ -30,11 +37,20 @@ export class HomeComponent implements OnInit, OnDestroy {
         const scrollTo = params.get('scrollTo');
         scrollToDiv(scrollTo);
       }
+      this.getPosts();
     } );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
    stopSliderMarcas();
+  }
+
+  getPosts() {
+    this.loadingService.loading = true;
+    this.productsService.getProducts().subscribe( (products: any) => {
+      this.products = products;
+      this.loadingService.loading = false;
+    } );
   }
 
   getMarcas() {

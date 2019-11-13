@@ -51,4 +51,14 @@ export class TiendaService {
     return this.afs.collection('products').valueChanges();
   }
 
+  searchByFilters(filters) {
+    console.log(filters);
+    return this.afs.collection('products', ref => ref
+      .where('certificaciones', 'array-contains', 'organico')
+      .where('certificaciones', 'array-contains', 'apto-veganos')
+    ).valueChanges().subscribe( res => {
+      console.log(res);
+    } )
+  }
+
 }

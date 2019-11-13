@@ -25,6 +25,11 @@
                         <li>
                             <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
                         </li>
+                        <li
+                            routerLink='/carrito'>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            Carrito
+                        </li>
                         <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
                             routerLink='/admin'>
                             <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -52,6 +57,11 @@
                     <ul class='account-dropdown'>
                         <li (click)='logout()'>
                             <i class="fa fa-cutlery" aria-hidden="true"></i> Mi surtido
+                        </li>
+                        <li *ngIf="loginService.user"
+                            routerLink='/carrito'>
+                            <i class="fa fa-cart" aria-hidden="true"></i>
+                            Carrito
                         </li>
                         <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
                             routerLink='/admin'>

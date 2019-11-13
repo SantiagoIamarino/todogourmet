@@ -40,7 +40,8 @@
                                 <li *ngFor='let certificacion of filters.certificaciones'>
                                     <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
                                             [attr.value]='certificacion.formattedFilter'>
-                                    <label [attr.for]='certificacion.formattedFilter'>
+                                    <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
+                                        [attr.for]='certificacion.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
                                         <i class='fa fa-check check-icon'></i>
                                         {{ certificacion.nombre }}
@@ -58,7 +59,8 @@
                                 <li *ngFor='let rubro of filters.rubros'>
                                     <input type="checkbox" [attr.id]='rubro.formattedFilter'  
                                             [attr.value]='rubro.formattedFilter'>
-                                    <label [attr.for]='rubro.formattedFilter'>
+                                    <label (click)="filterChanged('rubro', rubro.formattedFilter)"
+                                        [attr.for]='rubro.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
                                         <i class='fa fa-check check-icon'></i>
                                         {{ rubro.nombre }}
@@ -74,7 +76,8 @@
                         <div class="filter-options">
                             <ul class="ks-cboxtags">
                                 <li *ngFor='let tipo of filters.tipos'>
-                                    <input type="checkbox" [attr.id]='tipo.formattedFilter'  
+                                    <input (click)="filterChanged('tipo', tipo.formattedFilter)"
+                                        type="checkbox" [attr.id]='tipo.formattedFilter'  
                                             [attr.value]='tipo.formattedFilter'>
                                     <label [attr.for]='tipo.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
@@ -115,7 +118,8 @@
                     </div>
                 </div>
                 <div class="filters-submit-button">
-                    <button>Aplicar filtros</button>
+                    <button (click)='applyFilters()'
+                    >Aplicar filtros</button>
                 </div>
             </div>
             <div class="products normal-display">
