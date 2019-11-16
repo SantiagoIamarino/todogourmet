@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from './cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  preference: any;
+
+  constructor(
+    private cartService: CartService
+  ) { }
 
   ngOnInit() {
+  }
+
+  checkout() {
+    this.cartService.checkOutMP().subscribe( (res: any) => {
+      if (res.response && res.ok) {
+        this.preference = res.response;
+        console.log(this.preference);
+      }
+    } );
   }
 
 }

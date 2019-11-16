@@ -6,8 +6,11 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProductComponent } from './product/product.component';
+
+// Pipes
 import { ValuePipe } from 'src/app/pipes/value.pipe';
 import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
+import { ImagesPipe } from 'src/app/pipes/images.pipe';
 
 
 
@@ -18,7 +21,8 @@ import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
     LoadingComponent,
     ProductComponent,
     ValuePipe,
-    PrecioBultoPipe
+    PrecioBultoPipe,
+    ImagesPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
     FooterComponent,
     NavbarComponent,
     LoadingComponent,
-    ProductComponent
+    ProductComponent,
+    ValuePipe,
+    ImagesPipe
   ]
 })
 export class SharedModule { }

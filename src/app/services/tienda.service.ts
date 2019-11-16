@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { BACKEND_URL } from '../config/config';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,8 @@ export class TiendaService {
   };
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private http: HttpClient
   ) {
    }
 
@@ -48,17 +52,33 @@ export class TiendaService {
   }
 
   getProducts() {
-    return this.afs.collection('products').valueChanges();
+    const url = BACKEND_URL + '/products/';
+
+    return this.http.get(url).pipe(
+      map( (res: any) => {
+        return res.products;
+      } )
+    );
+  }
+
+  searchByQuery( term: string ) {
+    const url = BACKEND_URL + '/products/' + term;
+
+    return this.http.get(url).pipe(
+      map( (res: any) => {
+        return res.products;
+      })
+    );
   }
 
   searchByFilters(filters) {
-    console.log(filters);
-    return this.afs.collection('products', ref => ref
-      .where('certificaciones', 'array-contains', 'organico')
-      .where('certificaciones', 'array-contains', 'apto-veganos')
-    ).valueChanges().subscribe( res => {
-      console.log(res);
-    } )
+    const url = BACKEND_URL + '/products/search/';
+
+    return this.http.post(url, filters).pipe(
+      map( (res: any) => {
+        return res.products;
+      } )
+    );
   }
 
 }

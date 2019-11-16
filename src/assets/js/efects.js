@@ -61,13 +61,11 @@ var overlay = $('.overlay'),
 function hamburger_cross() {
 
     if (isClosed) {
-        console.log('open');
         overlay.show();
         $('#hamburger_btn').removeClass('is-closed');
         $('#hamburger_btn').addClass('is-open')
         isClosed = false;
     } else {
-        console.log('close');
         overlay.hide();
         $('#hamburger_btn').removeClass('is-open');
         $('#hamburger_btn').addClass('is-closed');

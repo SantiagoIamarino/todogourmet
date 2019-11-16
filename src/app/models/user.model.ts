@@ -1,8 +1,10 @@
 export class User {
     constructor(
-        // tslint:disable-next-line: variable-name
-        public _uid?: string,
+        // tslint:disable: variable-name
         public phoneNumber?: string,
-        public role = 'USER_ROLE'
+        public role = 'CONSUMER_ROLE',
+        public cuit?: string,
+        public address?: string,
+        public _id?: string
     ) {}
 }

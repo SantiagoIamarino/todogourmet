@@ -6,7 +6,8 @@
             </div>
             <div class="search">
                 <div class="input-group input-text">
-                    <input type="text" placeholder="Busca un producto">
+                    <input [(ngModel)]="filtersToApply.termino" (keyup)='searchProducts()'
+                        type="text" placeholder="Busca un producto" name='termino'>
                     <div class="submit-btn">
                         <button type='submit'>
                             <i class="fa fa-search" aria-hidden="true"></i>
@@ -96,7 +97,8 @@
                             <div class="checkbox-new">
                                 <p>No</p>
                                 <div class="checkbox-input">
-                                    <input type="checkbox" id="refrigerado" style="display:none" />
+                                    <input [(ngModel)]="filtersToApply.estaRefrigerado" name="estaRefrigerado"
+                                        type="checkbox" id="refrigerado" style="display:none" />
                                     <label for="refrigerado" class="toggle">
                                         <span></span>
                                     </label>
@@ -109,9 +111,10 @@
                         <div class="select-title">
                             <label for="tipo">Marcas</label>
                         </div>
-                        <select class="input-select" id="tipo" *ngIf="!loadingService.loading">
+                        <select [(ngModel)]="filtersToApply.marca" name='marca'  *ngIf="!loadingService.loading"
+                            class="input-select" id="tipo">
                             <option value="">Selecciona una marca</option>
-                            <option [value]="marca.nombre" *ngFor='let marca of filters.marcas'>
+                            <option [value]="marca.formattedFilter" *ngFor='let marca of filters.marcas'>
                                 {{ marca.nombre }}
                             </option>
                         </select>

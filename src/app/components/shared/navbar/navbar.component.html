@@ -16,7 +16,7 @@
                 class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" 
                 class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
-            <div class="account" *ngIf='loginService.user._uid'>
+            <div class="account" *ngIf='loginService.user._id'>
                 <li onclick='showDropdown()' class='animated fadeInDown account-btn'>
                     Mi cuenta
                     <i class="fa fa-chevron-down"></i>
@@ -50,7 +50,7 @@
             <!-- Not in home -->
             <li routerLink='/home' routerLinkActive="active" class='animated fadeInDown'>Inicio</li>
             <li routerLink='/tienda' routerLinkActive="active" class='animated fadeInDown' (click)="page = 'tienda'">Tienda</li>
-            <div class="account" *ngIf='loginService.user._uid'>
+            <div class="account" *ngIf='loginService.user._id'>
                 <li onclick='showDropdown()' class='animated fadeInDown account-btn'>
                     Mi cuenta
                     <i class="fa fa-chevron-down"></i>
@@ -60,7 +60,7 @@
                         </li>
                         <li *ngIf="loginService.user"
                             routerLink='/carrito'>
-                            <i class="fa fa-cart" aria-hidden="true"></i>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Carrito
                         </li>
                         <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"

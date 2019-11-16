@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 declare function hideModal();
 
 import sweetAlert from 'sweetalert';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   numberError = false;
   showLogin = true;
 
-  user: any;
+  user: User =  new User();
 
   constructor(
     public loginService: LoginService,
@@ -58,26 +59,38 @@ export class LoginComponent implements OnInit {
             })
             .catch( error => {
               this.numberError = true;
-              console.log(error );
              } );
 
   }
 
   verifyLoginCode() {
     this.windowRef.confirmationResult
-                  .confirm(this.verificationCode)
-                  .then( result => {
+        .confirm(this.verificationCode)
+        .then( result => {
 
-                    this.user = result.user;
-                    this.loginService.createOrGetUser(this.user);
-                    hideModal();
-                    sweetAlert(
-                      'Inicio de sesión',
-                      'Iniciaste sesión correctamente!',
-                      'success'
-                     );
+          this.user = result.user;
+          this.loginService.getUser(this.user.phoneNumber).subscribe( (res: any) => {
+            if (res.user) {
+              this.loginService.login(this.user).then( () => {
+                sweetAlert(
+                  'Inicio de sesión',
+                  'Iniciaste sesión correctamente!',
+                  'success'
+                );
+              });
+            } else {
+              this.loginService.register(this.user).then( () => {
+                sweetAlert(
+                  'Inicio de sesión',
+                  'Iniciaste sesión correctamente!',
+                  'success'
+                );
+              } );
+            }
+          } );
 
-    })
+          hideModal();
+      })
     .catch( error => {
       sweetAlert(
         'Error',

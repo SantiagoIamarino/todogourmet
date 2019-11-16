@@ -4,7 +4,7 @@
             src="../../../../assets/img/not-found.png" alt="">
 
         <img class='img-fluid' *ngIf="product.img && !tempImg"
-        [src]="product.img" alt="">
+        [src]="product.img | images" alt="">
 
         <img class='img-fluid temp' *ngIf="tempImg"
         [src]="tempImg" alt="">
@@ -15,7 +15,7 @@
             <input type="file"  (change)='imgSelected($event)' id='file_selector'>
         </div>
 
-        <div onclick='openFileSelector("edit")' *ngIf='product.id'
+        <div onclick='openFileSelector("edit")' *ngIf='product._id'
              class="background-on-hover">
             <i class="fa fa-camera fa-3x" aria-hidden="true"></i>
 
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="filters" *ngIf="!loading && product.id">
+    <div class="filters" *ngIf="!loading && product._id">
         <div class="filter certificacion">
             <div class="filter-title">
                 <label for="">Certificación</label>
@@ -150,13 +150,13 @@
         </div>
     </div>
     <div class="add-to-cart">
-        <button *ngIf='!product.id'
+        <button *ngIf='!product._id'
             data-toggle="modal" data-target="#uploadProduct" >
             <i class="fa fa-save mr-1"></i>
             SUBIR PRODUCTO
         </button>
 
-        <button (click)='editProduct()' *ngIf='product.id'>
+        <button (click)='editProduct()' *ngIf='product._id'>
             <i class="fa fa-save mr-1"></i>
             EDITAR PRODUCTO
         </button>

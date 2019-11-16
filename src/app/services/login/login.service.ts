@@ -1,12 +1,16 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-import * as firebase from 'firebase';
-
-import { environment } from '../../../environments/environment';
 import { User } from '../../models/user.model';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../components/shared/loading/loading.service';
+import { HttpClient } from '@angular/common/http';
+import { BACKEND_URL } from '../../config/config';
+
+
+import sweetAlert from 'sweetalert';
+declare var swal;
+import * as firebase from 'firebase';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -17,26 +21,18 @@ export class LoginService {
   userState = new EventEmitter();
 
   user: User = new User();
+  token: string;
 
   constructor(
-    public afs: AngularFirestore,
+    public http: HttpClient,
     private router: Router,
     public loadingService: LoadingService
   ) {
     this.loadingService.loading = true;
+    this.getStorage();
 
     firebase.initializeApp(environment.firebase);
     firebase.auth().languageCode = 'es';
-
-    firebase.auth().onAuthStateChanged( user => {
-      if (user) {
-        this.createOrGetUser(user);
-      } else {
-        this.loadingService.loading = false;
-        this.userState.emit('No user');
-      }
-    } );
-
    }
 
 
@@ -44,26 +40,117 @@ export class LoginService {
     return window;
   }
 
-  createOrGetUser( user ) {
-    this.afs.collection('users', ref => ref.where('_uid', '==', user.uid)).valueChanges()
-      .subscribe( (userDB: any) => {
+  saveInStorage(user, token) {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
 
-        if (userDB.length > 0) {
-          this.user = userDB[0];
+    this.token = token;
+    this.user = user;
+  }
+
+  getStorage() {
+    if (localStorage.getItem('user') && localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
+  }
+
+  getCuitAndAddress() {
+
+    return new Promise( (resolve, reject) => {
+      swal('Ingresa tu cuit', {
+        content: 'input',
+      })
+      .then((cuit) => {
+        if (!cuit) {
+          reject('Debes ingresar un cuit');
         } else {
-          let newUser = new User(user.uid, user.phoneNumber);
-          newUser = JSON.parse(JSON.stringify(newUser));
+          this.user.cuit = cuit;
+          swal('Ingresa la dirección del comercio', {
+            content: 'input',
+          }).then((address) => {
+            if (!address) {
+              reject('Debes ingresar la dirección de tu comercio');
+            } else {
+              this.user.address = address;
+              console.log(this.user);
+              resolve('Data obtained');
+            }
+          });
+        }
+      });
+    } );
+  }
 
-          this.afs.collection('users').add( newUser ).then( res => {
-            this.user = newUser;
+  getUser(phoneNumber) {
+    const url = BACKEND_URL + '/users/' + phoneNumber;
+
+
+    return this.http.get(url);
+  }
+
+  createUser( user ) {
+    const url =  BACKEND_URL + '/users/register';
+
+    const userToUpload = new User(
+      user.phoneNumber,
+      user.role,
+      (user.cuit) ? user.cuit : '',
+      (user.address) ? user.address : ''
+    );
+
+    return new Promise( (resolve, reject) => {
+      this.http.post(url, userToUpload).subscribe( (res: any) => {
+        if (res.user && res.token) {
+          this.saveInStorage(res.user, res.token);
+          resolve('User created');
+        }
+      } );
+    } );
+  }
+
+  register(user) {
+
+    this.user = user;
+
+    return new Promise( (resolve, reject) => {
+      sweetAlert('¿Cual sera tu rol dentro del sitio?', {
+        buttons: ['Consumidor final', 'Comercio'],
+      }).then( (isCommerce) => {
+        if (!isCommerce) {
+          this.createUser(this.user).then( () => {
+            resolve('Logged and registered like a consumer');
+          } );
+        } else {
+          this.user.role = 'COMMERCE_ROLE';
+          this.getCuitAndAddress().then( () => {
+            this.createUser(this.user).then( () => {
+              resolve('Logged and registered like a commerce');
+            } );
+          } )
+          .catch( message => {
+            sweetAlert(message, '', 'error');
+            reject(message);
           } );
         }
 
-        this.loadingService.loading = false;
-        this.userState.emit('User obtained');
-
       } );
+    } );
   }
+
+  login( user ) {
+    const url = BACKEND_URL + '/users/login';
+
+    return new Promise( (resolve, reject) => {
+      this.http.post(url, user).subscribe( (res: any) => {
+        if (res.user) {
+          this.saveInStorage(res.user, res.token);
+          resolve('Logged');
+        }
+      } );
+    } );
+  }
+
 
   logout() {
     firebase.auth().signOut().then( res => {

@@ -13,10 +13,16 @@ import { LoginService } from '../services/login/login.service';
 export class LoginGuard implements CanActivate {
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   canActivate() {
+
+    if (!this.loginService.user || !this.loginService.token) {
+      this.router.navigate(['/home']);
+      return false;
+    }
 
     return true;
   }

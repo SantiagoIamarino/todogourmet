@@ -15,10 +15,12 @@ export class TiendaComponent implements OnInit {
   filters: Filters = new Filters();
 
   filtersToApply = {
-    marcas: [],
+    termino: '',
+    marca: '',
     certificaciones: [],
     rubros: [],
-    tipos: []
+    tipos: [],
+    estaRefrigerado: false
   };
 
   products: Product[] = [];
@@ -87,7 +89,22 @@ export class TiendaComponent implements OnInit {
     }
   }
 
+  searchProducts() {
+
+    if (this.filtersToApply.termino) {
+      this.tiendaService.searchByQuery(this.filtersToApply.termino)
+        .subscribe( (products: any) => {
+          this.products = products;
+        } );
+    } else {
+      this.getPosts();
+    }
+  }
+
   applyFilters() {
-    this.tiendaService.searchByFilters(this.filtersToApply);
+    this.tiendaService.searchByFilters(this.filtersToApply)
+      .subscribe( products => {
+        this.products = products;
+      } );
   }
 }

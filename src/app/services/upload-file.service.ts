@@ -2,6 +2,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { BACKEND_URL } from '../config/config';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,33 +12,31 @@ export class UploadFileService {
 
   images: any[] = [];
 
-  uploadPercentage: Observable<number>;
+  uploadPercentage: any;
 
   public downloadUrl = new EventEmitter();
 
   constructor(
-    private storage: AngularFireStorage
+    private http: HttpClient
   ) { }
 
-   uploadImage(image, path) {
+   uploadImage(image, anuncioId) {
+    return new Promise( (resolve, reject) => {
 
-    const file = image;
-    image.path = '/' + path + '/' + image.name;
-    const fileRef = this.storage.ref(image.path);
-    const task = this.storage.upload(image.path, file);
+      const formData = new FormData();
 
-    this.uploadPercentage = task.percentageChanges();
+      formData.append('photo', image);
 
-    return this.uploadPercentage.pipe(
+      const url = BACKEND_URL + '/upload/' + anuncioId;
 
-      finalize( () => {
-        fileRef.getDownloadURL().subscribe( url => {
-          this.downloadUrl.emit(url);
-        } );
-      } )
+      this.http.post(url, formData).subscribe( (resp: any) => {
+        if (resp.ok) {
+          this.uploadPercentage = '100';
+          resolve('Images uploaded');
+        }
+      } );
 
-    );
-
+    } );
    }
 
 }

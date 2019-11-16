@@ -60,10 +60,17 @@
                 <p>Total: <span>$450</span></p>
             </div>
             <div class="pay">
-                <button class='btn-pay'>
+                <button class='btn-pay' (click)='checkout()'>
                     Pagar ahora
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<form action="/procesar-pago" method="POST" *ngIf='preference'>
+    <script
+     src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+     data-preference-id="{{ preference.id }}">
+    </script>
+</form>

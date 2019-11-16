@@ -107,30 +107,22 @@ export class EditProductComponent implements OnChanges {
     }
   }
 
-  uploadImages() {
+  uploadImages(anuncioId: string) {
     return new Promise( (resolve, reject) => {
 
+      console.log(this.product.img, this.imgToUpload);
+
       if ( this.product.img && !this.imgToUpload ) {
+        console.log('se fue');
         resolve('Theres no image to upload');
+        return;
       }
 
       this.uploadProgress = 'loading';
 
-      const uploadImageSubscriber =
-        this.uploadFileService.uploadImage( this.imgToUpload, 'products' ).subscribe( percentage => {
-
-          const getDownloadUrlSubscriber =
-            this.uploadFileService.downloadUrl.subscribe( url => {
-                if (url) {
-                  this.product.img = url; // Getting download URL
-
-                  uploadImageSubscriber.unsubscribe();
-                  getDownloadUrlSubscriber.unsubscribe();
-
-                  resolve('images uploaded');
-                }
-              } );
-
+      this.uploadFileService.uploadImage( this.imgToUpload, anuncioId )
+        .then( () => {
+          resolve('Image uploaded');
       } );
     } );
   }
@@ -152,21 +144,22 @@ export class EditProductComponent implements OnChanges {
       return;
     }
 
-    this.uploadImages().then( () => {
-      this.productService.editProduct(this.product);
+    this.productService.editProduct(this.product).then( (product: any) => {
 
-      this.productService.productUpdated.subscribe( () => {
+      this.uploadImages(product._id).then( () => {
         sweetAlert(
           'Producto editado',
           'El producto se ha editado correctamente',
           'success'
         );
 
-        closeEditModal('uploadProduct');
+        closeEditModal('editModal');
         this.product = new Product();
         this.uploadProgress = null;
         this.tempImg = null;
-      } );
+
+        this.productService.productsUpdated.emit('updated');
+      });
     } );
   }
 
@@ -183,9 +176,9 @@ export class EditProductComponent implements OnChanges {
       return;
     }
 
-    this.uploadImages().then( () => {
-      this.productService.uploadProduct(this.product).then( res => {
+    this.productService.uploadProduct(this.product).then( (product: any) => {
 
+      this.uploadImages(product._id).then( () => {
         sweetAlert(
           'Producto subido',
           'El producto se ha subido correctamente',
@@ -196,7 +189,9 @@ export class EditProductComponent implements OnChanges {
         this.product = new Product();
         this.uploadProgress = null;
         this.tempImg = null;
-      } );
+
+        this.productService.productsUpdated.emit('updated');
+      });
     } );
   }
 

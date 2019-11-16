@@ -21,6 +21,9 @@ export class ProductosComponent implements OnInit {
     private productService: ProductService
   ) {
     this.getProducts();
+    this.productService.productsUpdated.subscribe( () => {
+      this.getProducts();
+    } );
    }
 
   ngOnInit() {
@@ -30,6 +33,7 @@ export class ProductosComponent implements OnInit {
     this.loading = true;
     this.productService.getProducts().subscribe( (products: any) => {
       this.products = products;
+      console.log(products);
       this.loading = false;
     } );
   }
@@ -38,10 +42,10 @@ export class ProductosComponent implements OnInit {
     if (term) {
       this.loading = true;
 
-      this.productService.searchProducts(term).subscribe( (results: any) => {
-          this.products = results;
+      this.productService.searchProducts(term).subscribe( (res: any) => {
+          this.products = res.products;
           this.loading = false;
-        } );
+      } );
 
     } else {
       this.getProducts();
@@ -60,16 +64,14 @@ export class ProductosComponent implements OnInit {
       icon: 'warning'
     }).then( wantsToDelete => {
       if (wantsToDelete) {
-        this.productService.deleteProduct( product );
-
-        const listener =
-          this.productService.productDeleted.subscribe( res => {
-            sweetAlert(
-              'Producto eliminado',
-              'El producto se ha eliminado correctamente',
-              'success'
-            );
-          });
+        this.productService.deleteProduct( product ).subscribe( () => {
+          sweetAlert(
+            'Producto eliminado',
+            'El producto se ha eliminado correctamente',
+            'success'
+          );
+        } );
+        window.location.reload();
       }
     } );
   }

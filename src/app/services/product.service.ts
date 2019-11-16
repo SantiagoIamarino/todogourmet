@@ -2,29 +2,42 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../models/product.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { LoadingService } from '../components/shared/loading/loading.service';
+import { BACKEND_URL } from '../config/config';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  productUpdated = new EventEmitter();
-
-  productDeleted = new EventEmitter();
+  productsUpdated = new EventEmitter();
 
   constructor(
     private afs: AngularFirestore,
+    private http: HttpClient,
     private loadingService: LoadingService
   ) {
    }
 
   getProducts() {
-    return this.afs.collection('products').valueChanges();
+    const url = BACKEND_URL + '/products';
+
+    return this.http.get(url).pipe(
+      map( (res: any) => {
+        return res.products;
+      } )
+    );
   }
 
   getProduct(id: string) {
-    return this.afs.collection('products', ref => ref.where('id', '==', id))
-      .valueChanges();
+    const url = BACKEND_URL + '/products/product/' + id;
+
+    return this.http.get(url).pipe(
+      map( (res: any) => {
+        return res.product;
+      } )
+    );
   }
 
   getCertifications(certificaciones) {
@@ -50,50 +63,40 @@ export class ProductService {
   }
 
   searchProducts( term: string ) {
-    return this.afs.collection('products',
-       ref => ref.orderBy('name')
-                 .startAt(term)
-                 .endAt(term + '\uf8ff')
-    ).valueChanges();
+    const url = BACKEND_URL + '/products/' + term;
+
+    return this.http.get(url);
+  }
+
+  uploadImages() {
+
   }
 
   uploadProduct( product: Product) {
+    const url = BACKEND_URL + '/products';
 
-    product.id = new Date().valueOf().toString();
-
-    product = JSON.parse(JSON.stringify(product));
-
-    return this.afs.collection('products').add( product );
+    return new Promise( (resolve, reject) => {
+      this.http.post(url, product).subscribe( (res: any) => {
+        if (res.product) {
+          resolve(res.product);
+        }
+      } );
+    } );
   }
 
   editProduct( product: Product) {
+    const url = BACKEND_URL + '/products/' + product._id;
 
-    product = JSON.parse(JSON.stringify(product));
-
-    const subscriber =
-      this.afs.collection('products', ref => ref.where('id', '==', product.id))
-        .snapshotChanges().subscribe( res => {
-          const productDBId = res[0].payload.doc.id;
-          const productItem = this.afs.doc('products/' + productDBId);
-
-          productItem.update(product).then( () => {
-            this.productUpdated.emit('Product updated');
-            subscriber.unsubscribe();
-          } );
-        } );
+    return new Promise( (resolve, reject) => {
+      this.http.put(url, product).subscribe( (res: any) => {
+        resolve(res.productUpdated);
+      } );
+    } );
   }
 
   deleteProduct( product: Product ) {
-    this.afs.collection('products', ref => ref.where('id', '==', product.id))
-        .snapshotChanges().subscribe( res => {
-          if (res.length > 0) {
-            const productId = res[0].payload.doc.id;
-            const productDoc = this.afs.doc('products' + '/' + productId);
+    const url = BACKEND_URL + '/products/' + product._id;
 
-            productDoc.delete().then( () => {
-              this.productDeleted.emit('Product deleted');
-            } );
-          }
-        });
+    return this.http.delete(url);
   }
 }
