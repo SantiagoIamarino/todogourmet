@@ -1,42 +1,35 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { contactMessage } from '../../../../models/contact-message.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { BACKEND_URL } from '../../../../config/config';
+import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../../../../services/login/login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactoService {
 
-  messageDeleted = new EventEmitter();
-
   constructor(
-    private afs: AngularFirestore
+    private http: HttpClient,
+    private loginService: LoginService
   ) { }
 
-  getMessages(){
-    return this.afs.collection('messages').valueChanges();
+  getMessages() {
+    let url = BACKEND_URL + '/contact';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
   }
 
   uploadMessage( message: contactMessage ) {
+    const url = BACKEND_URL + '/contact';
 
-    message.id = new Date().valueOf().toString();
-
-    message = JSON.parse(JSON.stringify(message));
-
-    return this.afs.collection('messages').add( message );
+    return this.http.post(url, message);
   }
 
   deleteMessage( message: contactMessage ) {
-    this.afs.collection('messages', ref => ref.where('id', '==', message.id))
-        .snapshotChanges().subscribe( res => {
-          if (res.length > 0) {
-            const messageId = res[0].payload.doc.id;
-            const messageDoc = this.afs.doc('message' + '/' + messageId);
-
-            messageDoc.delete().then( () => {
-              this.messageDeleted.emit('Message deleted');
-            } );
-          }
-        });
+    let url = BACKEND_URL + '/contact/' + message._id;
+    url += '?token=' + this.loginService.token;
+    return this.http.delete(url);
   }
 }

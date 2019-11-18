@@ -9,7 +9,7 @@ export class contactMessage {
         public phone?: number,
         public affair?: string,
         public message?: string,
-        public id?: string
+        public _id?: string
     ) {}
 
 }

@@ -32,16 +32,26 @@
         <div class="product-prices">
             <div class="unidad">
                 <p>Unidad</p>
-                <span>${{ product.precioUnit | number : '1.2-2' }}</span>
+                <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
+                    ${{ product.precioComercio | number : '1.2-2' }}
+                </span>
+                <span *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
+                    ${{ product.precioUnit | number : '1.2-2' }}
+                </span>
             </div>
             <div class="cantidad">
                 <p>Bulto (5 u.)</p>
-                <span>${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}</span>
+                <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
+                    ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
+                </span>
+                <span *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
+                    ${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}
+                </span>
             </div>
         </div>
     </div>
     <div class="add-to-cart">
-        <button (click)='addToCart()'>
+        <button (click)='addToCart(product._id)'>
             AGREGAR AL CARRITO
             <i class="fa fa-shopping-cart"></i>
         </button>

@@ -6,6 +6,8 @@ import { Filters } from '../../../models/filters.model';
 
 declare function goToTop(animationTime);
 
+declare function downloadObjectAsJson(exportObj, exportName);
+
 @Component({
   selector: 'app-tienda',
   templateUrl: './tienda.component.html',
@@ -34,8 +36,8 @@ export class TiendaComponent implements OnInit {
     this.tiendaService.getAllFilters().then( (filters: any) => {
       this.filters = this.tiendaService.filters;
       this.loadingService.loading = false;
+      // downloadObjectAsJson(this.filters.marcas, 'Marcas');
     } );
-
   }
 
   ngOnInit() {

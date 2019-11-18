@@ -55,6 +55,13 @@ export class LoginService {
     }
   }
 
+  destroyStorage() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.token = null;
+    this.user = null;
+  }
+
   getCuitAndAddress() {
 
     return new Promise( (resolve, reject) => {
@@ -153,9 +160,7 @@ export class LoginService {
 
 
   logout() {
-    firebase.auth().signOut().then( res => {
-      this.user = new User();
-    } );
+    this.destroyStorage();
   }
 
 }

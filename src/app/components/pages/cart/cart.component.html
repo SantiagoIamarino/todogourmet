@@ -3,7 +3,7 @@
         <h2>Mi carrito</h2>
         <hr>
     </div>
-    <div class="product-list mt-4">
+    <div class="product-list mt-4" *ngIf='products.length > 0'>
         <table class="table">
             <thead>
                 <tr>
@@ -16,21 +16,31 @@
                 </tr>
             </thead>
             <tbody *ngIf='!loading'>
-                <tr class='product-item'>
+                <tr class='product-item' *ngFor='let product of products; let i = index'>
                     <th scope="row">
                         <div class="img">
                             <img class='img-fluid img-circle' 
-                            src="../../../../assets/img/productos/1783.jpg">
+                            [src]="product.productId.img | images">
                         </div>
                     </th>
-                    <td class='title'>Lorem ipsum dolor sit amet.</td>
+                    <td class='title'>{{ product.productId.name }}</td>
                     <td class='quantity'>
-                        <input type="number">
+                        <input type="number" [(ngModel)]="product.quantity" name='quantity'
+                            min="1" max='100'>
                     </td>
-                    <td class='price'>$200</td>
-                    <td class="subtotal">$300</td>
+                    <td class='price'>$
+                        {{ 
+                            (loginService.user._id && loginService.user.role === 'COMMERCE_ROLE') 
+                                ? product.productId.precioComercio 
+                                : product.productId.precioUnit
+                        }}
+                    </td>
+                    <td class="subtotal">$
+                        {{ getSubtotal(product) }}
+                    </td>
                     <td class="remove-item">
-                        <button class='btn btn-outline-danger'>
+                        <button (click)='removeItem(product)'
+                            class='btn btn-outline-danger'>
                             Remover
                         </button>
                     </td>
@@ -56,8 +66,8 @@
             </div>
         </table>
         <div class="bottom">
-            <div class="total">
-                <p>Total: <span>$450</span></p>
+            <div class="total" *ngIf='total'>
+                <p>Total: <span>${{ total }}</span></p>
             </div>
             <div class="pay">
                 <button class='btn-pay' (click)='checkout()'>
@@ -65,6 +75,12 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div class="no-products" *ngIf='products.length <= 0'>
+        <h2>No tienes ningun producto agregado al carrito</h2>
+        <button routerLink='/tienda'>
+            Ir a la tienda
+        </button>
     </div>
 </div>
 

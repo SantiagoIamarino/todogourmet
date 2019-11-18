@@ -42,8 +42,13 @@ export class ContactoComponent implements OnInit {
 
   contactFormSubmit() {
 
+    if (isNaN(this.form.controls.phone.value)) {
+      this.returnError('El telefono debe ser numerico');
+      return;
+    }
+
     if (this.form.valid) {
-      this.contactoService.uploadMessage( this.form.value ).then( () => {
+      this.contactoService.uploadMessage( this.form.value ).subscribe( () => {
         sweetAlert(
           'Mensaje enviado',
           'Mensaje enviado correctamente, en breve responderemos!',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactoService } from '../../home/contacto/contacto.service';
 import { contactMessage } from '../../../../models/contact-message.model';
+import { LoadingService } from '../../../shared/loading/loading.service';
 
 @Component({
   selector: 'app-mensajes',
@@ -12,7 +13,8 @@ export class MensajesComponent implements OnInit {
   messages: contactMessage[] = [];
 
   constructor(
-    private contactoService: ContactoService
+    private contactoService: ContactoService,
+    private loadingService: LoadingService
   ) {
     this.getMessages();
    }
@@ -21,8 +23,11 @@ export class MensajesComponent implements OnInit {
   }
 
   getMessages() {
-    this.contactoService.getMessages().subscribe( (messages: any) => {
-      this.messages = messages;
+    this.loadingService.loading = true;
+
+    this.contactoService.getMessages().subscribe( (res: any) => {
+      this.messages = res.messages;
+      this.loadingService.loading = false;
     } );
   }
 
@@ -33,16 +38,14 @@ export class MensajesComponent implements OnInit {
       icon: 'warning'
     }).then( wantsToDelete => {
       if (wantsToDelete) {
-        this.contactoService.deleteMessage( message );
-
-        const listener =
-          this.contactoService.messageDeleted.subscribe( res => {
-            sweetAlert(
-              'Mensaje eliminado',
-              'El mensaje se ha eliminado correctamente',
-              'success'
-            );
-          });
+        this.contactoService.deleteMessage( message ).subscribe( () => {
+          sweetAlert(
+            'Mensaje eliminado',
+            'El mensaje se ha eliminado correctamente',
+            'success'
+          );
+          this.getMessages();
+        });
       }
     } );
   }

@@ -110,10 +110,7 @@ export class EditProductComponent implements OnChanges {
   uploadImages(anuncioId: string) {
     return new Promise( (resolve, reject) => {
 
-      console.log(this.product.img, this.imgToUpload);
-
       if ( this.product.img && !this.imgToUpload ) {
-        console.log('se fue');
         resolve('Theres no image to upload');
         return;
       }
@@ -143,6 +140,7 @@ export class EditProductComponent implements OnChanges {
       sweetAlert('Error', validation.errors, 'error');
       return;
     }
+
 
     this.productService.editProduct(this.product).then( (product: any) => {
 

@@ -4,6 +4,10 @@ function showDropdown() {
     $('.account .account-dropdown').slideToggle(300);
 }
 
+function hideDropdown() {
+    $('.account .account-dropdown').slideUp(300);
+}
+
 
 // Navbar Scroll--------------------------------------------------
 
