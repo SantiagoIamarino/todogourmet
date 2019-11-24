@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="product-prices">
-            <div class="unidad">
+            <div class="unidad" [ngClass]="{active: product.quantity < 5}">
                 <p>Unidad</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
                     ${{ product.precioComercio | number : '1.2-2' }}
@@ -39,7 +39,7 @@
                     ${{ product.precioUnit | number : '1.2-2' }}
                 </span>
             </div>
-            <div class="cantidad">
+            <div class="cantidad" [ngClass]="{active: product.quantity >= 5}">
                 <p>Bulto (5 u.)</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
                     ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
@@ -48,10 +48,32 @@
                     ${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}
                 </span>
             </div>
+            <div class="subtotal">
+                <div class="quantity">
+                    <button class='less' [disabled]='product.quantity === 1'
+                    (click)="quantityChanges('less', product)">-</button>
+                    <input type="text" (change)="quantityChanges('changed', product)" [(ngModel)]="product.quantity" name='quantity'>
+                    <button class='more' (click)="quantityChanges('more', product)">+</button>
+                </div>
+                <div class="subtotal-value" *ngIf='!product.total'>
+                    <p>Subtotal: 
+                        <span>$
+                            {{ (loginService.user && loginService.user.role === 'COMMERCE_ROLE')
+                                ? product.precioComercio
+                                : product.precioUnit
+                            }}
+                        </span>
+                    </p>
+                </div>
+
+                <div class="subtotal-value" *ngIf='product.total'>
+                    <p>Subtotal: <span>${{ product.total }}</span></p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="add-to-cart">
-        <button (click)='addToCart(product._id)'>
+        <button (click)='addToCart(product)'>
             AGREGAR AL CARRITO
             <i class="fa fa-shopping-cart"></i>
         </button>

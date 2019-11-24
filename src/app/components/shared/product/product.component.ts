@@ -36,26 +36,44 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  addToCart(productId: string) {
+  quantityChanges(moreOrLess: string, product) {
 
-    swal(
-      '¿Deseas añadir este producto al carrito?',
-      'Ofrecemos opciones de compra por bulto o unidad, ¿Cual deseas?',
-      'warning', {
-      buttons: {
-        cancel: 'Cancelar',
-        catch: {
-          text: 'Por bulto',
-          value: 'bulto'
-        },
-        defeat: {
-          text: 'Por unidad',
-          value: 'unidad'
-        },
-      },
-    }).then( metodo => {
-      if (metodo) {
-        this.cartService.addProductToCart(productId, metodo)
+    if (product.quantity >= 1000) {
+      product.quantity = 999;
+    }
+
+    if (product.quantity <= 0) {
+      product.quantity = 1;
+    }
+
+    // tslint:disable: radix
+
+    if (moreOrLess !== 'changed') {
+      if (moreOrLess === 'less') {
+        if (product.quantity > 1) {
+          product.quantity = parseInt(product.quantity) - 1;
+        }
+      } else {
+        product.quantity = parseInt(product.quantity) + 1;
+      }
+    }
+
+    let price = 0;
+    if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
+      price = product.precioComercio;
+    } else if (product.quantity >= 5) {
+      const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
+      const precioPorBulto: any = product.precioUnit * discount;
+      price = Math.round(precioPorBulto);
+    } else {
+      price = product.precioUnit;
+    }
+
+    product.total = product.quantity * price;
+  }
+
+  addToCart(product) {
+    this.cartService.addProductToCart(product._id, product.quantity)
           .subscribe( (res: any) => {
             swal(res.message, {
               buttons: ['Seguir comprando', 'Ir al carrito'],
@@ -66,8 +84,6 @@ export class ProductComponent implements OnInit {
               }
             } );
         } );
-      }
-    } );
   }
 
 }

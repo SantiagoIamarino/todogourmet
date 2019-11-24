@@ -14,7 +14,7 @@ declare function downloadObjectAsJson(exportObj, exportName);
   styleUrls: ['./tienda.component.css']
 })
 export class TiendaComponent implements OnInit {
-  filters: Filters = new Filters();
+  filters: any = new Filters();
 
   filtersToApply = {
     termino: '',

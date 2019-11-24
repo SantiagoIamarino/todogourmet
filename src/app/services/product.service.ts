@@ -20,8 +20,12 @@ export class ProductService {
   ) {
    }
 
-  getProducts() {
-    const url = BACKEND_URL + '/products';
+  getProducts(limit: number = 0) {
+    let url = BACKEND_URL + '/products';
+
+    if (limit !== 0) {
+      url += '?limit=' + limit;
+    }
 
     return this.http.get(url).pipe(
       map( (res: any) => {
@@ -74,6 +78,8 @@ export class ProductService {
 
   uploadProduct( product: Product) {
     const url = BACKEND_URL + '/products';
+
+    product.quantity = 1;
 
     return new Promise( (resolve, reject) => {
       this.http.post(url, product).subscribe( (res: any) => {

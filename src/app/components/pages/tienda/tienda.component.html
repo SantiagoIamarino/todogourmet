@@ -5,6 +5,9 @@
                 <h2>TIENDA</h2>
             </div>
             <div class="search">
+                <div class="mi-surtido">
+                    <button class='mi-surtido-btn'>Mi surtido</button>
+                </div>
                 <div class="input-group input-text">
                     <input [(ngModel)]="filtersToApply.termino" (keyup)='searchProducts()'
                         type="text" placeholder="Busca un producto" name='termino'>

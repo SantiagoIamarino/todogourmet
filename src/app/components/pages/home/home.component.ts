@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getPosts() {
     this.loadingService.loading = true;
-    this.productsService.getProducts().subscribe( (products: any) => {
+    this.productsService.getProducts(4).subscribe( (products: any) => {
       this.products = products;
       this.loadingService.loading = false;
     } );

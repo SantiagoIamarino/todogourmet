@@ -12,6 +12,8 @@ declare var swal;
 import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
 
+declare function handleAdditionalInfoModal(option);
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,8 @@ export class LoginService {
 
   user: User = new User();
   token: string;
+
+  isCommerce = false;
 
   constructor(
     public http: HttpClient,
@@ -60,6 +64,7 @@ export class LoginService {
     localStorage.removeItem('user');
     this.token = null;
     this.user = null;
+    console.log('hecho');
   }
 
   getCuitAndAddress() {
@@ -80,7 +85,6 @@ export class LoginService {
               reject('Debes ingresar la dirección de tu comercio');
             } else {
               this.user.address = address;
-              console.log(this.user);
               resolve('Data obtained');
             }
           });
@@ -96,15 +100,89 @@ export class LoginService {
     return this.http.get(url);
   }
 
+  returnMessageError(message) {
+    sweetAlert(
+      'Error',
+      message,
+      'error'
+    );
+  }
+
+  changeHour(type, value) {
+    if (type === 'specific') {
+      this.user.hours = null;
+
+      const elementExists = this.user.specificHours.indexOf(value);
+      if (elementExists > - 1) { // Exists
+        this.user.specificHours.splice(elementExists, 1);
+      } else {
+        this.user.specificHours.push(value);
+      }
+    } else {
+      this.user.specificHours = [];
+
+      this.user.hours = value;
+    }
+  }
+
+  additionalInfo(form) {
+    if (!form.name) {
+      this.returnMessageError('Debes ingresar un nombre');
+      return;
+    }
+
+    if (!form.shippingAddress) {
+      this.returnMessageError('Debes ingresar una dirección');
+      return;
+    }
+
+    if (!form.userEmail) {
+      this.returnMessageError('Debes ingresar un email');
+      return;
+    }
+
+    if (this.isCommerce && !this.user.hours && this.user.specificHours.length <= 0) {
+      this.returnMessageError('Debes ingresar un horario de atención');
+      return;
+    }
+
+    handleAdditionalInfoModal('hide');
+
+    if (!this.isCommerce) {
+      this.createUser(this.user).then( () => {
+        this.userState.emit('Logged and registered like a consumer');
+      } );
+    } else {
+      this.user.role = 'COMMERCE_ROLE';
+      this.getCuitAndAddress().then( () => {
+        this.createUser(this.user).then( () => {
+          this.userState.emit('Logged and registered like a commerce');
+        } );
+      } )
+      .catch( message => {
+        sweetAlert(message, '', 'error');
+      } );
+    }
+
+  }
+
   createUser( user ) {
     const url =  BACKEND_URL + '/users/register';
 
     const userToUpload = new User(
       user.phoneNumber,
       user.role,
+      user.name,
+      user.userEmail,
       (user.cuit) ? user.cuit : '',
-      (user.address) ? user.address : ''
+      (user.address) ? user.address : '',
+      user.shippingAddress,
+      (user.specificHours) ? user.specificHours : [],
+      (user.hours) ? user.hours : null,
+      (user.additionalHours) ? user.additionalHours : null
     );
+
+    delete userToUpload._id;
 
     return new Promise( (resolve, reject) => {
       this.http.post(url, userToUpload).subscribe( (res: any) => {
@@ -120,27 +198,15 @@ export class LoginService {
 
     this.user = user;
 
+    this.user.specificHours = [];
+    this.user.hours = null;
+
     return new Promise( (resolve, reject) => {
       sweetAlert('¿Cual sera tu rol dentro del sitio?', {
         buttons: ['Consumidor final', 'Comercio'],
       }).then( (isCommerce) => {
-        if (!isCommerce) {
-          this.createUser(this.user).then( () => {
-            resolve('Logged and registered like a consumer');
-          } );
-        } else {
-          this.user.role = 'COMMERCE_ROLE';
-          this.getCuitAndAddress().then( () => {
-            this.createUser(this.user).then( () => {
-              resolve('Logged and registered like a commerce');
-            } );
-          } )
-          .catch( message => {
-            sweetAlert(message, '', 'error');
-            reject(message);
-          } );
-        }
-
+        this.isCommerce = isCommerce;
+        handleAdditionalInfoModal('show');
       } );
     } );
   }

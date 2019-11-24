@@ -50,11 +50,16 @@ function goToTop(animationTime = 500) {
     return false;
 }
 
-// Close login modal---------------------------------------------
+// login---------------------------------------------
 
 function hideModal() {
     $('#loginModal').modal('hide');
 }
+
+function handleAdditionalInfoModal(option){
+    $('#additionalInfoModal').modal(option);
+}
+
 
 
 // Sidebar admin effects-------------------------------------------

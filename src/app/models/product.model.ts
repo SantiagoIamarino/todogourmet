@@ -11,6 +11,8 @@ export class Product {
         public certificaciones = [],
         public rubros = [],
         public tipos = [],
+        public quantity: number = 1,
+        public total?: number,
         public _id?: string
     ) {}
 }

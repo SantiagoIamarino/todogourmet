@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   numberError = false;
   showLogin = true;
 
+  moreHours = false;
+
   user: User =  new User();
 
   constructor(
@@ -61,6 +63,14 @@ export class LoginComponent implements OnInit {
               this.numberError = true;
              } );
 
+  }
+
+  changeHour(type, value) {
+    this.loginService.changeHour(type, value);
+  }
+
+  additionalInfo(form) {
+    this.loginService.additionalInfo(form);
   }
 
   verifyLoginCode() {

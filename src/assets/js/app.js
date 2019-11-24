@@ -180,13 +180,28 @@ function destroyScript() {
     body.removeChild(scriptLoader);
 }
 
-function downloadObjectAsJson(exportObj, exportName){
-    console.log(exportObj, exportName);
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+// function downloadObjectAsJson(exportObj, exportName){
+//     console.log(exportObj, exportName);
+//     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+//     var downloadAnchorNode = document.createElement('a');
+//     downloadAnchorNode.setAttribute("href",     dataStr);
+//     downloadAnchorNode.setAttribute("download", exportName + ".json");
+//     document.body.appendChild(downloadAnchorNode); // required for firefox
+//     downloadAnchorNode.click();
+//     downloadAnchorNode.remove();
+// }
+
+// Checkout-------------------------------
+
+function showButton(preferenceId) {
+    const form = document.getElementById('checkout_form');
+    if(form.children.length == 0){
+        const script = document.createElement('script');
+        script.setAttribute('data-preference-id', preferenceId);
+        script.setAttribute('data-button-label', 'Pagar ahora con MercadoPago');
+        script.type = 'text/javascript';
+        script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
+        form.appendChild(script);
+    }
+    
   }

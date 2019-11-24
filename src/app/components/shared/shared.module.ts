@@ -11,6 +11,7 @@ import { ProductComponent } from './product/product.component';
 import { ValuePipe } from 'src/app/pipes/value.pipe';
 import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
 import { ImagesPipe } from 'src/app/pipes/images.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -26,6 +27,7 @@ import { ImagesPipe } from 'src/app/pipes/images.pipe';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule
   ],
   exports: [

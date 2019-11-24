@@ -15,7 +15,7 @@
                     <th scope="col">Remover</th>
                 </tr>
             </thead>
-            <tbody *ngIf='!loading'>
+            <tbody *ngIf='!loadingService.loading'>
                 <tr class='product-item' *ngFor='let product of products; let i = index'>
                     <th scope="row">
                         <div class="img">
@@ -24,9 +24,11 @@
                         </div>
                     </th>
                     <td class='title'>{{ product.productId.name }}</td>
-                    <td class='quantity'>
-                        <input type="number" [(ngModel)]="product.quantity" name='quantity'
-                            min="1" max='100'>
+                    <td class="quantity">
+                        <button class='less' [disabled]='product === 1'
+                        (click)="getSubtotal('less', product)">-</button>
+                        <input type="text" (change)="getSubtotal('changed', product)" [(ngModel)]="product.quantity" name='quantity'>
+                        <button class='more' (click)="getSubtotal('more', product)">+</button>
                     </td>
                     <td class='price'>$
                         {{ 
@@ -36,7 +38,7 @@
                         }}
                     </td>
                     <td class="subtotal">$
-                        {{ getSubtotal(product) }}
+                        {{ getSubtotal('changed', product) }}
                     </td>
                     <td class="remove-item">
                         <button (click)='removeItem(product)'
@@ -70,7 +72,8 @@
                 <p>Total: <span>${{ total }}</span></p>
             </div>
             <div class="pay">
-                <button class='btn-pay' (click)='checkout()'>
+                <button class='btn-pay' (click)='checkout()'
+                    data-toggle="modal" data-target="#checkoutModal">
                     Pagar ahora
                 </button>
             </div>
@@ -84,9 +87,29 @@
     </div>
 </div>
 
-<form action="/procesar-pago" method="POST" *ngIf='preference'>
-    <script
-     src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-     data-preference-id="{{ preference.id }}">
-    </script>
-</form>
+  
+  <!-- Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="checkoutModalLabel">Pasarela de pago</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h2>Estas a un paso de realizar tu compra!</h2>
+            <hr>
+            <p class='mt-4'>Puedes efectuar el pago utilizando el botón a continuación.</p>
+            <div class="checkout-form mt-4 text-center">
+                <form id='checkout_form' [attr.action]="postUrl" method="POST" >
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>

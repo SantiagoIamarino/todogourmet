@@ -57,7 +57,7 @@
     margin: 0 auto;
 }
 
-.login-button {
+.login-button, .cart-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
@@ -78,20 +78,39 @@
     margin-right: 10px;
 }
 
-.login-button:hover {
+.cart-button i{
+    font-size: 30px;
+}
+
+.cart-button span{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: -8px;
+    background: white;
+    padding: 0px 6px;
+    color: rgb(194, 54, 49);
+    border: 1px solid rgb(194, 54, 49);
+    border-radius: 50%;
+}
+
+.login-button:hover,
+.cart-button:hover{
     transition: .3s all ease;
     background: white;
     color: rgb(194, 54, 49);
 }
 
 @media screen and (max-width: 1000px){
-    .login-button{
+    .login-button,
+    .cart-button {
         padding: 12px 40px;
     }
 }
 
 @media screen and (max-width: 600px){
-    .login-button{
+    .login-button,
+    .cart-button{
         padding: 10px 30px;
         font-size: 14px;
         left: 10px;

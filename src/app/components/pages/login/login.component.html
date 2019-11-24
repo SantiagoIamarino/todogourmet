@@ -40,6 +40,9 @@
                                         </div>
                                         <hr>
                                         <div class="recaptcha-container" id='recaptcha-container'></div>
+                                        <div class="error text-danger" *ngIf='numberError'>
+                                            <p>Ha ocurrido un error al enviar el mensaje, probablemente has realizado demasiados intentos. Prueba mas tarde!</p>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -70,4 +73,103 @@
         <i class="fa fa-sign-in" aria-hidden="true"></i>
         Iniciar sesión
     </button>
+    <button *ngIf='loginService.user._id' type="button" class="cart-button" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span>1</span>
+    </button>
+</div>
+
+<div class="modal fade" id="additionalInfoModal" tabindex="-1" role="dialog" aria-labelledby="additionalInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="additionalInfoModalLabel">Datos adicionales</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f='ngForm'>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nombre y apellido:</label>
+            <input type="text" [(ngModel)]="loginService.user.name" name='name'
+                class="form-control" id="recipient-name" placeholder="Nombre y apellido">
+          </div>
+          <div class="form-group">
+            <label for="recipient-address" class="col-form-label">Dirección de entrega:</label>
+            <input type="text" [(ngModel)]="loginService.user.shippingAddress" name='shippingAddress'
+                class="form-control" id="recipient-address" placeholder="Dirección ejemplo 234">
+          </div>
+          <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Correo electronico:</label>
+                <input type="text" [(ngModel)]="loginService.user.userEmail" name='userEmail'
+                    class="form-control" id="recipient-email" placeholder="tucorreo@correo.com">
+          </div>
+          <div class="form-group hours" *ngIf='loginService.isCommerce'>
+            <label for="recipient-name" class="col-form-label">Horarios de atención:</label>
+            <div class="horarios text-center">
+                <div class="others d-flex justify-content-between mb-2">
+                    <div class="btn-group mr-2 " role="group" aria-label="First group">
+                        <button (click)="changeHour('global', 'Lunes a Viernes')"
+                             type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.hours !== 'Lunes a Viernes', 'btn-danger': loginService.user.hours === 'Lunes a Viernes'}">
+                             LU a VI</button>
+                        <button (click)="changeHour('global', 'Lunes a Sabados')"
+                             type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.hours !== 'Lunes a Sabados', 'btn-danger': loginService.user.hours === 'Lunes a Sabados'}">
+                             LU a SAB</button>
+                    </div>
+                    <div class="more">
+                        <button (click)='moreHours = !moreHours'
+                            type="button" class="btn btn-outline-danger" >
+                            Añadir horario
+                        </button>
+                    </div>
+                </div>
+                <div class="mas-horarios" *ngIf='moreHours'>
+                    <div class="input-group mt-1 mb-3">
+                        <input [(ngModel)]="loginService.user.additionalHours" name='additionalHours'
+                            type="text" class="form-control" placeholder="Especifica un horario">
+                    </div>
+                </div>  
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button (click)="changeHour('specific', 'Lunes')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Lunes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Lunes') > - 1}">
+                         LU
+                    </button>
+                    <button (click)="changeHour('specific', 'Martes')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Martes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Martes') > - 1}">
+                         MA
+                    </button>
+                    <button (click)="changeHour('specific', 'Miercoles')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Miercoles') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Miercoles') > - 1}">
+                         MIE
+                    </button>
+                    <button (click)="changeHour('specific', 'Jueves')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Jueves') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Jueves') > - 1}">
+                         JUE
+                    </button>
+                    <button (click)="changeHour('specific', 'Viernes')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Viernes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Viernes') > - 1}">
+                         VIE
+                    </button>
+                    <button (click)="changeHour('specific', 'Sabado')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Sabado') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Sabado') > - 1}">
+                         SAB
+                    </button>
+                    <button (click)="changeHour('specific', 'Domingo')"
+                         type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Domingo') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Domingo') > - 1}">
+                         DOM
+                    </button>
+                </div>                      
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)='additionalInfo(f.value)'
+            class="btn btn-danger">
+            Guardar datos
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

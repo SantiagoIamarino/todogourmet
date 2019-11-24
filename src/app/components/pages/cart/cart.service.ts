@@ -21,12 +21,7 @@ export class CartService {
     return this.http.get(url);
   }
 
-  addProductToCart( productId, metodo ) {
-    let quantity = 1;
-
-    if (metodo === 'bulto') {
-      quantity = 5;
-    }
+  addProductToCart( productId, quantity ) {
 
     let url = BACKEND_URL + '/checkout/add-to-cart';
     url += '?token=' + this.loginService.token;
@@ -46,16 +41,19 @@ export class CartService {
     return this.http.delete(url);
   }
 
-  checkOutMP() {
+  checkOutMP(products) {
 
-    const product = {
-      title: 'Test product',
-      price: 300,
-      quantity: 1
-    };
+    products.forEach(product => {
+      product = {
+        title: product.productId.name,
+        price: product.subtotal,
+        quantity: product.quantity
+      };
+    });
 
-    const url = BACKEND_URL + '/checkout';
+    let url = BACKEND_URL + '/checkout';
+    url += '?token=' + this.loginService.token;
 
-    return this.http.post(url, product);
+    return this.http.post(url, products);
   }
 }

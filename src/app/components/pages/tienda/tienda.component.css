@@ -8,6 +8,7 @@
 .title-top-tienda{
     display: flex;
     justify-content: space-between;
+    align-items:center ;
     border-bottom: 1px solid #DE1B1B;
 }
 
@@ -23,13 +24,33 @@
     color: #DE1B1B ;
 }
 
+
 .title-top-tienda .search{
     width: 40%;
+    display: flex;
+    padding-bottom: 9px;
+}
+
+.title-top-tienda .mi-surtido button{
+    width: 100%;
+    padding: 10px 0;
+    color: white;
+    background: rgb(211, 45, 45);
+    border: 1px solid rgb(211, 45, 45);
+    font-size: 14px;
+    padding: 15px 0px;
+    width: 150px;
+}
+
+.title-top-tienda .mi-surtido button:hover{
+    background: white;
+    color:rgb(211, 45, 45);
+    transition: .3s all ease;
 }
 
 .title-top-tienda .search .input-text{
     border: 1px solid rgba(222, 27, 27, .7);
-    border-radius: 2px;
+    border-radius: 0px 2px 2px 0;
 }
 
 .title-top-tienda .search .input-text input[type='text']{
@@ -206,12 +227,12 @@
 .tienda .bottom-tienda .products{
     display: flex;
     flex-wrap: wrap;
-    width: 75%;
-    justify-content: space-between;
+    width: 77%;
 }
 
 .tienda .bottom-tienda .products app-product{
-    width: 24%;
+    width: 23%;
     margin-bottom: 20px;
     border-radius: 3px;
+    margin-left: 15px;
 }
