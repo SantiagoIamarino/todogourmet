@@ -11,6 +11,7 @@ export class User {
         public specificHours: any[] = [],
         public hours?: any,
         public additionalHours?: any,
+        public isMardel?: string,
         public _id = ''
     ) {}
 }

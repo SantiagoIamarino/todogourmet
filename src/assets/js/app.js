@@ -193,15 +193,28 @@ function destroyScript() {
 
 // Checkout-------------------------------
 
+function removeOldButton() {
+    const form = document.getElementById('checkout_form');
+    if(form.children.length !== 0){
+        while (form.firstChild) {
+            form.removeChild(form.firstChild);
+        }
+    }
+}
+
 function showButton(preferenceId) {
     const form = document.getElementById('checkout_form');
-    if(form.children.length == 0){
-        const script = document.createElement('script');
+    if(form.children.length !== 0){
+        while (form.firstChild) {
+            form.removeChild(form.firstChild);
+        }
+    }
+
+    const script = document.createElement('script');
         script.setAttribute('data-preference-id', preferenceId);
         script.setAttribute('data-button-label', 'Pagar ahora con MercadoPago');
         script.type = 'text/javascript';
         script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
         form.appendChild(script);
-    }
     
-  }
+}

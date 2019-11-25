@@ -1,0 +1,13 @@
+.configs{
+    padding: 30px 20px;
+    box-shadow: 1px 1px 3px gray;
+    border-radius: 3px;
+}
+
+.configs .config-values > div{
+    width: 45%;
+}
+
+.configs > div label{
+    width: 100%;
+}

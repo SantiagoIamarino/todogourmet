@@ -73,9 +73,10 @@
         <i class="fa fa-sign-in" aria-hidden="true"></i>
         Iniciar sesión
     </button>
-    <button *ngIf='loginService.user._id' type="button" class="cart-button" >
+    <button *ngIf='loginService.user._id && cartService.cartProductsLength > 0' 
+        type="button" class="cart-button" routerLink='/carrito'>
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span>1</span>
+        <span>{{ cartService.cartProductsLength }}</span>
     </button>
 </div>
 
@@ -160,6 +161,21 @@
                          DOM
                     </button>
                 </div>                      
+            </div>
+          </div>
+          <div class="is-mar-del-plata">
+              <label for="">¿Reside en Mar del Plata?</label>
+              <div class="ml-1 mardel-options d-flex">
+                <div class="option mr-3">
+                    <label for="mardelSi" class='mr-1'>Si</label>
+                    <input type="radio" [(ngModel)]="loginService.user.isMardel" name='isMardel' 
+                        id='mardelSi' value='true'>
+                </div>
+                <div class="option">
+                    <label for="mardelNo" class='mr-1'>No</label>
+                    <input type="radio" [(ngModel)]="loginService.user.isMardel" name='isMardel' 
+                        id='mardelNo' value='false'>
+                </div>
             </div>
           </div>
         </form>

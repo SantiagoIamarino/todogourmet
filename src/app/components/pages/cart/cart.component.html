@@ -25,10 +25,12 @@
                     </th>
                     <td class='title'>{{ product.productId.name }}</td>
                     <td class="quantity">
-                        <button class='less' [disabled]='product === 1'
-                        (click)="getSubtotal('less', product)">-</button>
-                        <input type="text" (change)="getSubtotal('changed', product)" [(ngModel)]="product.quantity" name='quantity'>
-                        <button class='more' (click)="getSubtotal('more', product)">+</button>
+                        <div class="quantity-container">
+                            <button class='less' [disabled]='product === 1'
+                            (click)="getSubtotal('less', product)">-</button>
+                            <input type="text" (change)="getSubtotal('changed', product)" [(ngModel)]="product.quantity" name='quantity'>
+                            <button class='more' (click)="getSubtotal('more', product)">+</button>
+                        </div>
                     </td>
                     <td class='price'>$
                         {{ 
@@ -68,8 +70,30 @@
             </div>
         </table>
         <div class="bottom">
-            <div class="total" *ngIf='total'>
-                <p>Total: <span>${{ total }}</span></p>
+            <div class="final-prices">
+                <div class="final-subtotal" *ngIf='subtotal'>
+                    <p>Subtotal: </p>
+                    <span>${{ subtotal }}.</span>
+                </div>
+                <div class="shipping" *ngIf='config'>
+                    <p>Envio
+                        <span *ngIf='!loginService.user.isMardel'>
+                            (Fuera de Mar del Plata)
+                        </span>
+                    :</p>
+                    <p class='value'>
+                        {{ 
+                            (loginService.user.isMardel)
+                            ?  (subtotal >= config.minValueToShipment ) ? 'Gratuito' : '$' + config.shippingCost 
+                            : 'a acordar.'
+                        }}
+                        
+                    </p>
+                </div>
+                <div class="total" *ngIf='total'>
+                    <p>Total: </p>
+                    <span>${{ total }}.</span>
+                </div>
             </div>
             <div class="pay">
                 <button class='btn-pay' (click)='checkout()'
@@ -101,10 +125,24 @@
         <div class="modal-body">
             <h2>Estas a un paso de realizar tu compra!</h2>
             <hr>
-            <p class='mt-4'>Puedes efectuar el pago utilizando el botón a continuación.</p>
-            <div class="checkout-form mt-4 text-center">
-                <form id='checkout_form' [attr.action]="postUrl" method="POST" >
-                </form>
+            <p class='mt-4'>Puedes efectuar el pago seleccionando alguna de las opciones que ofrecemos.</p>
+            <div class="payment-options">
+                <div class="efectivo">
+                    <button (click)="payment('efectivo')" data-target="#checkoutModal" data-toggle="modal"
+                        class='btn btn-outline-info'>
+                        <i class="fa fa-money mr-2"></i>Pagar en efectivo
+                    </button>
+                </div>
+                <div class="trans-bancaria mt-2">
+                    <button (click)="payment('bancaria')" data-target="#checkoutModal" data-toggle="modal"
+                        class='btn btn-outline-danger'>
+                        <i class="fa fa-university mr-2"></i>Transferencia bancaria
+                    </button>
+                </div>
+                <div class="checkout-form mt-2 text-center">
+                    <form id='checkout_form' [attr.action]="postUrl" method="POST" >
+                    </form>
+                </div>
             </div>
         </div>
         <div class="modal-footer">

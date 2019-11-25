@@ -9,10 +9,22 @@ import { LoginService } from '../../../services/login/login.service';
 })
 export class CartService {
 
+  cartProductsLength = 0;
+
   constructor(
     private http: HttpClient,
     private loginService: LoginService
-  ) { }
+  ) {
+    if (this.loginService.user && this.loginService.token) {
+      this.getProductsLength();
+    }
+   }
+
+  getProductsLength() {
+    this.getProducts().subscribe( (res: any) => {
+      this.cartProductsLength = res.products.length;
+    } );
+  }
 
   getProducts() {
     let url = BACKEND_URL + '/checkout/cart';
@@ -41,19 +53,49 @@ export class CartService {
     return this.http.delete(url);
   }
 
-  checkOutMP(products) {
+  removeAllProducts() {
+    let url = BACKEND_URL + '/checkout/cart/remove-all';
+    url += '?token=' + this.loginService.token;
 
-    products.forEach(product => {
-      product = {
-        title: product.productId.name,
-        price: product.subtotal,
-        quantity: product.quantity
-      };
-    });
+    return this.http.delete(url);
+  }
+
+  payment(body) {
+    let url = BACKEND_URL + '/orders';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.post(url, body);
+  }
+
+  checkOutMP(products, shippingConfig, subtotal) {
+
+    const productsToSend = [];
+
+    if (this.loginService.user.isMardel && subtotal < parseInt(shippingConfig.minValueToShipment)) {
+      const additionalCost = shippingConfig.shippingCost / products.length;
+
+      products.forEach((product, index) => {
+        const productToSend = {
+          title: product.productId.name,
+          price: (product.subtotal + additionalCost) / product.quantity,
+          quantity: product.quantity
+        };
+        productsToSend[index] = productToSend;
+      });
+    } else {
+      products.forEach((product, index) => {
+        const productToSend = {
+          title: product.productId.name,
+          price: product.subtotal / product.quantity,
+          quantity: product.quantity
+        };
+        productsToSend[index] = productToSend;
+      });
+    }
 
     let url = BACKEND_URL + '/checkout';
     url += '?token=' + this.loginService.token;
 
-    return this.http.post(url, products);
+    return this.http.post(url, productsToSend);
   }
 }

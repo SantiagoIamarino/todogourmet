@@ -6,7 +6,10 @@
             </div>
             <div class="search">
                 <div class="mi-surtido">
-                    <button class='mi-surtido-btn'>Mi surtido</button>
+                    <button routerLink='/surtido' *ngIf='loginService.user && loginService.user._id'
+                        class='mi-surtido-btn'>
+                        Mi surtido
+                    </button>
                 </div>
                 <div class="input-group input-text">
                     <input [(ngModel)]="filtersToApply.termino" (keyup)='searchProducts()'

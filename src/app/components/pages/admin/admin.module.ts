@@ -9,6 +9,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { FiltersFormComponent } from './filters/filters-form/filters-form.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { AdminComponent } from './admin.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 
@@ -18,7 +20,9 @@ import { AdminComponent } from './admin.component';
     AdminComponent,
     FiltersComponent,
     FiltersFormComponent,
-    MensajesComponent
+    MensajesComponent,
+    ConfigurationComponent,
+    OrdersComponent
   ],
   imports: [
     CommonModule,

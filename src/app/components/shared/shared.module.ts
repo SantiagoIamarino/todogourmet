@@ -12,6 +12,7 @@ import { ValuePipe } from 'src/app/pipes/value.pipe';
 import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
 import { ImagesPipe } from 'src/app/pipes/images.pipe';
 import { FormsModule } from '@angular/forms';
+import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
 
 
 
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     ProductComponent,
     ValuePipe,
     PrecioBultoPipe,
-    ImagesPipe
+    ImagesPipe,
+    ProductOneLinePipe
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { FormsModule } from '@angular/forms';
     LoadingComponent,
     ProductComponent,
     ValuePipe,
-    ImagesPipe
+    ImagesPipe,
+    ProductOneLinePipe
   ]
 })
 export class SharedModule { }

@@ -75,6 +75,8 @@ export class ProductComponent implements OnInit {
   addToCart(product) {
     this.cartService.addProductToCart(product._id, product.quantity)
           .subscribe( (res: any) => {
+            this.cartService.getProductsLength();
+
             swal(res.message, {
               buttons: ['Seguir comprando', 'Ir al carrito'],
               icon: 'success'

@@ -1,0 +1,26 @@
+<div class="container mt-2 animated fadeIn faster">
+    <div class="title">
+        <h2>Pedidos</h2>
+        <hr>
+    </div>
+    <div class="orders">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Productos</th>
+                    <th scope="col">Metodo de pago</th>
+                    <th scope="col">Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let order of orders'>
+                    <th scope="row">{{ order.user.userEmail }}</th>
+                    <td>{{ order.products | productOneLine }}</td>
+                    <td>{{ order.paymentMethod || 'Efectivo' }}</td>
+                    <td>{{ order.total }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { QuienesSomosComponent } from './quienes-somos/quienes-somos.component';
 import { EncontranosEnComponent } from './encontranos-en/encontranos-en.component';
 import { CartComponent } from './cart/cart.component';
 import { LoginGuard } from '../../guards/login.guard';
+import { SurtidoComponent } from './surtido/surtido.component';
 
 const PagesRoutes: Routes = [
     {
@@ -17,6 +18,7 @@ const PagesRoutes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'tienda', component: TiendaComponent },
             { path: 'carrito', canActivate: [LoginGuard], component: CartComponent },
+            { path: 'surtido', canActivate: [LoginGuard], component: SurtidoComponent },
             { path: 'login', component: LoginComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'encontranos-en', component: EncontranosEnComponent },

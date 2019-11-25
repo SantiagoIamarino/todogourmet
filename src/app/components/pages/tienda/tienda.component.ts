@@ -3,6 +3,7 @@ import { TiendaService } from '../../../services/tienda.service';
 import { LoadingService } from '../../shared/loading/loading.service';
 import { Product } from '../../../models/product.model';
 import { Filters } from '../../../models/filters.model';
+import { LoginService } from '../../../services/login/login.service';
 
 declare function goToTop(animationTime);
 
@@ -29,6 +30,7 @@ export class TiendaComponent implements OnInit {
 
   constructor(
     private tiendaService: TiendaService,
+    public loginService: LoginService,
     public loadingService: LoadingService
     ) {
     this.loadingService.loading = true;

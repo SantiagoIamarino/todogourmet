@@ -146,6 +146,11 @@ export class LoginService {
       return;
     }
 
+    if (!form.isMardel) {
+      this.returnMessageError('Especifica tu localidad');
+      return;
+    }
+
     handleAdditionalInfoModal('hide');
 
     if (!this.isCommerce) {
@@ -179,7 +184,8 @@ export class LoginService {
       user.shippingAddress,
       (user.specificHours) ? user.specificHours : [],
       (user.hours) ? user.hours : null,
-      (user.additionalHours) ? user.additionalHours : null
+      (user.additionalHours) ? user.additionalHours : null,
+      user.isMardel
     );
 
     delete userToUpload._id;
@@ -227,6 +233,7 @@ export class LoginService {
 
   logout() {
     this.destroyStorage();
+    window.location.reload();
   }
 
 }

@@ -9,6 +9,7 @@ declare function hideModal();
 
 import sweetAlert from 'sweetalert';
 import { User } from '../../../models/user.model';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +30,11 @@ export class LoginComponent implements OnInit {
 
   user: User =  new User();
 
+  cartProductsLength = 0;
+
   constructor(
     public loginService: LoginService,
+    public cartService: CartService,
     private router: Router
   ) {
   }

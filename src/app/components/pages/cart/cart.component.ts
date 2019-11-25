@@ -3,8 +3,14 @@ import { CartService } from './cart.service';
 import { LoadingService } from '../../shared/loading/loading.service';
 import { LoginService } from '../../../services/login/login.service';
 import { BACKEND_URL } from '../../../config/config';
+import { ConfigurationService } from '../admin/configuration.service';
+import { Router } from '@angular/router';
 
 declare function showButton(preferenceId);
+
+declare function removeOldButton();
+
+declare var swal;
 
 @Component({
   selector: 'app-cart',
@@ -19,15 +25,21 @@ export class CartComponent implements OnInit {
 
   subtotals = [];
   total = 0;
+  subtotal = 0;
 
   postUrl = BACKEND_URL + '/checkout/finished';
+
+  config: any;
 
   constructor(
     private cartService: CartService,
     public loginService: LoginService,
-    public loadingService: LoadingService
+    private configurationService: ConfigurationService,
+    public loadingService: LoadingService,
+    private router: Router
   ) {
     this.getProducts();
+    this.getConfigs();
    }
 
   ngOnInit() {
@@ -41,9 +53,13 @@ export class CartComponent implements OnInit {
     } );
   }
 
-  getSubtotal(moreOrLess: string, product) {
+  getConfigs() {
+    this.configurationService.getConfigs().subscribe( (res: any) => {
+      this.config = res.configs[0];
+    } );
+  }
 
-    console.log(product);
+  getSubtotal(moreOrLess: string, product) {
 
     if (product.quantity >= 1000) {
       product.quantity = 999;
@@ -67,26 +83,37 @@ export class CartComponent implements OnInit {
 
     let price = 0;
     if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
-      price = product.precioComercio;
+      price = product.productId.precioComercio;
     } else if (product.quantity >= 5) {
-      const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
-      const precioPorBulto: any = product.precioUnit * discount;
+      const discount: any = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
+      const precioPorBulto: any = product.productId.precioUnit * discount;
       price = Math.round(precioPorBulto);
     } else {
-      price = product.precioUnit;
+      price = product.productId.precioUnit;
     }
 
     product.subtotal = product.quantity * price;
-    this.getTotal();
+    this.getTotals();
 
     return product.subtotal;
   }
 
-  getTotal() {
+  getTotals() {
+    this.subtotal = 0;
     this.total = 0;
     this.products.forEach(product => {
-      this.total += product.subtotal;
+      this.subtotal += product.subtotal;
     });
+
+    if (this.loginService.user.isMardel && this.config) {
+      if (this.subtotal < this.config.minValueToShipment) {
+        this.total = this.subtotal + parseInt(this.config.shippingCost);
+      } else {
+        this.total = this.subtotal;
+      }
+    } else {
+      this.total = this.subtotal;
+    }
   }
 
   removeItem(product) {
@@ -98,13 +125,44 @@ export class CartComponent implements OnInit {
         this.cartService.removeProductFromCart(product._id).subscribe( (res: any) => {
           sweetAlert(res.message, { icon: 'success' });
           this.getProducts();
+          this.cartService.getProductsLength();
         } );
       }
     } );
   }
 
+  payment(type: string) {
+
+    const body = {
+      user: this.loginService.user._id,
+      products: [],
+      paymentMethod: type,
+      total : this.total
+    };
+
+    this.products.forEach(product => {
+      body.products.push(product.productId._id);
+    });
+
+    this.cartService.payment(body).subscribe( (res: any) => {
+        swal(
+          'Pedido realizado correctamente',
+          'Nos contactaremos a la brevedad para coordinar la compra!',
+          'success'
+        ).then( () => {
+          this.router.navigate(['/tienda']);
+        } );
+
+        this.cartService.removeAllProducts().subscribe( () => {
+          this.cartService.getProductsLength();
+        } );
+    } );
+  }
+
   checkout() {
-    this.cartService.checkOutMP(this.products).subscribe( (res: any) => {
+    removeOldButton();
+    this.cartService.checkOutMP(this.products, this.config, this.subtotal)
+    .subscribe( (res: any) => {
       if (res.response && res.ok) {
         this.preference = res.response;
         showButton(this.preference.body.id);

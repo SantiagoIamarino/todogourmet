@@ -36,6 +36,37 @@
     max-width: 70px;
 }
 
+.product-list .quantity .quantity-container{
+    display: flex;
+}
+
+.product-list .quantity button{
+    background: none;
+    border: none;
+    font-size: 22px;
+    padding: 0 8px;
+    cursor: pointer;
+    color: black;
+    font-weight: normal;
+    line-height: initial;
+    background: red;
+    color: white;
+}
+
+.product-list .quantity button:disabled{
+    background: #df9c9c;
+}
+
+.product-list .quantity input{
+    width: 80%;
+    text-align: center;
+    font-size: 15px;
+    padding: 3.5px 0;
+    border: none;
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+}
+
 .bottom{
     border-top: 1px solid #dcdcdc;
     margin-top: 20px;
@@ -45,9 +76,25 @@
     padding: 10px 0;
 }
 
-.bottom .total {
+.bottom .final-prices{
+    width: 100%;
+    max-width: 350px;
+    padding-right: 10px;
+}
+
+.bottom .final-prices > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom .final-prices > div{
     font-size: 20px;
-    padding: 0px 7rem;
+}
+
+.bottom .shipping p span{
+    color: rgb(98, 97, 97);
+    opacity: .6;
+    font-size: 16px;
 }
 
 .bottom .total span{
@@ -69,6 +116,14 @@
     transition: .3s all ease;
     background: white;
     color: rgb(211, 45, 45);
+}
+
+.payment-options{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .no-products{
