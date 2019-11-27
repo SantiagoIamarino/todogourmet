@@ -1,6 +1,7 @@
 <div class="producto">
     <div class="esta-refrigerado-o-no" *ngIf='product.estaRefrigerado'>
-        <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+        <i [routerLink]="['/tienda', 'refrigerado', 'si']"
+            class="fa fa-snowflake-o" aria-hidden="true"></i>
         <div class="product-popover">
             <p>Refrigerado</p>
         </div>
@@ -22,7 +23,8 @@
             <div class="imgs">
                 <div *ngFor='let certification of certificaciones'
                      class="certification-img">
-                    <img class='img-fluid' [src]='certification.imagen' alt="">
+                    <img class='img-fluid' [src]='certification.imagen' alt=""
+                        [routerLink]="['/tienda', 'certificacion', certification.formattedFilter]">
                     <div class="certification-popover">
                         <p>{{ certification.nombre }}</p>
                     </div>

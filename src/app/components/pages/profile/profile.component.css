@@ -1,0 +1,10 @@
+.profile-options{
+    margin-bottom: 15vh;
+}
+
+.profile-options form>div{
+    padding: 20px;
+    box-shadow: 1px 1px 3px gray;
+    border-radius: 3px;
+    width: 100%;
+}

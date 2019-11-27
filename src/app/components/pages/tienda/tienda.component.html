@@ -7,7 +7,7 @@
             <div class="search">
                 <div class="mi-surtido">
                     <button routerLink='/surtido' *ngIf='loginService.user && loginService.user._id'
-                        class='mi-surtido-btn'>
+                        class='mi-surtido-btn mr-4'>
                         Mi surtido
                     </button>
                 </div>
@@ -46,7 +46,8 @@
                             <ul class="ks-cboxtags">
                                 <li *ngFor='let certificacion of filters.certificaciones'>
                                     <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
-                                            [attr.value]='certificacion.formattedFilter'>
+                                            [attr.value]='certificacion.formattedFilter'
+                                            [ngClass]="{'active': this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0}">
                                     <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
                                         [attr.for]='certificacion.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
@@ -103,7 +104,8 @@
                             <div class="checkbox-new">
                                 <p>No</p>
                                 <div class="checkbox-input">
-                                    <input [(ngModel)]="filtersToApply.estaRefrigerado" name="estaRefrigerado"
+                                    <input [(ngModel)]="filtersToApply.estaRefrigerado" (change)='applyFilters(true)'
+                                        name="estaRefrigerado"
                                         type="checkbox" id="refrigerado" style="display:none" />
                                     <label for="refrigerado" class="toggle">
                                         <span></span>
@@ -113,11 +115,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter select-marcas">
+                    <div class="filter select-marcas" *ngIf="!loadingService.loading">
                         <div class="select-title">
                             <label for="tipo">Marcas</label>
                         </div>
-                        <select [(ngModel)]="filtersToApply.marca" name='marca'  *ngIf="!loadingService.loading"
+                        <select [(ngModel)]="filtersToApply.marca" (change)='applyFilters()'
+                            name='marca'
                             class="input-select" id="tipo">
                             <option value="">Selecciona una marca</option>
                             <option [value]="marca.formattedFilter" *ngFor='let marca of filters.marcas'>
@@ -125,10 +128,6 @@
                             </option>
                         </select>
                     </div>
-                </div>
-                <div class="filters-submit-button">
-                    <button (click)='applyFilters()'
-                    >Aplicar filtros</button>
                 </div>
             </div>
             <div class="products normal-display">

@@ -30,6 +30,11 @@
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Carrito
                         </li>
+                        <li
+                            routerLink='/perfil'>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Mi perfil
+                        </li>
                         <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
                             routerLink='/admin'>
                             <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -62,6 +67,11 @@
                             routerLink='/carrito'>
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Carrito
+                        </li>
+                        <li
+                            routerLink='/perfil'>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Mi perfil
                         </li>
                         <li *ngIf="loginService.user.role == 'ADMIN_ROLE'"
                             routerLink='/admin'>

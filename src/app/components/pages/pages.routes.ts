@@ -8,6 +8,7 @@ import { EncontranosEnComponent } from './encontranos-en/encontranos-en.componen
 import { CartComponent } from './cart/cart.component';
 import { LoginGuard } from '../../guards/login.guard';
 import { SurtidoComponent } from './surtido/surtido.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const PagesRoutes: Routes = [
     {
@@ -17,7 +18,9 @@ const PagesRoutes: Routes = [
             { path: 'home/:scrollTo', component: HomeComponent },
             { path: 'home', component: HomeComponent },
             { path: 'tienda', component: TiendaComponent },
+            { path: 'tienda/:filterType/:filterValue', component: TiendaComponent },
             { path: 'carrito', canActivate: [LoginGuard], component: CartComponent },
+            { path: 'perfil', canActivate: [LoginGuard], component: ProfileComponent },
             { path: 'surtido', canActivate: [LoginGuard], component: SurtidoComponent },
             { path: 'login', component: LoginComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },

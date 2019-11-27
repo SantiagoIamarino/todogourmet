@@ -4,6 +4,7 @@ import { LoadingService } from '../../shared/loading/loading.service';
 import { Product } from '../../../models/product.model';
 import { Filters } from '../../../models/filters.model';
 import { LoginService } from '../../../services/login/login.service';
+import { ActivatedRoute } from '@angular/router';
 
 declare function goToTop(animationTime);
 
@@ -31,15 +32,20 @@ export class TiendaComponent implements OnInit {
   constructor(
     private tiendaService: TiendaService,
     public loginService: LoginService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private route: ActivatedRoute
     ) {
     this.loadingService.loading = true;
 
     this.tiendaService.getAllFilters().then( (filters: any) => {
       this.filters = this.tiendaService.filters;
       this.loadingService.loading = false;
-      // downloadObjectAsJson(this.filters.marcas, 'Marcas');
+      console.log(this.filters);
     } );
+
+    this.route.paramMap.subscribe(params => {
+      this.applyParamsFilter(params.get('filterType'),params.get('filterValue'));
+    });
   }
 
   ngOnInit() {
@@ -91,6 +97,19 @@ export class TiendaComponent implements OnInit {
         this.filtersToApply.tipos = tipos;
       }
     }
+
+    this.applyFilters();
+  }
+
+  applyParamsFilter(filterType: string, filterValue: any) {
+    if (filterType && filterValue) {
+      if (filterType === 'refrigerado') {
+        this.filtersToApply.estaRefrigerado = true;
+        this.applyFilters(true);
+      } else {
+        this.filterChanged(filterType, filterValue);
+      }
+    }
   }
 
   searchProducts() {
@@ -105,7 +124,16 @@ export class TiendaComponent implements OnInit {
     }
   }
 
-  applyFilters() {
+  applyFilters(applyRefrigerado = false) {
+
+    if (!applyRefrigerado) {
+      this.tiendaService.searchByFilters(this.filtersToApply, true)
+      .subscribe( products => {
+        this.products = products;
+      } );
+      return;
+    }
+
     this.tiendaService.searchByFilters(this.filtersToApply)
       .subscribe( products => {
         this.products = products;

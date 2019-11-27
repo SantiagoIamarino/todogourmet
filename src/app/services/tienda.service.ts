@@ -71,8 +71,12 @@ export class TiendaService {
     );
   }
 
-  searchByFilters(filters) {
-    const url = BACKEND_URL + '/products/search/';
+  searchByFilters(filters, deleteRefrigerado = false) {
+    let url = BACKEND_URL + '/products/search/';
+
+    if (deleteRefrigerado) {
+      url += '?deleteRefrigerado=yes';
+    }
 
     return this.http.post(url, filters).pipe(
       map( (res: any) => {

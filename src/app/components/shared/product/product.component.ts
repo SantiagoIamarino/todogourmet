@@ -59,7 +59,7 @@ export class ProductComponent implements OnInit {
     }
 
     let price = 0;
-    if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
+    if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE' && product.quantity < 5) {
       price = product.precioComercio;
     } else if (product.quantity >= 5) {
       const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);

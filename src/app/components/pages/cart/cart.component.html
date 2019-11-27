@@ -12,7 +12,7 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Subtotal</th>
-                    <th scope="col">Remover</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody *ngIf='!loadingService.loading'>
@@ -45,7 +45,7 @@
                     <td class="remove-item">
                         <button (click)='removeItem(product)'
                             class='btn btn-outline-danger'>
-                            Remover
+                            Eliminar
                         </button>
                     </td>
                 </tr>

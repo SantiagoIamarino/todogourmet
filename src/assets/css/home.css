@@ -93,17 +93,20 @@ ul.ks-cboxtags li label i {
 }
 
 ul.ks-cboxtags li label i.check-icon,
-ul.ks-cboxtags li input[type="checkbox"]:checked+label i.add-icon{
+ul.ks-cboxtags li input[type="checkbox"]:checked+label i.add-icon,
+ul.ks-cboxtags li input[type="checkbox"].active+label i.add-icon{
     display:none;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked+label i.check-icon {
+ul.ks-cboxtags li input[type="checkbox"]:checked+label i.check-icon,
+ul.ks-cboxtags li input[type="checkbox"].active+label i.check-icon {
     display:inline-block;
     font-size: 10px;
     transition: all .1s ease-in-out;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked+label {
+ul.ks-cboxtags li input[type="checkbox"]:checked+label,
+ul.ks-cboxtags li input[type="checkbox"].active+label {
     border: 1px solid rgb(211, 45, 45);
     background-color: rgb(211, 45, 45);
     color: #fff;

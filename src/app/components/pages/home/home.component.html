@@ -31,7 +31,7 @@
     <div class="productos-destacados">
         <div class="categories">
             <div class="container categories-container">
-                <div class="category">
+                <div class="category" [routerLink]="['/tienda', 'certificacion', 'organico']">
                     <div class='category-content'>
                         <div class="img">
                             <img src="../../../../assets/img/frutos-secos.jpg" alt="Alimentos organicos">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="category">
+                <div class="category" [routerLink]="['/tienda', 'certificacion', 'aptoveganos']">
                     <div class='category-content'>
                         <div class="img">
                             <img src="../../../../assets/img/veganos.jpg" alt="Alimentos veganos">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="category">
+                <div class="category" [routerLink]="['/tienda', 'certificacion', 'sintacc']">
                     <div class='category-content'>
                         <div class="img">
                             <img src="../../../../assets/img/sin-tac.jpg" alt="Alimentos sin tacc">
@@ -68,7 +68,7 @@
                 <h2>Productos destacados</h2>
                 <div class="see-more">
                     <button [routerLink]="['/tienda']" >
-                        Ver más
+                        Ir a la tienda
                     </button>
                 </div>
             </div>

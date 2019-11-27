@@ -200,6 +200,13 @@ export class LoginService {
     } );
   }
 
+  updateUser( user: User ) {
+    let url = BACKEND_URL + '/users';
+    url += '?token=' + this.token;
+
+    return this.http.put(url, user);
+  }
+
   register(user) {
 
     this.user = user;
