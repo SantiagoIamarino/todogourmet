@@ -14,6 +14,8 @@ export class ConfigurationComponent implements OnInit {
 
   config: any;
 
+  message: string;
+
   constructor(
     private configurationService: ConfigurationService,
     private loadingService: LoadingService
@@ -42,7 +44,14 @@ export class ConfigurationComponent implements OnInit {
         swal('Configuracion actualizada', res.message, 'success');
         this.getConfigs();
        });
-   }
+  }
+
+  sendMessage() {
+    this.configurationService.sendMessage(this.message).subscribe( (res: any) => {
+      swal('Mensaje enviado', res.message, 'success');
+      this.message = '';
+    } );
+  }
 
   ngOnInit() {
   }

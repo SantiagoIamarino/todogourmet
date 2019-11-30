@@ -12,6 +12,8 @@ export class User {
         public hours?: any,
         public additionalHours?: any,
         public isMardel?: string,
+        public birthDay?: string,
+        public newsletter = false,
         public _id = ''
     ) {}
 }

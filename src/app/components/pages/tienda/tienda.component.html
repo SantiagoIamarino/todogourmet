@@ -47,6 +47,7 @@
                                 <li *ngFor='let certificacion of filters.certificaciones'>
                                     <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
                                             [attr.value]='certificacion.formattedFilter'
+                                            [checked]='this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0'
                                             [ngClass]="{'active': this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0}">
                                     <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
                                         [attr.for]='certificacion.formattedFilter'>
@@ -128,6 +129,9 @@
                             </option>
                         </select>
                     </div>
+                </div>
+                <div class="clean-filters">
+                    <button (click)='resetFilters()'>Limpiar filtros</button>
                 </div>
             </div>
             <div class="products normal-display">

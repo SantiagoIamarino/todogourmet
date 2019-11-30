@@ -5,6 +5,7 @@ import { LoadingService } from '../components/shared/loading/loading.service';
 import { BACKEND_URL } from '../config/config';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { LoginService } from './login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class ProductService {
   constructor(
     private afs: AngularFirestore,
     private http: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private loginService: LoginService
   ) {
    }
 
@@ -72,26 +74,40 @@ export class ProductService {
     return this.http.get(url);
   }
 
-  uploadImages() {
-
-  }
 
   uploadProduct( product: Product) {
-    const url = BACKEND_URL + '/products';
-
-    product.quantity = 1;
+    let url = BACKEND_URL + '/products';
+    url += '?token=' + this.loginService.token;
 
     return new Promise( (resolve, reject) => {
-      this.http.post(url, product).subscribe( (res: any) => {
-        if (res.product) {
-          resolve(res.product);
-        }
+
+      const subscriber =
+      this.afs.collection('marcas', ref => ref.where('formattedFilter', '==', product.marca))
+      .valueChanges().subscribe( (res: any) => {
+        product.marca = {
+          nombre: res[0].nombre,
+          formatted: res[0].formattedFilter
+        };
+
+        product.quantity = 1;
+
+        subscriber.unsubscribe();
+
+
+        this.http.post(url, product).subscribe( (resp: any) => {
+          if (resp.product) {
+            resolve(resp.product);
+          }
+        } );
+
       } );
+
     } );
   }
 
   editProduct( product: Product) {
-    const url = BACKEND_URL + '/products/' + product._id;
+    let url = BACKEND_URL + '/products/' + product._id;
+    url += '?token=' + this.loginService.token;
 
     return new Promise( (resolve, reject) => {
       this.http.put(url, product).subscribe( (res: any) => {
@@ -101,7 +117,8 @@ export class ProductService {
   }
 
   deleteProduct( product: Product ) {
-    const url = BACKEND_URL + '/products/' + product._id;
+    let url = BACKEND_URL + '/products/' + product._id;
+    url += '?token=' + this.loginService.token;
 
     return this.http.delete(url);
   }

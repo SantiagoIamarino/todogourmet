@@ -65,9 +65,10 @@
             <div class="footer-content">
                 <form action="">
                     <div class="input-group input-text">
-                        <input type="text" placeholder="Dejanos tu mail y recibí las novedades!">
+                        <input type="text" placeholder="Dejanos tu mail y recibí las novedades!" 
+                        [(ngModel)]="email" name='email'>
                         <div class="submit-btn">
-                            <button type='submit'>
+                            <button type='button' (click)='subscribeNewsletter()'>
                                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
                             </button>
                         </div>

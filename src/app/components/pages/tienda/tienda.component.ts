@@ -40,12 +40,12 @@ export class TiendaComponent implements OnInit {
     this.tiendaService.getAllFilters().then( (filters: any) => {
       this.filters = this.tiendaService.filters;
       this.loadingService.loading = false;
-      console.log(this.filters);
     } );
 
-    this.route.paramMap.subscribe(params => {
-      this.applyParamsFilter(params.get('filterType'),params.get('filterValue'));
-    });
+    this.applyParamsFilter(
+      this.route.snapshot.paramMap.get('filterType'),
+      this.route.snapshot.paramMap.get('filterValue')
+    );
   }
 
   ngOnInit() {
@@ -106,10 +106,26 @@ export class TiendaComponent implements OnInit {
       if (filterType === 'refrigerado') {
         this.filtersToApply.estaRefrigerado = true;
         this.applyFilters(true);
-      } else {
+      } else if (filterType !== 'marca') {
         this.filterChanged(filterType, filterValue);
+      } else {
+        this.filtersToApply.marca = filterValue;
+        this.applyFilters();
       }
     }
+  }
+
+  resetFilters() {
+    this.filtersToApply = {
+      termino: '',
+      marca: '',
+      certificaciones: [],
+      rubros: [],
+      tipos: [],
+      estaRefrigerado: false
+    };
+
+    this.applyFilters();
   }
 
   searchProducts() {

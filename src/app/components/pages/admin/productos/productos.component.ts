@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
 import { Product } from '../../../../models/product.model';
+import { LoadingService } from '../../../shared/loading/loading.service';
 
 @Component({
   selector: 'app-productos',
@@ -18,7 +19,8 @@ export class ProductosComponent implements OnInit {
   productToEdit: Product;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private loadingService: LoadingService
   ) {
     this.getProducts();
     this.productService.productsUpdated.subscribe( () => {
@@ -33,8 +35,8 @@ export class ProductosComponent implements OnInit {
     this.loading = true;
     this.productService.getProducts().subscribe( (products: any) => {
       this.products = products;
-      console.log(products);
       this.loading = false;
+      this.loadingService.loading = false;
     } );
   }
 

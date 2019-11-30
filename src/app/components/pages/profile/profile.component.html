@@ -20,7 +20,7 @@
                 </div>
                     
                 <div class="form-group">
-                    <label for="phoneNumber">Numero</label>
+                    <label for="phoneNumber">Número</label>
                     <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
                         type="text" placeholder="Numero" class='form-control'>
                 </div>
@@ -29,6 +29,12 @@
                     <label for="shippingAddress">Dirección de envio</label>
                     <input id='shippingAddress' [(ngModel)]="user.shippingAddress" name='shippingAddress'
                         type="text" placeholder="Dirección de envio" class='form-control'>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthDay">Fecha de nacimiento</label>
+                    <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
+                        type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
                 </div>
                 <div class="submit-btn mt-3 text-center">
                     <button (click)='updateUser()'
@@ -58,7 +64,7 @@
                             Actualizar
                         </button>
                     </div>
-                </div>
+            </div>
         </form>
     </div>
 </div>

@@ -2,7 +2,7 @@ export class Phone {
     constructor(
       public country = '54',
       public area = '9',
-      public prefix = '11',
+      public prefix?: string,
       public line?: string
     ) {}
 

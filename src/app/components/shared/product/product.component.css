@@ -84,6 +84,15 @@
     padding-bottom: 5px;
 }
 
+.producto .info .product-info .marca{
+    cursor: pointer;
+}
+
+.producto .info .product-info .marca:hover{
+    transition: .3s all ease;
+    color: #DE1B1B;
+}
+
 .producto .info .product-info p {
     font-size: 14px;
 }

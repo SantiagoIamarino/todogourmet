@@ -1,26 +1,48 @@
 <div class="content mt-2 animated fadeIn faster">
-    <div class="title">
-        <h2>Configuraciones</h2>
-        <hr>
-    </div>
-    <div class="configs mt-2" *ngIf='config'>
-        <div class="config-values d-flex justify-content-between">
-            <div class="min-value">
-                <label for="">Importe minimo para envio gratuito</label>
-                <input [(ngModel)]="config.minValueToShipment" name='minValueToShipment'
-                    placeholder="Ingrese un importe" type="text" class='form-control'>
+    <div class="configs-div">
+        <div class="title">
+            <h2>Configuraciones</h2>
+            <hr>
+        </div>
+        <div class="configs mt-2" *ngIf='config'>
+            <div class="config-values d-flex justify-content-between">
+                <div class="min-value">
+                    <label for="">Importe minimo para envio gratuito</label>
+                    <input [(ngModel)]="config.minValueToShipment" name='minValueToShipment'
+                        placeholder="Ingrese un importe" type="text" class='form-control'>
+                </div>
+                <div class="shipping-value">
+                    <label for="">Valor del envio (En caso que no supere el minimo)</label>
+                    <input [(ngModel)]="config.shippingCost" name='shippingCost'
+                        placeholder="Valor del envio" type="text" class='form-control'>
+                </div>
             </div>
-            <div class="shipping-value">
-                <label for="">Valor del envio (En caso que no supere el minimo)</label>
-                <input [(ngModel)]="config.shippingCost" name='shippingCost'
-                    placeholder="Valor del envio" type="text" class='form-control'>
+            <div class="submit-btn text-center mt-3">
+                <button class='btn btn-outline-success' (click)='configChange()'>
+                    <i class="fa fa-save"></i>
+                    Actualizar configuración
+                </button>
             </div>
         </div>
-        <div class="submit-btn text-center mt-3">
-            <button class='btn btn-outline-success' (click)='configChange()'>
-                <i class="fa fa-save"></i>
-                Actualizar configuración
-            </button>
+    </div>
+    <div class="configs-div mt-4">
+        <div class="title">
+            <h2>Newsletter</h2>
+            <hr>
+        </div>
+        <div class="newsletter-form">
+            <form action="">
+                <div class="form-group">
+                    <label for="email">Mensaje</label>
+                    <textarea [(ngModel)]="message" name="message" id="email" 
+                    class='form-control' placeholder="Ingresa un mensaje"></textarea>
+                </div>
+                <button (click)='sendMessage()'
+                    class='btn btn-outline-primary' >
+                    <i class="fa fa-envelope-o"></i>
+                    Enviar mensaje
+                </button>
+            </form>
         </div>
     </div>
 </div>

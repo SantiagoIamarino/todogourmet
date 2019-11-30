@@ -17,7 +17,11 @@
             <p>{{ product.name }}</p>
         </div>
         <div class="product-info">
-            <p>Marca: <span>{{ product.marca }}</span></p>
+            <p>Marca: 
+                <span class='marca' [routerLink]="['/tienda', 'marca', product.marca.formatted]">
+                    {{ product.marca.nombre }}
+                </span>
+            </p>
         </div>
         <div class="certifications">
             <div class="imgs">

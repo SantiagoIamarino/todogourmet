@@ -3,7 +3,10 @@ export class Product {
     constructor(
         public name?: string,
         public img?: any,
-        public marca = '',
+        public marca = {
+            nombre: '',
+            formatted: ''
+        },
         public precioUnit?: number,
         public descuentoPorBulto?: number,
         public precioComercio?: number,

@@ -50,7 +50,21 @@ export class LoginComponent implements OnInit {
 
     const appVerifier = this.windowRef.recaptchaVerifier;
 
+    if (!this.phone.prefix) {
+      sweetAlert(
+        'Error',
+        'Debes ingresar un prefijo',
+        'error'
+      );
+      return;
+    }
+
     if (!this.phone.line) {
+      sweetAlert(
+        'Error',
+        'Debes ingresar un numero valido',
+        'error'
+      );
       return;
     }
 

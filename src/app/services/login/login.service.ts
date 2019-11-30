@@ -185,7 +185,9 @@ export class LoginService {
       (user.specificHours) ? user.specificHours : [],
       (user.hours) ? user.hours : null,
       (user.additionalHours) ? user.additionalHours : null,
-      user.isMardel
+      user.isMardel,
+      '',
+      false
     );
 
     delete userToUpload._id;

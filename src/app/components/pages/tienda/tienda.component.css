@@ -208,6 +208,22 @@
     transition: all .4s ease;
 }
 
+.tienda .sidebar .clean-filters button{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 14px;
+    background: rgb(211, 45, 45);
+    color: white;
+    border: 1px solid rgb(211, 45, 45);
+    margin-top: 10px;
+}
+
+.tienda .sidebar .clean-filters button:hover{
+    transition: .3s all ease;
+    color: rgb(211, 45, 45);
+    background: white;
+}
+
 .tienda .bottom-tienda .products{
     display: flex;
     flex-wrap: wrap;
