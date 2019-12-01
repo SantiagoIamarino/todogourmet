@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     this.loginService.updateUser(this.user).subscribe( (res: any) => {
-      this.loginService.saveInStorage(res.userUpdated, this.loginService.token);
+      this.loginService.saveInStorage(this.user, this.loginService.token);
       swal('Usuario actualizado', res.message, 'success');
     } );
   }

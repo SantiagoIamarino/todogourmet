@@ -6,6 +6,7 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { AdminGuard } from '../../../guards/admin.guard';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { OrdersComponent } from './orders/orders.component';
+import { UsersComponent } from './users/users.component';
 
 const AdminRoutes: Routes = [
     {
@@ -15,6 +16,7 @@ const AdminRoutes: Routes = [
         children: [
             { path: 'productos', component: ProductosComponent },
             { path: 'filtros/:tipo', component: FiltersComponent },
+            { path: 'usuarios', component: UsersComponent },
             { path: 'mensajes', component: MensajesComponent },
             { path: 'pedidos', component: OrdersComponent },
             { path: 'configuracion', component: ConfigurationComponent },

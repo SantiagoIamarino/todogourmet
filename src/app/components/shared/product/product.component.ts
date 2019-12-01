@@ -64,12 +64,13 @@ export class ProductComponent implements OnInit {
     } else if (product.quantity >= 5) {
       const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
       const precioPorBulto: any = product.precioUnit * discount;
-      price = Math.round(precioPorBulto);
+      price = precioPorBulto;
+      console.log(price);
     } else {
       price = product.precioUnit;
     }
 
-    product.total = product.quantity * price;
+    product.total = (product.quantity * price).toFixed(2);
   }
 
   addToCart(product) {

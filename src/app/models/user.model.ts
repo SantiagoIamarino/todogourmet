@@ -14,6 +14,7 @@ export class User {
         public isMardel?: string,
         public birthDay?: string,
         public newsletter = false,
+        public surtido = [],
         public _id = ''
     ) {}
 }

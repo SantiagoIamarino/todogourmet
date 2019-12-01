@@ -9,6 +9,8 @@ export class ProductOneLinePipe implements PipeTransform {
   transform(products: Product[]): any {
     let oneLineProducts = '';
 
+    console.log(products);
+
     products.forEach(product => {
       if (oneLineProducts !== '') {
         oneLineProducts += ', ' + product.name;

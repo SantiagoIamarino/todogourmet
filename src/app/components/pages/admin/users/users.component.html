@@ -1,0 +1,39 @@
+<div class="container animated fadeIn faster">
+    <div class="title">
+        <h2>Usuarios</h2>
+        <hr>
+    </div>
+    <div class="users">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Número</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Borar usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let user of users; let i = index'>
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.phoneNumber }}</td>
+                        <td>
+                            <select [(ngModel)]="user.role" (change)='roleChanged(user)'
+                                class='form-control' name='role'>
+                                <option value="ADMIN_ROLE">Administrador</option>
+                                <option value="CONSUMER_ROLE">Consumidor final</option>
+                                <option value="COMMERCE_ROLE">Comercio</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class='btn btn-outline-danger'>
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

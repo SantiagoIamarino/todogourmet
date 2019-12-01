@@ -38,6 +38,7 @@ import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
     LoadingComponent,
     ProductComponent,
     ValuePipe,
+    PrecioBultoPipe,
     ImagesPipe,
     ProductOneLinePipe
   ]

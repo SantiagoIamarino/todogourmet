@@ -11,6 +11,7 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { AdminComponent } from './admin.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { OrdersComponent } from './orders/orders.component';
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -22,7 +23,8 @@ import { OrdersComponent } from './orders/orders.component';
     FiltersFormComponent,
     MensajesComponent,
     ConfigurationComponent,
-    OrdersComponent
+    OrdersComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,

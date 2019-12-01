@@ -1,1 +1,49 @@
-<p>surtido works!</p>
+<div class="container animated fadeIn faster">
+    <div class="title">
+        <h2>Mi surtido</h2>
+        <hr>
+    </div>
+    <div class="surtido">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio u.</th>
+                <th scope="col">Precio bulto</th>
+                <th scope="col">Carrito</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let product of surtido'>
+                <th scope="row">
+                  <div class="img">
+                    <img class='img-fluid img-circle' 
+                    [src]="product.img | images" alt="">
+                  </div>
+                </th>
+                <td>{{ product.name }}</td>
+                <td *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
+                  ${{ product.precioComercio | number : '1.2-2' }}
+                </td>
+                <td *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
+                    ${{ product.precioUnit | number : '1.2-2' }}
+                </td>
+                <td *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
+                    ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
+                </td>
+                <td *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
+                    ${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}
+                </td>
+                <td>
+                  <button (click)='addToCart(product)'
+                    class="btn btn-outline-danger">
+                    <i class="fa fa-shopping-cart"></i>
+                    Agregar al carrito
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+        </table>          
+    </div>   
+</div>
