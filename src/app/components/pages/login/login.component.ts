@@ -3,13 +3,13 @@ import { LoginService } from '../../../services/login/login.service';
 import { Phone } from '../../../models/phone.model';
 
 import * as firebase from 'firebase';
-import { Router } from '@angular/router';
 
 declare function hideModal();
 
 import sweetAlert from 'sweetalert';
 import { User } from '../../../models/user.model';
 import { CartService } from '../cart/cart.service';
+import { GobAPIService } from '../../../services/gob-api.service';
 
 @Component({
   selector: 'app-login',
@@ -32,10 +32,12 @@ export class LoginComponent implements OnInit {
 
   cartProductsLength = 0;
 
+  provincias = [];
+
   constructor(
     public loginService: LoginService,
     public cartService: CartService,
-    private router: Router
+    public gobAPIService: GobAPIService
   ) {
   }
 
@@ -91,6 +93,15 @@ export class LoginComponent implements OnInit {
     this.loginService.additionalInfo(form);
   }
 
+  getProvinces() {
+    return new Promise( (resolve, reject) => {
+      this.gobAPIService.getProvinces().subscribe( (res: any) => {
+        this.provincias = res.provincias;
+        resolve();
+      } );
+    } );
+  }
+
   verifyLoginCode() {
     this.windowRef.confirmationResult
         .confirm(this.verificationCode)
@@ -98,23 +109,25 @@ export class LoginComponent implements OnInit {
 
           this.user = result.user;
           this.loginService.getUser(this.user.phoneNumber).subscribe( (res: any) => {
-            if (res.user) {
-              this.loginService.login(this.user).then( () => {
-                sweetAlert(
-                  'Inicio de sesión',
-                  'Iniciaste sesión correctamente!',
-                  'success'
-                );
-              });
-            } else {
-              this.loginService.register(this.user).then( () => {
-                sweetAlert(
-                  'Inicio de sesión',
-                  'Iniciaste sesión correctamente!',
-                  'success'
-                );
-              } );
-            }
+            this.getProvinces().then( () => {
+              if (res.user) {
+                this.loginService.login(this.user).then( () => {
+                  sweetAlert(
+                    'Inicio de sesión',
+                    'Iniciaste sesión correctamente!',
+                    'success'
+                  );
+                });
+              } else {
+                this.loginService.register(this.user).then( () => {
+                  sweetAlert(
+                    'Inicio de sesión',
+                    'Iniciaste sesión correctamente!',
+                    'success'
+                  );
+                } );
+              }
+            } );
           } );
 
           hideModal();

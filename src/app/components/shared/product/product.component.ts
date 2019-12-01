@@ -59,18 +59,18 @@ export class ProductComponent implements OnInit {
     }
 
     let price = 0;
-    if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE' && product.quantity < 5) {
+    if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
       price = product.precioComercio;
-    } else if (product.quantity >= 5) {
-      const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
-      const precioPorBulto: any = product.precioUnit * discount;
-      price = precioPorBulto;
-      console.log(price);
     } else {
       price = product.precioUnit;
     }
+    if (product.quantity >= 5) {
+      const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
+      const precioPorBulto: any = price * discount;
+      price = precioPorBulto;
+    }
 
-    product.total = (product.quantity * price).toFixed(2);
+    product.total = (product.quantity * price).toFixed(1);
   }
 
   addToCart(product) {

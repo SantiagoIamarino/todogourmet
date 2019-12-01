@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="product-prices">
+        <div class="product-prices" *ngIf="!loginService.user">
             <div class="unidad" [ngClass]="{active: product.quantity < 5}">
                 <p>Unidad</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="add-to-cart">
+    <div class="add-to-cart" *ngIf="!loginService.user">
         <button (click)='addToCart(product)'>
             AGREGAR AL CARRITO
             <i class="fa fa-shopping-cart"></i>

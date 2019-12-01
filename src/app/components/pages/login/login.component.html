@@ -5,8 +5,8 @@
                 <!-- <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Iniciar Sesion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div> -->
                 <div class="modal-body">
                     <div class="login text-center animated fadeIn faster">
@@ -163,21 +163,31 @@
                 </div>                      
             </div>
           </div>
-          <div class="is-mar-del-plata">
-              <label for="">¿Reside en Mar del Plata?</label>
-              <div class="ml-1 mardel-options d-flex">
-                <div class="option mr-3">
-                    <label for="mardelSi" class='mr-1'>Si</label>
-                    <input type="radio" [(ngModel)]="loginService.user.isMardel" name='isMardel' 
-                        id='mardelSi' value='true'>
+            <div class="ml-1 location">
+                <div class="form-group w-100 mb-2" *ngIf='provincias.length > 0'>
+                    <label for="provinciaId">Provincia</label>
+                    <select [(ngModel)]="loginService.user.provincia.id"
+                        (change)='gobAPIService.provinceChanged()'
+                        name="provinciaId" id="provinciaId" class="form-control">
+                        <option value="">Selecciona una provincia</option>
+                        <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
+                            {{ provincia.nombre }}
+                        </option>
+                    </select>
                 </div>
-                <div class="option">
-                    <label for="mardelNo" class='mr-1'>No</label>
-                    <input type="radio" [(ngModel)]="loginService.user.isMardel" name='isMardel' 
-                        id='mardelNo' value='false'>
+                        
+                <div class="form-group w-100" *ngIf='gobAPIService.localidades'>
+                    <label for="localidadId">Localidad</label>
+                    <select [(ngModel)]="loginService.user.localidad.id"
+                        (change)='gobAPIService.localidadChanged()'
+                        name="localidadId" id="localidadId" class="form-control">
+                        <option value="">Selecciona una localidad</option>
+                        <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
+                            {{ localidad.nombre }}
+                        </option>
+                    </select>
                 </div>
             </div>
-          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -189,3 +199,5 @@
     </div>
   </div>
 </div>
+
+<!-- <button data-toggle="modal" data-target="#additionalInfoModal">Abirr</button> -->

@@ -64,7 +64,6 @@ export class LoginService {
     localStorage.removeItem('user');
     this.token = null;
     this.user = null;
-    console.log('hecho');
   }
 
   getCuitAndAddress() {
@@ -146,8 +145,8 @@ export class LoginService {
       return;
     }
 
-    if (!form.isMardel) {
-      this.returnMessageError('Especifica tu localidad');
+    if (!form.provinciaId || !form.localidadId) {
+      this.returnMessageError('Especifica tu provincia o localidad');
       return;
     }
 
@@ -185,9 +184,11 @@ export class LoginService {
       (user.specificHours) ? user.specificHours : [],
       (user.hours) ? user.hours : null,
       (user.additionalHours) ? user.additionalHours : null,
-      user.isMardel,
+      user.provincia,
+      user.localidad,
       '',
-      false
+      false,
+      []
     );
 
     delete userToUpload._id;
@@ -215,6 +216,14 @@ export class LoginService {
 
     this.user.specificHours = [];
     this.user.hours = null;
+    this.user.provincia = {
+      nombre: '',
+      id: ''
+    };
+    this.user.localidad = {
+      nombre: '',
+      id: ''
+    };
 
     return new Promise( (resolve, reject) => {
       sweetAlert('¿Cual sera tu rol dentro del sitio?', {

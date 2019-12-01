@@ -3,7 +3,7 @@
         <h2>Mi surtido</h2>
         <hr>
     </div>
-    <div class="surtido">
+    <div class="surtido" *ngIf='surtido.length > 0'>
         <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -45,5 +45,11 @@
               </tr>
             </tbody>
         </table>          
+    </div>
+    <div class="no-products" *ngIf='surtido.length <= 0'>
+        <h2>No tienes ningun producto en tu surtido!</h2>
+        <button routerLink='/tienda'>
+            Ir a la tienda
+        </button>
     </div>   
 </div>

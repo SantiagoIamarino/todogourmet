@@ -36,6 +36,37 @@
                     <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
                         type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
                 </div>
+                <div class="form-group">
+                    <label for="cuit">Cuit</label>
+                    <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
+                        type="text" placeholder="Cuit" class='form-control'>
+                </div>
+                <div class="location d-flex">
+                    <div class="form-group w-50 mr-2 mb-2" *ngIf='provincias.length > 0'>
+                        <label for="provinciaId">Provincia</label>
+                        <select [(ngModel)]="user.provincia.id"
+                            (change)='gobAPIService.provinceChanged()'
+                            name="provinciaId" id="provinciaId" class="form-control">
+                            <option value="">Selecciona una provincia</option>
+                            <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
+                                {{ provincia.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                                
+                    <div class="form-group w-50" *ngIf='gobAPIService.localidades'>
+                        <label for="localidadId">Localidad</label>
+                        <select [(ngModel)]="user.localidad.id"
+                            (change)='gobAPIService.localidadChanged()'
+                            name="localidadId" id="localidadId" class="form-control">
+                            <option value="">Selecciona una localidad</option>
+                            <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
+                                {{ localidad.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="submit-btn mt-3 text-center">
                     <button (click)='updateUser()'
                          class="btn btn-outline-success">

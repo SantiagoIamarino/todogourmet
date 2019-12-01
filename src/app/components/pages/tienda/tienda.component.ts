@@ -8,7 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 
 declare function goToTop(animationTime);
 
-declare function downloadObjectAsJson(exportObj, exportName);
+declare function showLoginModal();
+
+declare var swal;
 
 @Component({
   selector: 'app-tienda',
@@ -50,6 +52,19 @@ export class TiendaComponent implements OnInit {
 
   ngOnInit() {
     goToTop(0);
+    if (!this.loginService.user || !this.loginService.token) {
+      swal(
+      'Atención',
+      'Debes iniciar sesión para poder ver los precios y realizar la compra de productos!',
+      {
+        buttons: ['Seguir en la tienda', 'Iniciar sesion'],
+        icon: 'warning'
+      }).then( goToCart => {
+        if (goToCart) {
+          showLoginModal();
+        }
+      } );
+    }
     this.getPosts();
   }
 

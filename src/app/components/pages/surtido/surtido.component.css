@@ -2,3 +2,31 @@
     max-width: 55px;
     border-radius: 50%;
 }
+
+.no-products{
+    background: rgba(220,220,220, .3);
+    padding: 20px;
+    text-align: center;
+}
+
+.no-products h2{
+    margin-top: 10vh;
+}
+
+.no-products button{
+    margin: 0 auto;
+    margin-top: 15vh;
+    background: rgb(211, 45, 45);
+    color: white;
+    font-size: 16px;
+    padding: 15px 50px;
+    border-radius: 3px;
+    border: 1px solid rgb(211, 45, 45);
+    margin-bottom: 15vh;
+}
+
+.no-products button:hover{
+    transition: .3s all ease;
+    color: rgb(211, 45, 45);
+    background: rgba(220,220,220, .3);
+}

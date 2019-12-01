@@ -11,7 +11,14 @@ export class User {
         public specificHours: any[] = [],
         public hours?: any,
         public additionalHours?: any,
-        public isMardel?: string,
+        public provincia: any = {
+            nombre: '',
+            id: ''
+        },
+        public localidad: any = {
+            nombre: '',
+            id: ''
+        },
         public birthDay?: string,
         public newsletter = false,
         public surtido = [],

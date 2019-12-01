@@ -11,6 +11,7 @@
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Descuento</th>
                     <th scope="col">Subtotal</th>
                     <th scope="col">Eliminar</th>
                 </tr>
@@ -33,11 +34,18 @@
                         </div>
                     </td>
                     <td class='price'>$
-                        {{ 
+                        <!-- {{ 
                             (loginService.user._id && loginService.user.role === 'COMMERCE_ROLE') 
                                 ? product.productId.precioComercio 
                                 : product.productId.precioUnit
-                        }}
+                        }} -->
+                        {{ product.productId.precioUnit }}
+                    </td>
+                    <td class="discount" *ngIf='product.quantity >= 5'>
+                        Bulto: {{ product.productId.descuentoPorBulto }}%
+                    </td>
+                    <td class="discount" *ngIf='product.quantity < 5'>
+                        Sin desc.
                     </td>
                     <td class="subtotal">$
                         {{ getSubtotal('changed', product) }}
@@ -75,15 +83,19 @@
                     <p>Subtotal: </p>
                     <span>${{ subtotal }}.</span>
                 </div>
+                <div class="discounts">
+                    <p>Descuento:</p>
+                    <span>{{ (discounts <= 0) ? 'Sin desc.' : '$' + discounts }}</span>
+                </div>
                 <div class="shipping" *ngIf='config'>
                     <p>Envio
-                        <span *ngIf='!loginService.user.isMardel'>
+                        <span *ngIf='loginService.user.localidad.id !== "06357110003"'>
                             (Fuera de Mar del Plata)
                         </span>
                     :</p>
                     <p class='value'>
                         {{ 
-                            (loginService.user.isMardel)
+                            (loginService.user.localidad.id === '06357110003')
                             ?  (subtotal >= config.minValueToShipment ) ? 'Gratuito' : '$' + config.shippingCost 
                             : 'a acordar.'
                         }}

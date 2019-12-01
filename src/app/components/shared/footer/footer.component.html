@@ -21,6 +21,11 @@
                             QUIENES SOMOS
                         </a>
                     </li>
+                    <li routerLink='/tienda'>
+                        <a>
+                            TIENDA
+                        </a>
+                    </li>
                 </ul>
                 <ul class='right home-page' *ngIf="page && page.indexOf('/home') >= 0">
                     <li>
@@ -38,6 +43,11 @@
                             NUESTRAS MARCAS
                         </a>
                     </li>
+                    <li *ngIf='loginService.user'>
+                        <a routerLink='/surtido'>
+                            MI SURTIDO
+                        </a>
+                    </li>
                 </ul>
                 <ul class='right other-page' *ngIf="page && page.indexOf('/home') === -1">
                     <li>
@@ -53,6 +63,11 @@
                     <li>
                         <a routerLink='/home/marcas'>
                             NUESTRAS MARCAS
+                        </a>
+                    </li>
+                    <li *ngIf='loginService.user'>
+                        <a routerLink='/surtido'>
+                            MI SURTIDO
                         </a>
                     </li>
                 </ul>
@@ -94,7 +109,7 @@
         <div class="container">
             <p>Todo Gourmet 2019 ©</p>
             <p class='separator'> |</p>
-            <a href="https://ifdesign.tech/" target="_blank">  https://ifdesign.tech/</a>
+            <a href="http://ifwebdesign.com/" target="_blank">http://ifwebdesign.com/</a>
         </div>
     </div>
 </footer>

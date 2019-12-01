@@ -52,6 +52,10 @@ function goToTop(animationTime = 500) {
 
 // login---------------------------------------------
 
+function showLoginModal() {
+    $('#loginModal').modal('show');
+}
+
 function hideModal() {
     $('#loginModal').modal('hide');
 }

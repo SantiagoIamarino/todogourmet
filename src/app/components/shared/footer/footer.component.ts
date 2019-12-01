@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private loginService: LoginService
+    public loginService: LoginService
   ) {
     this.router.events.subscribe(event => {
 

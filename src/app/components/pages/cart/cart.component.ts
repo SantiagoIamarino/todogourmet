@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
   subtotals = [];
   total = 0;
   subtotal = 0;
+  discounts = 0;
 
   postUrl = BACKEND_URL + '/checkout/finished';
 
@@ -82,17 +83,25 @@ export class CartComponent implements OnInit {
     }
 
     let price = 0;
+    let discount = 0;
     if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
       price = product.productId.precioComercio;
-    } else if (product.quantity >= 5) {
-      const discount: any = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
-      const precioPorBulto: any = product.productId.precioUnit * discount;
-      price = Math.round(precioPorBulto);
     } else {
       price = product.productId.precioUnit;
     }
 
-    product.subtotal = product.quantity * price;
+    if (product.quantity >= 5) {
+      // tslint:disable: no-var-keyword
+      // tslint:disable-next-line: prefer-const
+      discount = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
+      const precioPorBulto: any = price * discount;
+      price = precioPorBulto;
+    }
+
+    product.subtotal = (product.quantity * price).toFixed(2);
+    product.totalWithoutDisc = (product.productId.precioUnit * product.quantity).toFixed(2);
+    product.discount =  (discount > 0) ? parseFloat(product.totalWithoutDisc) - (parseFloat(product.totalWithoutDisc) * discount) : 0;
+    product.discount = (product.discount > 0) ? product.discount.toFixed(2) : 0;
     this.getTotals();
 
     return product.subtotal;
@@ -101,18 +110,21 @@ export class CartComponent implements OnInit {
   getTotals() {
     this.subtotal = 0;
     this.total = 0;
+    this.discounts = 0;
     this.products.forEach(product => {
-      this.subtotal += product.subtotal;
+      this.subtotal += parseFloat(product.totalWithoutDisc);
+      this.total += parseFloat(product.subtotal);
+      this.discounts += parseFloat(product.discount);
     });
 
-    if (this.loginService.user.isMardel && this.config) {
-      if (this.subtotal < this.config.minValueToShipment) {
-        this.total = this.subtotal + parseInt(this.config.shippingCost);
+    if (this.loginService.user.localidad.id === '06357110003' && this.config) {
+      if (this.total < this.config.minValueToShipment) {
+        this.total = this.total + parseInt(this.config.shippingCost);
       } else {
-        this.total = this.subtotal;
+        this.total = this.total;
       }
     } else {
-      this.total = this.subtotal;
+      this.total = this.total;
     }
   }
 
