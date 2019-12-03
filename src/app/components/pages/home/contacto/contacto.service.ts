@@ -21,10 +21,26 @@ export class ContactoService {
     return this.http.get(url);
   }
 
+  getMessagesByFilter(status: boolean) {
+    let url = BACKEND_URL + '/contact/status/' + status;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
+  }
+
   uploadMessage( message: contactMessage ) {
     const url = BACKEND_URL + '/contact';
 
+    message.date = new Date();
+
     return this.http.post(url, message);
+  }
+
+  updateMessage(message) {
+    let url = BACKEND_URL + '/contact/' + message._id;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.put(url, message);
   }
 
   deleteMessage( message: contactMessage ) {

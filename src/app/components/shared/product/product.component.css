@@ -245,3 +245,9 @@
     font-size: 18px;
     margin-left: 5px;
 }
+
+@media screen and (max-width: 600px){
+    .producto .img{
+        max-height: 400px !important;
+    }
+}

@@ -67,7 +67,9 @@
                             <ul class="ks-cboxtags">
                                 <li *ngFor='let rubro of filters.rubros'>
                                     <input type="checkbox" [attr.id]='rubro.formattedFilter'  
-                                            [attr.value]='rubro.formattedFilter'>
+                                            [attr.value]='rubro.formattedFilter'
+                                            [checked]='this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0'
+                                            [ngClass]="{'active': this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0}">
                                     <label (click)="filterChanged('rubro', rubro.formattedFilter)"
                                         [attr.for]='rubro.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
@@ -87,7 +89,9 @@
                                 <li *ngFor='let tipo of filters.tipos'>
                                     <input (click)="filterChanged('tipo', tipo.formattedFilter)"
                                         type="checkbox" [attr.id]='tipo.formattedFilter'  
-                                            [attr.value]='tipo.formattedFilter'>
+                                            [attr.value]='tipo.formattedFilter'
+                                            [checked]='this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0'
+                                            [ngClass]="{'active': this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0}">
                                     <label [attr.for]='tipo.formattedFilter'>
                                         <i class='fa fa-plus add-icon'></i>
                                         <i class='fa fa-check check-icon'></i>

@@ -9,6 +9,8 @@ export class contactMessage {
         public phone?: number,
         public affair?: string,
         public message?: string,
+        public date?: Date,
+        public readed = false,
         public _id?: string
     ) {}
 

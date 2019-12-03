@@ -71,7 +71,7 @@ export class CartService {
 
     const productsToSend = [];
 
-    if (this.loginService.user.isMardel && subtotal < parseInt(shippingConfig.minValueToShipment)) {
+    if (this.loginService.user.localidad.id === '06357110003' && subtotal < parseInt(shippingConfig.minValueToShipment)) {
       const additionalCost = shippingConfig.shippingCost / products.length;
 
       products.forEach((product, index) => {

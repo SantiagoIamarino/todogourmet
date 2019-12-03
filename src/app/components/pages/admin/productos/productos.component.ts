@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
 import { Product } from '../../../../models/product.model';
 import { LoadingService } from '../../../shared/loading/loading.service';
+import { TiendaService } from '../../../../services/tienda.service';
 
 @Component({
   selector: 'app-productos',
@@ -11,6 +12,7 @@ import { LoadingService } from '../../../shared/loading/loading.service';
 export class ProductosComponent implements OnInit {
 
   products: Product[] = [];
+  marcas: any[] = [];
 
   loading = false;
 
@@ -18,14 +20,18 @@ export class ProductosComponent implements OnInit {
 
   productToEdit: Product;
 
+  filter = '';
+
   constructor(
     private productService: ProductService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private tiendaService: TiendaService
   ) {
     this.getProducts();
     this.productService.productsUpdated.subscribe( () => {
       this.getProducts();
     } );
+    this.getMarcas();
    }
 
   ngOnInit() {
@@ -37,6 +43,12 @@ export class ProductosComponent implements OnInit {
       this.products = products;
       this.loading = false;
       this.loadingService.loading = false;
+    } );
+  }
+
+  getMarcas() {
+    this.tiendaService.getFilter('marcas').then( (marcas: any) => {
+      this.marcas = marcas;
     } );
   }
 
@@ -52,6 +64,17 @@ export class ProductosComponent implements OnInit {
     } else {
       this.getProducts();
     }
+  }
+
+  applyFilter() {
+    if (!this.filter) {
+      this.getProducts();
+      return;
+    }
+
+    this.productService.getProductsByFilter(this.filter).subscribe( (res: any) => {
+      this.products = res.products;
+    } );
   }
 
   openEditModal( product ) {
@@ -77,5 +100,6 @@ export class ProductosComponent implements OnInit {
       }
     } );
   }
+
 
 }

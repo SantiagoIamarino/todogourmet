@@ -15,6 +15,20 @@
                     </div>
                 </div>
             </div>
+            <div class="filter-marca">
+                <div class="form-group">
+                    <label for="marca_select">Marca:</label>
+                    <select [(ngModel)]="filter" name="filter"
+                    (change)= 'applyFilter()' 
+                        id="marca_select" class="form-control">
+                        <option value="">Selecciona una marca</option>
+                        <option value="{{ marca.formattedFilter }}" 
+                            *ngFor='let marca of marcas'>
+                            {{ marca.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
             <div class="product-list">
                 <table class="table">
                     <thead>

@@ -3,6 +3,12 @@
         <h2>Usuarios</h2>
         <hr>
     </div>
+    <div class="search d-flex justify-content-end">
+        <div class="form-group w-50">
+            <input type="text" #term (keyup)='searchUsers(term.value)'
+                class="form-control" placeholder="Buscar por nombre, email o telefono">
+        </div>
+    </div>
     <div class="users">
             <table class="table">
                 <thead class="thead-dark">
@@ -11,6 +17,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Número</th>
                         <th scope="col">Rol</th>
+                        <th scope="col">Info</th>
                         <th scope="col">Borar usuario</th>
                     </tr>
                 </thead>
@@ -28,12 +35,71 @@
                             </select>
                         </td>
                         <td>
+                            <button class='btn btn-outline-info' (click)='setUser(user)'
+                                data-toggle="modal" data-target="#userInfoModal">
+                                <i class="fa fa-plus"></i>
+                                Ver mas
+                            </button>
+                        </td>
+                        <td>
                             <button class='btn btn-outline-danger'>
+                                <i class="fa fa-trash"></i>
                                 Eliminar
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="userInfoModalLabel">{{ userToShow.name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="email">
+                <p>Email: <span>{{ userToShow.userEmail }}</span></p>
+            </div>
+            <div class="address">
+                <p>Dirección de envio: <span>{{ userToShow.shippingAddress }}</span></p>
+            </div>
+            <div class="provincia" *ngIf='userToShow.provincia'>
+                <p>Provincia: <span>{{ userToShow.provincia.nombre }}</span></p>
+            </div>
+            <div class="localidad" *ngIf='userToShow.localidad'>
+                <p>Localidad: <span>{{ userToShow.localidad.nombre }}</span></p>
+            </div>
+            <div class="birthday" *ngIf='userToShow.birthDay'>
+                <p>Nacimiento: <span>{{ userToShow.birthDay }}</span></p>
+            </div>
+            <div class="commerce-info mt-3" *ngIf='userToShow.cuit'>
+                <div class="title">
+                    <h4>Info comercial</h4>
+                    <hr>
+                </div>
+                <div class="commerce-address">
+                    <p>Dirección del local: <span>{{ userToShow.address }}</span></p>
+                </div>
+                <div class="commerce-address">
+                    <p>Cuit: <span>{{ userToShow.cuit }}</span></p>
+                </div>
+                <div class="commerce-address">
+                    <p>Disponibilidad: 
+                        <span>{{ userToShow.hours || userToShow.specificHours || userToShow.additionalHours }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
     </div>
 </div>

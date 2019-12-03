@@ -15,6 +15,8 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
 
+  userToShow: User =  new User();
+
   constructor(
     private usersService: UsersService,
     private loadingService: LoadingService,
@@ -42,6 +44,22 @@ export class UsersComponent implements OnInit {
 
       this.loginService.saveInStorage(this.loginService.user, this.loginService.token);
     } );
+  }
+
+  searchUsers( term: string ) {
+    if (!term) {
+      this.getUsers();
+      return;
+    }
+
+    this.usersService.getUsersByTerm(term).subscribe( users => {
+      this.users = users;
+    } );
+  }
+
+  setUser(user: User) {
+    this.userToShow = user;
+    console.log(user);
   }
 
 }

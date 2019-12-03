@@ -1,0 +1,7 @@
+.products p{
+    font-weight: bold;
+    font-size: 17px;
+}
+.products .product{
+    margin-bottom: 10px;
+}

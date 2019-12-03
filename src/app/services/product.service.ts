@@ -68,6 +68,13 @@ export class ProductService {
     });
   }
 
+  getProductsByFilter(marca: string) {
+    let url = BACKEND_URL + '/products/marca/' + marca;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
+  }
+
   searchProducts( term: string ) {
     const url = BACKEND_URL + '/products/' + term;
 

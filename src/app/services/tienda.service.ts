@@ -37,7 +37,7 @@ export class TiendaService {
         if (collection === 'tipos') {
           this.filters.tipos = filter;
         }
-        resolve('Filter');
+        resolve(filter);
       } );
     } );
   }

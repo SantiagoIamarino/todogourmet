@@ -19,4 +19,19 @@ export class OrdersService {
 
     return this.http.get(url);
   }
+
+  updateOrder(order) {
+    let url = BACKEND_URL + '/orders/' + order._id;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.put(url, order);
+  }
+
+  getOrdersByFilter(status: string) {
+    let url = BACKEND_URL + '/orders/status/' + status;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
+  }
+
 }

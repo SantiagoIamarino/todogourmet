@@ -153,7 +153,16 @@ export class CartComponent implements OnInit {
     };
 
     this.products.forEach(product => {
-      body.products.push(product.productId._id);
+      const productToSend = {
+        id: product._id,
+        name: product.productId.name,
+        quantity: product.quantity,
+        subtotal: product.subtotal,
+        totalWithoutDisc: product.totalWithoutDisc,
+        discount: product.discount
+      };
+
+      body.products.push(productToSend);
     });
 
     this.cartService.payment(body).subscribe( (res: any) => {

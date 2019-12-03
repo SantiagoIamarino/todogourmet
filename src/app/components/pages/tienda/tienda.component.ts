@@ -44,10 +44,12 @@ export class TiendaComponent implements OnInit {
       this.loadingService.loading = false;
     } );
 
-    this.applyParamsFilter(
-      this.route.snapshot.paramMap.get('filterType'),
-      this.route.snapshot.paramMap.get('filterValue')
-    );
+    this.route.paramMap.subscribe( params => {
+      this.applyParamsFilter(
+        params.get('filterType'),
+        params.get('filterValue')
+      );
+    } );
   }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class TiendaComponent implements OnInit {
       'Debes iniciar sesión para poder ver los precios y realizar la compra de productos!',
       {
         buttons: ['Seguir en la tienda', 'Iniciar sesion'],
-        icon: 'warning'
+        icon: 'error'
       }).then( goToCart => {
         if (goToCart) {
           showLoginModal();
@@ -117,6 +119,7 @@ export class TiendaComponent implements OnInit {
   }
 
   applyParamsFilter(filterType: string, filterValue: any) {
+    console.log('entro');
     if (filterType && filterValue) {
       if (filterType === 'refrigerado') {
         this.filtersToApply.estaRefrigerado = true;

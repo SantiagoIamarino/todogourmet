@@ -13,6 +13,7 @@ import { ValuePipe } from 'src/app/pipes/value.pipe';
 import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
 import { ImagesPipe } from 'src/app/pipes/images.pipe';
 import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
+import { FechaPipe } from '../../pipes/fecha.pipe';
 
 
 
@@ -25,7 +26,8 @@ import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
     ValuePipe,
     PrecioBultoPipe,
     ImagesPipe,
-    ProductOneLinePipe
+    ProductOneLinePipe,
+    FechaPipe
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
     ValuePipe,
     PrecioBultoPipe,
     ImagesPipe,
-    ProductOneLinePipe
+    ProductOneLinePipe,
+    FechaPipe
   ]
 })
 export class SharedModule { }

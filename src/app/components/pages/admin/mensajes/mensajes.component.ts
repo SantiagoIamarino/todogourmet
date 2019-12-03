@@ -3,6 +3,8 @@ import { ContactoService } from '../../home/contacto/contacto.service';
 import { contactMessage } from '../../../../models/contact-message.model';
 import { LoadingService } from '../../../shared/loading/loading.service';
 
+declare var swal;
+
 @Component({
   selector: 'app-mensajes',
   templateUrl: './mensajes.component.html',
@@ -11,6 +13,8 @@ import { LoadingService } from '../../../shared/loading/loading.service';
 export class MensajesComponent implements OnInit {
 
   messages: contactMessage[] = [];
+
+  filter = '';
 
   constructor(
     private contactoService: ContactoService,
@@ -28,6 +32,33 @@ export class MensajesComponent implements OnInit {
     this.contactoService.getMessages().subscribe( (res: any) => {
       this.messages = res.messages;
       this.loadingService.loading = false;
+    } );
+  }
+
+  checkAsRead(message: contactMessage) {
+    message.readed = true;
+
+    this.contactoService.updateMessage(message).subscribe( (res: any) => {
+      swal('Marcado como leído', res.message, 'success');
+
+      this.getMessages();
+    } );
+  }
+
+  applyFilter() {
+    if (!this.filter) {
+      this.getMessages();
+      return;
+    }
+
+    let status = false;
+
+    if (this.filter === 'leidos') {
+      status = true;
+    }
+
+    this.contactoService.getMessagesByFilter(status).subscribe( (res: any) => {
+      this.messages = res.messages;
     } );
   }
 

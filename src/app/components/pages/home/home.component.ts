@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from '../../shared/loading/loading.service';
 import { ProductService } from '../../../services/product.service';
 import { Product } from 'src/app/models/product.model';
+import { ConfigurationService } from '../admin/configuration.service';
 
 declare function sliderMarcas(imgsToSlide);
 
@@ -22,13 +23,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   marcas: any[] = [];
 
+  bannerImages: any[] = [];
+
   constructor(
     private homeService: HomeService,
     private route: ActivatedRoute,
     private loadingService: LoadingService,
-    private productsService: ProductService
+    private productsService: ProductService,
+    private configurationService: ConfigurationService
   ) {
     this.getMarcas();
+    this.getBannerImages();
    }
 
   ngOnInit() {
@@ -57,6 +62,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.getMarcas().subscribe( marcas => {
       this.marcas = marcas;
       sliderMarcas(this.marcas.length);
+    } );
+  }
+
+  getBannerImages() {
+    this.configurationService.getBannerImages().subscribe( images => {
+      this.bannerImages = images;
     } );
   }
 
