@@ -3,7 +3,7 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div *ngFor='let image of bannerImages; let i = index'
-                class="carousel-item" [ngClass]="{'active': i  === 1}">
+                class="carousel-item" [ngClass]="{'active': i  === 0}">
                 <img [src]="image.image | images" class="d-block w-100" alt="...">
               </div>
             </div>
@@ -92,8 +92,7 @@
 
             <div class="row banners">
                 <div class="col-md-6 text-center margin-bottom-30">
-                    <!-- <a href="./content/archivos/listadeprecios/Lista mayorista 01-10-2019.pdf" download="Lista mayorista 01-10-2019.pdf"> -->
-                    <a href="https://docs.wixstatic.com/ugd/a3b5ea_1aa4aa12196f4b16ac8ea4f9ac8ae04f.pdf" target="_blank">
+                    <a [href]="pricesList" target="_blank">
                         <img src="../../../../assets/img/banner-precios.jpg" class="img-responsive banners-bottom">
                     </a>
                 </div>

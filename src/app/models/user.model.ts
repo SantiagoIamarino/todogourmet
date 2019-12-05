@@ -11,6 +11,7 @@ export class User {
         public specificHours: any[] = [],
         public hours?: any,
         public additionalHours?: any,
+        public dni?: string,
         public provincia: any = {
             nombre: '',
             id: ''
@@ -22,6 +23,8 @@ export class User {
         public birthDay?: string,
         public newsletter = false,
         public surtido = [],
+        public commerceName?: string,
+        public contactPerson?: string,
         public _id = ''
     ) {}
 }

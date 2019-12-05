@@ -22,6 +22,7 @@ const PagesRoutes: Routes = [
             { path: 'carrito', canActivate: [LoginGuard], component: CartComponent },
             { path: 'perfil', canActivate: [LoginGuard], component: ProfileComponent },
             { path: 'surtido', canActivate: [LoginGuard], component: SurtidoComponent },
+            { path: 'surtido/:filterType/:filterValue', component: TiendaComponent },
             { path: 'login', component: LoginComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'encontranos-en', component: EncontranosEnComponent },

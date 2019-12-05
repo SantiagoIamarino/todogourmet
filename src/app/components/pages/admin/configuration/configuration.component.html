@@ -17,6 +17,11 @@
                         placeholder="Valor del envio" type="text" class='form-control'>
                 </div>
             </div>
+            <div class="prices-list mt-2">
+                <label for="">Lista de precios</label>
+                <input [(ngModel)]="config.pricesList" name='pricesList'
+                    placeholder="Link de la lista de precios" type="text" class='form-control'>
+            </div>
             <div class="submit-btn text-center mt-3">
                 <button class='btn btn-outline-success' (click)='configChange()'>
                     <i class="fa fa-save"></i>
@@ -51,9 +56,9 @@
             <hr>
         </div>
         <div class="imgs d-flex">
-            <div class="form-group w-50 p-4">
+            <div class="form-group w-50 pl-4">
                 <label for="images_choices">¿Que imagen deseas cambiar?</label>
-                <select name="" id="images_choices" 
+                <select name="id" id="images_choices" (change)='getImage()'
                     [(ngModel)]="imageToChange.id"
                     class="form-control">
                     <option value="">Selecciona una imagen</option>
@@ -62,9 +67,17 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group w-50 p-4 mt-2" *ngIf='imageToChange.id'>
+            <div class="form-group w-50 mt-2 pl-4" *ngIf='imageToChange.id'>
                 <label for="">Selecciona una archivo de imagen</label>
                 <input type="file" class='w-100' (change)='imgSelected($event)' id='file_selector'>
+            </div>
+        </div>
+        <div class="link">
+            <div class="form-group w-50 pl-4" *ngIf='imageToChange.id'>
+                <label for="link">Redirigir a</label>
+                <input [(ngModel)]="imageToChange.link" name='link'
+                    type="text" id='link' 
+                    class='form-control' placeholder="Ingresa un link">
             </div>
         </div>
         <div class="button text-center mb-4">

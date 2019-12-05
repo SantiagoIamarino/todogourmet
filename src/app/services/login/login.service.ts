@@ -184,11 +184,13 @@ export class LoginService {
       (user.specificHours) ? user.specificHours : [],
       (user.hours) ? user.hours : null,
       (user.additionalHours) ? user.additionalHours : null,
+      user.dni,
       user.provincia,
       user.localidad,
       '',
       false,
-      []
+      [],
+      user.contactPerson
     );
 
     delete userToUpload._id;

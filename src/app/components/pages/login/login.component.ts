@@ -117,6 +117,7 @@ export class LoginComponent implements OnInit {
                     'Iniciaste sesión correctamente!',
                     'success'
                   );
+                  this.cartService.getProductsLength();
                 });
               } else {
                 this.loginService.register(this.user).then( () => {
@@ -125,6 +126,7 @@ export class LoginComponent implements OnInit {
                     'Iniciaste sesión correctamente!',
                     'success'
                   );
+                  this.cartService.getProductsLength();
                 } );
               }
             } );

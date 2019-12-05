@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
       price = product.productId.precioUnit;
     }
 
-    if (product.quantity >= 5) {
+    if (product.quantity >= product.productId.unidadPorBulto) {
       // tslint:disable: no-var-keyword
       // tslint:disable-next-line: prefer-const
       discount = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
@@ -126,6 +126,10 @@ export class CartComponent implements OnInit {
     } else {
       this.total = this.total;
     }
+
+    this.subtotal = parseFloat(this.subtotal.toFixed(2));
+    this.total = parseFloat(this.total.toFixed(2));
+    this.discounts = parseFloat(this.discounts.toFixed(2));
   }
 
   removeItem(product) {

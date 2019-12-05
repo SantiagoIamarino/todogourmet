@@ -41,10 +41,10 @@
                         }} -->
                         {{ product.productId.precioUnit }}
                     </td>
-                    <td class="discount" *ngIf='product.quantity >= 5'>
+                    <td class="discount" *ngIf='product.quantity >= product.productId.unidadPorBulto'>
                         Bulto: {{ product.productId.descuentoPorBulto }}%
                     </td>
-                    <td class="discount" *ngIf='product.quantity < 5'>
+                    <td class="discount" *ngIf='product.quantity < product.productId.unidadPorBulto'>
                         Sin desc.
                     </td>
                     <td class="subtotal">$

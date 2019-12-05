@@ -4,6 +4,7 @@ import { ProductService } from '../../../services/product.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../pages/cart/cart.service';
 import { LoginService } from '../../../services/login/login.service';
+import { UsersService } from '../../pages/admin/users.service';
 
 declare var swal;
 
@@ -24,7 +25,8 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     private productService: ProductService,
-    public loginService: LoginService
+    public loginService: LoginService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
@@ -64,13 +66,30 @@ export class ProductComponent implements OnInit {
     } else {
       price = product.precioUnit;
     }
-    if (product.quantity >= 5) {
+
+    if (product.quantity >= product.unidadPorBulto) {
       const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
       const precioPorBulto: any = price * discount;
       price = precioPorBulto;
     }
 
     product.total = (product.quantity * price).toFixed(1);
+  }
+
+  handleFavourite(product) {
+
+    const productIdIndex = this.loginService.user.surtido.indexOf(product._id);
+
+    if (productIdIndex >= 0) {
+      this.loginService.user.surtido.splice(productIdIndex, 1);
+    } else {
+      this.loginService.user.surtido.push(product._id);
+    }
+
+    this.usersService.updateUser(this.loginService.user).subscribe( (res) => {
+      swal('Agregado al surtido!', 'Has agregado este producto correctamente a tu surtido', 'success');
+      this.loginService.saveInStorage(this.loginService.user, this.loginService.token);
+    } );
   }
 
   addToCart(product) {

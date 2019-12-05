@@ -48,4 +48,21 @@ export class ConfigurationService {
       return res.images;
     } ) );
   }
+
+  getImage(imagePosition: string) {
+    let url = BACKEND_URL + '/configs/images/' + imagePosition;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url).pipe( map( (res: any) => {
+      return res.image;
+    } ) );
+  }
+
+  updateBannerImage(image: any) {
+    let url = BACKEND_URL + '/configs/images';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.put(url, image);
+  }
+
 }

@@ -1,7 +1,7 @@
 .to-top {
     position: fixed;
     bottom: 3%;
-    right: 3%;
+    left: 3%;
     cursor: pointer;
     display: none;
 }

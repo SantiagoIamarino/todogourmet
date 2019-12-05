@@ -35,11 +35,21 @@ export class MensajesComponent implements OnInit {
     } );
   }
 
-  checkAsRead(message: contactMessage) {
-    message.readed = true;
+  checkAsRead(message: contactMessage, checkAs: boolean) {
+    message.readed = checkAs;
 
     this.contactoService.updateMessage(message).subscribe( (res: any) => {
-      swal('Marcado como leído', res.message, 'success');
+      swal('Estado del mensaje actualizado', 'Has actualizado el estado del mensaje correctamente!', 'success');
+
+      this.getMessages();
+    } );
+  }
+
+  handleImportant(message: contactMessage, importantAs: boolean) {
+    message.important = importantAs;
+
+    this.contactoService.updateMessage(message).subscribe( (res: any) => {
+      swal('Estado del mensaje actualizado', 'Has actualizado el estado del mensaje correctamente!', 'success');
 
       this.getMessages();
     } );
@@ -51,13 +61,19 @@ export class MensajesComponent implements OnInit {
       return;
     }
 
-    let status = false;
+    const body = {
+      status: false,
+      important: null
+    };
 
     if (this.filter === 'leidos') {
-      status = true;
+      body.status = true;
+    } else if ( this.filter === 'destacados' ) {
+      body.status = null;
+      body.important = true;
     }
 
-    this.contactoService.getMessagesByFilter(status).subscribe( (res: any) => {
+    this.contactoService.getMessagesByFilter(body).subscribe( (res: any) => {
       this.messages = res.messages;
     } );
   }

@@ -7,11 +7,12 @@
             <div class="filter d-flex justify-content-end">
                 <div class="form-group w-50">
                     <select [(ngModel)]="filter" name="filter"
-                    (change)= 'applyFilter()'
-                    id="filter" class="form-control">
-                    <option value="">Mostrar todos</option>
-                    <option value="leidos">Leídos</option>
-                    <option value="no-leidos">No leídos</option>
+                        (change)= 'applyFilter()'
+                        id="filter" class="form-control">
+                        <option value="">Mostrar todos</option>
+                        <option value="leidos">Leídos</option>
+                        <option value="no-leidos">No leídos</option>
+                        <option value="destacados">Destacados</option>
                     </select>
                 </div>
                 </div>
@@ -38,14 +39,33 @@
                                 <div class="message mt-4">
                                     <p>{{ message.message }}</p>
                                 </div>
-                                <div class="check text-center mt-3">
-                                    <button (click)='checkAsRead(message)' *ngIf='!message.readed'
+                                <div class="check mt-3 d-flex justify-content-center">
+
+                                    <button (click)='checkAsRead(message, true)' *ngIf='!message.readed'
                                         class='btn btn-outline-info'>
                                         Marcar como leído
                                     </button>
-                                    <button (click)='removeMessage(message)' *ngIf='message.readed'
-                                        class='btn btn-outline-danger'>
-                                        Eliminar
+                                    <div class="readed" *ngIf='message.readed'>
+                                        <button (click)='checkAsRead(message, false)'
+                                            class='btn btn-outline-info mr-2'>
+                                            Marcar como no leído
+                                        </button> 
+                                        <button (click)='removeMessage(message)' 
+                                            class='btn btn-outline-danger'>
+                                            Eliminar
+                                        </button>
+                                    </div>
+
+                                    <button *ngIf='!message.important' (click)='handleImportant(message, true)'
+                                        class="btn btn-outline-warning ml-2">
+                                        <i class="fa fa-star"></i>
+                                        Destacado
+                                    </button>
+
+                                    <button *ngIf='message.important' (click)='handleImportant(message, false)'
+                                        class="btn btn-warning ml-2 text-white">
+                                        <i class="fa fa-star"></i>
+                                        Quitar destacado
                                     </button>
                                 </div>
                             </div>

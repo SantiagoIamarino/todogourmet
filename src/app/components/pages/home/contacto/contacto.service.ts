@@ -21,8 +21,16 @@ export class ContactoService {
     return this.http.get(url);
   }
 
-  getMessagesByFilter(status: boolean) {
-    let url = BACKEND_URL + '/contact/status/' + status;
+  getMessagesByFilter(body: any) {
+
+    let url = '';
+
+    if (body.status !== null) {
+      url = BACKEND_URL + '/contact/status/' + body.status;
+    } else {
+      url = BACKEND_URL + '/contact/important/' + body.important;
+    }
+
     url += '?token=' + this.loginService.token;
 
     return this.http.get(url);

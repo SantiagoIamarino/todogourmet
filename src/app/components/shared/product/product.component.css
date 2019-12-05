@@ -68,6 +68,40 @@
     width: 100%;
 }
 
+.producto .img .is-favourite i{
+    position: absolute;
+    bottom: 12px;
+    right: 15px;
+    font-size: 22px;
+    color: rgb(194, 54, 49);
+    cursor: pointer;
+}
+
+.producto .img .is-favourite>div{
+    display: none;
+}
+
+.producto .img .is-favourite .active{
+    display: block;
+}
+
+.producto .img .is-favourite .favourite .empty,
+.producto .img .is-favourite .no-favourite .full{
+    display: none;
+}
+
+/* .producto .img .is-favourite .favourite .full:hover,
+.producto .img .is-favourite .no-favourite .empty:hover{
+    transition: .3s all ease;
+    display: none;
+}
+
+.producto .img .is-favourite .favourite .full:hover + .empty,
+.producto .img .is-favourite .no-favourite .empty:hover + .full{
+    transition: .3s all ease;
+    display: block !important;
+} */
+
 .producto .info {
     padding: 10px;
     font-family: 'Source Sans Pro', sans-serif;
@@ -211,12 +245,13 @@
 }
 
 .producto .info .product-prices .subtotal .subtotal-value{
-    width: 58%;
+    width: 59%;
 }
 
 .producto .info .product-prices .subtotal .subtotal-value p{
     padding: 0;
-    padding-left: 4px;
+    padding-left: 5%;
+    margin-right: 0;
 }
 
 .producto .info .product-prices .subtotal .subtotal-value span{

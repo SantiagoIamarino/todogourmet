@@ -1,55 +1,144 @@
-<div class="container animated fadeIn faster">
-    <div class="title">
-        <h2>Mi surtido</h2>
-        <hr>
-    </div>
-    <div class="surtido" *ngIf='surtido.length > 0'>
-        <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Imagen</th>
-                <th scope="col">Producto</th>
-                <th scope="col">Precio u.</th>
-                <th scope="col">Precio bulto</th>
-                <th scope="col">Carrito</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor='let product of surtido'>
-                <th scope="row">
-                  <div class="img">
-                    <img class='img-fluid img-circle' 
-                    [src]="product.img | images" alt="">
+<div class="tienda animated fadeIn faster">
+  <div class="tienda-content">
+      <div class="title-top-tienda">
+          <div class="pl-2 title">
+              <h2>MI SURTIDO</h2>
+          </div>
+          <div class="search">
+              <div class="input-group input-text">
+                  <input [(ngModel)]="filtersToApply.termino" (keyup)='searchProducts()'
+                      type="text" placeholder="Busca un producto" name='termino'>
+                  <div class="submit-btn">
+                      <button type='submit'>
+                          <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
                   </div>
-                </th>
-                <td>{{ product.name }}</td>
-                <td *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
-                  ${{ product.precioComercio | number : '1.2-2' }}
-                </td>
-                <td *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
-                    ${{ product.precioUnit | number : '1.2-2' }}
-                </td>
-                <td *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
-                    ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
-                </td>
-                <td *ngIf="!loginService.user || loginService.user.role !== 'COMMERCE_ROLE'">
-                    ${{ product.precioUnit | precioBulto: product.descuentoPorBulto }}
-                </td>
-                <td>
-                  <button (click)='addToCart(product)'
-                    class="btn btn-outline-danger">
-                    <i class="fa fa-shopping-cart"></i>
-                    Agregar al carrito
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-        </table>          
-    </div>
-    <div class="no-products" *ngIf='surtido.length <= 0'>
-        <h2>No tienes ningun producto en tu surtido!</h2>
-        <button routerLink='/tienda'>
-            Ir a la tienda
-        </button>
-    </div>   
+              </div>
+          </div>
+      </div>
+      <!-- <div class="display-type">
+          <p>Vista</p>
+          <div class="normal active">
+              <i class="fa fa-th-large" aria-hidden="true"></i>
+          </div>
+          <div class="list">
+              <i class="fa fa-th-list" aria-hidden="true"></i>
+          </div>
+      </div> -->
+      <div class="bottom-tienda">
+          <div class="sidebar">
+              <div class="sidebar-title">
+                  <h4>Filtros de búsqueda</h4>
+                  <hr>
+              </div>
+              <div class="filters">
+                  <div class="filter certificacion">
+                      <div class="filter-title">
+                          <label for="">Certificación</label>
+                      </div>
+                      <div class="filter-options">
+                          <ul class="ks-cboxtags">
+                              <li *ngFor='let certificacion of filters.certificaciones'>
+                                  <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
+                                          [attr.value]='certificacion.formattedFilter'
+                                          [checked]='this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0'
+                                          [ngClass]="{'active': this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0}">
+                                  <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
+                                      [attr.for]='certificacion.formattedFilter'>
+                                      <i class='fa fa-plus add-icon'></i>
+                                      <i class='fa fa-check check-icon'></i>
+                                      {{ certificacion.nombre }}
+                                  </label>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="filter rubros">
+                      <div class="filter-title">
+                          <label for="">Rubros</label>
+                      </div>
+                      <div class="filter-options">
+                          <ul class="ks-cboxtags">
+                              <li *ngFor='let rubro of filters.rubros'>
+                                  <input type="checkbox" [attr.id]='rubro.formattedFilter'  
+                                          [attr.value]='rubro.formattedFilter'
+                                          [checked]='this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0'
+                                          [ngClass]="{'active': this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0}">
+                                  <label (click)="filterChanged('rubro', rubro.formattedFilter)"
+                                      [attr.for]='rubro.formattedFilter'>
+                                      <i class='fa fa-plus add-icon'></i>
+                                      <i class='fa fa-check check-icon'></i>
+                                      {{ rubro.nombre }}
+                                  </label>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="filter tipos">
+                      <div class="filter-title">
+                          <label for="">Tipos</label>
+                      </div>
+                      <div class="filter-options">
+                          <ul class="ks-cboxtags">
+                              <li *ngFor='let tipo of filters.tipos'>
+                                  <input (click)="filterChanged('tipo', tipo.formattedFilter)"
+                                      type="checkbox" [attr.id]='tipo.formattedFilter'  
+                                          [attr.value]='tipo.formattedFilter'
+                                          [checked]='this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0'
+                                          [ngClass]="{'active': this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0}">
+                                  <label [attr.for]='tipo.formattedFilter'>
+                                      <i class='fa fa-plus add-icon'></i>
+                                      <i class='fa fa-check check-icon'></i>
+                                      {{ tipo.nombre }}
+                                  </label>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="filter esta-refrigerado">    
+                      <div class="filter-title">
+                          <label for="refrigerado">Refrigerado</label>
+                      </div>
+                      <div class="filter-options">
+                          <div class="checkbox-new">
+                              <p>No</p>
+                              <div class="checkbox-input">
+                                  <input [(ngModel)]="filtersToApply.estaRefrigerado" (change)='applyFilters(true)'
+                                      name="estaRefrigerado"
+                                      type="checkbox" id="refrigerado" style="display:none" />
+                                  <label for="refrigerado" class="toggle">
+                                      <span></span>
+                                  </label>
+                              </div>
+                              <p>Si</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="filter select-marcas" *ngIf="!loadingService.loading">
+                      <div class="select-title">
+                          <label for="tipo">Marcas</label>
+                      </div>
+                      <select [(ngModel)]="filtersToApply.marca" (change)='applyFilters()'
+                          name='marca'
+                          class="input-select" id="tipo">
+                          <option value="">Selecciona una marca</option>
+                          <option [value]="marca.formattedFilter" *ngFor='let marca of filters.marcas'>
+                              {{ marca.nombre }}
+                          </option>
+                      </select>
+                  </div>
+              </div>
+              <div class="clean-filters">
+                  <button (click)='resetFilters()'>Limpiar filtros</button>
+              </div>
+          </div>
+          <div class="products normal-display">
+              <app-product *ngFor='let product of products'
+                  [product]='product'>
+              </app-product>
+          </div>
+      </div>
+  </div>
 </div>
+
+<!-- <h2>Seccion en desarrolo, proximamente...</h2> -->

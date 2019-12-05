@@ -7,40 +7,54 @@
         <form action="" class='d-flex justify-content-between align-items-center'>
             <div class="personal-info mr-4">
                 <h4 class='mb-3'>Información personal</h4>
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input id='name' [(ngModel)]="user.name" name='name'
-                        type="text" placeholder="Nombre" class='form-control'>
+                <hr>
+                <div class="profile-form-group">
+                    <div class="form-group">
+                        <label for="name">Nombre y apellido</label>
+                        <input id='name' [(ngModel)]="user.name" name='name'
+                            type="text" placeholder="Nombre" class='form-control'>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingAddress">Dirección de entrega</label>
+                        <input id='shippingAddress' [(ngModel)]="user.shippingAddress" name='shippingAddress'
+                            type="text" placeholder="Dirección de envio" class='form-control'>
+                    </div>
                 </div>
                     
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Correo electrónico</label>
                     <input id='email' [(ngModel)]="user.userEmail" name='userEmail'
                         type="text" placeholder="Email" class='form-control'>
                 </div>
-                    
-                <div class="form-group">
-                    <label for="phoneNumber">Número</label>
-                    <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
-                        type="text" placeholder="Numero" class='form-control'>
-                </div>
-                    
-                <div class="form-group">
-                    <label for="shippingAddress">Dirección de envio</label>
-                    <input id='shippingAddress' [(ngModel)]="user.shippingAddress" name='shippingAddress'
-                        type="text" placeholder="Dirección de envio" class='form-control'>
+                
+                <div class="profile-form-group">
+                    <div class="form-group">
+                        <label for="phoneNumber">Celular</label>
+                        <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
+                            type="text" placeholder="Numero" class='form-control'>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input id='dni' [(ngModel)]="user.dni" name='dni'
+                            type="text" placeholder="Numero de DNI" class='form-control'>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="birthDay">Fecha de nacimiento</label>
-                    <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
-                        type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
+                <div class="profile-form-group">
+                    <div class="form-group">
+                        <label for="birthDay">Fecha de nacimiento</label>
+                        <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
+                            type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
+                    </div>
+                    <div class="form-group">
+                        <label for="cuit">Cuit</label>
+                        <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
+                            type="text" placeholder="Cuit" class='form-control'>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="cuit">Cuit</label>
-                    <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
-                        type="text" placeholder="Cuit" class='form-control'>
-                </div>
+
                 <div class="location d-flex">
                     <div class="form-group w-50 mr-2 mb-2" *ngIf='provincias.length > 0'>
                         <label for="provinciaId">Provincia</label>
@@ -76,25 +90,38 @@
                 </div>
             </div>
             <div class="commerce-info" *ngIf="user.cuit">
-                    <h4 class='mb-3'>Información comercial</h4>                
-                    <div class="form-group">
-                        <label for="address">Dirección del comercio</label>
-                        <input id='address' [(ngModel)]="user.address" name='address'
-                            type="text" placeholder="Dirección del comercio" class='form-control'>
-                    </div>
-                        
-                    <div class="form-group">
-                        <label for="cuit">Cuit</label>
-                        <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
-                            type="text" placeholder="Cuit" class='form-control'>
-                    </div>
-                    <div class="submit-btn mt-3 text-center">
-                        <button (click)='updateUser()'
-                             class="btn btn-outline-success">
-                            <i class="fa fa-save"></i>
-                            Actualizar
-                        </button>
-                    </div>
+                <h4 class='mb-3'>Información comercial</h4>
+                <hr>
+                <div class="form-group">
+                    <label for="commerceName">Nombre del comercio</label>
+                    <input id='commerceName' [(ngModel)]="user.commerceName" name='commerceName'
+                        type="text" placeholder="Nombre del comercio" class='form-control'>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPerson">Persona de contacto</label>
+                    <input id='contactPerson' [(ngModel)]="user.contactPerson" name='contactPerson'
+                        type="text" placeholder="Persona de contacto" class='form-control'>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Dirección de entrega</label>
+                    <input id='address' [(ngModel)]="user.address" name='address'
+                        type="text" placeholder="Dirección de entrega" class='form-control'>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="cuit">Cuit</label>
+                    <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
+                        type="text" placeholder="Cuit" class='form-control'>
+                </div>
+                <div class="submit-btn mt-3 text-center">
+                    <button (click)='updateUser()'
+                            class="btn btn-outline-success">
+                        <i class="fa fa-save"></i>
+                        Actualizar
+                    </button>
+                </div>
             </div>
         </form>
     </div>

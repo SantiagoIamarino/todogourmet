@@ -30,6 +30,11 @@ export class ValidationsService {
         return validators;
     }
 
+    if (!product.unidadPorBulto || isNaN(product.unidadPorBulto)) {
+      validators.errors = 'Debes agregar una cantidad de unidades por bulto valido';
+      return validators;
+  }
+
     if (!product.descuentoPorBulto || isNaN(product.descuentoPorBulto)) {
         validators.errors = 'Debes agregar un descuento por bulto valido';
         return validators;

@@ -8,3 +8,12 @@
     border-radius: 3px;
     width: 100%;
 }
+
+.profile-form-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.profile-form-group>div{
+    width: 49%;
+}

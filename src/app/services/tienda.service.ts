@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class TiendaService {
 
+  attentionShowed = false;
+
   filters = {
     marcas: [],
     certificaciones: [],

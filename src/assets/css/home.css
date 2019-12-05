@@ -122,6 +122,18 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
     border: 1px solid rgba(211, 45, 45, .5);
 }
 
+.swal-button:focus{
+    box-shadow:  0 0 1px #fff, 0 0 0 3px rgba(211, 45, 45, .29);
+}
+
+.swal-button--confirm{
+    background-color: rgb(211, 45, 45);
+}
+
+.swal-button--confirm:hover{
+    background-color: rgba(211, 45, 45, .7) !important;
+}
+
 @media screen and (max-width: 991px){
     .container{
         max-width: 98% !important;

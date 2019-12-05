@@ -9,6 +9,7 @@ export class Product {
         },
         public precioUnit?: number,
         public descuentoPorBulto?: number,
+        public unidadPorBulto?: number,
         public precioComercio?: number,
         public estaRefrigerado = false,
         public certificaciones = [],

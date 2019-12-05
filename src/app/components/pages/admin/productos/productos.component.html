@@ -3,7 +3,20 @@
         <div class="col-md-8 productos">
             <div class="admin-title">
                 <h2>Lista de productos</h2>
-                <div class="search">
+            </div>
+            <div class="filters mb-4 d-flex align-items-center">
+                <div class="filter-marca w-50 mr-2">
+                    <select [(ngModel)]="filter" name="filter"
+                    (change)= 'applyFilter()' 
+                        id="marca_select" class="form-control">
+                        <option value="">Selecciona una marca</option>
+                        <option value="{{ marca.formattedFilter }}" 
+                            *ngFor='let marca of marcas'>
+                            {{ marca.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="search w-50 ml-2">
                     <div class="input-group input-text">
                         <input #term type="text" (keyup)='searchProducts(term.value, $event)'
                             placeholder="Busca un producto">
@@ -15,20 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="filter-marca">
-                <div class="form-group">
-                    <label for="marca_select">Marca:</label>
-                    <select [(ngModel)]="filter" name="filter"
-                    (change)= 'applyFilter()' 
-                        id="marca_select" class="form-control">
-                        <option value="">Selecciona una marca</option>
-                        <option value="{{ marca.formattedFilter }}" 
-                            *ngFor='let marca of marcas'>
-                            {{ marca.nombre }}
-                        </option>
-                    </select>
-                </div>
-            </div>
+            
             <div class="product-list">
                 <table class="table">
                     <thead>

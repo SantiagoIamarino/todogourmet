@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   marcas: any[] = [];
 
   bannerImages: any[] = [];
+  pricesList = '';
 
   constructor(
     private homeService: HomeService,
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.getMarcas();
     this.getBannerImages();
+    this.getPricesList();
    }
 
   ngOnInit() {
@@ -55,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.productsService.getProducts(4).subscribe( (products: any) => {
       this.products = products;
       this.loadingService.loading = false;
+      console.log(products);
     } );
   }
 
@@ -69,6 +72,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.configurationService.getBannerImages().subscribe( images => {
       this.bannerImages = images;
     } );
+  }
+
+  getPricesList() {
+    this.configurationService.getConfigs().subscribe( (res: any) => {
+      this.pricesList = res.configs[0].pricesList;
+    }  );
   }
 
 }

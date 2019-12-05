@@ -11,6 +11,7 @@ export class contactMessage {
         public message?: string,
         public date?: Date,
         public readed = false,
+        public important = false,
         public _id?: string
     ) {}
 

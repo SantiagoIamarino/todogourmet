@@ -11,6 +11,20 @@
         <div class="img-loading" *ngIf="!imageLoaded">
             <img src="../../../../assets/img/not-found.png" alt="">
         </div>
+        <div class="is-favourite">
+            <div class='favourite active' 
+                (click)='handleFavourite(product)'
+                [ngClass]="{'active': loginService.user.surtido.indexOf(product._id) >= 0}">
+                <i class="fa fa-heart-o empty"></i>
+                <i class="fa fa-heart full"></i>
+            </div>
+            <div class='no-favourite'
+                (click)='handleFavourite(product)' 
+                [ngClass]="{'active': loginService.user.surtido.indexOf(product._id) < 0}">
+                <i class="fa fa-heart-o empty"></i>
+                <i class="fa fa-heart full"></i>
+            </div>
+        </div>
     </div>
     <div class="info">
         <div class="product-name">
@@ -36,7 +50,7 @@
             </div>
         </div>
         <div class="product-prices" *ngIf="loginService.user && loginService.user._id">
-            <div class="unidad" [ngClass]="{active: product.quantity < 5}">
+            <div class="unidad" [ngClass]="{active: product.quantity < product.unidadPorBulto}">
                 <p>Unidad</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
                     ${{ product.precioComercio | number : '1.2-2' }}
@@ -45,8 +59,8 @@
                     ${{ product.precioUnit | number : '1.2-2' }}
                 </span>
             </div>
-            <div class="cantidad" [ngClass]="{active: product.quantity >= 5}">
-                <p>Bulto (5 u.)</p>
+            <div class="cantidad" [ngClass]="{active: product.quantity >= product.unidadPorBulto}">
+                <p>Bulto ({{ product.unidadPorBulto }} u.)</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
                     ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
                 </span>

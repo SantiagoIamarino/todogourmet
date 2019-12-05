@@ -18,7 +18,8 @@ export class ConfigurationComponent implements OnInit {
   message: string;
   imageToChange = {
     id: '',
-    file: null
+    file: null,
+    link: ''
   };
 
   images = [];
@@ -67,6 +68,16 @@ export class ConfigurationComponent implements OnInit {
     } );
   }
 
+  getImage() {
+    if (!this.imageToChange.id) {
+      return;
+    }
+
+    this.configurationService.getImage(this.imageToChange.id).subscribe( (image: any) => {
+      this.imageToChange.link = image.link;
+    });
+  }
+
   imgSelected( event ) {
 
     if (event.target.files.length > 0) {
@@ -74,17 +85,22 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  uploadImages() {
-    if ( !this.imageToChange.file) {
-      swal('Error', 'Debes seleccionar una imagen', 'error');
-      return;
-    }
-
-    this.uploadFileService.uploadBannerImage( this.imageToChange )
-      .then( () => {
-        swal('Imagen actualizada', 'La imagen se ha subido correctemente', 'success');
-        this.imageToChange.id = '';
+  updateImage(image) {
+    this.configurationService.updateBannerImage( image ).subscribe( (res) => {
+      swal('Imagen actualizada', 'La imagen se ha subido correctemente', 'success');
     } );
+  }
+
+  uploadImages() {
+    if ( this.imageToChange.file) {
+      this.uploadFileService.uploadBannerImage( this.imageToChange )
+      .then( () => {
+        this.updateImage(this.imageToChange);
+        this.imageToChange.id = '';
+      } );
+    } else {
+      this.updateImage(this.imageToChange);
+    }
   }
 
   ngOnInit() {

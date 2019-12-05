@@ -29,7 +29,7 @@
                 <tr *ngFor='let order of orders'>
                     <th scope="row">{{ order.user.userEmail }}</th>
                     <td>{{ order.paymentMethod || 'Efectivo' }}</td>
-                    <td>{{ order.total }}</td>
+                    <td>${{ order.total }}</td>
                     <td>
                         <button (click)='changeState(order)'
                         class='btn' [ngClass]="{'btn-outline-warning': order.status === 'PENDING', 'btn-outline-success': order.status === 'FINISHED' }">
@@ -60,15 +60,28 @@
         </div>
         <div class="modal-body">
           <div class="products">
-            <div class="title">
+            <div class="title mb-3">
               <h4>Productos</h4>
-              <hr>
             </div>
-            <div class="product d-flex justify-content-between" 
-              *ngFor='let product of orderToShow.products'>
-              <p>Producto: <span>{{ product.name }}</span></p>
-              <p>Cantidad: <span>{{ product.quantity }}</span></p>
-              <p>Subtotal: <span>{{ product.subtotal }}</span></p>
+            <div class="products d-flex justify-content-between" >
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Producto</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let product of orderToShow.products; let i = index'>
+                      <th scope="row">{{ i +1 }}</th>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.quantity }}</td>
+                      <td>${{ product.subtotal }}</td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
           </div>
           <div class="more-info mt-4">
