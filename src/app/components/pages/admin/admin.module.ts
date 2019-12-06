@@ -12,7 +12,7 @@ import { AdminComponent } from './admin.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
-
+import { ImportComponent } from './import/import.component';
 
 
 
@@ -24,7 +24,8 @@ import { UsersComponent } from './users/users.component';
     MensajesComponent,
     ConfigurationComponent,
     OrdersComponent,
-    UsersComponent
+    UsersComponent,
+    ImportComponent
   ],
   imports: [
     CommonModule,

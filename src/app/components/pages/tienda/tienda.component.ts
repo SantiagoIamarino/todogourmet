@@ -74,6 +74,7 @@ export class TiendaComponent implements OnInit {
     this.loadingService.loading = true;
     this.tiendaService.getProducts().subscribe( (products: any) => {
       this.products = products;
+      console.log(products);
       this.loadingService.loading = false;
     } );
   }

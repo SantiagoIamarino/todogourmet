@@ -80,14 +80,23 @@ export class ProductComponent implements OnInit {
 
     const productIdIndex = this.loginService.user.surtido.indexOf(product._id);
 
+    let message = '';
+
     if (productIdIndex >= 0) {
+      message = 'Has quitado este producto correctamente de tu surtido';
       this.loginService.user.surtido.splice(productIdIndex, 1);
     } else {
+      message = 'Has agregado este producto correctamente a tu surtido';
       this.loginService.user.surtido.push(product._id);
     }
 
     this.usersService.updateUser(this.loginService.user).subscribe( (res) => {
-      swal('Agregado al surtido!', 'Has agregado este producto correctamente a tu surtido', 'success');
+      swal({
+        title: 'Surtido actualizado!',
+        text: message,
+        icon: 'success',
+        timer: 2000
+      });
       this.loginService.saveInStorage(this.loginService.user, this.loginService.token);
     } );
   }

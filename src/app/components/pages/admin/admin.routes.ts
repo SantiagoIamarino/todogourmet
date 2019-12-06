@@ -7,6 +7,7 @@ import { AdminGuard } from '../../../guards/admin.guard';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
+import { ImportComponent } from './import/import.component';
 
 const AdminRoutes: Routes = [
     {
@@ -15,6 +16,7 @@ const AdminRoutes: Routes = [
         canActivate: [AdminGuard],
         children: [
             { path: 'productos', component: ProductosComponent },
+            { path: 'importar', component: ImportComponent },
             { path: 'filtros/:tipo', component: FiltersComponent },
             { path: 'usuarios', component: UsersComponent },
             { path: 'mensajes', component: MensajesComponent },

@@ -5,3 +5,9 @@
 .products .product{
     margin-bottom: 10px;
 }
+
+@media screen and (min-width: 576px){
+    .modal-dialog {
+        max-width: 800px;
+    }
+}

@@ -10,6 +10,8 @@ declare function showButton(preferenceId);
 
 declare function removeOldButton();
 
+declare function goToTop(animationTime);
+
 declare var swal;
 
 @Component({
@@ -44,6 +46,7 @@ export class CartComponent implements OnInit {
    }
 
   ngOnInit() {
+    goToTop(0);
   }
 
   getProducts() {
@@ -139,7 +142,7 @@ export class CartComponent implements OnInit {
     }).then( wantsToDelete => {
       if (wantsToDelete) {
         this.cartService.removeProductFromCart(product._id).subscribe( (res: any) => {
-          sweetAlert(res.message, { icon: 'success' });
+          sweetAlert({text: res.message,  icon: 'success', timer: 2000 });
           this.getProducts();
           this.cartService.getProductsLength();
         } );
@@ -160,6 +163,7 @@ export class CartComponent implements OnInit {
       const productToSend = {
         id: product._id,
         name: product.productId.name,
+        marca: product.productId.marca.nombre,
         quantity: product.quantity,
         subtotal: product.subtotal,
         totalWithoutDisc: product.totalWithoutDisc,
@@ -170,11 +174,12 @@ export class CartComponent implements OnInit {
     });
 
     this.cartService.payment(body).subscribe( (res: any) => {
-        swal(
-          'Pedido realizado correctamente',
-          'Nos contactaremos a la brevedad para coordinar la compra!',
-          'success'
-        ).then( () => {
+        swal({
+          title: 'Pedido realizado correctamente',
+          text: 'Nos contactaremos a la brevedad para coordinar la compra!',
+          icon: 'success',
+          timer: 2000
+        }).then( () => {
           this.router.navigate(['/tienda']);
         } );
 

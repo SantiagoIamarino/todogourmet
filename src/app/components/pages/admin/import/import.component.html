@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="title">
+        <h2>Importar archivo (Excel)</h2>
+        <hr>
+    </div>
+    <div class="form">
+        <form action="" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="">Archivo</label>
+                <input type="file" (change)="incomingfile($event)" class='w-100'
+                    placeholder="Subir archivo" accept=".xlsx">
+                <button type="button" class="btn btn-outline-success mt-3" (click)="Upload()" >
+                    <i class="fa fa-save"></i>
+                    Subir archivo
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

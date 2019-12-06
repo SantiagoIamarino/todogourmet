@@ -69,6 +69,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Producto</th>
+                      <th scope="col">Marca</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">Subtotal</th>
                     </tr>
@@ -77,6 +78,7 @@
                     <tr *ngFor='let product of orderToShow.products; let i = index'>
                       <th scope="row">{{ i +1 }}</th>
                       <td>{{ product.name }}</td>
+                      <td>{{ product.marca }}</td>
                       <td>{{ product.quantity }}</td>
                       <td>${{ product.subtotal }}</td>
                     </tr>

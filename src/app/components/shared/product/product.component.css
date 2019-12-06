@@ -245,12 +245,13 @@
 }
 
 .producto .info .product-prices .subtotal .subtotal-value{
-    width: 59%;
+    width: 60%;
 }
 
 .producto .info .product-prices .subtotal .subtotal-value p{
     padding: 0;
-    padding-left: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
     margin-right: 0;
 }
 

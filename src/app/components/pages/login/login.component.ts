@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
       this.windowRef.recaptchaVerifier.render();
   }
 
+  resetPhone() {
+    this.phone = new Phone();
+  }
+
   sendLoginCode() {
 
     const appVerifier = this.windowRef.recaptchaVerifier;
@@ -121,10 +125,12 @@ export class LoginComponent implements OnInit {
                 });
               } else {
                 this.loginService.register(this.user).then( () => {
-                  sweetAlert(
-                    'Inicio de sesión',
-                    'Iniciaste sesión correctamente!',
-                    'success'
+                  sweetAlert({
+                    title: 'Inicio de sesión',
+                    text: 'Iniciaste sesión correctamente!',
+                    icon: 'success',
+                    timer: 2000
+                  }
                   );
                   this.cartService.getProductsLength();
                 } );

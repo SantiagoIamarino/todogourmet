@@ -42,11 +42,102 @@ export class ProfileComponent implements OnInit {
     } );
   }
 
+  validation() {
+    const validation = {
+      valid: false,
+      error: ''
+    };
+
+    if (!this.user.shippingAddress) {
+      validation.error = 'Debes agregar una dirección de entrega';
+      return validation;
+    }
+
+    if (!this.user.userEmail) {
+      validation.error = 'Debes agregar un email';
+      return validation;
+    } else {
+      if (this.user.userEmail.indexOf('@') < 0) {
+        validation.error = 'El email debe contener @';
+        return validation;
+      }
+    }
+
+    if (!this.user.phoneNumber) {
+      validation.error = 'Debes agregar un celular';
+      return validation;
+    }
+
+    if (!this.user.provincia) {
+      validation.error = 'Debes agregar una provincia';
+      return validation;
+    }
+
+    if (!this.user.localidad) {
+      validation.error = 'Debes agregar una localidad';
+      return validation;
+    }
+
+    if (this.user.role !== 'COMMERCE_ROLE') {
+      if (!this.user.name) {
+        validation.error = 'Debes agregar un nombre';
+        return validation;
+      }
+
+      if (!this.user.dni) {
+        validation.error = 'Debes agregar un dni';
+        return validation;
+      } else {
+        // tslint:disable-next-line: radix
+        if (isNaN(parseInt(this.user.dni))) {
+          validation.error = 'El dni debe ser numerico';
+          return validation;
+        }
+      }
+    }
+
+    if (this.user.role === 'COMMERCE_ROLE') {
+      if (!this.user.commerceName) {
+        validation.error = 'Debes agregar el nombre de tu comercio';
+        return validation;
+      }
+
+      if (!this.user.contactPerson) {
+        validation.error = 'Debes agregar una persona de contacto';
+        return validation;
+      }
+
+      if (!this.user.cuit) {
+        validation.error = 'Debes agregar un cuit';
+        return validation;
+      } else {
+        // tslint:disable-next-line: radix
+        if (isNaN(parseInt(this.user.cuit))) {
+          validation.error = 'El cuit debe ser numerico';
+          return validation;
+        }
+      }
+    }
+
+    validation.valid = true;
+
+    return validation;
+
+  }
+
   updateUser() {
-    this.loginService.updateUser(this.user).subscribe( (res: any) => {
-      this.loginService.saveInStorage(this.user, this.loginService.token);
-      swal('Usuario actualizado', res.message, 'success');
-    } );
+
+    const validation = this.validation();
+
+    if (validation.valid) {
+      this.loginService.updateUser(this.user).subscribe( (res: any) => {
+        this.loginService.saveInStorage(this.user, this.loginService.token);
+        swal('Usuario actualizado', res.message, 'success');
+      } );
+    } else {
+      swal('Error', validation.error, 'error');
+    }
+
   }
 
 }
