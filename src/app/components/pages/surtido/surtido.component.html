@@ -25,7 +25,13 @@
               <i class="fa fa-th-list" aria-hidden="true"></i>
           </div>
       </div> -->
-      <div class="bottom-tienda">
+      <div class="no-products" *ngIf='products.length <= 0'>
+        <h2>No tienes ningun producto agregado a tu surtido</h2>
+        <button routerLink='/tienda'>
+            Ir a la tienda
+        </button>
+      </div>
+      <div class="bottom-tienda" *ngIf='products.length > 0'>
           <div class="sidebar">
               <div class="sidebar-title">
                   <h4>Filtros de búsqueda</h4>

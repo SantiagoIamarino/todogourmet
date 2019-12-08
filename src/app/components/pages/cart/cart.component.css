@@ -1,3 +1,10 @@
+.cart{
+    max-width: 1400px;
+    width: 98%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
 .product-list table{
     position: relative;
 }
@@ -101,6 +108,11 @@
     margin-left: 7rem;
 }
 
+.bottom .final-prices,
+.bottom .pay {
+    margin-right: 70px;
+}
+
 .bottom .pay button{
     margin-top: 30px;
     padding: 12px 40px;
@@ -151,4 +163,16 @@
     transition: .3s all ease;
     color: rgb(211, 45, 45);
     background: rgba(220,220,220, .3);
+}
+
+.red {
+    color: rgb(211, 45, 45);
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+    .bottom .final-prices,
+    .bottom .pay{
+        margin-right: 0;
+    }
 }

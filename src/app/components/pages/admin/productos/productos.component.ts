@@ -21,6 +21,7 @@ export class ProductosComponent implements OnInit {
   productToEdit: Product;
 
   filter = '';
+  destacados = false;
 
   constructor(
     private productService: ProductService,
@@ -77,9 +78,44 @@ export class ProductosComponent implements OnInit {
     } );
   }
 
+  getDestacados(event) {
+    this.destacados = !this.destacados;
+    if (this.destacados) {
+      this.productService.getDestacados().subscribe( products => {
+        this.products = products;
+      } );
+    } else {
+      this.getProducts();
+    }
+  }
+
   openEditModal( product ) {
     this.productToEdit = null;
     this.productToEdit = product;
+  }
+
+  handleDestacado( product: Product ) {
+    product.destacado = !product.destacado;
+
+    this.productService.editProduct(product).then( (res) => {
+      if (product.destacado) {
+        sweetAlert({
+          title: 'Producto actualizado!',
+          text: 'Has destacado el producto correctamente!',
+          icon: 'success',
+          timer: 2000
+        });
+      } else {
+        sweetAlert({
+          title: 'Producto actualizado!',
+          text: 'Has quitado el producto de destacados correctamente!',
+          icon: 'success',
+          timer: 2000
+        });
+      }
+
+      this.getProducts();
+    }  );
   }
 
   deleteProduct( product: Product ) {

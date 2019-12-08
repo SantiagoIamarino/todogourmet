@@ -68,6 +68,10 @@
     width: 100%;
 }
 
+.producto .img .is-favourite .surtido-btn{
+    position: relative;
+}
+
 .producto .img .is-favourite i{
     position: absolute;
     bottom: 12px;
@@ -90,17 +94,23 @@
     display: none;
 }
 
-/* .producto .img .is-favourite .favourite .full:hover,
-.producto .img .is-favourite .no-favourite .empty:hover{
-    transition: .3s all ease;
+.producto .img .is-favourite .surtido-btn p{
+    position: absolute;
+    z-index: 999;
+    color: white;
+    background: #DE1B1B;
+    padding: 3px 10px;
+    border-radius: 15px;
+    top: -58px;
+    font-size: 13px;
+    right: 10px;
     display: none;
 }
 
-.producto .img .is-favourite .favourite .full:hover + .empty,
-.producto .img .is-favourite .no-favourite .empty:hover + .full{
+.producto .img .is-favourite .surtido-btn:hover p {
     transition: .3s all ease;
-    display: block !important;
-} */
+    display: block;
+}
 
 .producto .info {
     padding: 10px;
@@ -256,7 +266,6 @@
 }
 
 .producto .info .product-prices .subtotal .subtotal-value span{
-    margin-left: 5px;
     font-size: 16px;
 }
 

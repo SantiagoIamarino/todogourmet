@@ -53,6 +53,7 @@ export class CartComponent implements OnInit {
     this.loadingService.loading = true;
     this.cartService.getProducts().subscribe( (res: any) => {
       this.products = res.products;
+      console.log(this.products);
       this.loadingService.loading = false;
     } );
   }
@@ -161,7 +162,7 @@ export class CartComponent implements OnInit {
 
     this.products.forEach(product => {
       const productToSend = {
-        id: product._id,
+        id: product.productId._id,
         name: product.productId.name,
         marca: product.productId.marca.nombre,
         quantity: product.quantity,
@@ -186,18 +187,22 @@ export class CartComponent implements OnInit {
         this.cartService.removeAllProducts().subscribe( () => {
           this.cartService.getProductsLength();
         } );
+        console.log(res.userDB);
+        this.loginService.saveInStorage(res.userDB, this.loginService.token);
     } );
   }
 
   checkout() {
-    removeOldButton();
-    this.cartService.checkOutMP(this.products, this.config, this.subtotal)
-    .subscribe( (res: any) => {
-      if (res.response && res.ok) {
-        this.preference = res.response;
-        showButton(this.preference.body.id);
-      }
-    } );
+    if (this.loginService.user.role === 'COMMERCE_ROLE') {
+      removeOldButton();
+      this.cartService.checkOutMP(this.products, this.config, this.subtotal)
+      .subscribe( (res: any) => {
+        if (res.response && res.ok) {
+          this.preference = res.response;
+          showButton(this.preference.body.id);
+        }
+      } );
+    }
   }
 
 }

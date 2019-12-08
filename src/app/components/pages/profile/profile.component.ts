@@ -15,10 +15,12 @@ export class ProfileComponent implements OnInit {
 
   user: User = new User();
 
+  moreHours = false;
+
   provincias = [];
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private loadingService: LoadingService,
     public gobAPIService: GobAPIService
   ) {
@@ -31,6 +33,13 @@ export class ProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    if (this.loginService.user.provincia) {
+      this.gobAPIService.provinceChanged();
+    }
+  }
+
+  changeHour(type, value) {
+    this.loginService.changeHour(type, value);
   }
 
   getProvinces() {
@@ -66,6 +75,27 @@ export class ProfileComponent implements OnInit {
     if (!this.user.phoneNumber) {
       validation.error = 'Debes agregar un celular';
       return validation;
+    } else if (this.user.phoneNumber.indexOf('+') < 0) {
+      validation.error = 'El numero debe comenzar con +';
+      return validation;
+    } else {
+      const phoneNumber: any = this.user.phoneNumber.split('+')[1];
+      // tslint:disable-next-line: radix
+      if (isNaN(phoneNumber)) {
+        validation.error = 'El numero de telefono debe ser numerico';
+        return validation;
+      }
+    }
+
+    if (!this.user.birthDay) {
+      validation.error = 'Debes agregar una fecha de nacimiento';
+      return validation;
+    } else {
+      const pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+      if (!pattern.test(this.user.birthDay)) {
+        validation.error = 'Debes agregar una fecha de nacimiento valida (Ejemplo: 02-07-1990)';
+        return validation;
+      }
     }
 
     if (!this.user.provincia) {

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="cart animated fadeIn faster">
     <div class=" title">
         <h2>Mi carrito</h2>
         <hr>
@@ -9,6 +9,7 @@
                 <tr>
                     <th scope="col">Imagén</th>
                     <th scope="col">Producto</th>
+                    <th scope="col">Bulto/Descuento</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Descuento</th>
@@ -25,6 +26,9 @@
                         </div>
                     </th>
                     <td class='title'>{{ product.productId.name }}</td>
+                    <td class='title' [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
+                        {{ 'Bulto ' +  product.productId.unidadPorBulto + 'u. - ' + product.productId.descuentoPorBulto + '%' }}
+                    </td>
                     <td class="quantity">
                         <div class="quantity-container">
                             <button class='less' [disabled]='product === 1'
@@ -33,13 +37,8 @@
                             <button class='more' (click)="getSubtotal('more', product)">+</button>
                         </div>
                     </td>
-                    <td class='price'>$
-                        <!-- {{ 
-                            (loginService.user._id && loginService.user.role === 'COMMERCE_ROLE') 
-                                ? product.productId.precioComercio 
-                                : product.productId.precioUnit
-                        }} -->
-                        {{ product.productId.precioUnit }}
+                    <td class='price'>
+                        <p>${{ product.productId.precioUnit }}</p>
                     </td>
                     <td class="discount" *ngIf='product.quantity >= product.productId.unidadPorBulto'>
                         Bulto: {{ product.productId.descuentoPorBulto }}%
@@ -81,7 +80,7 @@
             <div class="final-prices">
                 <div class="final-subtotal" *ngIf='subtotal'>
                     <p>Subtotal: </p>
-                    <span>${{ subtotal }}.</span>
+                    <span>${{ subtotal }}</span>
                 </div>
                 <div class="discounts">
                     <p>Descuento:</p>
@@ -104,7 +103,7 @@
                 </div>
                 <div class="total" *ngIf='total'>
                     <p>Total: </p>
-                    <span>${{ total }}.</span>
+                    <span>${{ total }}</span>
                 </div>
             </div>
             <div class="pay">
@@ -145,13 +144,13 @@
                         <i class="fa fa-money mr-2"></i>Pagar en efectivo
                     </button>
                 </div>
-                <div class="trans-bancaria mt-2">
+                <div class="trans-bancaria mt-2" *ngIf='loginService.user.role === "COMMERCE_ROLE"'>
                     <button (click)="payment('bancaria')" data-target="#checkoutModal" data-toggle="modal"
                         class='btn btn-outline-danger'>
                         <i class="fa fa-university mr-2"></i>Transferencia bancaria
                     </button>
                 </div>
-                <div class="checkout-form mt-2 text-center">
+                <div class="checkout-form mt-2 text-center" *ngIf='loginService.user.role === "COMMERCE_ROLE"'>
                     <form id='checkout_form' [attr.action]="postUrl" method="POST" >
                     </form>
                 </div>

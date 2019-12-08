@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         const scrollTo = params.get('scrollTo');
         scrollToDiv(scrollTo);
       }
-      this.getPosts();
     } );
+    this.getPosts();
   }
 
   ngOnDestroy() {
@@ -54,10 +54,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getPosts() {
     this.loadingService.loading = true;
-    this.productsService.getProducts(4).subscribe( (products: any) => {
-      this.products = products;
+    this.productsService.getDestacados().subscribe( (products: any) => {
+      if (products.length > 4) {
+        for (let i = 0; i < 4; i++) {
+          const index = Math.floor(Math.random() * products.length);
+          this.products.push(products[index]);
+          products.splice(index, 1);
+        }
+      } else {
+        this.products = products;
+      }
       this.loadingService.loading = false;
-      console.log(products);
     } );
   }
 

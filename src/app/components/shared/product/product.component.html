@@ -11,18 +11,20 @@
         <div class="img-loading" *ngIf="!imageLoaded">
             <img src="../../../../assets/img/not-found.png" alt="">
         </div>
-        <div class="is-favourite">
-            <div class='favourite active' 
+        <div class="is-favourite" *ngIf='loginService.user._id'>
+            <div class='favourite active surtido-btn' 
                 (click)='handleFavourite(product)'
                 [ngClass]="{'active': loginService.user.surtido.indexOf(product._id) >= 0}">
                 <i class="fa fa-heart-o empty"></i>
                 <i class="fa fa-heart full"></i>
+                <p>Quitar de mi surtido</p>
             </div>
-            <div class='no-favourite'
+            <div class='no-favourite surtido-btn'
                 (click)='handleFavourite(product)' 
                 [ngClass]="{'active': loginService.user.surtido.indexOf(product._id) < 0}">
                 <i class="fa fa-heart-o empty"></i>
                 <i class="fa fa-heart full"></i>
+                <p>Agregar a mi surtido</p>
             </div>
         </div>
     </div>

@@ -46,6 +46,16 @@ export class ProductService {
     );
   }
 
+  getDestacados() {
+    const url = BACKEND_URL + '/products/destacados';
+
+    return this.http.get(url).pipe(
+      map( (res: any) => {
+        return res.products;
+      } )
+    );
+  }
+
   getCertifications(certificaciones) {
     return new Promise((resolve, reject) => {
       const certs = [];

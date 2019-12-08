@@ -123,11 +123,11 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 }
 
 .swal-button:focus{
-    box-shadow:  0 0 1px #fff, 0 0 0 3px rgba(211, 45, 45, .29);
+    box-shadow:  0 0 1px #fff, 0 0 0 3px rgba(211, 45, 45, .29) !important;
 }
 
 .swal-button--confirm{
-    background-color: rgb(211, 45, 45);
+    background-color: rgb(211, 45, 45) !important;
 }
 
 .swal-button--confirm:hover{

@@ -17,6 +17,7 @@ export class Product {
         public tipos = [],
         public quantity: number = 1,
         public total?: number,
+        public destacado?: boolean,
         public _id?: string
     ) {}
 }

@@ -74,7 +74,6 @@ export class TiendaComponent implements OnInit {
     this.loadingService.loading = true;
     this.tiendaService.getProducts().subscribe( (products: any) => {
       this.products = products;
-      console.log(products);
       this.loadingService.loading = false;
     } );
   }
@@ -120,7 +119,6 @@ export class TiendaComponent implements OnInit {
   }
 
   applyParamsFilter(filterType: string, filterValue: any) {
-    console.log('entro');
     if (filterType && filterValue) {
       if (filterType === 'refrigerado') {
         this.filtersToApply.estaRefrigerado = true;

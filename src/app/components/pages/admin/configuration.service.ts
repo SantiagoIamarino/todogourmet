@@ -16,8 +16,7 @@ export class ConfigurationService {
   ) { }
 
   getConfigs() {
-    let url = BACKEND_URL + '/configs';
-    url += '?token=' + this.loginService.token;
+    const url = BACKEND_URL + '/configs';
 
     return this.http.get(url);
   }
@@ -41,8 +40,7 @@ export class ConfigurationService {
   }
 
   getBannerImages() {
-    let url = BACKEND_URL + '/configs/images';
-    url += '?token=' + this.loginService.token;
+    const url = BACKEND_URL + '/configs/images';
 
     return this.http.get(url).pipe( map( (res: any) => {
       return res.images;

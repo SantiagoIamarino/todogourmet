@@ -117,4 +117,21 @@
         font-size: 14px;
         left: 10px;
     }
+
+    .form-content .phone-number .number-item {
+        margin-left: 0;
+        margin-right: 5px;
+    }
+
+    .form-content .phone-number .little{
+        width: auto;
+    }
+
+    .form-content .phone-number .pais{
+        min-width:65px !important;
+    }
+
+    .form-content .phone-number .area{
+        max-width: 130px !important;
+    }
 }

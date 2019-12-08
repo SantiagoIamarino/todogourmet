@@ -8,17 +8,38 @@
             <div class="personal-info mr-4">
                 <h4 class='mb-3'>Información personal</h4>
                 <hr>
-                <div class="profile-form-group">
-                    <div class="form-group" *ngIf="user.role !== 'COMMERCE_ROLE' ">
-                        <label for="name">Nombre y apellido</label>
-                        <input id='name' [(ngModel)]="user.name" name='name'
-                            type="text" placeholder="Nombre" class='form-control'>
+                <div class="other-roles" *ngIf="user.role !==  'COMMERCE_ROLE'">
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group w-100">
+                            <label for="name">Nombre y apellido</label>
+                            <input id='name' [(ngModel)]="user.name" name='name'
+                                type="text" placeholder="Nombre" class='form-control'>
+                        </div>
+
+                        <div class="form-group w-100 ml-2">
+                            <label for="dni">DNI</label>
+                            <input id='dni' [(ngModel)]="user.dni" name='dni'
+                                type="text" placeholder="Numero de DNI" class='form-control'>
+                        </div>
+
+                        <div class="form-group w-100 ml-2">
+                            <label for="birthDay">Fecha de nacimiento</label>
+                            <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
+                                type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
+                        </div>
                     </div>
 
-                    <div class="form-group" *ngIf="user.role === 'COMMERCE_ROLE' ">
-                        <label for="commerceName">Nombre del comercio</label>
-                        <input id='commerceName' [(ngModel)]="user.commerceName" name='commerceName'
-                            type="text" placeholder="Nombre del comercio" class='form-control'>
+                    <div class="profile-form-group">
+                        <div class="form-group">
+                            <label for="phoneNumber">Celular</label>
+                            <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
+                                type="text" placeholder="Numero" class='form-control'>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input id='email' [(ngModel)]="user.userEmail" name='userEmail'
+                                type="text" placeholder="Email" class='form-control'>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -26,73 +47,133 @@
                         <input id='shippingAddress' [(ngModel)]="user.shippingAddress" name='shippingAddress'
                             type="text" placeholder="Dirección de envio" class='form-control'>
                     </div>
-                </div>
 
-                <div class="form-group" *ngIf="user.role === 'COMMERCE_ROLE' ">
-                    <label for="contactPerson">Persona de contacto</label>
-                    <input id='contactPerson' [(ngModel)]="user.contactPerson" name='contactPerson'
-                        type="text" placeholder="Persona de contacto" class='form-control'>
+                    <div class="location d-flex">
+                        <div class="form-group w-50 mr-2 mb-2">
+                            <label for="provinciaId">Provincia</label>
+                            <select [(ngModel)]="user.provincia.id"
+                                (change)='gobAPIService.provinceChanged()'
+                                name="provinciaId" id="provinciaId" class="form-control">
+                                <option value="">Selecciona una provincia</option>
+                                <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
+                                    {{ provincia.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                                    
+                        <div class="form-group w-50">
+                            <label for="localidadId">Localidad</label>
+                            <select [(ngModel)]="user.localidad.id"
+                                (change)='gobAPIService.localidadChanged()'
+                                name="localidadId" id="localidadId" class="form-control">
+                                <option value="">Selecciona una localidad</option>
+                                <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
+                                    {{ localidad.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
-                    
-                <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input id='email' [(ngModel)]="user.userEmail" name='userEmail'
-                        type="text" placeholder="Email" class='form-control'>
-                </div>
-                
-                <div class="profile-form-group">
+                <div class="commerce-role" *ngIf="user.role === 'COMMERCE_ROLE'">
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group w-100">
+                            <label for="commerceName">Nombre del comercio</label>
+                            <input id='commerceName' [(ngModel)]="user.commerceName" name='commerceName'
+                                type="text" placeholder="Nombre del comercio" class='form-control'>
+                        </div>
+
+                        <div class="form-group w-100 ml-2">
+                            <label for="cuit">Cuit</label>
+                            <input id='cuit' [(ngModel)]="user.cuit" name='cuit'
+                                type="text" placeholder="Cuit" class='form-control'>
+                        </div>
+
+                        <div class="form-group w-100 ml-2">
+                            <label for="contactPerson">Persona de contacto</label>
+                            <input id='contactPerson' [(ngModel)]="user.contactPerson" name='contactPerson'
+                                type="text" placeholder="Persona de contacto" class='form-control'>
+                        </div>
+                    </div>
+                    <div class="profile-form-group">
+                        <div class="form-group">
+                            <label for="phoneNumber">Celular</label>
+                            <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
+                                type="text" placeholder="Numero" class='form-control'>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input id='email' [(ngModel)]="user.userEmail" name='userEmail'
+                                type="text" placeholder="Email" class='form-control'>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="phoneNumber">Celular</label>
-                        <input id='phoneNumber' [(ngModel)]="user.phoneNumber" name='phoneNumber'
-                            type="text" placeholder="Numero" class='form-control'>
+                        <label for="address">Dirección del comercio</label>
+                        <input id='address' [(ngModel)]="user.address" name='address'
+                            type="text" placeholder="Dirección de envio" class='form-control'>
                     </div>
 
-                    <div class="form-group" *ngIf="user.role !== 'COMMERCE_ROLE' ">
-                        <label for="dni">DNI</label>
-                        <input id='dni' [(ngModel)]="user.dni" name='dni'
-                            type="text" placeholder="Numero de DNI" class='form-control'>
-                    </div>
-
-                    <div class="form-group" *ngIf="user.role === 'COMMERCE_ROLE' ">
-                        <label for="cuit">Cuit</label>
-                        <input id='cuit' [(ngModel)]="user.cuit" name='shippingAddress'
-                            type="text" placeholder="Cuit" class='form-control'>
+                    <div class="form-group hours" >
+                        <label for="recipient-name" class="col-form-label">Horarios de atención:</label>
+                        <div class="horarios text-center">
+                            <div class="others d-flex justify-content-between mb-2">
+                                <div class="btn-group mr-2 " role="group" aria-label="First group">
+                                    <button (click)="changeHour('global', 'Lunes a Viernes')"
+                                        type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.hours !== 'Lunes a Viernes', 'btn-danger': loginService.user.hours === 'Lunes a Viernes'}">
+                                        LU a VI</button>
+                                    <button (click)="changeHour('global', 'Lunes a Sabados')"
+                                        type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.hours !== 'Lunes a Sabados', 'btn-danger': loginService.user.hours === 'Lunes a Sabados'}">
+                                        LU a SAB</button>
+                                </div>
+                                <div class="more">
+                                    <button (click)='moreHours = !moreHours'
+                                        type="button" class="btn btn-outline-danger" >
+                                        Añadir horario
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mas-horarios" *ngIf='moreHours'>
+                                <div class="input-group mt-1 mb-3">
+                                    <input [(ngModel)]="loginService.user.additionalHours" name='additionalHours'
+                                        type="text" class="form-control" placeholder="Especifica un horario">
+                                </div>
+                            </div>  
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button (click)="changeHour('specific', 'Lunes')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Lunes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Lunes') > - 1}">
+                                    LU
+                                </button>
+                                <button (click)="changeHour('specific', 'Martes')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Martes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Martes') > - 1}">
+                                    MA
+                                </button>
+                                <button (click)="changeHour('specific', 'Miercoles')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Miercoles') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Miercoles') > - 1}">
+                                    MIE
+                                </button>
+                                <button (click)="changeHour('specific', 'Jueves')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Jueves') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Jueves') > - 1}">
+                                    JUE
+                                </button>
+                                <button (click)="changeHour('specific', 'Viernes')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Viernes') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Viernes') > - 1}">
+                                    VIE
+                                </button>
+                                <button (click)="changeHour('specific', 'Sabado')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Sabado') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Sabado') > - 1}">
+                                    SAB
+                                </button>
+                                <button (click)="changeHour('specific', 'Domingo')"
+                                    type="button" class="btn" [ngClass]="{'btn-outline-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Domingo') === - 1, 'btn-danger': loginService.user.specificHours && loginService.user.specificHours.indexOf('Domingo') > - 1}">
+                                    DOM
+                                </button>
+                            </div>                      
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="birthDay">Fecha de nacimiento</label>
-                    <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
-                        type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
-                </div>
-
-                <div class="location d-flex">
-                    <div class="form-group w-50 mr-2 mb-2" *ngIf='provincias.length > 0'>
-                        <label for="provinciaId">Provincia</label>
-                        <select [(ngModel)]="user.provincia.id"
-                            (change)='gobAPIService.provinceChanged()'
-                            name="provinciaId" id="provinciaId" class="form-control">
-                            <option value="">Selecciona una provincia</option>
-                            <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
-                                {{ provincia.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                                
-                    <div class="form-group w-50" *ngIf='gobAPIService.localidades'>
-                        <label for="localidadId">Localidad</label>
-                        <select [(ngModel)]="user.localidad.id"
-                            (change)='gobAPIService.localidadChanged()'
-                            name="localidadId" id="localidadId" class="form-control">
-                            <option value="">Selecciona una localidad</option>
-                            <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
-                                {{ localidad.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="submit-btn mt-3 text-center">
+                <div class="submit-btn mt-4 text-center">
                     <button (click)='updateUser()'
                          class="btn btn-outline-success">
                         <i class="fa fa-save"></i>

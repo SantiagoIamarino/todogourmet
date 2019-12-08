@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     public cartService: CartService,
     public gobAPIService: GobAPIService
   ) {
+    this.getProvinces();
   }
 
   ngOnInit() {

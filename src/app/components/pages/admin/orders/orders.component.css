@@ -6,6 +6,10 @@
     margin-bottom: 10px;
 }
 
+.quantity-row {
+    padding-left: 35px !important;
+}
+
 @media screen and (min-width: 576px){
     .modal-dialog {
         max-width: 800px;

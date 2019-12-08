@@ -25,7 +25,7 @@ export class LoginService {
   user: User = new User();
   token: string;
 
-  isCommerce = false;
+  isCommerce = true;
 
   constructor(
     public http: HttpClient,
@@ -66,31 +66,31 @@ export class LoginService {
     this.user = null;
   }
 
-  getCuitAndAddress() {
+  // getCuitAndAddress() {
 
-    return new Promise( (resolve, reject) => {
-      swal('Ingresa tu cuit', {
-        content: 'input',
-      })
-      .then((cuit) => {
-        if (!cuit) {
-          reject('Debes ingresar un cuit');
-        } else {
-          this.user.cuit = cuit;
-          swal('Ingresa la dirección del comercio', {
-            content: 'input',
-          }).then((address) => {
-            if (!address) {
-              reject('Debes ingresar la dirección de tu comercio');
-            } else {
-              this.user.address = address;
-              resolve('Data obtained');
-            }
-          });
-        }
-      });
-    } );
-  }
+  //   return new Promise( (resolve, reject) => {
+  //     swal('Ingresa tu cuit', {
+  //       content: 'input',
+  //     })
+  //     .then((cuit) => {
+  //       if (!cuit) {
+  //         reject('Debes ingresar un cuit');
+  //       } else {
+  //         this.user.cuit = cuit;
+  //         swal('Ingresa la dirección del comercio', {
+  //           content: 'input',
+  //         }).then((address) => {
+  //           if (!address) {
+  //             reject('Debes ingresar la dirección de tu comercio');
+  //           } else {
+  //             this.user.address = address;
+  //             resolve('Data obtained');
+  //           }
+  //         });
+  //       }
+  //     });
+  //   } );
+  // }
 
   getUser(phoneNumber) {
     const url = BACKEND_URL + '/users/' + phoneNumber;
@@ -125,18 +125,70 @@ export class LoginService {
   }
 
   additionalInfo(form) {
-    if (!form.name) {
+    if (!form.name && !this.isCommerce) {
       this.returnMessageError('Debes ingresar un nombre');
       return;
     }
 
-    if (!form.shippingAddress) {
-      this.returnMessageError('Debes ingresar una dirección');
+    if (!form.dni && !this.isCommerce) {
+      this.returnMessageError('Debes ingresar un dni');
+      return;
+    } else if (isNaN(form.dni) && !this.isCommerce) {
+      this.returnMessageError('Debes ingresar un dni numerico');
+      return;
+    }
+
+    if (!form.commerceName && this.isCommerce) {
+      this.returnMessageError('Debes ingresar un nombre de comercio');
+      return;
+    }
+
+    if (!form.cuit && this.isCommerce) {
+      this.returnMessageError('Debes ingresar un cuit');
+      return;
+    } else if (isNaN(form.cuit) && this.isCommerce) {
+      this.returnMessageError('Debes ingresar un cuit numerico');
       return;
     }
 
     if (!form.userEmail) {
-      this.returnMessageError('Debes ingresar un email');
+      this.returnMessageError('Debes agregar un email');
+      return;
+    } else {
+      if (form.userEmail.indexOf('@') < 0) {
+        this.returnMessageError('El email debe contener @');
+        return;
+      }
+    }
+
+    if (!form.birthDay && !this.isCommerce) {
+      this.returnMessageError('Debes agregar una fecha de nacimiento');
+      return;
+    } else {
+      const pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+      if (!pattern.test(form.birthDay) && !this.isCommerce) {
+        this.returnMessageError('Debes agregar una fecha de nacimiento valida (Ejemplo: 02-07-1990)');
+        return;
+      }
+    }
+
+    if (!form.address && this.isCommerce) {
+      this.returnMessageError('Debes ingresar una de comercio');
+      return;
+    }
+
+    if (!form.contactPerson && this.isCommerce) {
+      this.returnMessageError('Debes ingresar una persona de contacto');
+      return;
+    }
+
+    if (!form.shippingAddress && !this.isCommerce) {
+      this.returnMessageError('Debes ingresar una dirección de entrega');
+      return;
+    }
+
+    if (!form.address && this.isCommerce) {
+      this.returnMessageError('Debes ingresar la dirección del comercio');
       return;
     }
 
@@ -158,13 +210,8 @@ export class LoginService {
       } );
     } else {
       this.user.role = 'COMMERCE_ROLE';
-      this.getCuitAndAddress().then( () => {
-        this.createUser(this.user).then( () => {
-          this.userState.emit('Logged and registered like a commerce');
-        } );
-      } )
-      .catch( message => {
-        sweetAlert(message, '', 'error');
+      this.createUser(this.user).then( () => {
+        this.userState.emit('Logged and registered like a commerce');
       } );
     }
 
@@ -176,21 +223,22 @@ export class LoginService {
     const userToUpload = new User(
       user.phoneNumber,
       user.role,
-      user.name,
+      (user.name) ? user.name : '',
       user.userEmail,
       (user.cuit) ? user.cuit : '',
       (user.address) ? user.address : '',
-      user.shippingAddress,
+      (user.shippingAddress) ? user.shippingAddress : '',
       (user.specificHours) ? user.specificHours : [],
       (user.hours) ? user.hours : null,
       (user.additionalHours) ? user.additionalHours : null,
-      user.dni,
+      (user.dni) ? user.dni : '',
       user.provincia,
       user.localidad,
       '',
       false,
       [],
-      user.contactPerson
+      (user.commerceName) ? user.commerceName : '',
+      (user.contactPerson) ? user.contactPerson : ''
     );
 
     delete userToUpload._id;
