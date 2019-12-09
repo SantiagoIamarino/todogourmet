@@ -234,7 +234,7 @@ export class LoginService {
       (user.dni) ? user.dni : '',
       user.provincia,
       user.localidad,
-      '',
+      (user.birthDay) ? user.birthDay : '',
       false,
       [],
       (user.commerceName) ? user.commerceName : '',

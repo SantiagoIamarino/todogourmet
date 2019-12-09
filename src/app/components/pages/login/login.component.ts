@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     public cartService: CartService,
     public gobAPIService: GobAPIService
   ) {
-    this.getProvinces();
   }
 
   ngOnInit() {
@@ -51,6 +50,41 @@ export class LoginComponent implements OnInit {
 
   resetPhone() {
     this.phone = new Phone();
+    this.windowRef.confirmationResult = null;
+    this.numberError = false;
+  }
+
+  // tslint:disable: radix
+  birthDayCompletation() {
+    if (this.user.birthDay.length === 2) {
+      if (parseInt(this.user.birthDay) > 31) {
+        this.user.birthDay = '31';
+      }
+
+      this.user.birthDay += '-';
+      return;
+    }
+
+    if (this.user.birthDay.length === 5) {
+      const stringSplitted = this.user.birthDay.split('-');
+      if (parseInt(stringSplitted[1]) > 12) {
+        this.user.birthDay = stringSplitted[0] + '-' + '12';
+      }
+      this.user.birthDay += '-';
+      return;
+    }
+
+    if (this.user.birthDay.length === 10) {
+      const stringSplitted = this.user.birthDay.split('-');
+      if (parseInt(stringSplitted[2]) > new Date().getFullYear()) {
+        this.user.birthDay = stringSplitted[0] + '-' + stringSplitted[1] + '-' + new Date().getFullYear().toString();
+      }
+
+      if (parseInt(stringSplitted[2]) < 1900) {
+        this.user.birthDay = stringSplitted[0] + '-' + stringSplitted[1] + '-' + '1900';
+      }
+      return;
+    }
   }
 
   sendLoginCode() {
@@ -86,7 +120,7 @@ export class LoginComponent implements OnInit {
             })
             .catch( error => {
               this.numberError = true;
-             } );
+            } );
 
   }
 
@@ -117,11 +151,12 @@ export class LoginComponent implements OnInit {
             this.getProvinces().then( () => {
               if (res.user) {
                 this.loginService.login(this.user).then( () => {
-                  sweetAlert(
-                    'Inicio de sesión',
-                    'Iniciaste sesión correctamente!',
-                    'success'
-                  );
+                  sweetAlert({
+                    title: 'Inicio de sesión',
+                    text: 'Iniciaste sesión correctamente!',
+                    icon: 'success',
+                    timer: 2000
+                  });
                   this.cartService.getProductsLength();
                 });
               } else {
@@ -131,8 +166,7 @@ export class LoginComponent implements OnInit {
                     text: 'Iniciaste sesión correctamente!',
                     icon: 'success',
                     timer: 2000
-                  }
-                  );
+                  });
                   this.cartService.getProductsLength();
                 } );
               }

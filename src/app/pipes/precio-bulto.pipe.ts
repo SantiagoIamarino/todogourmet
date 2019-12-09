@@ -13,7 +13,12 @@ export class PrecioBultoPipe implements PipeTransform {
       return precio;
     }
     // tslint:disable-next-line: radix
-    const discount: any = 1 - parseFloat('0.' + desc);
+    let discount: any;
+    if (desc >= 10) {
+      discount = 1 - parseFloat('0.' + desc);
+    } else {
+      discount = 1 - parseFloat('0.0' + desc);
+    }
     let precioPorBulto: any = precio * discount;
     precioPorBulto = precioPorBulto.toFixed(2);
 

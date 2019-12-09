@@ -8,6 +8,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
 import { ImportComponent } from './import/import.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 const AdminRoutes: Routes = [
     {
@@ -20,6 +21,7 @@ const AdminRoutes: Routes = [
             { path: 'filtros/:tipo', component: FiltersComponent },
             { path: 'usuarios', component: UsersComponent },
             { path: 'mensajes', component: MensajesComponent },
+            { path: 'newsletter', component: NewsletterComponent },
             { path: 'pedidos', component: OrdersComponent },
             { path: 'configuracion', component: ConfigurationComponent },
             { path: '', pathMatch: 'full', redirectTo: 'productos' }

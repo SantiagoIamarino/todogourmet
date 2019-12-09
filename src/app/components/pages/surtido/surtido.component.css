@@ -30,3 +30,17 @@
     color: rgb(211, 45, 45);
     background: rgba(220,220,220, .3);
 }
+
+
+@media screen and (max-width: 500px) {
+    .title-top-tienda .title{
+        width: 33%;
+    }
+    .title-top-tienda .title h2{
+        font-size: 18px;
+    }
+
+    .title-top-tienda .search {
+            width: 65%;
+    }
+}

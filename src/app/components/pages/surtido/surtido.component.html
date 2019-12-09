@@ -37,105 +37,112 @@
                   <h4>Filtros de búsqueda</h4>
                   <hr>
               </div>
-              <div class="filters">
-                  <div class="filter certificacion">
-                      <div class="filter-title">
-                          <label for="">Certificación</label>
-                      </div>
-                      <div class="filter-options">
-                          <ul class="ks-cboxtags">
-                              <li *ngFor='let certificacion of filters.certificaciones'>
-                                  <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
-                                          [attr.value]='certificacion.formattedFilter'
-                                          [checked]='this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0'
-                                          [ngClass]="{'active': this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0}">
-                                  <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
-                                      [attr.for]='certificacion.formattedFilter'>
-                                      <i class='fa fa-plus add-icon'></i>
-                                      <i class='fa fa-check check-icon'></i>
-                                      {{ certificacion.nombre }}
-                                  </label>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="filter rubros">
-                      <div class="filter-title">
-                          <label for="">Rubros</label>
-                      </div>
-                      <div class="filter-options">
-                          <ul class="ks-cboxtags">
-                              <li *ngFor='let rubro of filters.rubros'>
-                                  <input type="checkbox" [attr.id]='rubro.formattedFilter'  
-                                          [attr.value]='rubro.formattedFilter'
-                                          [checked]='this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0'
-                                          [ngClass]="{'active': this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0}">
-                                  <label (click)="filterChanged('rubro', rubro.formattedFilter)"
-                                      [attr.for]='rubro.formattedFilter'>
-                                      <i class='fa fa-plus add-icon'></i>
-                                      <i class='fa fa-check check-icon'></i>
-                                      {{ rubro.nombre }}
-                                  </label>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="filter tipos">
-                      <div class="filter-title">
-                          <label for="">Tipos</label>
-                      </div>
-                      <div class="filter-options">
-                          <ul class="ks-cboxtags">
-                              <li *ngFor='let tipo of filters.tipos'>
-                                  <input (click)="filterChanged('tipo', tipo.formattedFilter)"
-                                      type="checkbox" [attr.id]='tipo.formattedFilter'  
-                                          [attr.value]='tipo.formattedFilter'
-                                          [checked]='this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0'
-                                          [ngClass]="{'active': this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0}">
-                                  <label [attr.for]='tipo.formattedFilter'>
-                                      <i class='fa fa-plus add-icon'></i>
-                                      <i class='fa fa-check check-icon'></i>
-                                      {{ tipo.nombre }}
-                                  </label>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="filter esta-refrigerado">    
-                      <div class="filter-title">
-                          <label for="refrigerado">Refrigerado</label>
-                      </div>
-                      <div class="filter-options">
-                          <div class="checkbox-new">
-                              <p>No</p>
-                              <div class="checkbox-input">
-                                  <input [(ngModel)]="filtersToApply.estaRefrigerado" (change)='applyFilters(true)'
-                                      name="estaRefrigerado"
-                                      type="checkbox" id="refrigerado" style="display:none" />
-                                  <label for="refrigerado" class="toggle">
-                                      <span></span>
-                                  </label>
-                              </div>
-                              <p>Si</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="filter select-marcas" *ngIf="!loadingService.loading">
-                      <div class="select-title">
-                          <label for="tipo">Marcas</label>
-                      </div>
-                      <select [(ngModel)]="filtersToApply.marca" (change)='applyFilters()'
-                          name='marca'
-                          class="input-select" id="tipo">
-                          <option value="">Selecciona una marca</option>
-                          <option [value]="marca.formattedFilter" *ngFor='let marca of filters.marcas'>
-                              {{ marca.nombre }}
-                          </option>
-                      </select>
-                  </div>
+              <div class="filters-content">
+                <div class="filters">
+                    <div class="filter certificacion">
+                        <div class="filter-title">
+                            <label for="">Certificación</label>
+                        </div>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let certificacion of filters.certificaciones'>
+                                    <input type="checkbox" [attr.id]='certificacion.formattedFilter'  
+                                            [attr.value]='certificacion.formattedFilter'
+                                            [checked]='this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0'
+                                            [ngClass]="{'active': this.filtersToApply.certificaciones.indexOf(certificacion.formattedFilter) >= 0}">
+                                    <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
+                                        [attr.for]='certificacion.formattedFilter'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ certificacion.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter rubros">
+                        <div class="filter-title">
+                            <label for="">Rubros</label>
+                        </div>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let rubro of filters.rubros'>
+                                    <input type="checkbox" [attr.id]='rubro.formattedFilter'  
+                                            [attr.value]='rubro.formattedFilter'
+                                            [checked]='this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0'
+                                            [ngClass]="{'active': this.filtersToApply.rubros.indexOf(rubro.formattedFilter) >= 0}">
+                                    <label (click)="filterChanged('rubro', rubro.formattedFilter)"
+                                        [attr.for]='rubro.formattedFilter'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ rubro.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter tipos">
+                        <div class="filter-title">
+                            <label for="">Tipos</label>
+                        </div>
+                        <div class="filter-options">
+                            <ul class="ks-cboxtags">
+                                <li *ngFor='let tipo of filters.tipos'>
+                                    <input (click)="filterChanged('tipo', tipo.formattedFilter)"
+                                        type="checkbox" [attr.id]='tipo.formattedFilter'  
+                                            [attr.value]='tipo.formattedFilter'
+                                            [checked]='this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0'
+                                            [ngClass]="{'active': this.filtersToApply.tipos.indexOf(tipo.formattedFilter) >= 0}">
+                                    <label [attr.for]='tipo.formattedFilter'>
+                                        <i class='fa fa-plus add-icon'></i>
+                                        <i class='fa fa-check check-icon'></i>
+                                        {{ tipo.nombre }}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter esta-refrigerado">    
+                        <div class="filter-title">
+                            <label for="refrigerado">Refrigerado</label>
+                        </div>
+                        <div class="filter-options">
+                            <div class="checkbox-new">
+                                <p>No</p>
+                                <div class="checkbox-input">
+                                    <input [(ngModel)]="filtersToApply.estaRefrigerado" (change)='applyFilters(true)'
+                                        name="estaRefrigerado"
+                                        type="checkbox" id="refrigerado" style="display:none" />
+                                    <label for="refrigerado" class="toggle">
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <p>Si</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter select-marcas" *ngIf="!loadingService.loading">
+                        <div class="select-title">
+                            <label for="tipo">Marcas</label>
+                        </div>
+                        <select [(ngModel)]="filtersToApply.marca" (change)='applyFilters()'
+                            name='marca'
+                            class="input-select" id="tipo">
+                            <option value="">Selecciona una marca</option>
+                            <option [value]="marca.formattedFilter" *ngFor='let marca of filters.marcas'>
+                                {{ marca.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clean-filters">
+                    <button (click)='resetFilters()'>Limpiar filtros</button>
+                </div>
               </div>
-              <div class="clean-filters">
-                  <button (click)='resetFilters()'>Limpiar filtros</button>
+              <div class="sidebar-arrow" onclick='handleFilters()'>
+                <button>
+                    <i class="fa fa-chevron-up down"></i>
+                </button>
               </div>
           </div>
           <div class="products normal-display">

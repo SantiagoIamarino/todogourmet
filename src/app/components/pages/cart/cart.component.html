@@ -12,7 +12,6 @@
                     <th scope="col">Bulto/Descuento</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
-                    <th scope="col">Descuento</th>
                     <th scope="col">Subtotal</th>
                     <th scope="col">Eliminar</th>
                 </tr>
@@ -25,8 +24,11 @@
                             [src]="product.productId.img | images">
                         </div>
                     </th>
-                    <td class='title'>{{ product.productId.name }}</td>
-                    <td class='title' [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
+                    <td class='title'>
+                        {{ product.productId.name }}
+                        <span>Gramaje: {{ (product.productId.gramaje.number) ? product.productId.gramaje.number + ' ' + product.productId.gramaje.unity + '.' :  product.productId.gramaje + ' - Marca: '+ product.productId.marca.nombre }}</span>
+                    </td>
+                    <td class='discount' [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
                         {{ 'Bulto ' +  product.productId.unidadPorBulto + 'u. - ' + product.productId.descuentoPorBulto + '%' }}
                     </td>
                     <td class="quantity">
@@ -37,14 +39,13 @@
                             <button class='more' (click)="getSubtotal('more', product)">+</button>
                         </div>
                     </td>
-                    <td class='price'>
-                        <p>${{ product.productId.precioUnit }}</p>
+                    <td class='price' *ngIf="loginService.user.role !== 'COMMERCE_ROLE'"
+                        [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
+                        <p>${{ (product.quantity >= product.productId.unidadPorBulto) ? (product.productId.precioUnit * (1 - product.productId.descuentoPorBulto / 100)).toFixed(2)  : product.productId.precioUnit }}</p>
                     </td>
-                    <td class="discount" *ngIf='product.quantity >= product.productId.unidadPorBulto'>
-                        Bulto: {{ product.productId.descuentoPorBulto }}%
-                    </td>
-                    <td class="discount" *ngIf='product.quantity < product.productId.unidadPorBulto'>
-                        Sin desc.
+                    <td class='price' *ngIf="loginService.user.role === 'COMMERCE_ROLE'"
+                        [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
+                        <p>${{ (product.quantity >= product.productId.unidadPorBulto) ? (product.productId.precioUnit * (1 - product.productId.descuentoPorBulto / 100)).toFixed(2)  : product.productId.precioComercio }}</p>
                     </td>
                     <td class="subtotal">$
                         {{ getSubtotal('changed', product) }}
@@ -109,7 +110,7 @@
             <div class="pay">
                 <button class='btn-pay' (click)='checkout()'
                     data-toggle="modal" data-target="#checkoutModal">
-                    Pagar ahora
+                    Enviar pedido
                 </button>
             </div>
         </div>
@@ -144,13 +145,13 @@
                         <i class="fa fa-money mr-2"></i>Pagar en efectivo
                     </button>
                 </div>
-                <div class="trans-bancaria mt-2" *ngIf='loginService.user.role === "COMMERCE_ROLE"'>
+                <div class="trans-bancaria mt-2" *ngIf='loginService.user.role !== "COMMERCE_ROLE"'>
                     <button (click)="payment('bancaria')" data-target="#checkoutModal" data-toggle="modal"
                         class='btn btn-outline-danger'>
                         <i class="fa fa-university mr-2"></i>Transferencia bancaria
                     </button>
                 </div>
-                <div class="checkout-form mt-2 text-center" *ngIf='loginService.user.role === "COMMERCE_ROLE"'>
+                <div class="checkout-form mt-2 text-center" *ngIf='loginService.user.role !== "COMMERCE_ROLE"'>
                     <form id='checkout_form' [attr.action]="postUrl" method="POST" >
                     </form>
                 </div>

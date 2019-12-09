@@ -28,17 +28,6 @@ export class ConfigurationService {
     return this.http.post(url, config);
   }
 
-  sendMessage(message: string) {
-    let url = BACKEND_URL + '/newsletter/send';
-    url += '?token=' + this.loginService.token;
-
-    const body = {
-      message
-    };
-
-    return this.http.post(url, body);
-  }
-
   getBannerImages() {
     const url = BACKEND_URL + '/configs/images';
 

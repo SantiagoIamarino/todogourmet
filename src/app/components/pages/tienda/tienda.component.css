@@ -224,6 +224,10 @@
     background: white;
 }
 
+.tienda .sidebar .sidebar-arrow{
+    display: none;
+}
+
 .tienda .bottom-tienda .products{
     display: flex;
     flex-wrap: wrap;
@@ -248,9 +252,14 @@
     .tienda .bottom-tienda .sidebar{
         width: 100%;
         margin-bottom: 30px;
+        position: relative;
     }
     .tienda .bottom-tienda .products{
         width: 100%;
+    }
+
+    .tienda .bottom-tienda .sidebar .filters-content{
+        display:none;
     }
 
     .tienda .bottom-tienda .sidebar .filter{
@@ -260,10 +269,39 @@
     .tienda .sidebar .clean-filters{
         display: flex;
         justify-content: center;
+        margin-bottom: 15px;
     }
     
     .tienda .sidebar .clean-filters button {
         max-width: 300px;
+    }
+
+    .tienda .sidebar .sidebar-arrow{
+        display: block;
+        position: absolute;
+        bottom: -10px;
+        left: 49%;
+    }
+
+    .tienda .sidebar .sidebar-arrow button {
+        background: rgb(211, 45, 45);
+        border: none;
+        color: white;
+        padding: 6px 8px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .tienda .sidebar .sidebar-arrow button i{
+        transition: .3s all ease;
+        font-size: 16px;
+        position: relative;
+    }
+
+    .tienda .sidebar .sidebar-arrow button i.down{
+        transition: .3s all ease;
+        transform: rotate(180deg);
+        bottom: -2px;
     }
 }
 
@@ -274,18 +312,25 @@
 }
 
 @media screen and (max-width: 800px) {
+    .tienda .sidebar .sidebar-arrow{
+        left:48%;
+    }
     .tienda .bottom-tienda .products{
         justify-content: space-between;
     }
     .tienda .bottom-tienda .products app-product{
-        width: 45% !important;
+        width: 48% !important;
         margin: 10px 0;
     }
 }
 
-@media screen and (max-width: 800px){
-    .tienda .bottom-tienda .products app-product{
-        width: 48% !important;
+@media screen and (max-width: 700px){
+    .tienda .sidebar .sidebar-arrow{
+        left: 47%;
+    }
+
+    .tienda .sidebar .sidebar-arrow{
+        font-size: 14px;
     }
 }
 
@@ -295,6 +340,9 @@
     }
     .tienda .tienda-content{
         padding: 8px;
+    }
+    .tienda .sidebar .sidebar-arrow{
+        left: 46%;
     }
     .tienda .bottom-tienda .products app-product{
         width: 100% !important;

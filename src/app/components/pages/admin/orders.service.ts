@@ -20,11 +20,26 @@ export class OrdersService {
     return this.http.get(url);
   }
 
+  getUserOrders() {
+    let url = BACKEND_URL + '/orders/user';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
+  }
+
   updateOrder(order) {
     let url = BACKEND_URL + '/orders/' + order._id;
     url += '?token=' + this.loginService.token;
 
     return this.http.put(url, order);
+  }
+
+  getUserOrdersByFilter(status: string) {
+
+    let url = BACKEND_URL + '/orders/user/status/' + status;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
   }
 
   getOrdersByFilter(status: string) {

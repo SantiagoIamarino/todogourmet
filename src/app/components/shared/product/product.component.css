@@ -117,10 +117,35 @@
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+.producto .info .product-name{
+    position: relative;
+    display: inline-block;
+}
+
 .producto .info .product-name p {
     color: #DE1B1B;
     font-size: 14px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.producto .info .product-name:hover span{
+    transition: .3s all ease;
+    display: block;
+}
+
+.producto .info .product-name span{
+    position: absolute;
+    top:-2px;
+    right: -75px;
+    background: #DE1B1B;
+    color: white;
+    font-size: 13px;
+    padding: 3px 5px;
+    border-radius: 20px;
+    display: none;
 }
 
 .producto .info .product-info {
@@ -263,6 +288,7 @@
     padding-left: 2%;
     padding-right: 2%;
     margin-right: 0;
+    padding-top: 2px;
 }
 
 .producto .info .product-prices .subtotal .subtotal-value span{

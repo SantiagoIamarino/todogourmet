@@ -8,6 +8,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ProductComponent } from './product/product.component';
 
+// Directives
+import { ClickStopPropagationDirective } from 'src/app/directives/click-stop-propagation.directive';
+
 // Pipes
 import { ValuePipe } from 'src/app/pipes/value.pipe';
 import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
@@ -27,7 +30,8 @@ import { FechaPipe } from '../../pipes/fecha.pipe';
     PrecioBultoPipe,
     ImagesPipe,
     ProductOneLinePipe,
-    FechaPipe
+    FechaPipe,
+    ClickStopPropagationDirective
   ],
   imports: [
     CommonModule,

@@ -115,6 +115,7 @@ header nav ul li a:hover {
         padding: 0 10px;
         z-index: 99;
         background: white;
+        border-bottom: 1px solid #cdcdcd;
     }
     header nav ul li.account-btn ul{
         width: 100%;

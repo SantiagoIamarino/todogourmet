@@ -9,6 +9,7 @@ import { CartComponent } from './cart/cart.component';
 import { LoginGuard } from '../../guards/login.guard';
 import { SurtidoComponent } from './surtido/surtido.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const PagesRoutes: Routes = [
     {
@@ -23,6 +24,7 @@ const PagesRoutes: Routes = [
             { path: 'perfil', canActivate: [LoginGuard], component: ProfileComponent },
             { path: 'surtido', canActivate: [LoginGuard], component: SurtidoComponent },
             { path: 'surtido/:filterType/:filterValue', component: TiendaComponent },
+            { path: 'pedidos', canActivate: [LoginGuard], component: MyOrdersComponent },
             { path: 'login', component: LoginComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'encontranos-en', component: EncontranosEnComponent },

@@ -20,6 +20,11 @@ export class ValidationsService {
         return validators;
     }
 
+    if (!product.gramaje.number || !product.gramaje.unity) {
+      validators.errors = 'Debes agregar un gramaje';
+      return validators;
+  }
+
     if (!product.marca) {
         validators.errors = 'Debes agregar una marca';
         return validators;

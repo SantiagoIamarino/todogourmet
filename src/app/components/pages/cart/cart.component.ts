@@ -155,8 +155,11 @@ export class CartComponent implements OnInit {
 
     const body = {
       user: this.loginService.user._id,
+      date: new Date(),
       products: [],
       paymentMethod: type,
+      subtotal: this.subtotal,
+      discount: this.discounts,
       total : this.total
     };
 
@@ -193,7 +196,7 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    if (this.loginService.user.role === 'COMMERCE_ROLE') {
+    if (this.loginService.user.role !== 'COMMERCE_ROLE') {
       removeOldButton();
       this.cartService.checkOutMP(this.products, this.config, this.subtotal)
       .subscribe( (res: any) => {

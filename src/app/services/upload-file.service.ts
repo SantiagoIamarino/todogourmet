@@ -17,7 +17,8 @@ export class UploadFileService {
   public downloadUrl = new EventEmitter();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private storage: AngularFireStorage
   ) { }
 
    uploadImage(image, anuncioId) {
@@ -37,6 +38,27 @@ export class UploadFileService {
       } );
 
     } );
+   }
+
+   uploadFilterImage(image, path) {
+
+    const file = image;
+    image.path = '/' + path + '/' + image.name;
+    const fileRef = this.storage.ref(image.path);
+    const task = this.storage.upload(image.path, file);
+
+    this.uploadPercentage = task.percentageChanges();
+
+    return this.uploadPercentage.pipe(
+
+      finalize( () => {
+        fileRef.getDownloadURL().subscribe( url => {
+          this.downloadUrl.emit(url);
+        } );
+      } )
+
+    );
+
    }
 
    uploadBannerImage(image) {

@@ -39,6 +39,17 @@ export class UsersComponent implements OnInit {
   }
 
   roleChanged(user) {
+    if (user._id === this.loginService.user._id) {
+      swal({
+        title: 'Error',
+        text: 'No puedes cambiar tu propio rol!!',
+        icon: 'error',
+        timer: 2000
+      });
+      this.getUsers();
+      return;
+    }
+
     this.usersService.updateUser(user).subscribe( (res: any) => {
       swal('Rol actualizado', res.message, 'success');
 

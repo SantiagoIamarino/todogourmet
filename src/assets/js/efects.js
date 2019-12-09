@@ -50,6 +50,22 @@ function goToTop(animationTime = 500) {
     return false;
 }
 
+// Tienda arrow down ----------------------------
+
+let filtersSlided = false;
+
+function handleFilters() {
+    if(!filtersSlided) {
+        $('.sidebar .filters-content').slideDown(300);
+        $('.sidebar .sidebar-arrow i').removeClass('down');
+        filtersSlided = true;
+    }else{
+        $('.sidebar .filters-content').slideUp(300);
+        $('.sidebar .sidebar-arrow i').addClass('down');
+        filtersSlided = false;
+    }
+}
+
 // login---------------------------------------------
 
 function showLoginModal() {

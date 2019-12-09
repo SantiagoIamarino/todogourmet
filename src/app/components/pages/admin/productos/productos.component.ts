@@ -92,6 +92,14 @@ export class ProductosComponent implements OnInit {
   openEditModal( product ) {
     this.productToEdit = null;
     this.productToEdit = product;
+    if (!this.productToEdit.gramaje.number) {
+      this.productToEdit.gramaje = {
+        number: this.productToEdit.gramaje.split(' ')[0],
+        unity: this.productToEdit.gramaje.split(' ')[1].split('.')[0]
+      }
+
+      console.log(this.productToEdit.gramaje);
+    }
   }
 
   handleDestacado( product: Product ) {

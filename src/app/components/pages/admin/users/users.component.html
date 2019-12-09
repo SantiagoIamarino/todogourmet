@@ -24,7 +24,7 @@
                 <tbody>
                     <tr *ngFor='let user of users; let i = index'>
                         <th scope="row">{{ i + 1 }}</th>
-                        <td>{{ user.name }}</td>
+                        <td>{{ (user.name) ? user.name : user.commerceName }}</td>
                         <td>{{ user.phoneNumber }}</td>
                         <td>
                             <select [(ngModel)]="user.role" (change)='roleChanged(user)'
@@ -67,8 +67,14 @@
             <div class="email">
                 <p>Email: <span>{{ userToShow.userEmail }}</span></p>
             </div>
+            <div class="phone">
+                <p>Celular: <span>{{ userToShow.phoneNumber }}</span></p>
+            </div>
             <div class="address">
-                <p>Dirección de envio: <span>{{ userToShow.shippingAddress }}</span></p>
+                <p>Dirección de envio: <span>{{ (userToShow.shippingAddress) ? userToShow.shippingAddress : userToShow.address }}</span></p>
+            </div>
+            <div class="dni" *ngIf='userToShow.dni'>
+                <p>DNI: <span>{{ userToShow.dni }}</span></p>
             </div>
             <div class="provincia" *ngIf='userToShow.provincia'>
                 <p>Provincia: <span>{{ userToShow.provincia.nombre }}</span></p>

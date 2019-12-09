@@ -31,8 +31,14 @@
     <div class="info">
         <div class="product-name">
             <p>{{ product.name }}</p>
+            <span>{{ product.name }}</span>
         </div>
         <div class="product-info">
+            <p>Gramaje: 
+                <span class='gramaje'>
+                    {{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}
+                </span>
+            </p>
             <p>Marca: 
                 <span class='marca' [routerLink]="['/tienda', 'marca', product.marca.formatted]">
                     {{ product.marca.nombre }}
@@ -62,7 +68,7 @@
                 </span>
             </div>
             <div class="cantidad" [ngClass]="{active: product.quantity >= product.unidadPorBulto}">
-                <p>Bulto ({{ product.unidadPorBulto }} u.)</p>
+                <p>A partir de ({{ product.unidadPorBulto }} u.)</p>
                 <span *ngIf="loginService.user && loginService.user.role === 'COMMERCE_ROLE'">
                     ${{ product.precioComercio | precioBulto: product.descuentoPorBulto }}
                 </span>
@@ -79,8 +85,8 @@
                 </div>
                 <div class="subtotal-value" *ngIf='!product.total'>
                     <p>Subtotal: 
-                        <span>$
-                            {{ (loginService.user && loginService.user.role === 'COMMERCE_ROLE')
+                        <span>
+                            ${{ (loginService.user && loginService.user.role === 'COMMERCE_ROLE')
                                 ? product.precioComercio
                                 : product.precioUnit
                             }}

@@ -8,15 +8,11 @@
             <form [formGroup]='form' (ngSubmit)='contactFormSubmit()'>
                 <div class="name-email group">
                     <input type="text" placeholder="Nombre *" formControlName="name">
-                    <input type="text" placeholder="Apellido" formControlName="lastName">
+                    <input type="text" placeholder="Teléfono" formControlName="phone">
                 </div>
 
                 <div class="phone-email group">
-                    <input type="text" placeholder="Teléfono" formControlName="phone">
                     <input type="text" placeholder="Email *" formControlName="email">
-                </div>
-                <div class="address-affair group">
-                    <input type="text" placeholder="Dirección" formControlName="address">
                     <input type="text" placeholder="Asunto" formControlName="affair">
                 </div>
 

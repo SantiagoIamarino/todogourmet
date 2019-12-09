@@ -16,6 +16,7 @@ import { ContactoComponent } from './home/contacto/contacto.component';
 import { CartComponent } from './cart/cart.component';
 import { SurtidoComponent } from './surtido/surtido.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 
 
@@ -31,6 +32,7 @@ import { ProfileComponent } from './profile/profile.component';
     CartComponent,
     SurtidoComponent,
     ProfileComponent,
+    MyOrdersComponent,
   ],
   imports: [
     CommonModule,

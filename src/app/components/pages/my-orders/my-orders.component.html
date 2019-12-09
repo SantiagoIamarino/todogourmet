@@ -1,6 +1,6 @@
 <div class="container mt-2 animated fadeIn faster">
     <div class="title">
-        <h2>Pedidos</h2>
+        <h2>Mis pedidos</h2>
         <hr>
     </div>
     <div class="filter d-flex justify-content-end">
@@ -8,9 +8,9 @@
         <select [(ngModel)]="filter" name="filter"
           (change)= 'applyFilter()'
           id="filter" class="form-control">
-          <option value="">Mostrar todos</option>
-          <option value="PENDING">Pendientes</option>
-          <option value="FINISHED">Finalizados</option>
+          <option value="">Sin orden</option>
+          <option value="1">Mas antiguos</option>
+          <option value="-1">Mas recientes</option>
         </select>
       </div>
     </div>
@@ -18,25 +18,20 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Cliente</th>
-                    <th scope='col'>Fecha</th>
-                    <th scope="col">Metodo de pago</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Subtotal s/desc.</th>
+                    <th scope="col">Descuento</th>
+                    <th scope="col">Total</th>
                     <th scope="col">Info</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor='let order of orders'>
-                    <th scope="row">{{ (order.user.name ) ? order.user.name : order.user.commerceName}}</th>
-                    <td>{{ order.date | date:'dd-MM-yyyy'}}</td>
-                    <td>{{ order.paymentMethod || 'Efectivo' }}</td>
-                    <td>${{ order.total }}</td>
+                    <th scope="row">{{ order.date | date:'dd-MM-yyyy' }}</th>
+                    <td>${{ order.subtotal }} (Sin envio)</td>
+                    <td>{{ (order.discount > 0) ? '$' + order.discount: 'Sin desc.' }}</td>
                     <td>
-                        <button (click)='changeState(order)'
-                        class='btn' [ngClass]="{'btn-outline-warning': order.status === 'PENDING', 'btn-outline-success': order.status === 'FINISHED' }">
-                            {{ (order.status === 'PENDING' ? 'Pendiente' : 'Finalizado') }}
-                        </button>
+                        ${{ order.total }}
                     </td>
                     <td>
                         <button class='btn btn-outline-info' (click)='setOrder(order)'
@@ -50,7 +45,7 @@
         </table>
     </div>
 </div>
-
+    
 <div class="modal fade" id="orderInfoModal" tabindex="-1" role="dialog" aria-labelledby="orderInfoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" *ngIf='orderToShow'>
       <div class="modal-content">
@@ -73,7 +68,7 @@
                       <th scope="col">Producto</th>
                       <th scope="col">Marca</th>
                       <th scope="col">Cantidad</th>
-                      <th scope="col">% Descuento</th>
+                      <th scope="col">Descuento</th>
                       <th scope="col">Subtotal</th>
                     </tr>
                   </thead>
@@ -84,7 +79,7 @@
                       <td>{{ product.marca }}</td>
                       <td class='quantity-row'>{{ product.quantity }}</td>
                       <td class='quantity-row'>
-                          {{ (product.discount > 0) ? '$' + product.discount : 'Sin desc.' }}
+                        {{ (product.discount > 0) ? '$' + product.discount : 'Sin desc.' }}
                       </td>
                       <td>${{ product.subtotal }}</td>
                     </tr>
@@ -110,3 +105,4 @@
       </div>
     </div>
 </div>
+    

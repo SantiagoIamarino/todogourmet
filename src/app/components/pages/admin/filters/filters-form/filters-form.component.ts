@@ -61,8 +61,8 @@ export class FiltersFormComponent implements OnInit, OnChanges {
 
       this.uploadProgress = 'loading';
 
-      this.uploadFileService.uploadImage( this.imgToUpload, this.filterType )
-      .then( percentage => {
+      this.uploadFileService.uploadFilterImage( this.imgToUpload, this.filterType )
+      .subscribe( percentage => {
         this.uploadFileService.downloadUrl.subscribe( url => {
           if (url) {
             this.filter.imagen = url; // Getting download URL

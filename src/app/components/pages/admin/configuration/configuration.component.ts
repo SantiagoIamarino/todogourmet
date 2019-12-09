@@ -15,7 +15,6 @@ export class ConfigurationComponent implements OnInit {
 
   config: any;
 
-  message: string;
   imageToChange = {
     id: '',
     file: null,
@@ -55,12 +54,6 @@ export class ConfigurationComponent implements OnInit {
        });
   }
 
-  sendMessage() {
-    this.configurationService.sendMessage(this.message).subscribe( (res: any) => {
-      swal('Mensaje enviado', res.message, 'success');
-      this.message = '';
-    } );
-  }
 
   getImages() {
     this.configurationService.getBannerImages().subscribe( images => {

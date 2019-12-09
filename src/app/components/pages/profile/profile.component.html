@@ -6,25 +6,25 @@
     <div class="profile-options">
         <form action="">
             <div class="personal-info mr-4">
-                <h4 class='mb-3'>Información personal</h4>
-                <hr>
                 <div class="other-roles" *ngIf="user.role !==  'COMMERCE_ROLE'">
-                    <div class="d-flex justify-content-between">
-                        <div class="form-group w-100">
+                    <div class="d-flex justify-content-between first-group">
+                        <div class="form-group">
                             <label for="name">Nombre y apellido</label>
                             <input id='name' [(ngModel)]="user.name" name='name'
                                 type="text" placeholder="Nombre" class='form-control'>
                         </div>
 
-                        <div class="form-group w-100 ml-2">
+                        <div class="form-group">
                             <label for="dni">DNI</label>
                             <input id='dni' [(ngModel)]="user.dni" name='dni'
                                 type="text" placeholder="Numero de DNI" class='form-control'>
                         </div>
 
-                        <div class="form-group w-100 ml-2">
+                        <div class="form-group last-one">
                             <label for="birthDay">Fecha de nacimiento</label>
-                            <input id='birthDay' [(ngModel)]="user.birthDay" name='birthDay'
+                            <input id='birthDay' [(ngModel)]="user.birthDay"
+                                maxlength='10' 
+                                (ngModelChange)='birthDayCompletation()'  name='birthDay'
                                 type="text" placeholder="Ejemplo 02/07/1990" class='form-control'>
                         </div>
                     </div>
@@ -48,48 +48,23 @@
                             type="text" placeholder="Dirección de envio" class='form-control'>
                     </div>
 
-                    <div class="location d-flex">
-                        <div class="form-group w-50 mr-2 mb-2">
-                            <label for="provinciaId">Provincia</label>
-                            <select [(ngModel)]="user.provincia.id"
-                                (change)='gobAPIService.provinceChanged()'
-                                name="provinciaId" id="provinciaId" class="form-control">
-                                <option value="">Selecciona una provincia</option>
-                                <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
-                                    {{ provincia.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                                    
-                        <div class="form-group w-50">
-                            <label for="localidadId">Localidad</label>
-                            <select [(ngModel)]="user.localidad.id"
-                                (change)='gobAPIService.localidadChanged()'
-                                name="localidadId" id="localidadId" class="form-control">
-                                <option value="">Selecciona una localidad</option>
-                                <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
-                                    {{ localidad.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="commerce-role" *ngIf="user.role === 'COMMERCE_ROLE'">
-                    <div class="d-flex justify-content-between">
-                        <div class="form-group w-100">
+                    <div class="d-flex justify-content-between first-group">
+                        <div class="form-group">
                             <label for="commerceName">Nombre del comercio</label>
                             <input id='commerceName' [(ngModel)]="user.commerceName" name='commerceName'
                                 type="text" placeholder="Nombre del comercio" class='form-control'>
                         </div>
 
-                        <div class="form-group w-100 ml-2">
+                        <div class="form-group">
                             <label for="cuit">Cuit</label>
                             <input id='cuit' [(ngModel)]="user.cuit" name='cuit'
+                                (ngModelChange)='cuitCompletation()' maxlength='13'
                                 type="text" placeholder="Cuit" class='form-control'>
                         </div>
 
-                        <div class="form-group w-100 ml-2">
+                        <div class="form-group last-one">
                             <label for="contactPerson">Persona de contacto</label>
                             <input id='contactPerson' [(ngModel)]="user.contactPerson" name='contactPerson'
                                 type="text" placeholder="Persona de contacto" class='form-control'>
@@ -170,6 +145,32 @@
                                 </button>
                             </div>                      
                         </div>
+                    </div>
+                </div>
+
+                <div class="location d-flex">
+                    <div class="form-group w-50 mr-2 mb-2">
+                        <label for="provinciaId">Provincia</label>
+                        <select [(ngModel)]="user.provincia.id"
+                            (change)='gobAPIService.provinceChanged()'
+                            name="provinciaId" id="provinciaId" class="form-control">
+                            <option value="">Selecciona una provincia</option>
+                            <option *ngFor='let provincia of provincias' value="{{ provincia.id }}">
+                                {{ provincia.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                                
+                    <div class="form-group w-50">
+                        <label for="localidadId">Localidad</label>
+                        <select [(ngModel)]="user.localidad.id"
+                            (change)='gobAPIService.localidadChanged()'
+                            name="localidadId" id="localidadId" class="form-control">
+                            <option value="">Selecciona una localidad</option>
+                            <option *ngFor='let localidad of gobAPIService.localidades' value="{{ localidad.id }}">
+                                {{ localidad.nombre }}
+                            </option>
+                        </select>
                     </div>
                 </div>
 

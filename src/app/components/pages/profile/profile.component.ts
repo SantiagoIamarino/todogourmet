@@ -41,6 +41,51 @@ export class ProfileComponent implements OnInit {
   changeHour(type, value) {
     this.loginService.changeHour(type, value);
   }
+// tslint:disable: radix
+  birthDayCompletation() {
+    if (this.user.birthDay.length === 2) {
+      if (parseInt(this.user.birthDay) > 31) {
+        this.user.birthDay = '31';
+      }
+
+      this.user.birthDay += '-';
+      return;
+    }
+
+    if (this.user.birthDay.length === 5) {
+      const stringSplitted = this.user.birthDay.split('-');
+      if (parseInt(stringSplitted[1]) > 12) {
+        this.user.birthDay = stringSplitted[0] + '-' + '12';
+      }
+      this.user.birthDay += '-';
+      return;
+    }
+
+    if (this.user.birthDay.length === 10) {
+      const stringSplitted = this.user.birthDay.split('-');
+      if (parseInt(stringSplitted[2]) > new Date().getFullYear()) {
+        this.user.birthDay = stringSplitted[0] + '-' + stringSplitted[1] + '-' + new Date().getFullYear().toString();
+      }
+
+      if (parseInt(stringSplitted[2]) < 1900) {
+        this.user.birthDay = stringSplitted[0] + '-' + stringSplitted[1] + '-' + '1900';
+      }
+      return;
+    }
+  }
+
+  // tslint:disable: radix
+  cuitCompletation() {
+    if (this.user.cuit.length === 2) {
+      this.user.cuit += '-';
+      return;
+    }
+
+    if (this.user.cuit.length === 11) {
+      this.user.cuit += '-';
+      return;
+    }
+  }
 
   getProvinces() {
     return new Promise( (resolve, reject) => {
@@ -57,7 +102,7 @@ export class ProfileComponent implements OnInit {
       error: ''
     };
 
-    if (!this.user.shippingAddress) {
+    if (!this.user.shippingAddress && this.user.role !== 'COMMERCE_ROLE') {
       validation.error = 'Debes agregar una dirección de entrega';
       return validation;
     }
@@ -87,12 +132,12 @@ export class ProfileComponent implements OnInit {
       }
     }
 
-    if (!this.user.birthDay) {
+    if (!this.user.birthDay && this.user.role !== 'COMMERCE_ROLE') {
       validation.error = 'Debes agregar una fecha de nacimiento';
       return validation;
     } else {
       const pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
-      if (!pattern.test(this.user.birthDay)) {
+      if (!pattern.test(this.user.birthDay) && this.user.role !== 'COMMERCE_ROLE') {
         validation.error = 'Debes agregar una fecha de nacimiento valida (Ejemplo: 02-07-1990)';
         return validation;
       }

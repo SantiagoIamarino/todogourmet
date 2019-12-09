@@ -41,7 +41,8 @@
                         <tr>
                         <th scope="col">Imagen</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Precio u.</th>
+                        <th scope="col">Cons. final</th>
+                        <th scope="col">Comercio</th>
                         <th scope="col">Controles</th>
                         </tr>
                     </thead>
@@ -55,6 +56,7 @@
                             </th>
                             <td class='title'>{{ product.name }}</td>
                             <td class='price'>$ {{ product.precioUnit }}</td>
+                            <td class='price'>$ {{ product.precioComercio }}</td>
                             <td class='controls'>
                                 <div class="edit">
                                     <button (click)='openEditModal(product)'

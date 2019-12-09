@@ -18,6 +18,10 @@ export class Product {
         public quantity: number = 1,
         public total?: number,
         public destacado?: boolean,
+        public gramaje: any = {
+            number: '',
+            unity: ''
+        },
         public _id?: string
     ) {}
 }

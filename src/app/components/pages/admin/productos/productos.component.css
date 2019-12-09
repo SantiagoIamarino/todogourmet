@@ -17,6 +17,14 @@ h2{
     margin-bottom: 0;
 }
 
+.title{
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .productos .search{
     width: 50%;
 }

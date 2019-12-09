@@ -17,3 +17,23 @@
 .profile-form-group>div{
     width: 49%;
 }
+
+.first-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.first-group > div{
+    width: 32%;
+}
+
+@media screen and (max-width: 600px) {
+    .first-group > div{
+        width: 48%;
+    }
+
+    .first-group > div.last-one{
+        width: 100%;
+    }
+}

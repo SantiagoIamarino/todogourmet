@@ -39,6 +39,18 @@
     display: flex;
 } */
 
+.product-list .title{
+    position: relative;
+}
+.product-list .title span{
+    position: absolute;
+    bottom:10px;
+    left:-15%;
+    font-size: 12px;
+    font-weight: bold;
+    color: gray;
+}
+
 .product-list .quantity input{
     max-width: 70px;
 }

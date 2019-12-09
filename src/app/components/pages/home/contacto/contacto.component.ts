@@ -21,7 +21,6 @@ export class ContactoComponent implements OnInit {
   ) {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
-      lastName: new FormControl(''),
       email: new FormControl('', [
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
