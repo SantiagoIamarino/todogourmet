@@ -69,9 +69,10 @@ export class ProductService {
 
             subscriber.unsubscribe();
 
-            if (index === certs.length - 1) {
+            if (index === certificaciones.length - 1) {
               this.loadingService.loading = false;
               resolve(certs);
+              return;
             }
           } );
       });
@@ -98,6 +99,10 @@ export class ProductService {
 
     return new Promise( (resolve, reject) => {
 
+      if (product.marca.formatted) {
+        product.marca = product.marca.formatted;
+      }
+
       const subscriber =
       this.afs.collection('marcas', ref => ref.where('formattedFilter', '==', product.marca))
       .valueChanges().subscribe( (res: any) => {
@@ -122,14 +127,28 @@ export class ProductService {
     } );
   }
 
-  editProduct( product: Product) {
+  editProduct( product) {
     let url = BACKEND_URL + '/products/' + product._id;
     url += '?token=' + this.loginService.token;
 
     return new Promise( (resolve, reject) => {
-      this.http.put(url, product).subscribe( (res: any) => {
-        resolve(res.productUpdated);
-      } );
+      if (product.marca.formatted) {
+        product.marca = product.marca.formatted;
+      }
+      const subscriber =
+      this.afs.collection('marcas', ref => ref.where('formattedFilter', '==', product.marca))
+      .valueChanges().subscribe( (res: any) => {
+        product.marca = {
+          nombre: res[0].nombre,
+          formatted: res[0].formattedFilter
+        };
+
+        subscriber.unsubscribe();
+
+        this.http.put(url, product).subscribe( (res: any) => {
+          resolve(res.productUpdated);
+        } );
+      });
     } );
   }
 

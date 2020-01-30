@@ -19,6 +19,11 @@ export class ProfileComponent implements OnInit {
 
   provincias = [];
 
+  lastHour = {
+    hour: '',
+    moreHours: ''
+  };
+
   constructor(
     public loginService: LoginService,
     private loadingService: LoadingService,
@@ -38,9 +43,65 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  changeHour(type, value) {
-    this.loginService.changeHour(type, value);
+  checkboxChanged(index, value) {
+    this.user.hours[index].active = !value;
   }
+
+  handleHorario(index: number, type = 'normal') {
+
+    if (type === 'more') {
+
+      // if typed a letter
+
+      const lastLetter: any = this.user.hours[index].moreHours.hour[this.user.hours[index].moreHours.hour.length - 1];
+
+      if (isNaN(lastLetter) && this.user.hours[index].moreHours.hour.length > this.lastHour.moreHours.length) {
+        const hourWithoutLetter = this.user.hours[index].moreHours.hour.substring(0, this.user.hours[index].moreHours.hour.length - 1);
+        this.user.hours[index].moreHours.hour = hourWithoutLetter + '0';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 2) {
+        this.user.hours[index].moreHours.hour += ':';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 5
+        && this.user.hours[index].moreHours.hour.length > this.lastHour.moreHours.length) {
+        this.user.hours[index].moreHours.hour += ' a ';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 10) {
+        this.user.hours[index].moreHours.hour += ':';
+      }
+
+      this.lastHour.moreHours = this.user.hours[index].moreHours.hour;
+      return;
+    }
+
+    // if typed a letter
+
+    const lastLetter: any = this.user.hours[index].hour[this.user.hours[index].hour.length - 1];
+
+    if (isNaN(lastLetter) && this.user.hours[index].hour.length > this.lastHour.hour.length) {
+      const hourWithoutLetter = this.user.hours[index].hour.substring(0, this.user.hours[index].hour.length - 1);
+      this.user.hours[index].hour = hourWithoutLetter + '0';
+    }
+
+    if (this.user.hours[index].hour.length === 2) {
+      this.user.hours[index].hour += ':';
+    }
+
+    if (this.user.hours[index].hour.length === 5
+      && this.user.hours[index].hour.length > this.lastHour.hour.length) {
+      this.user.hours[index].hour += ' a ';
+    }
+
+    if (this.user.hours[index].hour.length === 10) {
+      this.user.hours[index].hour += ':';
+    }
+
+    this.lastHour.hour = this.user.hours[index].hour;
+  }
+
 // tslint:disable: radix
   birthDayCompletation() {
     if (this.user.birthDay.length === 2) {
@@ -95,6 +156,7 @@ export class ProfileComponent implements OnInit {
       } );
     } );
   }
+
 
   validation() {
     const validation = {

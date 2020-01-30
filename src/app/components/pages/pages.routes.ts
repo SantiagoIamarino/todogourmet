@@ -10,6 +10,7 @@ import { LoginGuard } from '../../guards/login.guard';
 import { SurtidoComponent } from './surtido/surtido.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { FaqComponent } from './faq/faq.component';
 
 const PagesRoutes: Routes = [
     {
@@ -28,6 +29,7 @@ const PagesRoutes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'encontranos-en', component: EncontranosEnComponent },
+            { path: 'faq', component: FaqComponent },
             { path: '', pathMatch: 'full', redirectTo: 'home' },
         ]
     }

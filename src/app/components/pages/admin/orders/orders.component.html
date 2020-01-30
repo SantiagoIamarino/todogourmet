@@ -5,7 +5,7 @@
     </div>
     <div class="filter d-flex justify-content-end">
       <div class="form-group w-50">
-        <select [(ngModel)]="filter" name="filter"
+        <select [(ngModel)]="filter.status" name="status"
           (change)= 'applyFilter()'
           id="filter" class="form-control">
           <option value="">Mostrar todos</option>
@@ -13,8 +13,17 @@
           <option value="FINISHED">Finalizados</option>
         </select>
       </div>
+      <div class="form-group w-50 ml-2">
+          <select [(ngModel)]="filter.date" name="date"
+            (change)= 'applyFilter()'
+            id="filter" class="form-control">
+            <option value="">Sin orden</option>
+            <option value="1">Mas antiguos</option>
+            <option value="-1">Mas recientes</option>
+          </select>
+      </div>
     </div>
-    <div class="orders">
+    <div class="orders table-responsive">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -28,7 +37,10 @@
             </thead>
             <tbody>
                 <tr *ngFor='let order of orders'>
-                    <th scope="row">{{ (order.user.name ) ? order.user.name : order.user.commerceName}}</th>
+                    <th scope="row" class='user-name' (click)='setUser(order.user)'
+                      data-toggle="modal" data-target="#userInfoModal">
+                      {{ (order.user.name ) ? order.user.name : order.user.commerceName}}
+                    </th>
                     <td>{{ order.date | date:'dd-MM-yyyy'}}</td>
                     <td>{{ order.paymentMethod || 'Efectivo' }}</td>
                     <td>${{ order.total }}</td>
@@ -51,11 +63,13 @@
     </div>
 </div>
 
+
+<!-- More info modal -->
 <div class="modal fade" id="orderInfoModal" tabindex="-1" role="dialog" aria-labelledby="orderInfoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" *ngIf='orderToShow'>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="orderInfoModalLabel">Compra de: {{ orderToShow.user.name }}</h5>
+          <h5 class="modal-title" id="orderInfoModalLabel">Compra de: {{ (orderToShow.user.name ) ? orderToShow.user.name : orderToShow.user.commerceName}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -65,13 +79,15 @@
             <div class="title mb-3">
               <h4>Productos</h4>
             </div>
-            <div class="products d-flex justify-content-between" >
+            <div class="products d-flex justify-content-between table-responsive" >
               <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Producto</th>
+                      <th scope="col">Gramaje</th>
                       <th scope="col">Marca</th>
+                      <th scope="col">Precio u.</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">% Descuento</th>
                       <th scope="col">Subtotal</th>
@@ -81,10 +97,12 @@
                     <tr *ngFor='let product of orderToShow.products; let i = index'>
                       <th scope="row">{{ i +1 }}</th>
                       <td class='product-name'>{{ product.name }}</td>
+                      <td>{{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}</td>
                       <td>{{ product.marca }}</td>
+                      <td>${{ product.unidad }}</td>
                       <td class='quantity-row'>{{ product.quantity }}</td>
                       <td class='quantity-row'>
-                          {{ (product.discount > 0) ? '$' + product.discount : 'Sin desc.' }}
+                          {{ (product.discount > 0) ? product.discountPercentage + '%' : 'Sin desc.' }}
                       </td>
                       <td>${{ product.subtotal }}</td>
                     </tr>
@@ -100,6 +118,10 @@
                   <p>Email: <span>{{ orderToShow.user.userEmail }}</span></p>
                   <p>Celular: <span>{{ orderToShow.user.phoneNumber }}</span></p>
                   <p>Dirección: <span>{{ (orderToShow.user.shippingAddress) ? orderToShow.user.shippingAddress : orderToShow.user.address }}</span></p>
+                  <hr>
+                  <p class='mt-4' style='font-size:18px'>Subtotal: <span>${{ orderToShow.subtotal }}</span></p>
+                  <p class='mt-2' style='font-size:18px'>Descuento: <span>{{ (orderToShow.discount > 0) ? '$' + orderToShow.discount : 'Sin desc.' }}</span></p>
+                  <p class='mt-2' style='font-size:18px'>Envio: <span>{{ orderToShow.shipping }}</span></p>
                   <p class='mt-2' style='font-weight: bold; font-size:20px'>Total: <span>${{ orderToShow.total }}</span></p>
               </div>
             </div>
@@ -109,4 +131,71 @@
         </div>
       </div>
     </div>
+</div>
+
+<div class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf='userToShow'>
+      <div class="modal-header">
+        <h5 class="modal-title" id="userInfoModalLabel">{{ (userToShow.name) ? userToShow.name : userToShow.commerceName }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="email">
+          <p>Email: <span>{{ userToShow.userEmail }}</span></p>
+        </div>
+        <div class="phone">
+            <p>Celular: <span>{{ userToShow.phoneNumber }}</span></p>
+        </div>
+        <div class="address" *ngIf='userToShow.shippingAddress'>
+          <p>Dirección de envio: <span>{{ userToShow.shippingAddress }}</span></p>
+        </div>
+        <div class="dni" *ngIf='userToShow.dni'>
+            <p>DNI: <span>{{ userToShow.dni }}</span></p>
+        </div>
+        <div class="provincia" *ngIf='userToShow.provincia'>
+            <p>Provincia: <span>{{ userToShow.provincia.nombre }}</span></p>
+        </div>
+        <div class="localidad" *ngIf='userToShow.localidad'>
+            <p>Localidad: <span>{{ userToShow.localidad.nombre }}</span></p>
+        </div>
+        <div class="birthday" *ngIf='userToShow.birthDay'>
+            <p>Nacimiento: <span>{{ userToShow.birthDay }}</span></p>
+        </div>
+        <div class="commerce-info mt-3" *ngIf='userToShow.cuit'>
+            <div class="title">
+                <h4>Info comercial</h4>
+                <hr>
+            </div>
+            <div class="commerce-address">
+                <p>Dirección del local: <span>{{ userToShow.address }}</span></p>
+            </div>
+            <div class="commerce-address">
+                <p>Cuit: <span>{{ userToShow.cuit }}</span></p>
+            </div>
+            <div class="commerce-address">
+                <p>Persona de contacto: 
+                    <span>{{ userToShow.contactPerson}}</span>
+                </p>
+            </div>
+            <div class="commerce-address">
+              <div class='mt-2'>
+                  <h6>Disponibilidad: </h6>
+                  <hr>
+                  <p class='mt-2' *ngFor='let hour of userToShow.hours'>
+                      <span *ngIf='hour.active'>
+                          {{ hour.day }}: De {{ hour.hour }} {{ (hour.moreHours.active) ? 'Y de ' + hour.moreHours.hour : '' }}
+                      </span>
+                  </p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

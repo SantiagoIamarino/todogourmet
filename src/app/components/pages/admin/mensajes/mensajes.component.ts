@@ -14,7 +14,11 @@ export class MensajesComponent implements OnInit {
 
   messages: contactMessage[] = [];
 
-  filter = '';
+  filter = {
+    status: '',
+    date: '',
+    term: ''
+  };
 
   constructor(
     private contactoService: ContactoService,
@@ -62,16 +66,20 @@ export class MensajesComponent implements OnInit {
     }
 
     const body = {
-      status: false,
-      important: null
+      status: (this.filter.status) ? false : '',
+      important: null,
+      date: this.filter.date,
+      term: this.filter.term
     };
 
-    if (this.filter === 'leidos') {
+    if (this.filter.status === 'leidos') {
       body.status = true;
-    } else if ( this.filter === 'destacados' ) {
+    } else if ( this.filter.status === 'destacados' ) {
       body.status = null;
       body.important = true;
     }
+
+    console.log(body);
 
     this.contactoService.getMessagesByFilter(body).subscribe( (res: any) => {
       this.messages = res.messages;

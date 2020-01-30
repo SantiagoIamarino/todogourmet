@@ -10,6 +10,7 @@ import sweetAlert from 'sweetalert';
 import { User } from '../../../models/user.model';
 import { CartService } from '../cart/cart.service';
 import { GobAPIService } from '../../../services/gob-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,18 +35,29 @@ export class LoginComponent implements OnInit {
 
   provincias = [];
 
+  showCart = true;
+
+  lastHour = {
+    hour: '',
+    moreHours: ''
+  }
+
   constructor(
     public loginService: LoginService,
     public cartService: CartService,
-    public gobAPIService: GobAPIService
+    public gobAPIService: GobAPIService,
+    public router: Router
   ) {
+    this.cartService.isOnCart.subscribe( showCart => {
+      this.showCart = showCart;
+    } );
   }
 
   ngOnInit() {
-      this.windowRef = this.loginService.windowRef;
-      this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    this.windowRef = this.loginService.windowRef;
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
 
-      this.windowRef.recaptchaVerifier.render();
+    this.windowRef.recaptchaVerifier.render();
   }
 
   resetPhone() {
@@ -124,8 +136,72 @@ export class LoginComponent implements OnInit {
 
   }
 
-  changeHour(type, value) {
-    this.loginService.changeHour(type, value);
+  handleHorario(index: number, type = 'normal') {
+
+    if (type === 'more') {
+
+      // if typed a letter
+
+      const lastLetter: any = this.user.hours[index].moreHours.hour[this.user.hours[index].moreHours.hour.length - 1];
+
+      if (isNaN(lastLetter) && this.user.hours[index].moreHours.hour.length > this.lastHour.moreHours.length) {
+        const hourWithoutLetter = this.user.hours[index].moreHours.hour.substring(0, this.user.hours[index].moreHours.hour.length - 1);
+        this.user.hours[index].moreHours.hour = hourWithoutLetter + '0';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 2) {
+        this.user.hours[index].moreHours.hour += ':';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 5
+        && this.user.hours[index].moreHours.hour.length > this.lastHour.moreHours.length) {
+        this.user.hours[index].moreHours.hour += ' a ';
+      }
+
+      if (this.user.hours[index].moreHours.hour.length === 10) {
+        this.user.hours[index].moreHours.hour += ':';
+      }
+
+      this.lastHour.moreHours = this.user.hours[index].moreHours.hour;
+      return;
+    }
+
+    // if typed a letter
+
+    const lastLetter: any = this.user.hours[index].hour[this.user.hours[index].hour.length - 1];
+
+    if (isNaN(lastLetter) && this.user.hours[index].hour.length > this.lastHour.hour.length) {
+      const hourWithoutLetter = this.user.hours[index].hour.substring(0, this.user.hours[index].hour.length - 1);
+      this.user.hours[index].hour = hourWithoutLetter + '0';
+    }
+
+    if (this.user.hours[index].hour.length === 2) {
+      this.user.hours[index].hour += ':';
+    }
+
+    if (this.user.hours[index].hour.length === 5
+      && this.user.hours[index].hour.length > this.lastHour.hour.length) {
+      this.user.hours[index].hour += ' a ';
+    }
+
+    if (this.user.hours[index].hour.length === 10) {
+      this.user.hours[index].hour += ':';
+    }
+
+    this.lastHour.hour = this.user.hours[index].hour;
+  }
+
+  // tslint:disable: radix
+  cuitCompletation() {
+    if (this.loginService.user.cuit.length === 2) {
+      this.loginService.user.cuit += '-';
+      return;
+    }
+
+    if (this.loginService.user.cuit.length === 11) {
+      this.loginService.user.cuit += '-';
+      return;
+    }
   }
 
   additionalInfo(form) {
@@ -145,7 +221,6 @@ export class LoginComponent implements OnInit {
     this.windowRef.confirmationResult
         .confirm(this.verificationCode)
         .then( result => {
-
           this.user = result.user;
           this.loginService.getUser(this.user.phoneNumber).subscribe( (res: any) => {
             this.getProvinces().then( () => {

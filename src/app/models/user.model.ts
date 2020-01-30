@@ -8,9 +8,71 @@ export class User {
         public cuit?: string,
         public address?: string,
         public shippingAddress?: string,
-        public specificHours: any[] = [],
-        public hours?: any,
-        public additionalHours?: any,
+        public hours = [
+            {
+                day: 'Lunes',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Martes',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Miercoles',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Jueves',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Viernes',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Sabado',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            },
+            {
+                day: 'Domingo',
+                hour: '',
+                active: false,
+                moreHours: {
+                    active: false,
+                    hour: ''
+                }
+            }
+        ],
         public dni?: string,
         public provincia: any = {
             nombre: '',

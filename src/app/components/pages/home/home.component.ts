@@ -8,7 +8,7 @@ import { ConfigurationService } from '../admin/configuration.service';
 
 declare function sliderMarcas(imgsToSlide);
 
-declare function scrollToDiv(slideTo);
+declare function scrollToDiv(slideTo, timing);
 
 declare function stopSliderMarcas();
 
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe( params => {
       if (params.get('scrollTo')) {
         const scrollTo = params.get('scrollTo');
-        scrollToDiv(scrollTo);
+        scrollToDiv(scrollTo, 0);
       }
     } );
     this.getPosts();
@@ -85,6 +85,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.configurationService.getConfigs().subscribe( (res: any) => {
       this.pricesList = res.configs[0].pricesList;
     }  );
+  }
+
+  redirectTo(link: string) {
+    let url = '';
+    if (!/^http[s]?:\/\//.test(link)) {
+        url += 'http://';
+    }
+
+    url += link;
+    window.open(url, '_blank');
   }
 
 }

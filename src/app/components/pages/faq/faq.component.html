@@ -1,0 +1,316 @@
+<div class="container animated fadeIn faster">
+    <div class="title text-center">
+        <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="questions mt-4 mb-4">
+        <div class="accordion" id="faqQuestions">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <p>1.	¿Cómo comprar?</p>
+                        <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </h2>
+                </div>
+            
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Debes iniciar sesión para poder realizar compras através de nuestra tienda online.
+                        <br>
+                        En caso de no tener un usuario generado, regístrate en este <a *ngIf='loginService.token' class='link'>link</a> <a *ngIf='!loginService.token' data-toggle='modal' data-target="#loginModal" class='link'>link</a> mediante el ingreso de tu número de celular, es muy rápido y fácil.
+                        <br>
+                        Cada vez que ingreses a la tienda utilizando tu número de celular, accederás a toda la información histórica de tu cuenta.                        
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <p>2.	No visualizo los precios de los producto ¿Porque?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Para visualizar los precios debes haber ingresado a tu usuario.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <p>3.	Cada producto tiene dos precios, ¿cuál es el que voy a pagar?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Hay un precio unitario y un precio unitario a partir de X cantidad de unidades (las X unidades varían según el producto). Según la cantidad de unidades que selecciones para comprar será el precio unitario que se aplicará a la compra. De todas formas el precio que se te esté aplicando lo vas a ver sombreado en rojo!
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <p>4.	¿Qué son los logos que figuran en los productos?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Son certificados o especificaciones que queremos que conozcas de los productos.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFive">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <p>5.	¿Qué es el logo azul en la parte superior derecha de la imagen de los productos?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Si ese logo aparece, significa que dicho producto es refrigerado.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingSix">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <p>6.	¿Los productos refrigerados se entregan en todo el territorio Argentino?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        No, solo entregamos productos refrigerados en localidades específicas las cuales podrás consultar en este <a data-toggle="modal" data-target='#localidadesModal' class='link'>link</a>. En caso que en tu usuario hayas designado una dirección de entrega dentro de una localidad que no tiene habilitada la entrega de refrigerado, no se te permitirá avanzar con la compra de dichos productos.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingSeven">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        <p>7.	¿Con que caducidad recibiré los productos refrigerados?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Nunca te entregaremos con menos de 7 días. En caso de no poder cumplir con los 7 días, nos comunicaremos para infórmate con que caducidad te estaríamos enviando y confirmar si de todas formas quieres que te enviemos ese producto.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingEight">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        <p>8.	¿Qué función cumple el “Corazón” que está en la parte inferior derecha de cada imagen de los productos?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        Al hacer click en el corazón se rellenará el fondo del mismo en rojo y esto significará que el producto lo has agregado a tu surtido de productos preferidos. Luego podrás entrar desde el botón “Mi cuenta”, ubicado en la botonera principal del sitio, al botón “Mi surtido” y accederás a tu selección personal de productos.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingNine">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                        <p>9.	Hice una compra, ¿Cuándo recibo mi pedido?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#faqQuestions">
+                    <div class="card-body">
+                        La entrega en las siguientes <a data-toggle="modal" data-target='#localidadesModal' class="link">localidades</a> es dentro de los 5 días hábiles. En el resto de las localidades el plazo de entrega varía según la disponibilidad del servicio postal.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTen">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                        <p>10.	¿Cuál es el costo de envío?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        Si la entrega es en Mar del Plata, con la compra mínima de <strong>${{ config.minValueToShipment }}</strong> la entrega es sin cargo. De no alcanzar dicho mínimo el costo de entrega es de <strong>${{ config.shippingCost }}</strong>.
+                        <br><br>
+                        Si la entrega es fuera de Mar del Plata, el costo de envío dependerá del servicio de mensajería. El costo del envío es a cargo del comprador y lo abonará contra la entrega del pedido.
+                        <br><br>
+                        En todos los casos nos pondremos en contacto telefónicamente para coordinar la entrega.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingEleven">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                        <p>11.	¿Puedo acceder a la información de los pedidos que hice en el pasado?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        Si, desplegando el botón “Mi cuenta” -  “Mis pedidos” podrás acceder al histórico de pedidos realizados. Haciendo click en “Ver más” podrás ver el detalle de cada uno de ellos  (Productos, Cantidades, Precios, Descuentos, Etc.).
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwelve">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                        <p>12.	Me equivoque al comprar y recibí un producto que no quería. ¿Tiene cambio?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        En este caso, si el producto no fue alterado o no ha pasado tiempo y el producto está cerca de su caducidad, aceptamos la devolución. El costo logístico por la devolución es a cargo del comprador. 
+                        <br><br>
+                        El comprador podrá optar por la devolución del dinero o el cambio por otro producto, abonando la diferencia en caso de existir.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThirteen">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                        <p>13.	Me enviaron un producto que no pedí  y no lo quiero. ¿Tiene devolución?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        En este caso, si el producto no fue alterado o no ha pasado tiempo y el producto está cerca de su caducidad, aceptamos la devolución. El costo logístico por la devolución será a nuestro cargo. 
+                        <br><br>
+                        El comprador podrá optar por la devolución del dinero o el cambio por otro producto, abonando la diferencia en caso de existir.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFourteen">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+                        <p>14.	Me llego un producto roto. ¿Qué hago?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        La mercadería sale embalada con las medidas de seguridad necesarias, sin embargo en caso de rotura: en primer lugar deberás generar el reclamo en el servicio logístico que realizó la entrega, ni bien recibida la mercadería. Luego <a data-toggle='modal' data-target='#contactoModal' class="link">informarnos por whatsapp o mail</a> del incidente para poder hacer un seguimiento de dicho reclamo y poder encontrar la mejor solución al problema.
+                        <br><br>
+                        <div class="list">
+                            Vamos a necesitar que nos pases la siguiente información:
+                            <div class="list-items">
+                                •	Número de celular de la cuenta.
+                                <br>
+                                •	Fecha de pedido.
+                                <br>
+                                •	Detalle de roturas.
+                                <br>
+                                •	Empresa de logística.
+                                <br>
+                                •	Número de envío.
+                                <br>
+                                •	Número de reclamo.
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFifteen">
+                    <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+                        <p>15.	¿Es importante tener la información de “Mi Perfil” actualizada?</p>
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    </h2>
+                </div>
+                <div id="collapseFifteen" class="collapse" aria-labelledby="headingFifteen" data-parent="#faqQuestions">
+                    <div class="card-body" *ngIf='config'>
+                        Si, es muy importante ya que la misma es utilizada para concretar la entrega de los pedidos.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+<!-- Localidades Modal -->
+<div class="modal fade" id="localidadesModal" tabindex="-1" role="dialog" aria-labelledby="localidadesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="localidadesModalLabel">Localidades habilitadas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor='let location of locations'>
+                    {{ location.localidad }}, {{ location.provincia }}
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contacto Modal -->
+
+<div class="modal fade" id="contactoModal" tabindex="-1" role="dialog" aria-labelledby="contactoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="contactoModalLabel">Opciones de contacto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Podes contactarnos o informarnos de algun incidente mediante WhatsApp o correo electrónico.</p>
+            <hr>
+            <div class="info">
+                <p>Teléfono: +54 9 223 456 3639</p>
+                <p>Email: hola@todogourmet.com.ar</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+</div>

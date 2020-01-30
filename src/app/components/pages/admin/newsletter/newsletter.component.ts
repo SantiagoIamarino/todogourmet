@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsletterService } from './newsletter.service';
 
+import * as alasql from 'alasql';
+import * as XLSX from 'xlsx';
+
 declare var swal;
 
 @Component({
@@ -13,11 +16,13 @@ export class NewsletterComponent implements OnInit {
   message: string;
 
   messages: any[] = [];
+  usersSubscribed: any[] = [];
 
   constructor(
     private newsletterService: NewsletterService
   ) {
     this.getMessages();
+    this.getUsersSubscribed();
    }
 
   ngOnInit() {
@@ -26,8 +31,20 @@ export class NewsletterComponent implements OnInit {
   getMessages() {
     this.newsletterService.getMessages().subscribe( messages => {
       this.messages = messages;
-      console.log(messages);
     } );
+  }
+
+  getUsersSubscribed() {
+    this.newsletterService.getUsersSubscribed().subscribe( users => {
+      this.usersSubscribed = users;
+    } );
+  }
+
+  downloadMessages() {
+    const opts = [{ sheeitd: 'Usuarios registrados', header: true }];
+
+    // This piece of code will download excel sheet
+    alasql("SELECT  userEmail as [Email] INTO XLSX ('Usuarios.xlsx',{headers:true}) FROM ?", [this.usersSubscribed]);
   }
 
   sendMessage() {

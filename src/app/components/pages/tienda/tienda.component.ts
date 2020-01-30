@@ -50,6 +50,11 @@ export class TiendaComponent implements OnInit {
         params.get('filterValue')
       );
     } );
+
+    this.tiendaService.notAllowedSubscriber.subscribe( () => {
+        this.filtersToApply.estaRefrigerado = false;
+        this.applyFilters(true);
+    } );
   }
 
   ngOnInit() {

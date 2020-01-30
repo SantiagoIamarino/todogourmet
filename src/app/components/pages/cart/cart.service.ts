@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BACKEND_URL } from '../../../config/config';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../../services/login/login.service';
+import { ConfigurationService } from '../admin/configuration.service';
 
 
 @Injectable({
@@ -11,9 +12,14 @@ export class CartService {
 
   cartProductsLength = 0;
 
+  isOnCart = new EventEmitter();
+
+  locations = [];
+
   constructor(
     private http: HttpClient,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private configurationService: ConfigurationService
   ) {
     if (this.loginService.user && this.loginService.token) {
       this.getProductsLength();
@@ -33,7 +39,7 @@ export class CartService {
     return this.http.get(url);
   }
 
-  addProductToCart( productId, quantity ) {
+  addProductToCart( productId, quantity, isRefrigerado ) {
 
     let url = BACKEND_URL + '/checkout/add-to-cart';
     url += '?token=' + this.loginService.token;
@@ -43,7 +49,41 @@ export class CartService {
       quantity
     };
 
-    return this.http.post(url, productToAdd);
+    return new Promise( (resolve, reject) => {
+      if (isRefrigerado) {
+        const subscriber =
+        this.configurationService.getLocations().subscribe( (res: any) => {
+          if (res.locations.length !== this.locations.length) {
+            this.locations = [];
+            res.locations.forEach((location: any) => {
+              this.locations.push(location.localidad);
+            });
+          }
+
+          if (this.locations.indexOf(this.loginService.user.localidad.nombre) > -1) {
+
+            this.http.post(url, productToAdd).subscribe( resp => {
+              resolve(resp);
+            } );
+          } else {
+            reject('No se realizan envios de productos refrigerados a tu localidad, lo sentimos!');
+          }
+
+        } );
+      } else {
+        this.http.post(url, productToAdd).subscribe( resp => {
+          resolve(resp);
+        } );
+      }
+    } );
+  }
+
+  updateCartProduct( product ) {
+
+    let url = BACKEND_URL + '/checkout/cart/' + product._id;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.put(url, product);
   }
 
   removeProductFromCart(productId: string) {

@@ -23,6 +23,15 @@ export class NewsletterService {
     } ) );
   }
 
+  getUsersSubscribed() {
+    let url = BACKEND_URL + '/newsletter/users';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url).pipe( map( (res: any) => {
+      return res.users;
+    } ) );
+  }
+
 
   sendMessage(message: string) {
     let url = BACKEND_URL + '/newsletter/send';

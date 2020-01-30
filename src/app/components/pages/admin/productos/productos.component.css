@@ -42,10 +42,6 @@ h2{
     height: 39px;
 }
 
-.admin-products{
-    padding: 20px 40px;
-}
-
 .new-product{
     display: flex;
     justify-content: center;
@@ -71,6 +67,7 @@ h2{
 
 .productos .product-item .controls .edit{
     margin-right: 5px;
+    display: flex;
 }
 
 .productos .product-list table{

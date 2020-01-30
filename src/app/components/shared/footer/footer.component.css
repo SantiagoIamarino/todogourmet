@@ -50,6 +50,21 @@ footer .newsletter form {
     display: flex;
 }
 
+footer .container .footer-contacto .footer-content{
+    position: relative;
+}
+
+footer .container .footer-contacto .afip-legal{
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+}
+
+footer .container .footer-contacto .afip-legal img{
+    width: 40px;
+}
+
 footer .credits {
     background: white;
 }

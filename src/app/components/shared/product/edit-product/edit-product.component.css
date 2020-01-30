@@ -41,6 +41,7 @@
     margin-top: 5px;
     max-width: 100px;
     border-radius: 3px;
+    width: 100%;
 }
 
 .product-name .edit-input{
@@ -53,6 +54,11 @@
 .product-info{
     padding-bottom: 5px;
     max-width: 80%;
+}
+
+.product-info,
+.gramaje{
+    max-width: 350px;
 }
 
 .product-info .marca{

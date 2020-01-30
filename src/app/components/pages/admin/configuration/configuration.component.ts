@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from '../configuration.service';
 import { LoadingService } from '../../../shared/loading/loading.service';
 import { UploadFileService } from '../../../../services/upload-file.service';
+import { GobAPIService } from '../../../../services/gob-api.service';
 
 
 declare var swal;
@@ -21,16 +22,30 @@ export class ConfigurationComponent implements OnInit {
     link: ''
   };
 
+  location = {
+    provincia: '',
+    localidad: ''
+  };
+
+  provincias: [];
+
   images = [];
+  locations = [];
 
   constructor(
     private configurationService: ConfigurationService,
     private loadingService: LoadingService,
-    private uploadFileService: UploadFileService
+    private uploadFileService: UploadFileService,
+    public gobAPIService: GobAPIService
   ) {
     this.getConfigs();
     this.getImages();
+    this.getProvinces();
+    this.getLocations();
    }
+
+  ngOnInit() {
+  }
 
    getConfigs() {
      this.loadingService.loading = true;
@@ -96,7 +111,58 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  getProvinces() {
+    return new Promise( (resolve, reject) => {
+      this.gobAPIService.getProvinces().subscribe( (res: any) => {
+        this.provincias = res.provincias;
+        resolve();
+      } );
+    } );
   }
+
+  getLocations() {
+    this.configurationService.getLocations().subscribe( (res: any) => {
+      this.locations = res.locations;
+    } );
+  }
+
+  addLocation() {
+    this.configurationService.addLocation(this.location).then( (message: string) => {
+      swal({
+        title: 'Localidad añadida',
+        text: message,
+        icon: 'success',
+        timer: 2000
+      });
+
+      this.location = {
+        provincia: '',
+        localidad: ''
+      };
+
+      this.getLocations();
+    } );
+  }
+
+  deleteLocation(location) {
+
+    swal('Estas seguro que deseas eliminar este localidad?', {
+        buttons: ['Cancelar', 'Aceptar'],
+        icon: 'warning'
+      }).then( wantsToDelete => {
+        if (wantsToDelete) {
+          this.configurationService.deleteLocation(location._id).subscribe( (res: any) => {
+            swal({
+              title: 'Localidad eliminada',
+              text: res.message,
+              icon: 'success',
+              timer: 2000
+            });
+
+            this.getLocations();
+          } );
+        }
+      } );
+    }
 
 }

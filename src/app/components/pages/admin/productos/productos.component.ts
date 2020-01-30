@@ -97,8 +97,6 @@ export class ProductosComponent implements OnInit {
         number: this.productToEdit.gramaje.split(' ')[0],
         unity: this.productToEdit.gramaje.split(' ')[1].split('.')[0]
       }
-
-      console.log(this.productToEdit.gramaje);
     }
   }
 
@@ -139,8 +137,8 @@ export class ProductosComponent implements OnInit {
             'El producto se ha eliminado correctamente',
             'success'
           );
+          this.getProducts();
         } );
-        window.location.reload();
       }
     } );
   }

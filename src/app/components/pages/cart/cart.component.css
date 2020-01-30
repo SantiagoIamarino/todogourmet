@@ -1,3 +1,7 @@
+.swal-text{
+    padding: 0 22px !important;
+}
+
 .cart{
     max-width: 1400px;
     width: 98%;
@@ -42,13 +46,12 @@
 .product-list .title{
     position: relative;
 }
+
 .product-list .title span{
-    position: absolute;
-    bottom:10px;
-    left:-15%;
-    font-size: 12px;
+    font-size: 14px;
+    text-align: center;
+    color: #949494;
     font-weight: bold;
-    color: gray;
 }
 
 .product-list .quantity input{
@@ -125,7 +128,7 @@
     margin-right: 70px;
 }
 
-.bottom .pay button{
+.bottom .pay button.btn-pay{
     margin-top: 30px;
     padding: 12px 40px;
     font-size: 15px;
@@ -135,7 +138,7 @@
     border: 1px solid rgb(211, 45, 45);
 }
 
-.bottom .pay button:hover{
+.bottom .pay button.btn-pay:hover{
     transition: .3s all ease;
     background: white;
     color: rgb(211, 45, 45);

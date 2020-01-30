@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from './cart.service';
 import { LoadingService } from '../../shared/loading/loading.service';
 import { LoginService } from '../../../services/login/login.service';
@@ -19,7 +19,7 @@ declare var swal;
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   preference: any;
 
@@ -29,6 +29,7 @@ export class CartComponent implements OnInit {
   total = 0;
   subtotal = 0;
   discounts = 0;
+  isPayingShipping = false;
 
   postUrl = BACKEND_URL + '/checkout/finished';
 
@@ -47,13 +48,23 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     goToTop(0);
+    this.cartService.isOnCart.emit(false);
+  }
+
+  ngOnDestroy() {
+    this.cartService.isOnCart.emit(true);
+    this.products.forEach(product => {
+      const subscriber =
+        this.cartService.updateCartProduct(product).subscribe( res => {
+          subscriber.unsubscribe();
+        } );
+    });
   }
 
   getProducts() {
     this.loadingService.loading = true;
     this.cartService.getProducts().subscribe( (res: any) => {
       this.products = res.products;
-      console.log(this.products);
       this.loadingService.loading = false;
     } );
   }
@@ -86,24 +97,31 @@ export class CartComponent implements OnInit {
       }
     }
 
-    let price = 0;
+    let priceWithoutDisc = 0;
     let discount = 0;
+    let price = 0;
     if (this.loginService.user && this.loginService.user.role === 'COMMERCE_ROLE') {
-      price = product.productId.precioComercio;
+      priceWithoutDisc = product.productId.precioComercio;
     } else {
-      price = product.productId.precioUnit;
+      priceWithoutDisc = product.productId.precioUnit;
     }
 
     if (product.quantity >= product.productId.unidadPorBulto) {
       // tslint:disable: no-var-keyword
       // tslint:disable-next-line: prefer-const
-      discount = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
-      const precioPorBulto: any = price * discount;
+      if (product.productId.descuentoPorBulto >= 10) {
+        discount = 1 - parseFloat('0.' + product.productId.descuentoPorBulto);
+      } else {
+        discount = 1 - parseFloat('0.0' + product.productId.descuentoPorBulto);
+      }
+      const precioPorBulto: any = priceWithoutDisc * discount;
       price = precioPorBulto;
+    } else {
+      price = priceWithoutDisc;
     }
 
     product.subtotal = (product.quantity * price).toFixed(2);
-    product.totalWithoutDisc = (product.productId.precioUnit * product.quantity).toFixed(2);
+    product.totalWithoutDisc = (priceWithoutDisc * product.quantity).toFixed(2);
     product.discount =  (discount > 0) ? parseFloat(product.totalWithoutDisc) - (parseFloat(product.totalWithoutDisc) * discount) : 0;
     product.discount = (product.discount > 0) ? product.discount.toFixed(2) : 0;
     this.getTotals();
@@ -123,8 +141,10 @@ export class CartComponent implements OnInit {
 
     if (this.loginService.user.localidad.id === '06357110003' && this.config) {
       if (this.total < this.config.minValueToShipment) {
+        this.isPayingShipping = true;
         this.total = this.total + parseInt(this.config.shippingCost);
       } else {
+        this.isPayingShipping = false;
         this.total = this.total;
       }
     } else {
@@ -160,17 +180,22 @@ export class CartComponent implements OnInit {
       paymentMethod: type,
       subtotal: this.subtotal,
       discount: this.discounts,
-      total : this.total
+      total : this.total,
+      shipping: (this.isPayingShipping) ? '$' + this.config.shippingCost : 'A acordar'
     };
+
 
     this.products.forEach(product => {
       const productToSend = {
         id: product.productId._id,
         name: product.productId.name,
+        gramaje: product.productId.gramaje,
         marca: product.productId.marca.nombre,
+        unidad: ( this.loginService.user.role === 'COMMERCE_ROLE' ) ? product.productId.precioComercio : product.productId.precioUnit,
         quantity: product.quantity,
         subtotal: product.subtotal,
         totalWithoutDisc: product.totalWithoutDisc,
+        discountPercentage: product.productId.descuentoPorBulto,
         discount: product.discount
       };
 
@@ -180,9 +205,8 @@ export class CartComponent implements OnInit {
     this.cartService.payment(body).subscribe( (res: any) => {
         swal({
           title: 'Pedido realizado correctamente',
-          text: 'Nos contactaremos a la brevedad para coordinar la compra!',
-          icon: 'success',
-          timer: 2000
+          text: 'Nos contactaremos a la brevedad para coordinar la entrega!',
+          icon: 'success'
         }).then( () => {
           this.router.navigate(['/tienda']);
         } );
@@ -190,7 +214,6 @@ export class CartComponent implements OnInit {
         this.cartService.removeAllProducts().subscribe( () => {
           this.cartService.getProductsLength();
         } );
-        console.log(res.userDB);
         this.loginService.saveInStorage(res.userDB, this.loginService.token);
     } );
   }
@@ -205,6 +228,8 @@ export class CartComponent implements OnInit {
           showButton(this.preference.body.id);
         }
       } );
+    } else {
+      this.payment('efectivo');
     }
   }
 

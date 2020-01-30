@@ -30,7 +30,7 @@
         <div class="product-info">
             <p class='marca'>
                 Marca: 
-                <select [(ngModel)]="product.marca" name="marca" class="input-select">
+                <select [(ngModel)]="product.marca.formatted" name="marca" class="input-select">
                     <option value="">Selecciona una marca</option>
                     <option [value]='marca.formattedFilter' *ngFor='let marca of filters.marcas'>
                         {{ marca.nombre }}
@@ -48,7 +48,7 @@
                     <option value="">Selecciona una unidad</option>
                     <option value="gr">Gramos</option>
                     <option value="kg">Kilogramos</option>
-                    <option value="cm3">Centimetros cubicos</option>
+                    <option value="cc">Centimetros cubicos</option>
                     <option value="ml">Mililitros</option>
                     <option value="lts">Litros</option>
                 </select>
@@ -93,11 +93,10 @@
             <div class="filter-options">
                 <ul class="ks-cboxtags">
                     <li *ngFor='let certificacion of filters.certificaciones'>
-                        <input type="checkbox" 
+                        <input type="checkbox" [checked]="isChecked(product.certificaciones, certificacion.formattedFilter)"
                                 [attr.id]="certificacion.formattedFilter + '_edit'"
                                 [attr.value]='certificacion.formattedFilter'>
-                        <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
-                                [attr.for]="certificacion.formattedFilter + '_edit'">
+                        <label (click)="filterChanged('certificacion', certificacion.formattedFilter)">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ certificacion.nombre }}
@@ -114,9 +113,8 @@
                 <ul class="ks-cboxtags">
                     <li *ngFor='let rubro of filters.rubros'>
                         <input type="checkbox" [attr.id]="rubro.formattedFilter + '_edit'"
-                                [attr.value]='rubro.formattedFilter'>
-                        <label (click)="filterChanged('rubro', rubro.formattedFilter)"
-                                [attr.for]="rubro.formattedFilter + '_edit'">
+                            [attr.value]='rubro.formattedFilter' [checked]="isChecked(product.rubros, rubro.formattedFilter)">
+                        <label (click)="filterChanged('rubro', rubro.formattedFilter)">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ rubro.nombre }}
@@ -133,9 +131,8 @@
                 <ul class="ks-cboxtags">
                     <li *ngFor='let tipo of filters.tipos'>
                         <input type="checkbox" [attr.id]="tipo.formattedFilter + '_edit'"
-                                [attr.value]='tipo.formattedFilter'>
-                        <label (click)="filterChanged('tipo', tipo.formattedFilter)"
-                                [attr.for]="tipo.formattedFilter + '_edit'">
+                            [attr.value]='tipo.formattedFilter' [checked]="isChecked(product.tipos, tipo.formattedFilter)">
+                        <label (click)="filterChanged('tipo', tipo.formattedFilter)">
                             <i class='fa fa-plus add-icon'></i>
                             <i class='fa fa-check check-icon'></i>
                             {{ tipo.nombre }}
@@ -162,6 +159,16 @@
                 </div>
             </div>
         </div>
+        <div class="filter visible-for product-info">
+            <p class='marca'>
+                Visible: 
+                <select [(ngModel)]="product.visibleFor" name="visibleFor" class="input-select">
+                    <option value="BOTH">Ambos roles</option>
+                    <option value="CONSUMER_ROLE">Consumidor final</option>
+                    <option value="COMMERCE_ROLE">Comercio</option>
+                </select>
+            </p>
+        </div>
         <div class="progreso" *ngIf="uploadProgress">
             <p>Subiendo..</p>
             <div class="progress">
@@ -179,7 +186,8 @@
             SUBIR PRODUCTO
         </button>
 
-        <button (click)='editProduct()' *ngIf='product._id'>
+        <button (click)='editProduct()' *ngIf='product._id'
+            data-target="#editModal" data-toggle="modal">
             <i class="fa fa-save mr-1"></i>
             EDITAR PRODUCTO
         </button>
@@ -199,99 +207,111 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="filters" *ngIf="!loading">
-                    <div class="filter certificacion">
-                        <div class="filter-title">
-                            <label for="">Certificación</label>
+                <form #form='ngForm'>
+                    <div class="filters" *ngIf="!loading">
+                        <div class="filter certificacion">
+                            <div class="filter-title">
+                                <label for="">Certificación</label>
+                            </div>
+                            <div class="filter-options">
+                                <ul class="ks-cboxtags">
+                                    <li *ngFor='let certificacion of filters.certificaciones'>
+                                        <input type="checkbox" 
+                                                [attr.id]='certificacion.formattedFilter'  
+                                                [attr.value]='certificacion.formattedFilter'>
+                                        <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
+                                            [attr.for]='certificacion.formattedFilter'>
+                                            <i class='fa fa-plus add-icon'></i>
+                                            <i class='fa fa-check check-icon'></i>
+                                            {{ certificacion.nombre }}
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="filter-options">
-                            <ul class="ks-cboxtags">
-                                <li *ngFor='let certificacion of filters.certificaciones'>
-                                    <input type="checkbox" 
-                                            [attr.id]='certificacion.formattedFilter'  
-                                            [attr.value]='certificacion.formattedFilter'>
-                                    <label (click)="filterChanged('certificacion', certificacion.formattedFilter)"
-                                           [attr.for]='certificacion.formattedFilter'>
-                                        <i class='fa fa-plus add-icon'></i>
-                                        <i class='fa fa-check check-icon'></i>
-                                        {{ certificacion.nombre }}
-                                    </label>
-                                </li>
-                            </ul>
+                        <div class="filter rubros">
+                            <div class="filter-title">
+                                <label for="">Rubros</label>
+                            </div>
+                            <div class="filter-options">
+                                <ul class="ks-cboxtags">
+                                    <li *ngFor='let rubro of filters.rubros'>
+                                        <input type="checkbox" [attr.id]='rubro.formattedFilter'  
+                                                [attr.value]='rubro.formattedFilter'>
+                                        <label (click)="filterChanged('rubro', rubro.formattedFilter)"
+                                                [attr.for]='rubro.formattedFilter'>
+                                            <i class='fa fa-plus add-icon'></i>
+                                            <i class='fa fa-check check-icon'></i>
+                                            {{ rubro.nombre }}
+                                        </label>
+                                    </li>
+                                </ul>
                         </div>
-                    </div>
-                    <div class="filter rubros">
-                        <div class="filter-title">
-                            <label for="">Rubros</label>
                         </div>
-                        <div class="filter-options">
-                            <ul class="ks-cboxtags">
-                                <li *ngFor='let rubro of filters.rubros'>
-                                    <input type="checkbox" [attr.id]='rubro.formattedFilter'  
-                                            [attr.value]='rubro.formattedFilter'>
-                                    <label (click)="filterChanged('rubro', rubro.formattedFilter)"
-                                            [attr.for]='rubro.formattedFilter'>
-                                        <i class='fa fa-plus add-icon'></i>
-                                        <i class='fa fa-check check-icon'></i>
-                                        {{ rubro.nombre }}
-                                    </label>
-                                </li>
-                            </ul>
-                    </div>
-                    </div>
-                    <div class="filter tipos">
-                        <div class="filter-title">
-                            <label for="">Tipos</label>
+                        <div class="filter tipos">
+                            <div class="filter-title">
+                                <label for="">Tipos</label>
+                            </div>
+                            <div class="filter-options">
+                                <ul class="ks-cboxtags">
+                                    <li *ngFor='let tipo of filters.tipos'>
+                                        <input type="checkbox" [attr.id]='tipo.formattedFilter'  
+                                                [attr.value]='tipo.formattedFilter'>
+                                        <label (click)="filterChanged('tipo', tipo.formattedFilter)"
+                                                [attr.for]='tipo.formattedFilter'>
+                                            <i class='fa fa-plus add-icon'></i>
+                                            <i class='fa fa-check check-icon'></i>
+                                            {{ tipo.nombre }}
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="filter-options">
-                            <ul class="ks-cboxtags">
-                                <li *ngFor='let tipo of filters.tipos'>
-                                    <input type="checkbox" [attr.id]='tipo.formattedFilter'  
-                                            [attr.value]='tipo.formattedFilter'>
-                                    <label (click)="filterChanged('tipo', tipo.formattedFilter)"
-                                            [attr.for]='tipo.formattedFilter'>
-                                        <i class='fa fa-plus add-icon'></i>
-                                        <i class='fa fa-check check-icon'></i>
-                                        {{ tipo.nombre }}
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="filter esta-refrigerado">    
-                        <div class="filter-title">
-                            <label for="refrigerado">Refrigerado</label>
-                        </div>
-                        <div class="filter-options">
-                            <div class="checkbox-new">
-                                <p>No</p>
-                                <div class="checkbox-input">
-                                    <input type="checkbox" id="refrigerado" style="display:none"
-                                           [(ngModel)]="product.estaRefrigerado" name='estaRefrigerado'/>
-                                    <label for="refrigerado" class="toggle">
-                                        <span></span>
-                                    </label>
+                        <div class="filter esta-refrigerado">    
+                            <div class="filter-title">
+                                <label for="refrigerado">Refrigerado</label>
+                            </div>
+                            <div class="filter-options">
+                                <div class="checkbox-new">
+                                    <p>No</p>
+                                    <div class="checkbox-input">
+                                        <input type="checkbox" id="refrigerado" style="display:none"
+                                            [(ngModel)]="product.estaRefrigerado" name='estaRefrigerado'/>
+                                        <label for="refrigerado" class="toggle">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <p>Si</p>
                                 </div>
-                                <p>Si</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="progreso" *ngIf="uploadProgress">
-                        <p>Subiendo..</p>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" 
-                                style="width: 100%" aria-valuenow="100" 
-                                aria-valuemin="0" aria-valuemax="100">
+                        <div class="filter visible-for product-info">
+                            <p class='marca'>
+                                Visible: 
+                                <select [(ngModel)]="product.visibleFor" name="visibleFor" class="input-select">
+                                    <option value="BOTH">Ambos roles</option>
+                                    <option value="CONSUMER_ROLE">Consumidor final</option>
+                                    <option value="COMMERCE_ROLE">Comercio</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div class="progreso" *ngIf="uploadProgress">
+                            <p>Subiendo..</p>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" 
+                                    style="width: 100%" aria-valuenow="100" 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                </div>
                             </div>
                         </div>
+                        <div class="add-to-cart mt-4">
+                            <button (click)='uploadProduct(form)' data-dismiss="modal">
+                                <i class="fa fa-save mr-1"></i>
+                                SUBIR PRODUCTO
+                            </button>
+                        </div>
                     </div>
-                    <div class="add-to-cart mt-4">
-                        <button (click)='uploadProduct()'>
-                            <i class="fa fa-save mr-1"></i>
-                            SUBIR PRODUCTO
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

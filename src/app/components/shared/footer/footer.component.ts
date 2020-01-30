@@ -34,11 +34,21 @@ export class FooterComponent implements OnInit {
   }
 
   subscribeNewsletter() {
-    const url = BACKEND_URL + '/newsletter/subscribe/' + this.email;
+    const url = BACKEND_URL + '/newsletter/subscribe';
 
-    this.http.post(url, this.email).subscribe( (res: any) => {
+    const body = {
+      email: this.email
+    };
+
+    this.http.post(url, body).subscribe( (res: any) => {
       if (res.ok) {
-        swal('Subscripción completada', res.message, 'success');
+        swal({
+          title: 'Subscripción completada',
+          text: res.message,
+          icon: 'success',
+          timer: 2000
+        });
+        this.email = '';
       } else {
         swal('Error', res.message, 'error');
       }

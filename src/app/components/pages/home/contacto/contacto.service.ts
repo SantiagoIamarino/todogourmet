@@ -21,19 +21,12 @@ export class ContactoService {
     return this.http.get(url);
   }
 
-  getMessagesByFilter(body: any) {
+  getMessagesByFilter(filters: any) {
 
-    let url = '';
-
-    if (body.status !== null) {
-      url = BACKEND_URL + '/contact/status/' + body.status;
-    } else {
-      url = BACKEND_URL + '/contact/important/' + body.important;
-    }
-
+    let url = BACKEND_URL + '/contact/filter';
     url += '?token=' + this.loginService.token;
 
-    return this.http.get(url);
+    return this.http.post(url, filters);
   }
 
   uploadMessage( message: contactMessage ) {

@@ -17,6 +17,7 @@ import { PrecioBultoPipe } from 'src/app/pipes/precio-bulto.pipe';
 import { ImagesPipe } from 'src/app/pipes/images.pipe';
 import { ProductOneLinePipe } from '../../pipes/product-one-line.pipe';
 import { FechaPipe } from '../../pipes/fecha.pipe';
+import { UserHoursPipe } from '../../pipes/user-hours.pipe';
 
 
 
@@ -31,7 +32,8 @@ import { FechaPipe } from '../../pipes/fecha.pipe';
     ImagesPipe,
     ProductOneLinePipe,
     FechaPipe,
-    ClickStopPropagationDirective
+    ClickStopPropagationDirective,
+    UserHoursPipe
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { FechaPipe } from '../../pipes/fecha.pipe';
     PrecioBultoPipe,
     ImagesPipe,
     ProductOneLinePipe,
-    FechaPipe
+    FechaPipe,
+    UserHoursPipe
   ]
 })
 export class SharedModule { }

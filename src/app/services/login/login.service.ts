@@ -32,7 +32,6 @@ export class LoginService {
     private router: Router,
     public loadingService: LoadingService
   ) {
-    this.loadingService.loading = true;
     this.getStorage();
 
     firebase.initializeApp(environment.firebase);
@@ -66,32 +65,6 @@ export class LoginService {
     this.user = null;
   }
 
-  // getCuitAndAddress() {
-
-  //   return new Promise( (resolve, reject) => {
-  //     swal('Ingresa tu cuit', {
-  //       content: 'input',
-  //     })
-  //     .then((cuit) => {
-  //       if (!cuit) {
-  //         reject('Debes ingresar un cuit');
-  //       } else {
-  //         this.user.cuit = cuit;
-  //         swal('Ingresa la dirección del comercio', {
-  //           content: 'input',
-  //         }).then((address) => {
-  //           if (!address) {
-  //             reject('Debes ingresar la dirección de tu comercio');
-  //           } else {
-  //             this.user.address = address;
-  //             resolve('Data obtained');
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } );
-  // }
-
   getUser(phoneNumber) {
     const url = BACKEND_URL + '/users/' + phoneNumber;
 
@@ -105,23 +78,6 @@ export class LoginService {
       message,
       'error'
     );
-  }
-
-  changeHour(type, value) {
-    if (type === 'specific') {
-      this.user.hours = null;
-
-      const elementExists = this.user.specificHours.indexOf(value);
-      if (elementExists > - 1) { // Exists
-        this.user.specificHours.splice(elementExists, 1);
-      } else {
-        this.user.specificHours.push(value);
-      }
-    } else {
-      this.user.specificHours = [];
-
-      this.user.hours = value;
-    }
   }
 
   additionalInfo(form) {
@@ -145,9 +101,6 @@ export class LoginService {
 
     if (!form.cuit && this.isCommerce) {
       this.returnMessageError('Debes ingresar un cuit');
-      return;
-    } else if (isNaN(form.cuit) && this.isCommerce) {
-      this.returnMessageError('Debes ingresar un cuit numerico');
       return;
     }
 
@@ -192,9 +145,27 @@ export class LoginService {
       return;
     }
 
-    if (this.isCommerce && !this.user.hours && this.user.specificHours.length <= 0) {
-      this.returnMessageError('Debes ingresar un horario de atención');
-      return;
+    if (this.isCommerce) {
+      let hoursAdded = false;
+      let hoursError = '';
+      this.user.hours.forEach(hour => {
+        if (hour.active) {
+          hoursAdded = true;
+          if (!hour.hour) {
+            hoursError = 'Debes agregar un horario para el ' + hour.day;
+            return;
+          }
+        }
+      });
+
+      if (hoursError) {
+        this.returnMessageError(hoursError);
+      }
+
+      if (!hoursAdded) {
+        this.returnMessageError('Debes ingresar un horario de atención');
+        return;
+      }
     }
 
     if (!form.provinciaId || !form.localidadId) {
@@ -228,9 +199,7 @@ export class LoginService {
       (user.cuit) ? user.cuit : '',
       (user.address) ? user.address : '',
       (user.shippingAddress) ? user.shippingAddress : '',
-      (user.specificHours) ? user.specificHours : [],
-      (user.hours) ? user.hours : null,
-      (user.additionalHours) ? user.additionalHours : null,
+      user.hours,
       (user.dni) ? user.dni : '',
       user.provincia,
       user.localidad,
@@ -264,8 +233,9 @@ export class LoginService {
 
     this.user = user;
 
-    this.user.specificHours = [];
-    this.user.hours = null;
+    const userNew = new User();
+    this.user.hours = userNew.hours;
+
     this.user.provincia = {
       nombre: '',
       id: ''

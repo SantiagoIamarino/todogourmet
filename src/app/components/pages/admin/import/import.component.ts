@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Product } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product.service';
+import { LoadingService } from '../../../shared/loading/loading.service';
 
 declare var swal;
 
@@ -19,10 +20,12 @@ export class ImportComponent implements OnInit {
   products: Product[] = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
+    this.loadingService.loading = false;
   }
 
   incomingfile(event) {
@@ -64,6 +67,14 @@ export class ImportComponent implements OnInit {
         productToAdd.certificaciones = product.CERT.split('-');
         productToAdd.rubros = product.RUBROS.split('-');
         productToAdd.tipos = product.TIPOS.split('-');
+        productToAdd.gramaje.number = product.GRAMAJE.split(' ')[0];
+        productToAdd.gramaje.unity = product.GRAMAJE.split(' ')[1];
+        productToAdd.visibleFor = 'BOTH';
+        if (product.VISIBILIDAD !== 'AMBOS' && product.VISIBILIDAD === 'FINAL') {
+          productToAdd.visibleFor = 'CONSUMER_ROLE';
+        } else if (product.VISIBILIDAD !== 'AMBOS') {
+          productToAdd.visibleFor = 'COMMERCE_ROLE';
+        }
 
         await this.productService.uploadProduct(productToAdd).then( () => {
           if (index === products.length - 1) {

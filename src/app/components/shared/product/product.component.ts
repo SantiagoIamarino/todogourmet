@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../pages/cart/cart.service';
 import { LoginService } from '../../../services/login/login.service';
 import { UsersService } from '../../pages/admin/users.service';
+import { TiendaService } from '../../../services/tienda.service';
 
 declare var swal;
 
@@ -26,7 +27,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     public loginService: LoginService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private tiendaService: TiendaService
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,12 @@ export class ProductComponent implements OnInit {
     }
 
     if (product.quantity >= product.unidadPorBulto) {
-      const discount: any = 1 - parseFloat('0.' + product.descuentoPorBulto);
+      let discount = 0;
+      if (product.descuentoPorBulto >= 10) {
+        discount = 1 - parseFloat('0.' + product.descuentoPorBulto);
+      } else {
+        discount = 1 - parseFloat('0.0' + product.descuentoPorBulto);
+      }
       const precioPorBulto: any = price * discount;
       price = precioPorBulto;
     }
@@ -101,9 +108,9 @@ export class ProductComponent implements OnInit {
     } );
   }
 
-  addToCart(product) {
-    this.cartService.addProductToCart(product._id, product.quantity)
-          .subscribe( (res: any) => {
+  addToCart(product: Product) {
+    this.cartService.addProductToCart(product._id, product.quantity, product.estaRefrigerado)
+          .then( (res: any) => {
             this.cartService.getProductsLength();
 
             swal(res.message, {
@@ -114,6 +121,15 @@ export class ProductComponent implements OnInit {
                 this.router.navigate(['/carrito']);
               }
             } );
+        } )
+        .catch( (err) => {
+          swal({
+            title: 'Error al agregar al carrito',
+            text: err,
+            icon: 'error',
+            timer: 2500
+          });
+          this.tiendaService.notAllowedSubscriber.emit('Shipping not allowed');
         } );
   }
 

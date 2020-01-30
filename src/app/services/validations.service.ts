@@ -44,12 +44,19 @@ export class ValidationsService {
         validators.errors = 'Debes agregar un descuento por bulto valido';
         return validators;
     }
+
     if (!product.precioComercio || isNaN(product.precioComercio)) {
         validators.errors = 'Debes agregar un precio para comerciantes valido';
         return validators;
+    }
+
+    if (!product.visibleFor) {
+      validators.errors = 'Debes especificar para que usuarios sera visible!';
+      return validators;
     } else {
         validators.isValid = true;
         return validators;
     }
+
   }
 }

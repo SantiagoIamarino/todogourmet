@@ -21,12 +21,14 @@ import { EditProductComponent } from './components/shared/product/edit-product/e
 import { PagesModule } from './components/pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './components/shared/shared.module';
+import { ImportComponent } from './components/pages/admin/import/import.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     ProductosComponent,
+    ImportComponent,
     EditProductComponent
   ],
   imports: [

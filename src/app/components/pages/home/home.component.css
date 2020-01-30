@@ -35,6 +35,7 @@
 
 .main .slider img {
     height: 500px;
+    cursor: pointer;
 }
 
 .main .productos-destacados {

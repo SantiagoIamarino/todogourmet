@@ -9,7 +9,7 @@
                 <tr>
                     <th scope="col">Imagén</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Bulto/Descuento</th>
+                    <th scope="col">Descuento</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Subtotal</th>
@@ -25,11 +25,11 @@
                         </div>
                     </th>
                     <td class='title'>
-                        {{ product.productId.name }}
-                        <span>Gramaje: {{ (product.productId.gramaje.number) ? product.productId.gramaje.number + ' ' + product.productId.gramaje.unity + '.' :  product.productId.gramaje + ' - Marca: '+ product.productId.marca.nombre }}</span>
+                        <p>{{ product.productId.name }}</p>
+                        <span>Gramaje: {{ (product.productId.gramaje.number) ? product.productId.gramaje.number + ' ' + product.productId.gramaje.unity + '.' :  product.productId.gramaje}} - Marca: {{ product.productId.marca.nombre }}</span>
                     </td>
                     <td class='discount' [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
-                        {{ 'Bulto ' +  product.productId.unidadPorBulto + 'u. - ' + product.productId.descuentoPorBulto + '%' }}
+                        {{ 'A partir de ' +  product.productId.unidadPorBulto + 'u. - ' + product.productId.descuentoPorBulto + '%' }}
                     </td>
                     <td class="quantity">
                         <div class="quantity-container">
@@ -45,7 +45,7 @@
                     </td>
                     <td class='price' *ngIf="loginService.user.role === 'COMMERCE_ROLE'"
                         [ngClass]="{'red': product.quantity >= product.productId.unidadPorBulto}">
-                        <p>${{ (product.quantity >= product.productId.unidadPorBulto) ? (product.productId.precioUnit * (1 - product.productId.descuentoPorBulto / 100)).toFixed(2)  : product.productId.precioComercio }}</p>
+                        <p>${{ (product.quantity >= product.productId.unidadPorBulto) ? (product.productId.precioComercio * (1 - product.productId.descuentoPorBulto / 100)).toFixed(2)  : product.productId.precioComercio }}</p>
                     </td>
                     <td class="subtotal">$
                         {{ getSubtotal('changed', product) }}
@@ -96,7 +96,7 @@
                     <p class='value'>
                         {{ 
                             (loginService.user.localidad.id === '06357110003')
-                            ?  (subtotal >= config.minValueToShipment ) ? 'Gratuito' : '$' + config.shippingCost 
+                            ?  (!isPayingShipping ) ? 'Gratuito' : '$' + config.shippingCost 
                             : 'a acordar.'
                         }}
                         
@@ -108,8 +108,18 @@
                 </div>
             </div>
             <div class="pay">
+                <button class='btn btn-outline-secondary mr-2'
+                    routerLink='/tienda'
+                    data-toggle="modal">
+                    Seguir comprando
+                </button>
                 <button class='btn-pay' (click)='checkout()'
+                    *ngIf="loginService.user.role !== 'COMMERCE_ROLE'"
                     data-toggle="modal" data-target="#checkoutModal">
+                    Enviar pedido
+                </button>
+                <button class='btn-pay' (click)='checkout()'
+                    *ngIf="loginService.user.role === 'COMMERCE_ROLE'">
                     Enviar pedido
                 </button>
             </div>

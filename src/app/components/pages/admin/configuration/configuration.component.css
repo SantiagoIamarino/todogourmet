@@ -11,3 +11,7 @@
 .configs > div label{
     width: 100%;
 }
+
+.add-location .location{
+    width: 40%;
+}

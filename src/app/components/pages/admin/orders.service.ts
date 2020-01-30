@@ -42,11 +42,11 @@ export class OrdersService {
     return this.http.get(url);
   }
 
-  getOrdersByFilter(status: string) {
-    let url = BACKEND_URL + '/orders/status/' + status;
+  getOrdersByFilter(filters: any) {
+    let url = BACKEND_URL + '/orders/filter';
     url += '?token=' + this.loginService.token;
 
-    return this.http.get(url);
+    return this.http.post(url, filters);
   }
 
 }

@@ -12,7 +12,6 @@ import { AdminComponent } from './admin.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
-import { ImportComponent } from './import/import.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 
 
@@ -26,7 +25,6 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     ConfigurationComponent,
     OrdersComponent,
     UsersComponent,
-    ImportComponent,
     NewsletterComponent
   ],
   imports: [

@@ -3,8 +3,8 @@
         <h2>Mis pedidos</h2>
         <hr>
     </div>
-    <div class="filter d-flex justify-content-end">
-      <div class="form-group w-50">
+    <div class="filter row justify-content-end">
+      <div class="form-group col-md-4 col-sm-6">
         <select [(ngModel)]="filter" name="filter"
           (change)= 'applyFilter()'
           id="filter" class="form-control">
@@ -14,7 +14,7 @@
         </select>
       </div>
     </div>
-    <div class="orders">
+    <div class="orders table-responsive">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -50,7 +50,7 @@
     <div class="modal-dialog" role="document" *ngIf='orderToShow'>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="orderInfoModalLabel">Compra de: {{ orderToShow.user.name }}</h5>
+          <h5 class="modal-title" id="orderInfoModalLabel">Compra de: {{ (orderToShow.user.name) ? orderToShow.user.name : orderToShow.user.commerceName }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -60,13 +60,15 @@
             <div class="title mb-3">
               <h4>Productos</h4>
             </div>
-            <div class="products d-flex justify-content-between" >
+            <div class="products d-flex justify-content-between table-responsive" >
               <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Producto</th>
+                      <th scope="col">Gramaje</th>
                       <th scope="col">Marca</th>
+                      <th scope="col">Precio u.</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">Descuento</th>
                       <th scope="col">Subtotal</th>
@@ -76,7 +78,9 @@
                     <tr *ngFor='let product of orderToShow.products; let i = index'>
                       <th scope="row">{{ i +1 }}</th>
                       <td class='product-name'>{{ product.name }}</td>
+                      <td>{{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}</td>
                       <td>{{ product.marca }}</td>
+                      <td>${{ product.unidad }}</td>
                       <td class='quantity-row'>{{ product.quantity }}</td>
                       <td class='quantity-row'>
                         {{ (product.discount > 0) ? '$' + product.discount : 'Sin desc.' }}
@@ -95,6 +99,10 @@
                   <p>Email: <span>{{ orderToShow.user.userEmail }}</span></p>
                   <p>Celular: <span>{{ orderToShow.user.phoneNumber }}</span></p>
                   <p>Dirección: <span>{{ (orderToShow.user.shippingAddress) ? orderToShow.user.shippingAddress : orderToShow.user.address }}</span></p>
+                  <hr>
+                  <p class='mt-4' style='font-size:18px'>Subtotal: <span>${{ orderToShow.subtotal }}</span></p>
+                  <p class='mt-2' style='font-size:18px'>Descuento: <span>{{ (orderToShow.discount > 0) ? '$' + orderToShow.discount : 'Sin desc.' }}</span></p>
+                  <p class='mt-2' style='font-size:18px'>Envio: <span>{{ orderToShow.shipping }}</span></p>
                   <p class='mt-2' style='font-weight: bold; font-size:20px'>Total: <span>${{ orderToShow.total }}</span></p>
               </div>
             </div>

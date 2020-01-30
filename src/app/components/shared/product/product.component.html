@@ -47,13 +47,23 @@
         </div>
         <div class="certifications">
             <div class="imgs">
-                <div *ngFor='let certification of certificaciones'
+                <div *ngFor='let certification of certificaciones; let i = index'
                      class="certification-img">
-                    <img class='img-fluid' [src]='certification.imagen' alt=""
-                        [routerLink]="['/tienda', 'certificacion', certification.formattedFilter]">
-                    <div class="certification-popover">
-                        <p>{{ certification.nombre }}</p>
+                    <div class="img-content" *ngIf='i < 4'>
+                        <img class='img-fluid' [src]='certification.imagen' alt=""
+                            [routerLink]="['/tienda', 'certificacion', certification.formattedFilter]">
+                        <div class="certification-popover">
+                            <p>{{ certification.nombre }}</p>
+                        </div>
                     </div>
+                </div>
+                <div class="more-certs" *ngIf='certificaciones.length > 4'>
+                    <i class="fa fa-plus"></i>
+                </div>
+                <div class="other-certs">
+                    <p *ngFor='let certificacion of certificaciones; let i = index'>
+                        <span *ngIf='i >= 4'>{{ certificacion.nombre }}{{ (i > 0 && i < certificaciones.length - 1 ) ? ' - ' : '' }}</span>
+                    </p>
                 </div>
             </div>
         </div>

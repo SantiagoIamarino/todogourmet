@@ -41,18 +41,22 @@ export class EditProductComponent implements OnChanges {
     private tiendaService: TiendaService,
     private validationsService: ValidationsService
   ) {
-    this.tiendaService.getAllFilters().then( (filters: any) => {
-      this.filters = this.tiendaService.filters;
-      this.loading = false;
-    } ).catch( err => {
-      this.filters.marcas = [];
-    } );
+    this.getAllFilters();
    }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tempImg = null;
     this.imgToUpload = null; // Restarting vars when modal info changes
     this.uploadProgress = null;
+  }
+
+  getAllFilters() {
+    this.tiendaService.getAllFilters().then( (filters: any) => {
+      this.filters = this.tiendaService.filters;
+      this.loading = false;
+    } ).catch( err => {
+      this.filters.marcas = [];
+    } );
   }
 
   imgSelected( event ) {
@@ -128,6 +132,14 @@ export class EditProductComponent implements OnChanges {
     closeEditModal( 'editModal' );
   }
 
+  isChecked(productFilters, filter) {
+    if (productFilters.indexOf(filter) >= 0) {
+      return true;
+    }
+
+    return false;
+  }
+
   editProduct() {
     if (!this.imgToUpload  && !this.product.img) {
       sweetAlert('Error', 'Debes agregar una imagen', 'error');
@@ -151,7 +163,6 @@ export class EditProductComponent implements OnChanges {
           'success'
         );
 
-        closeEditModal('editModal');
         this.product = new Product();
         this.uploadProgress = null;
         this.tempImg = null;
@@ -161,7 +172,7 @@ export class EditProductComponent implements OnChanges {
     } );
   }
 
-  uploadProduct() {
+  uploadProduct(form) {
     if (!this.imgToUpload) {
       sweetAlert('Error', 'Debes agregar una imagen', 'error');
       return;
@@ -183,10 +194,17 @@ export class EditProductComponent implements OnChanges {
           'success'
         );
 
-        closeEditModal('uploadProduct');
+        // closeEditModal('uploadProduct');
         this.product = new Product();
         this.uploadProgress = null;
         this.tempImg = null;
+        this.filters = {
+          marcas: [],
+          certificaciones: [],
+          rubros: [],
+          tipos: []
+        };
+        this.getAllFilters();
 
         this.productService.productsUpdated.emit('updated');
       });

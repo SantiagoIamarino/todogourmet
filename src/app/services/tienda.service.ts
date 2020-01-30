@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BACKEND_URL } from '../config/config';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +18,8 @@ export class TiendaService {
     tipos: []
   };
 
+  notAllowedSubscriber = new EventEmitter();
+
   constructor(
     private afs: AngularFirestore,
     private http: HttpClient
@@ -26,7 +28,7 @@ export class TiendaService {
 
   getFilter(collection) {
     return new Promise( ( resolve, reject ) => {
-      this.afs.collection(collection, ref => ref.orderBy('nombre', 'asc'))
+      this.afs.collection(collection, ref => ref.orderBy('formattedFilter', 'asc'))
         .valueChanges().subscribe( (filter: any) => {
         if (collection === 'marcas') {
           this.filters.marcas = filter;

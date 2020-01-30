@@ -145,9 +145,16 @@
                     </button>
                 </div>
             </div>
+            <div class="mi-surtido-mobile w-100">
+                <button routerLink='/surtido' *ngIf='loginService.user && loginService.user._id'
+                    class='mi-surtido-btn'>
+                    Mi surtido
+                </button>
+            </div>
             <div class="products normal-display">
                 <app-product *ngFor='let product of products'
-                    [product]='product'>
+                    [product]='product'
+                    [ngClass]="{'visible': !loginService.user._id || product.visibleFor === loginService.user.role || product.visibleFor === 'BOTH' || loginService.user.role  === 'ADMIN_ROLE'}">
                 </app-product>
             </div>
         </div>

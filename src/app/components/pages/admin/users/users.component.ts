@@ -50,10 +50,9 @@ export class UsersComponent implements OnInit {
       return;
     }
 
-    this.usersService.updateUser(user).subscribe( (res: any) => {
+    this.usersService.updateOtherUser(user).subscribe( (res: any) => {
       swal('Rol actualizado', res.message, 'success');
-
-      this.loginService.saveInStorage(this.loginService.user, this.loginService.token);
+      this.getUsers();
     } );
   }
 
@@ -70,7 +69,26 @@ export class UsersComponent implements OnInit {
 
   setUser(user: User) {
     this.userToShow = user;
-    console.log(user);
+  }
+
+  deleteUser(user: User) {
+
+    sweetAlert('Estas seguro que deseas eliminar este usuario?', {
+      buttons: ['Cancelar', 'Aceptar'],
+      icon: 'warning'
+    }).then( wantsToDelete => {
+      if (wantsToDelete) {
+        this.usersService.deleteUser(user._id).subscribe( (res: any) => {
+          swal({
+            title: 'Usuario eliminado',
+            text: res.message,
+            icon: 'success',
+            timer: 2000
+          });
+          this.getUsers();
+        } );
+      }
+    } );
   }
 
 }

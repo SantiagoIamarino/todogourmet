@@ -6,25 +6,40 @@ function showDropdown() {
 
 function hideDropdown() {
     $('.account .account-dropdown').slideUp(300);
+    if(window.innerWidth <= 1000) {
+        $('header .gourmet-navbar ul.navbar').slideUp(200);
+    }
 }
 
 
 // Navbar Scroll--------------------------------------------------
 
 
-function scrollToDiv(slideTo) {
-    const marcas_div = $('.nuestras-marcas').offset().top;
-    const contactanos_div = $('.contactanos').offset().top + 150;
+function scrollToDiv(slideTo, timing = 500) {
 
-    if (slideTo == 'contact') {
-        $('html, body').animate({
-            scrollTop: contactanos_div - 10
-        }, 500);
-    } else {
-        $('html, body').animate({
-            scrollTop: marcas_div - 10
-        }, 500);
+    let retard = 0;
+
+    if(timing === 0) {
+        retard = 1000;
     }
+
+    setTimeout(() => {
+        const marcas_div = $('.nuestras-marcas').offset().top;
+        const contactanos_div = $('.contactanos').offset().top;
+    
+    
+        if (slideTo == 'contact') {
+            $('html, body').animate({
+                scrollTop: contactanos_div - 10
+            }, timing);
+        } else {
+            $('html, body').animate({
+                scrollTop: marcas_div - 10
+            }, timing);
+        }
+    }, retard)
+
+    
 }
 
 // Mobile navbar-----------------------------------------------

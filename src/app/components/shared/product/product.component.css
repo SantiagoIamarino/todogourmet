@@ -46,7 +46,9 @@
 }
 
 .producto .img {
-    max-height: 270px;
+    height: 270px;
+    display: flex;
+    align-items: center;
     overflow: hidden;
     border-bottom: 1px solid #e1e1e1;
     position: relative;
@@ -68,14 +70,17 @@
     width: 100%;
 }
 
+.producto .img .is-favourite {
+    position: absolute;
+    bottom: 12px;
+    right: 15px;
+}
+
 .producto .img .is-favourite .surtido-btn{
     position: relative;
 }
 
 .producto .img .is-favourite i{
-    position: absolute;
-    bottom: 12px;
-    right: 15px;
     font-size: 22px;
     color: rgb(194, 54, 49);
     cursor: pointer;
@@ -101,10 +106,11 @@
     background: #DE1B1B;
     padding: 3px 10px;
     border-radius: 15px;
-    top: -58px;
+    top: -28px;
     font-size: 13px;
-    right: 10px;
+    right: 0px;
     display: none;
+    white-space: nowrap;
 }
 
 .producto .img .is-favourite .surtido-btn:hover p {
@@ -119,7 +125,7 @@
 
 .producto .info .product-name{
     position: relative;
-    display: inline-block;
+    max-width: 100%;
 }
 
 .producto .info .product-name p {
@@ -138,14 +144,29 @@
 
 .producto .info .product-name span{
     position: absolute;
-    top:-2px;
-    right: -75px;
-    background: #DE1B1B;
-    color: white;
+    top: 23px;
+    left: -5px;
+    background: #db4545;
+    color: #fff;
     font-size: 13px;
-    padding: 3px 5px;
+    padding: 5px 10px;
     border-radius: 20px;
     display: none;
+    z-index: 999;
+    box-shadow: 2px 2px 1px #db4545;
+}
+
+.producto .info .product-name span:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    left: 15px;
+    top: -5px;
+    border-style: solid;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent #db4545 transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
 }
 
 .producto .info .product-info {
@@ -172,12 +193,13 @@
 }
 
 .producto .info .certifications .imgs{
+    position: relative;
     display: flex;
     justify-content: space-around;
 }
 
 .producto .info .certifications .imgs .certification-img{
-    width: 24%;
+    max-width: 24%;
     cursor: pointer;
     position: relative;
 }
@@ -207,6 +229,47 @@
 .producto .info .certifications .imgs .certification-img .certification-popover p{
     font-size: 13px;
     /* white-space: nowrap; */
+}
+
+.producto .info .certifications .more-certs{
+    position: absolute;
+    top: 0;
+    right: 0px;
+    cursor: pointer;
+}
+
+.producto .info .certifications .more-certs i{
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 6px;
+    color: white;
+    border-radius: 50%;
+    background: #DE1B1B;
+}
+
+.producto .info .certifications .more-certs i:hover{
+    transition: .3s all ease;
+    opacity: .7;
+}
+
+.producto .info .certifications .other-certs{
+    display: none;
+    position: absolute;
+    bottom:-35px;
+    right:0;
+    font-size: 14px;
+    color: white;
+    background: #DE1B1B;
+    padding: 3px 8px;
+    border-radius: 15px;
+}
+
+.producto .info .certifications .more-certs:hover + .other-certs{
+    display: flex;
+}
+
+.producto .info .certifications .other-certs p span{
+    padding: 0 3px;
 }
 
 .producto .info .product-prices>div {

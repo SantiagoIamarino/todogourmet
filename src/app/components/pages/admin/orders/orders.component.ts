@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../orders.service';
 import { LoadingService } from '../../../shared/loading/loading.service';
+import { User } from '../../../../models/user.model';
 
 declare var swal;
 
@@ -15,7 +16,12 @@ export class OrdersComponent implements OnInit {
 
   orderToShow: any;
 
-  filter = '';
+  userToShow: User;
+
+  filter = {
+    status: '',
+    date: ''
+  };
 
   constructor(
     private ordersService: OrdersService,
@@ -29,6 +35,11 @@ export class OrdersComponent implements OnInit {
 
   setOrder(order) {
     this.orderToShow = order;
+  }
+
+  setUser(user: User) {
+    this.userToShow = user;
+    console.log(this.userToShow);
   }
 
   getOrders() {

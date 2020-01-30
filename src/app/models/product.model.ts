@@ -3,7 +3,7 @@ export class Product {
     constructor(
         public name?: string,
         public img?: any,
-        public marca = {
+        public marca: any = {
             nombre: '',
             formatted: ''
         },
@@ -22,6 +22,7 @@ export class Product {
             number: '',
             unity: ''
         },
+        public visibleFor?: string,
         public _id?: string
     ) {}
 }

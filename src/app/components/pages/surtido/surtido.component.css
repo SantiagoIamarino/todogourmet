@@ -31,6 +31,10 @@
     background: rgba(220,220,220, .3);
 }
 
+.tienda .bottom-tienda .products app-product{
+    display: block !important;
+}
+
 
 @media screen and (max-width: 500px) {
     .title-top-tienda .title{

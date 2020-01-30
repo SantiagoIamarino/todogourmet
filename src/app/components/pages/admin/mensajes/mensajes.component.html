@@ -1,12 +1,20 @@
 <div class="container admin-products mt-2 animated fadeIn faster">
     <div class="row">
         <div class="col-md-12 productos">
-            <div class="admin-title">
-                <h2>Lista de mensajes</h2>
+            <div class="admin-title d-flex justify-content-between">
+                <div class="title w-50">
+                    <h2>Lista de mensajes</h2>
+                </div>
+                <div class="filter ml-2 w-50">
+                    <input type="text" class='form-control'
+                        [(ngModel)]="filter.term"  name='term'
+                        (ngModelChange)='applyFilter()'
+                        placeholder="Busqueda por nombre o asunto">
+                </div>
             </div>
-            <div class="filter d-flex justify-content-end">
+            <div class="filter mt-3 d-flex justify-content-end">
                 <div class="form-group w-50">
-                    <select [(ngModel)]="filter" name="filter"
+                    <select [(ngModel)]="filter.status" name="status"
                         (change)= 'applyFilter()'
                         id="filter" class="form-control">
                         <option value="">Mostrar todos</option>
@@ -15,8 +23,17 @@
                         <option value="destacados">Destacados</option>
                     </select>
                 </div>
+                <div class="form-group w-50 ml-2">
+                    <select [(ngModel)]="filter.date" name="date"
+                        (change)= 'applyFilter()'
+                        id="filter" class="form-control">
+                        <option value="">Sin orden</option>
+                        <option value="1">Mas antiguos</option>
+                        <option value="-1">Mas recientes</option>
+                    </select>
                 </div>
-            <div class="mensajes mt-4">
+            </div>
+            <div class="mensajes mt-2">
                 <div id="accordion">
                     <div class="card" *ngFor='let message of messages'>
                         <div class="card-header" id="headingTwo">
