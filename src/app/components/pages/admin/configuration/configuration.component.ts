@@ -3,6 +3,7 @@ import { ConfigurationService } from '../configuration.service';
 import { LoadingService } from '../../../shared/loading/loading.service';
 import { UploadFileService } from '../../../../services/upload-file.service';
 import { GobAPIService } from '../../../../services/gob-api.service';
+import { ProductService } from '../../../../services/product.service';
 
 
 declare var swal;
@@ -36,7 +37,8 @@ export class ConfigurationComponent implements OnInit {
     private configurationService: ConfigurationService,
     private loadingService: LoadingService,
     private uploadFileService: UploadFileService,
-    public gobAPIService: GobAPIService
+    public gobAPIService: GobAPIService,
+    private productsService: ProductService
   ) {
     this.getConfigs();
     this.getImages();
@@ -47,14 +49,14 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit() {
   }
 
-   getConfigs() {
-     this.loadingService.loading = true;
+  getConfigs() {
+    this.loadingService.loading = true;
 
-     this.configurationService.getConfigs().subscribe( (res: any) => {
-       this.config = res.configs[0];
-       this.loadingService.loading = false;
-     });
-   }
+    this.configurationService.getConfigs().subscribe( (res: any) => {
+      this.config = res.configs[0];
+      this.loadingService.loading = false;
+    });
+  }
 
    configChange() {
      if (!this.config.shippingCost || !this.config.minValueToShipment) {

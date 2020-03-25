@@ -57,31 +57,74 @@ export class ImportComponent implements OnInit {
 
         productToAdd.name = product.PRODUCTO;
         productToAdd.img = product.IMAGEN;
-        productToAdd.marca.nombre = product.MARCA;
-        productToAdd.marca = product.MARCA;
+        productToAdd.marca.nombre = this.sanitizeValue(product.MARCA);
+        productToAdd.marca = this.sanitizeValue(product.MARCA);
         productToAdd.precioUnit = product.PRECIOUNITARIO;
         productToAdd.descuentoPorBulto = product.DESCPORBULTO;
         productToAdd.unidadPorBulto = product.UPORBULTO;
         productToAdd.precioComercio = product.PRECIOCOMERCIO;
-        productToAdd.estaRefrigerado = (product.REFRIGERADO === 'SI') ? true : false;
-        productToAdd.certificaciones = product.CERT.split('-');
-        productToAdd.rubros = product.RUBROS.split('-');
-        productToAdd.tipos = product.TIPOS.split('-');
-        productToAdd.gramaje.number = product.GRAMAJE.split(' ')[0];
-        productToAdd.gramaje.unity = product.GRAMAJE.split(' ')[1];
+        productToAdd.estaRefrigerado = (product.REFRIGERADO === 'SI' || product.REFRIGERADO === 'si') ? true : false;
+        productToAdd.certificaciones = (product.CERT) ? product.CERT.split('-') : [] ;
+        productToAdd.rubros = (product.RUBROS) ? product.RUBROS.split('-') : [] ;
+        productToAdd.tipos = (product.TIPOS) ? product.TIPOS.split('-') : [] ;
+        productToAdd.gramaje.number = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[0] : '';
+        productToAdd.gramaje.unity = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[1] : '';
         productToAdd.visibleFor = 'BOTH';
         if (product.VISIBILIDAD !== 'AMBOS' && product.VISIBILIDAD === 'FINAL') {
           productToAdd.visibleFor = 'CONSUMER_ROLE';
         } else if (product.VISIBILIDAD !== 'AMBOS') {
           productToAdd.visibleFor = 'COMMERCE_ROLE';
         }
+        if (productToAdd.rubros.length > 0) {
+          productToAdd.rubros.forEach((rubro, i) => {
+            productToAdd.rubros[i] = this.sanitizeValue(rubro);
+          });
+        }
 
-        await this.productService.uploadProduct(productToAdd).then( () => {
-          if (index === products.length - 1) {
-            swal('Productos subidos!', 'Se han cargado correctamente los productos desde el archivo importado', 'success');
-          }
-        } );
+        if (productToAdd.tipos.length > 0) {
+          productToAdd.tipos.forEach((tipo, i) => {
+            productToAdd.tipos[i] = this.sanitizeValue(tipo);
+          });
+        }
+
+        if (productToAdd.certificaciones.length > 0) {
+          productToAdd.certificaciones.forEach((certificacion, i) => {
+            productToAdd.certificaciones[i] = this.sanitizeValue(certificacion);
+          });
+        }
+
+        products[index] = productToAdd;
       });
+
+      this.productService.importProducts(products);
+  }
+
+  sanitizeValue(value) {
+    if (!value) {
+      return;
+    }
+    // Characters to delete
+    const specialChars = '!@#$^&%*()+=-[]\/{}|:<>?,.';
+
+    // Deleting special characters
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < specialChars.length; i++) {
+        value = value.replace(new RegExp('\\' + specialChars[i], 'gi'), '');
+    }
+
+    value = value.replace(/á/gi, 'a');
+    value = value.replace(/é/gi, 'e');
+    value = value.replace(/í/gi, 'i');
+    value = value.replace(/ó/gi, 'o');
+    value = value.replace(/ú/gi, 'u');
+    value = value.replace(/ñ/gi, 'n');
+
+    value = value.toLowerCase();
+
+    // Removing whitespaces
+    value = value.replace(/ /g, '');
+
+    return value;
   }
 
 }

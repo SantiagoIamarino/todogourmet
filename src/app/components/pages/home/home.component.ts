@@ -88,13 +88,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   redirectTo(link: string) {
-    let url = '';
-    if (!/^http[s]?:\/\//.test(link)) {
-        url += 'http://';
-    }
+    if (link) {
+      let url = '';
+      if (!/^http[s]?:\/\//.test(link)) {
+          url += 'http://';
+      }
 
-    url += link;
-    window.open(url, '_blank');
+      url += link;
+      window.open(url, '_blank');
+    }
   }
 
 }

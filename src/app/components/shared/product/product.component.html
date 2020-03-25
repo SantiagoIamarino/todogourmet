@@ -7,7 +7,8 @@
         </div>
     </div>
     <div class="img">
-        <img [src]="product.img | images" alt="" (load)='imageLoaded = true'>
+        <img *ngIf='product.img' 
+            [src]="product.img.secure_url" alt="" (load)='imageLoaded = true'>
         <div class="img-loading" *ngIf="!imageLoaded">
             <img src="../../../../assets/img/not-found.png" alt="">
         </div>

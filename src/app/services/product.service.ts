@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { LoginService } from './login/login.service';
 
+declare var swal;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -94,6 +96,7 @@ export class ProductService {
 
 
   uploadProduct( product: Product) {
+    // console.log(product);
     let url = BACKEND_URL + '/products';
     url += '?token=' + this.loginService.token;
 
@@ -125,6 +128,37 @@ export class ProductService {
       } );
 
     } );
+  }
+
+  importProducts(products) {
+    new Promise( (resolve, reject) => {
+      products.forEach((product, index) => {
+        const subscriber =
+        this.afs.collection('marcas', ref => ref.where('formattedFilter', '==', product.marca))
+        .valueChanges().subscribe( (res: any) => {
+          product.marca = {
+            nombre: res[0].nombre,
+            formatted: res[0].formattedFilter
+          };
+
+          product.quantity = 1;
+
+          subscriber.unsubscribe();
+
+          if (index === products.length - 1) {
+            resolve();
+          }
+        } );
+      });
+    } ).then(() => {
+       let url = BACKEND_URL + '/products/import';
+       url += '?token=' + this.loginService.token;
+
+       this.http.post(url, products).subscribe(() => {
+        swal('Productos subidos!', 'Se han cargado correctamente los productos desde el archivo importado', 'success');
+       });
+    });
+
   }
 
   editProduct( product) {

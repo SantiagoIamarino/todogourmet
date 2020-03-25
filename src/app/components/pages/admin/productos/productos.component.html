@@ -50,8 +50,11 @@
                         <tr class='product-item' *ngFor='let product of products'>
                             <th scope="row">
                                 <div class="img">
-                                    <img class='img-fluid img-circle' 
-                                    [src]="product.img | images" alt="">
+                                    <img *ngIf='product.img' 
+                                        [src]="product.img.secure_url" alt="">
+                                    <div class="img-loading" *ngIf="!product.img">
+                                        <img src="../../../../assets/img/not-found.png" alt="">
+                                    </div>
                                 </div>
                             </th>
                             <td class='title'>{{ product.name }}</td>

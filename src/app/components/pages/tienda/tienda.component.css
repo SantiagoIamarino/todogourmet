@@ -108,6 +108,7 @@
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .tienda .bottom-tienda .sidebar{
