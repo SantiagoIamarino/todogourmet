@@ -31,6 +31,7 @@ export class TiendaComponent implements OnInit {
   };
 
   products: Product[] = [];
+  productsCount = 0;
 
   searchType = null;
 
@@ -89,6 +90,7 @@ export class TiendaComponent implements OnInit {
 
     this.tiendaService.getProducts(this.currentPage).subscribe( (res: any) => {
       this.products = res.products;
+      this.productsCount = res.productsLength;
 
       this.getPagesQuantity(res);
       goToTop(0);
@@ -216,6 +218,7 @@ export class TiendaComponent implements OnInit {
       this.tiendaService.searchByQuery(this.filtersToApply.termino, this.queryPage)
         .subscribe( (res: any) => {
           this.products = res.products;
+          this.productsCount = res.productsLength;
           this.loadingService.loading = false;
 
           this.getPagesQuantity(res);
@@ -235,6 +238,7 @@ export class TiendaComponent implements OnInit {
       this.tiendaService.searchByFilters(this.filtersToApply, true, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;
+        this.productsCount = res.productsLength;
         this.loadingService.loading = false;
 
         this.getPagesQuantity(res);
@@ -247,6 +251,7 @@ export class TiendaComponent implements OnInit {
     this.tiendaService.searchByFilters(this.filtersToApply, false, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;
+        this.productsCount = res.productsLength;
         this.loadingService.loading = false;
 
         this.getPagesQuantity(res);

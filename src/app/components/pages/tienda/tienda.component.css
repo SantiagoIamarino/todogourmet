@@ -16,6 +16,10 @@
     width: 30%;
 }
 
+.tienda .bottom-tienda .sidebar .sidebar-title span.results{
+    display: none;
+}
+
 .title-top-tienda .title h2{
     font-size: 21px;
     font-weight: normal;
@@ -285,6 +289,10 @@
 }
 
 @media screen and (max-width: 1200px) {
+    .title-top-tienda .title .results{
+        display: none;
+    }
+
     .title-top-tienda .search{
         width: 70%;
     }
@@ -299,6 +307,11 @@
     }
     .tienda .bottom-tienda .products{
         width: 100%;
+    }
+
+    .tienda .bottom-tienda .sidebar .sidebar-title span.results{
+        display: inline-block;
+        color: #a0a0a0;
     }
 
     .tienda .bottom-tienda .sidebar .filters-content{
