@@ -15,3 +15,7 @@
 .add-location .location{
     width: 40%;
 }
+
+.excel-table{
+    visibility: hidden;
+}

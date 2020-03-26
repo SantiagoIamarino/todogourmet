@@ -1,6 +1,7 @@
 export class Product {
 
     constructor(
+        public idNumber?: any,
         public name?: string,
         public img?: any,
         public marca: any = {

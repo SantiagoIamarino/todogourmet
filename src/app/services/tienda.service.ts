@@ -66,28 +66,26 @@ export class TiendaService {
     return this.http.get(url);
   }
 
-  searchByQuery( term: string ) {
-    const url = BACKEND_URL + '/products/' + term;
+  searchByQuery( term: string, currentPage = 1 ) {
+    let url = BACKEND_URL + '/products/' + term;
 
-    return this.http.get(url).pipe(
-      map( (res: any) => {
-        return res.products;
-      })
-    );
+    if (currentPage > 1) {
+      url += '?page=' + currentPage;
+    }
+
+    return this.http.get(url);
   }
 
-  searchByFilters(filters, deleteRefrigerado = false) {
+  searchByFilters(filters, deleteRefrigerado = false, currentPage = 1) {
     let url = BACKEND_URL + '/products/search/';
 
     if (deleteRefrigerado) {
       url += '?deleteRefrigerado=yes';
     }
 
-    return this.http.post(url, filters).pipe(
-      map( (res: any) => {
-        return res.products;
-      } )
-    );
+    filters.page = currentPage;
+
+    return this.http.post(url, filters);
   }
 
 }

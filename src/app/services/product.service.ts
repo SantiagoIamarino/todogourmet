@@ -34,6 +34,13 @@ export class ProductService {
     return this.http.get(url);
   }
 
+  getAllProducts() {
+    let url = BACKEND_URL + '/products';
+    url += '?getAll=true';
+
+    return this.http.get(url).toPromise();
+  }
+
   getProduct(id: string) {
     const url = BACKEND_URL + '/products/product/' + id;
 
@@ -77,15 +84,21 @@ export class ProductService {
     });
   }
 
-  getProductsByFilter(marca: string) {
+  getProductsByFilter(marca: string, currentPage = 1) {
     let url = BACKEND_URL + '/products/marca/' + marca;
     url += '?token=' + this.loginService.token;
+
+    url += '&page=' + currentPage;
 
     return this.http.get(url);
   }
 
-  searchProducts( term: string ) {
-    const url = BACKEND_URL + '/products/' + term;
+  searchProducts( term: string, currentPage = 1 ) {
+    let url = BACKEND_URL + '/products/' + term;
+
+    if (currentPage > 1) {
+      url += '?page=' + currentPage;
+    }
 
     return this.http.get(url);
   }
@@ -175,8 +188,8 @@ export class ProductService {
 
         subscriber.unsubscribe();
 
-        this.http.put(url, product).subscribe( (res: any) => {
-          resolve(res.productUpdated);
+        this.http.put(url, product).subscribe( (response: any) => {
+          resolve(response.productUpdated);
         } );
       });
     } );

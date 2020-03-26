@@ -70,6 +70,21 @@
     </div>
     <div class="configs-div mt-4">
         <div class="title">
+            <h2>Productos</h2>
+            <hr>
+        </div>
+        <div class="download-button d-flex justify-content-start">
+            <div class="button text-center mb-4">
+                <button (click)='downloadRegisters()'
+                    class="btn btn-outline-success">
+                    <i class="fa fa-download"></i>
+                    Descargar listado de productos
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="configs-div mt-4">
+        <div class="title">
             <h2>Refrigerados</h2>
             <hr>
         </div>
@@ -130,4 +145,42 @@
               </table>
         </div>
     </div>
+</div>
+
+<div class="products-table">
+    <table id='products-table' class='excel-table'> 
+        <tr>       
+           <th>Codigo</th> 
+           <th>Nombre</th>  
+           <th>Marca</th> 
+           <th>Precio Unit</th>
+           <th>Descuento Por Bulto</th>
+           <th>Unidad por bulto</th>
+           <th>Precio Comercio</th>
+           <th>Refrigerado</th>
+           <th>Certificaciones</th>
+           <th>Rubros</th>
+           <th>Tipos</th>
+           <th>Gramaje</th>
+           <th>Visibilidad</th>
+        </tr>    
+        <tr *ngFor="let product of products; let i = index">
+           <td>#{{ product.idNumber }}</td>  
+           <td>{{ product.name }}</td> 
+           <td>{{ product.marca.nombre }}</td>
+           <td>{{ product.precioUnit }}</td>
+           <td>{{ product.descuentoPorBulto }}</td>
+           <td>{{ product.unidadPorBulto }}</td>
+           <td>{{ product.precioComercio }}</td>
+           <td>{{ (product.estaRefrigerado) ? 'SI' : 'NO' }}</td>
+           <td>{{ product.certificaciones.join('-') }}</td>
+           <td>{{ product.rubros.join('-') }}</td>
+           <td>{{ product.tipos.join('-') }}</td>
+           <td>{{ product.gramaje.number + ' ' + product.gramaje.unity + '.' }}</td>
+           <td *ngIf='product.visibleFor === "BOTH"'>Ambos roles</td>
+           <td *ngIf='product.visibleFor !== "BOTH"'>
+                {{ (product.visibleFor === 'CONSUMER_ROLE') ? 'Consumidor Final' : 'Comercio' }}
+           </td>
+        </tr> 
+    </table>
 </div>

@@ -31,8 +31,13 @@ export class TiendaComponent implements OnInit {
   };
 
   products: Product[] = [];
+
+  searchType = null;
+
   pages = [];
   currentPage = 1;
+  queryPage = 1;
+  filtersPage = 1;
 
   constructor(
     private tiendaService: TiendaService,
@@ -80,32 +85,61 @@ export class TiendaComponent implements OnInit {
 
   getPosts() {
     this.loadingService.loading = true;
+    this.searchType = null;
+
     this.tiendaService.getProducts(this.currentPage).subscribe( (res: any) => {
       this.products = res.products;
 
-      if (this.pages.length < 1) {
-        const pages = Math.ceil(res.productsLength / PRODUCTS_PER_PAGE);
-        for (let i = 0; i < pages ; i++) {
-          this.pages.push(i + 1);
-        }
-      }
-
+      this.getPagesQuantity(res);
       goToTop(0);
 
       this.loadingService.loading = false;
     } );
   }
 
+  getPagesQuantity(res: any) {
+    this.pages = [];
+    const pages = Math.ceil(res.productsLength / PRODUCTS_PER_PAGE);
+
+    for (let i = 0; i < pages ; i++) {
+      this.pages.push(i + 1);
+    }
+  }
+
   switchPage(actionOrPage: any) {
     if (actionOrPage === 'prev') {
-      this.currentPage -= 1;
+      if (this.searchType === 'query') {
+        this.queryPage -= 1;
+      } else if (this.searchType === 'filters') {
+        this.filtersPage -= 1;
+      } else {
+        this.currentPage -= 1;
+      }
     } else if (actionOrPage === 'next') {
-      this.currentPage += 1;
+      if (this.searchType === 'query') {
+        this.queryPage += 1;
+      } else if (this.searchType === 'filters') {
+        this.filtersPage += 1;
+      } else {
+        this.currentPage += 1;
+      }
     } else {
-      this.currentPage = actionOrPage;
+      if (this.searchType === 'query') {
+        this.queryPage = actionOrPage;
+      } else if (this.searchType === 'filters') {
+        this.filtersPage = actionOrPage;
+      } else {
+        this.currentPage = actionOrPage;
+      }
     }
 
-    this.getPosts();
+    if (this.searchType === 'query') {
+      this.searchProducts();
+    } else if (this.searchType === 'filters') {
+      this.applyFilters();
+    } else {
+      this.getPosts();
+    }
   }
 
   filterChanged(filterType, filterName) {
@@ -176,11 +210,17 @@ export class TiendaComponent implements OnInit {
   }
 
   searchProducts() {
+    this.loadingService.loading = true;
 
     if (this.filtersToApply.termino) {
-      this.tiendaService.searchByQuery(this.filtersToApply.termino)
-        .subscribe( (products: any) => {
-          this.products = products;
+      this.tiendaService.searchByQuery(this.filtersToApply.termino, this.queryPage)
+        .subscribe( (res: any) => {
+          this.products = res.products;
+          this.loadingService.loading = false;
+
+          this.getPagesQuantity(res);
+          this.searchType = 'query';
+          goToTop(0);
         } );
     } else {
       this.getPosts();
@@ -189,17 +229,29 @@ export class TiendaComponent implements OnInit {
 
   applyFilters(applyRefrigerado = false) {
 
+    this.loadingService.loading = true;
+
     if (!applyRefrigerado) {
-      this.tiendaService.searchByFilters(this.filtersToApply, true)
-      .subscribe( products => {
-        this.products = products;
+      this.tiendaService.searchByFilters(this.filtersToApply, true, this.filtersPage)
+      .subscribe( (res: any) => {
+        this.products = res.products;
+        this.loadingService.loading = false;
+
+        this.getPagesQuantity(res);
+        this.searchType = 'filters';
+        goToTop(0);
       } );
       return;
     }
 
-    this.tiendaService.searchByFilters(this.filtersToApply)
-      .subscribe( products => {
-        this.products = products;
+    this.tiendaService.searchByFilters(this.filtersToApply, false, this.filtersPage)
+      .subscribe( (res: any) => {
+        this.products = res.products;
+        this.loadingService.loading = false;
+
+        this.getPagesQuantity(res);
+        this.searchType = 'filters';
+        goToTop(0);
       } );
   }
 }

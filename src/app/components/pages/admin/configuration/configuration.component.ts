@@ -5,6 +5,8 @@ import { UploadFileService } from '../../../../services/upload-file.service';
 import { GobAPIService } from '../../../../services/gob-api.service';
 import { ProductService } from '../../../../services/product.service';
 
+import * as XLSX from 'xlsx';
+import { Product } from '../../../../models/product.model';
 
 declare var swal;
 
@@ -32,6 +34,8 @@ export class ConfigurationComponent implements OnInit {
 
   images = [];
   locations = [];
+
+  products: Product[] = [];
 
   constructor(
     private configurationService: ConfigurationService,
@@ -111,6 +115,41 @@ export class ConfigurationComponent implements OnInit {
     } else {
       this.updateImage(this.imageToChange);
     }
+  }
+
+  downloadRegisters() {
+    const fileName = 'TodoGourmet-productos.xlsx';
+
+    swal({
+      title: '¿Deseas descargar los registros en formato XLSX?',
+      text: 'Si deseas continuar se descargaran automaticamente todos los registros',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((download) => {
+      if (download) {
+        this.loadingService.loading = true;
+
+        this.productsService.getAllProducts().then((res: any) => {
+          this.products = res.products;
+
+          this.loadingService.loading = false;
+
+          setTimeout(() => {
+            const element = document.getElementById('products-table');
+            const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+            const wb: XLSX.WorkBook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Productos');
+
+            /* save to file */
+            XLSX.writeFile(wb, fileName);
+          }, 500);
+
+        });
+      }
+    });
   }
 
   getProvinces() {

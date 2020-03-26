@@ -18,7 +18,7 @@
                 </div>
                 <div class="search w-50 ml-2">
                     <div class="input-group input-text">
-                        <input #term type="text" (keyup)='searchProducts(term.value, $event)'
+                        <input [(ngModel)]="term" type="text" (keyup)='searchProducts()'
                             placeholder="Busca un producto">
                         <div class="submit-btn">
                             <button type='button'>
@@ -110,7 +110,7 @@
 
             <div class='tienda-pagination' *ngIf='pages.length > 1'>
                 <nav>
-                    <ul class="pagination">
+                    <ul class="pagination" *ngIf='searchType === null'>
                         <li class="page-item switch">
                             <a *ngIf='currentPage !== 1'
                                 class="page-link clickable" (click)='switchPage("prev")'>Anterior</a>
@@ -134,7 +134,57 @@
                             </a>
                         </li>
                     </ul>
-                  </nav>
+    
+                    <ul class="pagination" *ngIf='searchType === "query"'>
+                        <li class="page-item switch">
+                            <a *ngIf='queryPage !== 1'
+                                class="page-link clickable" (click)='switchPage("prev")'>Anterior</a>
+                            <a class="page-link" *ngIf='queryPage === 1'
+                                tabindex="-1" aria-disabled="true">
+                                Anterior
+                            </a>
+                        </li>
+                        <li class="page-item" [ngClass]="{active: page === queryPage}"
+                            *ngFor='let page of pages'>
+                            <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                        </li>
+                        <li class="page-item switch">
+                            <a *ngIf='queryPage !== pages.length'
+                                class="page-link clickable" (click)='switchPage("next")'>
+                                Siguiente
+                            </a>
+                            <a class="page-link" *ngIf='queryPage === pages.length'
+                                tabindex="-1" aria-disabled="true">
+                                Siguiente
+                            </a>
+                        </li>
+                    </ul>
+    
+                    <ul class="pagination" *ngIf='searchType === "filters"'>
+                        <li class="page-item switch">
+                            <a *ngIf='filtersPage !== 1'
+                                class="page-link clickable" (click)='switchPage("prev")'>Anterior</a>
+                            <a class="page-link" *ngIf='filtersPage === 1'
+                                tabindex="-1" aria-disabled="true">
+                                Anterior
+                            </a>
+                        </li>
+                        <li class="page-item" [ngClass]="{active: page === filtersPage}"
+                            *ngFor='let page of pages'>
+                            <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                        </li>
+                        <li class="page-item switch">
+                            <a *ngIf='filtersPage !== pages.length'
+                                class="page-link clickable" (click)='switchPage("next")'>
+                                Siguiente
+                            </a>
+                            <a class="page-link" *ngIf='filtersPage === pages.length'
+                                tabindex="-1" aria-disabled="true">
+                                Siguiente
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
