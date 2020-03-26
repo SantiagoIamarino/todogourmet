@@ -5,6 +5,7 @@ import { Product } from '../../../models/product.model';
 import { Filters } from '../../../models/filters.model';
 import { LoginService } from '../../../services/login/login.service';
 import { ActivatedRoute } from '@angular/router';
+import { PRODUCTS_PER_PAGE } from '../../../config/config';
 
 declare function goToTop(animationTime);
 
@@ -30,6 +31,8 @@ export class TiendaComponent implements OnInit {
   };
 
   products: Product[] = [];
+  pages = [];
+  currentPage = 1;
 
   constructor(
     private tiendaService: TiendaService,
@@ -77,10 +80,32 @@ export class TiendaComponent implements OnInit {
 
   getPosts() {
     this.loadingService.loading = true;
-    this.tiendaService.getProducts().subscribe( (products: any) => {
-      this.products = products;
+    this.tiendaService.getProducts(this.currentPage).subscribe( (res: any) => {
+      this.products = res.products;
+
+      if (this.pages.length < 1) {
+        const pages = Math.ceil(res.productsLength / PRODUCTS_PER_PAGE);
+        for (let i = 0; i < pages ; i++) {
+          this.pages.push(i + 1);
+        }
+      }
+
+      goToTop(0);
+
       this.loadingService.loading = false;
     } );
+  }
+
+  switchPage(actionOrPage: any) {
+    if (actionOrPage === 'prev') {
+      this.currentPage -= 1;
+    } else if (actionOrPage === 'next') {
+      this.currentPage += 1;
+    } else {
+      this.currentPage = actionOrPage;
+    }
+
+    this.getPosts();
   }
 
   filterChanged(filterType, filterName) {

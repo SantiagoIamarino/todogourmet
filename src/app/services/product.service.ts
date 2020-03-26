@@ -24,18 +24,14 @@ export class ProductService {
   ) {
    }
 
-  getProducts(limit: number = 0) {
+  getProducts(currentPage = 1) {
     let url = BACKEND_URL + '/products';
 
-    if (limit !== 0) {
-      url += '?limit=' + limit;
+    if (currentPage > 1) {
+      url += '?page=' + currentPage;
     }
 
-    return this.http.get(url).pipe(
-      map( (res: any) => {
-        return res.products;
-      } )
-    );
+    return this.http.get(url);
   }
 
   getProduct(id: string) {

@@ -56,14 +56,14 @@ export class TiendaService {
     ]);
   }
 
-  getProducts() {
-    const url = BACKEND_URL + '/products/';
+  getProducts(currentPage = 1) {
+    let url = BACKEND_URL + '/products';
 
-    return this.http.get(url).pipe(
-      map( (res: any) => {
-        return res.products;
-      } )
-    );
+    if (currentPage > 1) {
+      url += '?page=' + currentPage;
+    }
+
+    return this.http.get(url);
   }
 
   searchByQuery( term: string ) {

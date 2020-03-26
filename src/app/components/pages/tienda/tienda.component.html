@@ -158,7 +158,34 @@
                 </app-product>
             </div>
         </div>
+
+        <div class='tienda-pagination' *ngIf='pages.length > 1'>
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item switch">
+                        <a *ngIf='currentPage !== 1'
+                            class="page-link clickable" (click)='switchPage("prev")'>Anterior</a>
+                        <a class="page-link" *ngIf='currentPage === 1'
+                            tabindex="-1" aria-disabled="true">
+                            Anterior
+                        </a>
+                    </li>
+                    <li class="page-item" [ngClass]="{active: page === currentPage}"
+                        *ngFor='let page of pages'>
+                        <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                    </li>
+                    <li class="page-item switch">
+                        <a *ngIf='currentPage !== pages.length'
+                            class="page-link clickable" (click)='switchPage("next")'>
+                            Siguiente
+                        </a>
+                        <a class="page-link" *ngIf='currentPage === pages.length'
+                            tabindex="-1" aria-disabled="true">
+                            Siguiente
+                        </a>
+                    </li>
+                </ul>
+              </nav>
+        </div>
     </div>
 </div>
-
-<!-- <h2>Seccion en desarrolo, proximamente...</h2> -->

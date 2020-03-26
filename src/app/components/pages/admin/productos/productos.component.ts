@@ -3,6 +3,7 @@ import { ProductService } from '../../../../services/product.service';
 import { Product } from '../../../../models/product.model';
 import { LoadingService } from '../../../shared/loading/loading.service';
 import { TiendaService } from '../../../../services/tienda.service';
+import { PRODUCTS_PER_PAGE } from '../../../../config/config';
 
 @Component({
   selector: 'app-productos',
@@ -12,6 +13,8 @@ import { TiendaService } from '../../../../services/tienda.service';
 export class ProductosComponent implements OnInit {
 
   products: Product[] = [];
+  pages = [];
+  currentPage = 1;
   marcas: any[] = [];
 
   loading = false;
@@ -40,11 +43,31 @@ export class ProductosComponent implements OnInit {
 
   getProducts() {
     this.loading = true;
-    this.productService.getProducts().subscribe( (products: any) => {
-      this.products = products;
+    this.productService.getProducts(this.currentPage).subscribe( (res: any) => {
+      this.products = res.products;
+
+      if (this.pages.length < 1) {
+        const pages = Math.ceil(res.productsLength / PRODUCTS_PER_PAGE);
+        for (let i = 0; i < pages ; i++) {
+          this.pages.push(i + 1);
+        }
+      }
+
       this.loading = false;
       this.loadingService.loading = false;
     } );
+  }
+
+  switchPage(actionOrPage: any) {
+    if (actionOrPage === 'prev') {
+      this.currentPage -= 1;
+    } else if (actionOrPage === 'next') {
+      this.currentPage += 1;
+    } else {
+      this.currentPage = actionOrPage;
+    }
+
+    this.getProducts();
   }
 
   getMarcas() {
