@@ -121,7 +121,8 @@
                         </li>
                         <li class="page-item" [ngClass]="{active: page === currentPage}"
                             *ngFor='let page of pages'>
-                            <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                            <a *ngIf='page === (currentPage - 1) || page === (currentPage + 1) || page === currentPage || (page === 3 && currentPage === 1)'
+                                class="page-link" (click)='switchPage(page)'>{{ page }}</a>
                         </li>
                         <li class="page-item switch">
                             <a *ngIf='currentPage !== pages.length'
@@ -146,7 +147,8 @@
                         </li>
                         <li class="page-item" [ngClass]="{active: page === queryPage}"
                             *ngFor='let page of pages'>
-                            <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                            <a *ngIf='page === (queryPage - 1) || page === (queryPage + 1) || page === queryPage || (page === 3 && queryPage === 1)'
+                            class="page-link" (click)='switchPage(page)'>{{ page }}</a>
                         </li>
                         <li class="page-item switch">
                             <a *ngIf='queryPage !== pages.length'
@@ -171,7 +173,8 @@
                         </li>
                         <li class="page-item" [ngClass]="{active: page === filtersPage}"
                             *ngFor='let page of pages'>
-                            <a class="page-link" (click)='switchPage(page)'>{{ page }}</a>
+                            <a *ngIf='page === (filtersPage - 1) || page === (filtersPage + 1) || page === filtersPage || (page === 3 && filtersPage === 1)'
+                            class="page-link" (click)='switchPage(page)'>{{ page }}</a>
                         </li>
                         <li class="page-item switch">
                             <a *ngIf='filtersPage !== pages.length'
@@ -184,7 +187,7 @@
                             </a>
                         </li>
                     </ul>
-                </nav>
+                  </nav>
             </div>
         </div>
     </div>
