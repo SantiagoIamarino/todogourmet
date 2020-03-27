@@ -72,6 +72,7 @@ export class ImportComponent implements OnInit {
         productToAdd.gramaje.unity = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[1] : '';
         productToAdd.visibleFor = 'BOTH';
         productToAdd.moreInfo = product.DESCRIPCION;
+        productToAdd.barCode = product.CODIGO;
 
         if (product.VISIBILIDAD !== 'AMBOS' && product.VISIBILIDAD === 'FINAL') {
           productToAdd.visibleFor = 'CONSUMER_ROLE';
