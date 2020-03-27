@@ -39,15 +39,17 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cons. final</th>
-                        <th scope="col">Comercio</th>
-                        <th scope="col">Controles</th>
+                            <th>#</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cons. final</th>
+                            <th scope="col">Comercio</th>
+                            <th scope="col">Controles</th>
                         </tr>
                     </thead>
                     <tbody *ngIf='!loading'>
                         <tr class='product-item' *ngFor='let product of products'>
+                            <td>{{ product.idNumber }}</td>
                             <th scope="row">
                                 <div class="img">
                                     <img *ngIf='product.img' 

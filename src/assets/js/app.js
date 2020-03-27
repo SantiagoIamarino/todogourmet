@@ -207,3 +207,22 @@ function showButton(preferenceId) {
         form.appendChild(script);
     
 }
+
+// Orders---------------------------------------------------
+
+function showBarCode(product) {
+    $("#barcode").JsBarcode(product.barCode, {
+        width: 2,
+        height: 100,
+        quite: 10,
+        format: "CODE128",
+        displayValue: true,
+        fontOptions: "",
+        font:"monospace",
+        textAlign:"center",
+        fontSize: 12,
+        backgroundColor:"",
+        lineColor:"#000"
+    });
+    $('#barCodeModal').modal('show');
+}

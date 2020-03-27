@@ -181,7 +181,7 @@ export class CartComponent implements OnInit, OnDestroy {
       subtotal: this.subtotal,
       discount: this.discounts,
       total : this.total,
-      shipping: (this.isPayingShipping) ? '$' + this.config.shippingCost : 'A acordar'
+      shipping: (this.isPayingShipping) ? '$' + this.config.shippingCost : 'A acordar',
     };
 
 
@@ -196,7 +196,8 @@ export class CartComponent implements OnInit, OnDestroy {
         subtotal: product.subtotal,
         totalWithoutDisc: product.totalWithoutDisc,
         discountPercentage: product.productId.descuentoPorBulto,
-        discount: product.discount
+        discount: product.discount,
+        barCode: (product.productId.barCode) ? product.productId.barCode : ''
       };
 
       body.products.push(productToSend);

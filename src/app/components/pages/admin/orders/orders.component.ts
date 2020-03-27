@@ -5,6 +5,8 @@ import { User } from '../../../../models/user.model';
 
 declare var swal;
 
+declare function showBarCode(product);
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -15,6 +17,7 @@ export class OrdersComponent implements OnInit {
   orders: any[] = [];
 
   orderToShow: any;
+  productToShowBarCode: any;
 
   userToShow: User;
 
@@ -49,6 +52,13 @@ export class OrdersComponent implements OnInit {
       this.orders = res.orders;
       this.loadingService.loading = false;
     });
+  }
+
+  showBarCode(product: any) {
+    this.productToShowBarCode = product;
+    setTimeout(() => {
+      showBarCode(product);
+    }, 100);
   }
 
   changeState(order) {

@@ -85,6 +85,14 @@
     margin-left: 0;
 }
 
+.bar-code span{
+    width: 100%;
+}
+
+.bar-code span input{
+    max-width: 100%;
+}
+
 .info .more-info{
     padding-top: 5px;
     border-top: 1px solid #e1e1e1;

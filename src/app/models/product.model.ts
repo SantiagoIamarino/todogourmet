@@ -24,6 +24,7 @@ export class Product {
             number: '',
             unity: ''
         },
+        public barCode?: string,
         public visibleFor?: string,
         public moreInfo?: string,
         public _id?: string

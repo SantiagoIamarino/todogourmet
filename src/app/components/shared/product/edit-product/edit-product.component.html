@@ -51,6 +51,7 @@
                     <option value="cc">Centimetros cubicos</option>
                     <option value="ml">Mililitros</option>
                     <option value="lts">Litros</option>
+                    <option value="unidades">Unidades</option>
                 </select>
             </div>
         </div>
@@ -81,6 +82,13 @@
                 <span>
                     <input type="text" [(ngModel)]="product.unidadPorBulto" name='unidadPorBulto'
                         class='edit-input' placeholder="5">
+                </span>
+            </div>
+            <div class="bar-code">
+                <p>Codigo</p>
+                <span>
+                    <input type="text" [(ngModel)]="product.barCode" name='barCode'
+                        class='edit-input' placeholder="Codigo de barras">
                 </span>
             </div>
         </div>

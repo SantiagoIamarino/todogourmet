@@ -29,6 +29,10 @@ th, td{
     opacity: .6;
 }
 
+#orderInfoModal .modal-dialog{
+    max-width: 95vw !important;
+}
+
 @media screen and (min-width: 576px){
     .modal-dialog {
         max-width: 600px;
