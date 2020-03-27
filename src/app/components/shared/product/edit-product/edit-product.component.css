@@ -77,8 +77,30 @@
     margin-top: 0;
 }
 
+.product-prices{
+    padding-bottom: 5px;
+}
+
 .product-prices .edit-input{
     margin-left: 0;
+}
+
+.info .more-info{
+    padding-top: 5px;
+    border-top: 1px solid #e1e1e1;
+}
+
+.info .more-info .more-info-top{
+    font-size: 14px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .more-info .description textarea{
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 500px;
 }
 
 .filters{
@@ -97,7 +119,6 @@
 }
 
 .filters .esta-refrigerado {
-    padding-left: 10px;
     margin-top: 20px;
 }
 
@@ -176,6 +197,14 @@
     transform: scale(1);
     opacity: 0;
     transition: all .4s ease;
+}
+
+.filters .esta-refrigerado .refrigerado-time{
+    margin-top: -8px;
+}
+
+.filters .esta-refrigerado .refrigerado-time input{
+    max-width: 200px;
 }
 
 .progreso{

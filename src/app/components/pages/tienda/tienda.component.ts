@@ -11,6 +11,8 @@ declare function goToTop(animationTime);
 
 declare function showLoginModal();
 
+declare function showProductInfoModal();
+
 declare var swal;
 
 @Component({
@@ -40,6 +42,8 @@ export class TiendaComponent implements OnInit {
   queryPage = 1;
   filtersPage = 1;
 
+  productToShowMoreInfo: Product;
+
   constructor(
     private tiendaService: TiendaService,
     public loginService: LoginService,
@@ -63,6 +67,11 @@ export class TiendaComponent implements OnInit {
     this.tiendaService.notAllowedSubscriber.subscribe( () => {
         this.filtersToApply.estaRefrigerado = false;
         this.applyFilters(true);
+    } );
+
+    this.tiendaService.showProductInfoModal.subscribe( (product: Product) => {
+      this.productToShowMoreInfo = product;
+      showProductInfoModal();
     } );
   }
 

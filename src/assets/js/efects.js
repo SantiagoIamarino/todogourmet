@@ -83,6 +83,10 @@ function handleFilters() {
 
 // login---------------------------------------------
 
+function showProductInfoModal() {
+    $('#productInfoModal').modal('show');
+}
+
 function showLoginModal() {
     $('#loginModal').modal('show');
 }

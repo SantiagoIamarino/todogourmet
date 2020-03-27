@@ -84,6 +84,15 @@
                 </span>
             </div>
         </div>
+        <div class="more-info mt-1">
+            <div class="more-info-top">
+                <span>Descripción</span>
+            </div>
+            <div class="description">
+                <textarea name='moreInfo' [(ngModel)]="product.moreInfo"
+                    class='edit-input'></textarea>
+            </div>
+        </div>
     </div>
     <div class="filters" *ngIf="!loading && product._id">
         <div class="filter certificacion">
@@ -145,7 +154,7 @@
             <div class="filter-title">
                 <label for="refrigerado">Refrigerado</label>
             </div>
-            <div class="filter-options">
+            <div class="filter-options d-flex">
                 <div class="checkbox-new">
                     <p>No</p>
                     <div class="checkbox-input">
@@ -156,6 +165,10 @@
                         </label>
                     </div>
                     <p>Si</p>
+                </div>
+                <div class="refrigerado-time ml-2" *ngIf='product.estaRefrigerado'>
+                    <input type="text" name='refrigeradoTime' [(ngModel)]="product.refrigeradoTime"
+                        class="edit-input" placeholder="Dias refrigerado">
                 </div>
             </div>
         </div>
@@ -268,10 +281,10 @@
                             </div>
                         </div>
                         <div class="filter esta-refrigerado">    
-                            <div class="filter-title">
+                            <div class="filter-title mb-1">
                                 <label for="refrigerado">Refrigerado</label>
                             </div>
-                            <div class="filter-options">
+                            <div class="filter-options d-flex">
                                 <div class="checkbox-new">
                                     <p>No</p>
                                     <div class="checkbox-input">
@@ -282,6 +295,10 @@
                                         </label>
                                     </div>
                                     <p>Si</p>
+                                </div>
+                                <div class="refrigerado-time ml-2" *ngIf='product.estaRefrigerado'>
+                                    <input type="text" name='refrigeradoTime' [(ngModel)]="product.refrigeradoTime"
+                                        class="edit-input" placeholder="Dias refrigerado">
                                 </div>
                             </div>
                         </div>

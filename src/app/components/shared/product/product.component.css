@@ -35,6 +35,7 @@
     top: 40px;
     right: -28px;
     display: none;
+    text-align: center;
 }
 
 .producto .esta-refrigerado-o-no:hover .product-popover{
@@ -172,6 +173,7 @@
 .producto .info .product-info {
     border-bottom: 1px solid #e1e1e1;
     padding-bottom: 5px;
+    position: relative;
 }
 
 .producto .info .product-info .marca{
@@ -185,6 +187,24 @@
 
 .producto .info .product-info p {
     font-size: 14px;
+}
+
+.producto .info .product-info .more-info-button{
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+.producto .info .product-info .more-info-button button{
+    border: none;
+    background: rgb(231, 66, 72);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+.producto .info .product-info .more-info-button button i{
+    font-size: 12px;
 }
 
 .producto .info .certifications{
@@ -383,5 +403,12 @@
 @media screen and (max-width: 600px){
     .producto .img{
         max-height: 400px !important;
+    }
+}
+
+@media screen and (max-width: 550px){
+    .producto .esta-refrigerado-o-no .product-popover{
+        top: 5px;
+        right: 48px;
     }
 }

@@ -158,11 +158,13 @@
            <th>Unidad por bulto</th>
            <th>Precio Comercio</th>
            <th>Refrigerado</th>
+           <th>Tiempro refrigerado</th>
            <th>Certificaciones</th>
            <th>Rubros</th>
            <th>Tipos</th>
            <th>Gramaje</th>
            <th>Visibilidad</th>
+           <th>Descripción</th>
         </tr>    
         <tr *ngFor="let product of products; let i = index">
            <td>#{{ product.idNumber }}</td>  
@@ -173,6 +175,7 @@
            <td>{{ product.unidadPorBulto }}</td>
            <td>{{ product.precioComercio }}</td>
            <td>{{ (product.estaRefrigerado) ? 'SI' : 'NO' }}</td>
+           <td>{{ (product.refrigeradoTime) ? product.refrigeradoTime + ' dias' : '-' }}</td>
            <td>{{ product.certificaciones.join('-') }}</td>
            <td>{{ product.rubros.join('-') }}</td>
            <td>{{ product.tipos.join('-') }}</td>
@@ -181,6 +184,7 @@
            <td *ngIf='product.visibleFor !== "BOTH"'>
                 {{ (product.visibleFor === 'CONSUMER_ROLE') ? 'Consumidor Final' : 'Comercio' }}
            </td>
+           <td>{{ product.moreInfo }}</td>
         </tr> 
     </table>
 </div>

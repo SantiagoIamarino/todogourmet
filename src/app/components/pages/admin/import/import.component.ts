@@ -64,12 +64,15 @@ export class ImportComponent implements OnInit {
         productToAdd.unidadPorBulto = product.UPORBULTO;
         productToAdd.precioComercio = product.PRECIOCOMERCIO;
         productToAdd.estaRefrigerado = (product.REFRIGERADO === 'SI' || product.REFRIGERADO === 'si') ? true : false;
+        productToAdd.refrigeradoTime = product.DIASREFRIGERADO;
         productToAdd.certificaciones = (product.CERT) ? product.CERT.split('-') : [] ;
         productToAdd.rubros = (product.RUBROS) ? product.RUBROS.split('-') : [] ;
         productToAdd.tipos = (product.TIPOS) ? product.TIPOS.split('-') : [] ;
         productToAdd.gramaje.number = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[0] : '';
         productToAdd.gramaje.unity = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[1] : '';
         productToAdd.visibleFor = 'BOTH';
+        productToAdd.moreInfo = product.DESCRIPCION;
+
         if (product.VISIBILIDAD !== 'AMBOS' && product.VISIBILIDAD === 'FINAL') {
           productToAdd.visibleFor = 'CONSUMER_ROLE';
         } else if (product.VISIBILIDAD !== 'AMBOS') {

@@ -288,6 +288,23 @@
     border-color:rgb(231, 66, 72);
 }
 
+.product-info-modal .btn-secondary{
+    background: rgb(231, 66, 72);
+    border-color: rgb(231, 66, 72);
+}
+
+.product-info-modal .btn-secondary:hover{
+    background: rgb(243, 128, 132);
+}
+
+.product-info-modal .btn-secondary:focus{
+    box-shadow:  0 0 0.2rem rgba(231, 66, 72,.5);
+}
+
+.product-info-modal p{
+    word-break: break-word;
+}
+
 @media screen and (max-width: 1200px) {
     .title-top-tienda .title .results{
         display: none;

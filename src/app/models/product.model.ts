@@ -13,6 +13,7 @@ export class Product {
         public unidadPorBulto?: number,
         public precioComercio?: number,
         public estaRefrigerado = false,
+        public refrigeradoTime?: string,
         public certificaciones = [],
         public rubros = [],
         public tipos = [],
@@ -24,6 +25,7 @@ export class Product {
             unity: ''
         },
         public visibleFor?: string,
+        public moreInfo?: string,
         public _id?: string
     ) {}
 }

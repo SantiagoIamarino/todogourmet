@@ -3,7 +3,11 @@
         <i [routerLink]="['/tienda', 'refrigerado', 'si']"
             class="fa fa-snowflake-o" aria-hidden="true"></i>
         <div class="product-popover">
-            <p>Refrigerado</p>
+            <p>Refrigerado 
+                <span *ngIf='product.refrigeradoTime'>
+                    ({{ product.refrigeradoTime }} dias)
+                </span>
+            </p>
         </div>
     </div>
     <div class="img">
@@ -45,6 +49,12 @@
                     {{ product.marca.nombre }}
                 </span>
             </p>
+            <div class="more-info-button" *ngIf='product.moreInfo'>
+                <button (click)='showProductInfoModal()'
+                    class='more-info-btn'>
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
         </div>
         <div class="certifications">
             <div class="imgs">
