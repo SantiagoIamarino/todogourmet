@@ -7,6 +7,7 @@ import { ProductService } from '../../../../services/product.service';
 
 import * as XLSX from 'xlsx';
 import { Product } from '../../../../models/product.model';
+import { ImportService } from '../../../../services/import.service';
 
 declare var swal;
 
@@ -37,12 +38,16 @@ export class ConfigurationComponent implements OnInit {
 
   products: Product[] = [];
 
+  arrayBuffer: any;
+  file: File;
+
   constructor(
     private configurationService: ConfigurationService,
     private loadingService: LoadingService,
     private uploadFileService: UploadFileService,
     public gobAPIService: GobAPIService,
-    private productsService: ProductService
+    private productsService: ProductService,
+    private importService: ImportService
   ) {
     this.getConfigs();
     this.getImages();
@@ -150,6 +155,14 @@ export class ConfigurationComponent implements OnInit {
         });
       }
     });
+  }
+
+  incomingfile(event) {
+    this.file = event.target.files[0];
+  }
+
+  EditProducts() {
+    this.importService.getDataFromExcelAndUpload(this.file, 'edit');
   }
 
   getProvinces() {

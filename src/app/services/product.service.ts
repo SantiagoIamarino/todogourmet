@@ -195,6 +195,52 @@ export class ProductService {
     } );
   }
 
+  editProducts(products) {
+    new Promise( (resolve, reject) => {
+      products.forEach((product, index) => {
+        if (!product.idNumber) {
+          reject('Debes ingresar un identificador en el producto "' + product.name + '"');
+          return;
+        }
+
+        if (!product.marca) {
+          reject('Debes ingresar una marca en el producto #' + product.idNumber);
+          return;
+        }
+
+        const subscriber =
+        this.afs.collection('marcas', ref => ref.where('formattedFilter', '==', product.marca))
+        .valueChanges().subscribe( (res: any) => {
+          product.marca = {
+            nombre: res[0].nombre,
+            formatted: res[0].formattedFilter
+          };
+
+          product.quantity = 1;
+
+          subscriber.unsubscribe();
+
+          if (index === products.length - 1) {
+            resolve();
+          }
+        } );
+      });
+    } ).then(() => {
+       let url = BACKEND_URL + '/products/edit/masive';
+       url += '?token=' + this.loginService.token;
+
+       this.http.put(url, products).subscribe(() => {
+        swal(
+          'Productos editados!',
+          'Se han editado correctamente los productos',
+          'success'
+        );
+      });
+    }).catch((error) => {
+      swal('Error', error, 'error');
+    });
+  }
+
   deleteProduct( product: Product ) {
     let url = BACKEND_URL + '/products/' + product._id;
     url += '?token=' + this.loginService.token;

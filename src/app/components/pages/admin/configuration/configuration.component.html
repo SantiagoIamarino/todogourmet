@@ -82,6 +82,16 @@
                 </button>
             </div>
         </div>
+        <form enctype="multipart/form-data">
+            <div class="edit-products-upload d-flex justify-content-start flex-wrap">
+                <input type="file" (change)="incomingfile($event)"  class='w-100'>
+                <button (click)='EditProducts()'
+                    class="btn btn-outline-success mt-2">
+                    <i class="fa fa-download"></i>
+                    Edicion masiva de productos
+                </button>
+            </div>
+        </form>
     </div>
     <div class="configs-div mt-4">
         <div class="title">
@@ -150,7 +160,7 @@
 <div class="products-table">
     <table id='products-table' class='excel-table'> 
         <tr>       
-           <th>Identificador</th> 
+           <th>IDENTIFICADOR</th> 
            <th>PRODUCTO</th>  
            <th>IMAGEN</th>
            <th>MARCA</th> 
@@ -169,7 +179,7 @@
            <th>CODIGO</th>
         </tr>    
         <tr *ngFor="let product of products; let i = index">
-           <td>#{{ product.idNumber }}</td>  
+           <td>{{ product.idNumber }}</td>  
            <td>{{ product.name }}</td> 
            <td>{{ (product.img && product.img.secure_url) ? product.img.secure_url : '' }}</td>
            <td>{{ product.marca.formatted }}</td>
