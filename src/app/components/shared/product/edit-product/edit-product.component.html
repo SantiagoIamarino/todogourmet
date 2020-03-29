@@ -4,7 +4,7 @@
             src="../../../../assets/img/not-found.png" alt="">
 
         <img class='img-fluid' *ngIf="product.img && !tempImg"
-        [src]="product.img | images" alt="">
+        [src]="product.img.secure_url" alt="">
 
         <img class='img-fluid temp' *ngIf="tempImg"
         [src]="tempImg" alt="">

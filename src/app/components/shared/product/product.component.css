@@ -32,18 +32,43 @@
     color: white;
     z-index: 99;
     border-radius: 20px;
-    top: 40px;
-    right: -28px;
+    top: 45px;
+    right: 0px;
     display: none;
     text-align: center;
 }
 
 .producto .esta-refrigerado-o-no:hover .product-popover{
     display: block;
+    width: 220px;
 }
 
 .producto .esta-refrigerado-o-no .product-popover p{
     font-size: 13px;
+    position: relative;
+    font-weight: 700;
+}
+
+.producto .esta-refrigerado-o-no .product-popover p:before{
+    position: absolute;
+    z-index: -1;
+    content: "";
+    right: 0px;
+    top: -11px;
+    border-style: solid;
+    border-width: 0 6px 6px 6px;
+    border-color: transparent transparent rgb(94, 148, 199) transparent;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+
+.producto .esta-refrigerado-o-no .product-popover span{
+    font-size: 11px;
+    font-weight: normal;
 }
 
 .producto .img {
@@ -191,15 +216,15 @@
 
 .producto .info .product-info .more-info-button{
     position: absolute;
-    right: 10px;
-    top: 0;
+    right: 0px;
+    top: -10px;
 }
 
 .producto .info .product-info .more-info-button button{
     border: none;
     background: rgb(231, 66, 72);
     color: white;
-    padding: 2px 6px;
+    padding: 11px 5px;
     border-radius: 50%;
 }
 
@@ -403,12 +428,5 @@
 @media screen and (max-width: 600px){
     .producto .img{
         max-height: 400px !important;
-    }
-}
-
-@media screen and (max-width: 550px){
-    .producto .esta-refrigerado-o-no .product-popover{
-        top: 5px;
-        right: 48px;
     }
 }

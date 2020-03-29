@@ -68,8 +68,8 @@ export class ImportComponent implements OnInit {
         productToAdd.certificaciones = (product.CERT) ? product.CERT.split('-') : [] ;
         productToAdd.rubros = (product.RUBROS) ? product.RUBROS.split('-') : [] ;
         productToAdd.tipos = (product.TIPOS) ? product.TIPOS.split('-') : [] ;
-        productToAdd.gramaje.number = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[0] : '';
-        productToAdd.gramaje.unity = (product.GRAMAJE) ? product.GRAMAJE.split(' ')[1] : '';
+        productToAdd.gramaje.number = (product.CANTIDAD) ? product.CANTIDAD.split(' ')[0] : '';
+        productToAdd.gramaje.unity = (product.CANTIDAD) ? product.CANTIDAD.split(' ')[1] : '';
         productToAdd.visibleFor = 'BOTH';
         productToAdd.moreInfo = product.DESCRIPCION;
         productToAdd.barCode = product.CODIGO;

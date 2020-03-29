@@ -38,9 +38,17 @@ export class ProductosComponent implements OnInit {
     private tiendaService: TiendaService
   ) {
     this.getProducts();
+
     this.productService.productsUpdated.subscribe( () => {
-      this.getProducts();
+      if (this.searchType === 'query') {
+        this.searchProducts();
+      } else if (this.searchType === 'filters') {
+        this.applyFilter();
+      } else {
+        this.getProducts();
+      }
     } );
+
     this.getMarcas();
    }
 

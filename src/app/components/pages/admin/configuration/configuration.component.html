@@ -150,41 +150,45 @@
 <div class="products-table">
     <table id='products-table' class='excel-table'> 
         <tr>       
-           <th>Codigo</th> 
-           <th>Nombre</th>  
-           <th>Marca</th> 
-           <th>Precio Unit</th>
-           <th>Descuento Por Bulto</th>
-           <th>Unidad por bulto</th>
-           <th>Precio Comercio</th>
-           <th>Refrigerado</th>
-           <th>Tiempro refrigerado</th>
-           <th>Certificaciones</th>
-           <th>Rubros</th>
-           <th>Tipos</th>
-           <th>Gramaje</th>
-           <th>Visibilidad</th>
-           <th>Descripción</th>
+           <th>Identificador</th> 
+           <th>PRODUCTO</th>  
+           <th>IMAGEN</th>
+           <th>MARCA</th> 
+           <th>PRECIOUNITARIO</th>
+           <th>DESCPORBULTO</th>
+           <th>UPORBULTO</th>
+           <th>PRECIOCOMERCIO</th>
+           <th>REFRIGERADO</th>
+           <th>DIASREFRIGERADO</th>
+           <th>CERT</th>
+           <th>RUBROS</th>
+           <th>TIPOS</th>
+           <th>CANTIDAD</th>
+           <th>VISIBILIDAD</th>
+           <th>DESCRIPCION</th>
+           <th>CODIGO</th>
         </tr>    
         <tr *ngFor="let product of products; let i = index">
            <td>#{{ product.idNumber }}</td>  
            <td>{{ product.name }}</td> 
-           <td>{{ product.marca.nombre }}</td>
+           <td>{{ (product.img && product.img.secure_url) ? product.img.secure_url : '' }}</td>
+           <td>{{ product.marca.formatted }}</td>
            <td>{{ product.precioUnit }}</td>
            <td>{{ product.descuentoPorBulto }}</td>
            <td>{{ product.unidadPorBulto }}</td>
            <td>{{ product.precioComercio }}</td>
            <td>{{ (product.estaRefrigerado) ? 'SI' : 'NO' }}</td>
-           <td>{{ (product.refrigeradoTime) ? product.refrigeradoTime + ' dias' : '-' }}</td>
+           <td>{{ (product.refrigeradoTime) ? product.refrigeradoTime : '' }}</td>
            <td>{{ product.certificaciones.join('-') }}</td>
            <td>{{ product.rubros.join('-') }}</td>
            <td>{{ product.tipos.join('-') }}</td>
-           <td>{{ product.gramaje.number + ' ' + product.gramaje.unity + '.' }}</td>
-           <td *ngIf='product.visibleFor === "BOTH"'>Ambos roles</td>
+           <td>{{ product.gramaje.number + ' ' + product.gramaje.unity }}</td>
+           <td *ngIf='product.visibleFor === "BOTH"'>AMBOS</td>
            <td *ngIf='product.visibleFor !== "BOTH"'>
-                {{ (product.visibleFor === 'CONSUMER_ROLE') ? 'Consumidor Final' : 'Comercio' }}
+                {{ (product.visibleFor === 'CONSUMER_ROLE') ? 'FINAL' : 'COMERCIO' }}
            </td>
            <td>{{ product.moreInfo }}</td>
+           <td>{{ product.barCode }}</td>
         </tr> 
     </table>
 </div>

@@ -8,3 +8,10 @@
     display: -moz-box !important;
     z-index: unset !important;
 }
+.app-container{
+    overflow: hidden;
+}
+
+.app-header{
+    max-width: 100vw;
+}

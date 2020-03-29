@@ -5,7 +5,7 @@
         <div class="product-popover">
             <p>Refrigerado 
                 <span *ngIf='product.refrigeradoTime'>
-                    ({{ product.refrigeradoTime }} dias)
+                    Caducidad: {{ product.refrigeradoTime }} dias
                 </span>
             </p>
         </div>
@@ -52,7 +52,7 @@
             <div class="more-info-button" *ngIf='product.moreInfo'>
                 <button (click)='showProductInfoModal()'
                     class='more-info-btn'>
-                    <i class="fa fa-plus"></i>
+                    <i class="fa fa-plus"></i> Info
                 </button>
             </div>
         </div>

@@ -93,8 +93,11 @@ export class TiendaComponent implements OnInit {
     this.getPosts();
   }
 
-  getPosts() {
-    this.loadingService.loading = true;
+  getPosts(resetPages = true) {
+    if (resetPages) {
+      this.currentPage = 1;
+    }
+
     this.searchType = null;
 
     this.tiendaService.getProducts(this.currentPage).subscribe( (res: any) => {
@@ -103,8 +106,6 @@ export class TiendaComponent implements OnInit {
 
       this.getPagesQuantity(res);
       goToTop(0);
-
-      this.loadingService.loading = false;
     } );
   }
 
@@ -145,11 +146,11 @@ export class TiendaComponent implements OnInit {
     }
 
     if (this.searchType === 'query') {
-      this.searchProducts();
+      this.searchProducts(false);
     } else if (this.searchType === 'filters') {
-      this.applyFilters();
+      this.applyFilters(false, false);
     } else {
-      this.getPosts();
+      this.getPosts(false);
     }
   }
 
@@ -217,38 +218,41 @@ export class TiendaComponent implements OnInit {
       estaRefrigerado: false
     };
 
-    this.applyFilters();
+    this.getPosts();
   }
 
-  searchProducts() {
-    this.loadingService.loading = true;
+  searchProducts(resetPages = true) {
+
+    if (resetPages) {
+      this.queryPage = 1;
+    }
 
     if (this.filtersToApply.termino) {
       this.tiendaService.searchByQuery(this.filtersToApply.termino, this.queryPage)
         .subscribe( (res: any) => {
           this.products = res.products;
           this.productsCount = res.productsLength;
-          this.loadingService.loading = false;
 
           this.getPagesQuantity(res);
           this.searchType = 'query';
           goToTop(0);
         } );
     } else {
-      this.getPosts();
+      this.applyFilters();
     }
   }
 
-  applyFilters(applyRefrigerado = false) {
+  applyFilters(applyRefrigerado = false, resetPages = true) {
 
-    this.loadingService.loading = true;
+    if (resetPages) {
+      this.filtersPage = 1;
+    }
 
     if (!applyRefrigerado) {
       this.tiendaService.searchByFilters(this.filtersToApply, true, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;
         this.productsCount = res.productsLength;
-        this.loadingService.loading = false;
 
         this.getPagesQuantity(res);
         this.searchType = 'filters';
@@ -261,7 +265,6 @@ export class TiendaComponent implements OnInit {
       .subscribe( (res: any) => {
         this.products = res.products;
         this.productsCount = res.productsLength;
-        this.loadingService.loading = false;
 
         this.getPagesQuantity(res);
         this.searchType = 'filters';
