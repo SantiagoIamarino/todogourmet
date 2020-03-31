@@ -106,11 +106,10 @@
                           {{ (product.discount > 0) ? product.discountPercentage + '%' : 'Sin desc.' }}
                       </td>
                       <td>${{ product.subtotal }}</td>
-                      <td>
-                        <button (click)='showBarCode(product)'
-                          class='btn btn-outline-danger'>
-                          <i class="fa fa-barcode" aria-hidden="true"></i>
-                        </button>
+                      <td style='padding: 0 .75rem'>
+                        <div class="bar-code" *ngIf='product.barCode'>
+                          <canvas [attr.id]='product.id'></canvas>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -207,24 +206,3 @@
   </div>
 </div>
 
-
-<!-- Barcode modal -->
-<div class="modal fade" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" *ngIf='productToShowBarCode'>
-        <h5 class="modal-title" id="barCodeModalLabel">{{ productToShowBarCode.name }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div *ngIf='productToShowBarCode'
-        class="modal-body d-flex justify-content-center" >
-        <canvas id="barcode"></canvas>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>

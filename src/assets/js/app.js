@@ -211,12 +211,13 @@ function showButton(preferenceId) {
 // Orders---------------------------------------------------
 
 function showBarCode(product) {
-    $("#barcode").JsBarcode(product.barCode, {
-        width: 2,
-        height: 100,
+    const canvasId = '#' + product.id;
+    $(canvasId).JsBarcode(product.barCode, {
+        width: 1.3,
+        height: 30,
         quite: 10,
         format: "CODE128",
-        displayValue: true,
+        displayValue: false,
         fontOptions: "",
         font:"monospace",
         textAlign:"center",
@@ -224,5 +225,4 @@ function showBarCode(product) {
         backgroundColor:"",
         lineColor:"#000"
     });
-    $('#barCodeModal').modal('show');
 }

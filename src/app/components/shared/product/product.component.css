@@ -28,10 +28,10 @@
 .producto .esta-refrigerado-o-no .product-popover{
     position: absolute;
     background: rgb(94, 148, 199);
-    padding: 5px 15px;
+    padding: 5px;
     color: white;
     z-index: 99;
-    border-radius: 20px;
+    border-radius: 15px;
     top: 45px;
     right: 0px;
     display: none;
@@ -40,20 +40,22 @@
 
 .producto .esta-refrigerado-o-no:hover .product-popover{
     display: block;
-    width: 220px;
+    width: 140px;
 }
 
 .producto .esta-refrigerado-o-no .product-popover p{
     font-size: 13px;
     position: relative;
     font-weight: 700;
+    display: flex;
+    flex-direction: column;
 }
 
 .producto .esta-refrigerado-o-no .product-popover p:before{
     position: absolute;
     z-index: -1;
     content: "";
-    right: 0px;
+    right: 10px;
     top: -11px;
     border-style: solid;
     border-width: 0 6px 6px 6px;
@@ -217,19 +219,23 @@
 .producto .info .product-info .more-info-button{
     position: absolute;
     right: 0px;
-    top: -10px;
+    top: 2px;
 }
 
 .producto .info .product-info .more-info-button button{
-    border: none;
-    background: rgb(231, 66, 72);
-    color: white;
-    padding: 11px 5px;
-    border-radius: 50%;
+    background: white;
+    padding: 4px 10px;
+    border-radius: 25px;
+    font-size: 14px;
+    border: 2px solid rgb(231, 66, 72);
+    color: rgb(231, 66, 72);
+    font-weight: 700;
 }
 
-.producto .info .product-info .more-info-button button i{
-    font-size: 12px;
+.producto .info .product-info .more-info-button button:hover{
+    transition: .3s all ease;
+    background: rgb(231, 66, 72);
+    color: white;
 }
 
 .producto .info .certifications{

@@ -38,6 +38,7 @@ export class OrdersComponent implements OnInit {
 
   setOrder(order) {
     this.orderToShow = order;
+    this.showBarCodes();
   }
 
   setUser(user: User) {
@@ -54,11 +55,12 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  showBarCode(product: any) {
-    this.productToShowBarCode = product;
-    setTimeout(() => {
-      showBarCode(product);
-    }, 100);
+  showBarCodes() {
+    this.orderToShow.products.forEach(product => {
+      setTimeout(() => {
+        showBarCode(product);
+      }, 100);
+    });
   }
 
   changeState(order) {

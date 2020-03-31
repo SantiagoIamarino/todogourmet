@@ -19,9 +19,12 @@
             <tbody *ngIf='!loadingService.loading'>
                 <tr class='product-item' *ngFor='let product of products; let i = index'>
                     <th scope="row">
-                        <div class="img">
+                        <div class="img" *ngIf='product.img'>
                             <img class='img-fluid img-circle' 
                             [src]="product.productId.img.secure_url">
+                        </div>
+                        <div class="img not-found" *ngIf='!product.img'>
+                            <img src="../../../../assets/img/not-found.png" alt="">
                         </div>
                     </th>
                     <td class='title'>
