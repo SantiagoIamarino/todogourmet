@@ -19,10 +19,14 @@ th, td{
 
 .product-name{
     max-width: 200px !important;
+    position: relative;
+}
+
+.product-name p{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    position: relative;
+    font-weight: normal;
 }
 
 .product-name:hover span{
@@ -33,7 +37,7 @@ th, td{
 .product-name span{
     position: absolute;
     top: 40px;
-    right: 2vw;
+    left: 1.5vw;
     background: #db4545;
     color: #fff;
     font-size: 13px;

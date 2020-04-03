@@ -45,6 +45,13 @@
 
 .product-list .title{
     position: relative;
+    max-width: 30vw;
+}
+
+.product-list .title p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .product-list .title span{

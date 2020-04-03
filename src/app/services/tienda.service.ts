@@ -28,7 +28,7 @@ export class TiendaService {
 
   getFilter(collection) {
     return new Promise( ( resolve, reject ) => {
-      this.afs.collection(collection, ref => ref.orderBy('formattedFilter', 'asc'))
+      this.afs.collection(collection, ref => ref.orderBy('nombre', 'asc'))
         .valueChanges().subscribe( (filter: any) => {
         if (collection === 'marcas') {
           this.filters.marcas = filter;

@@ -42,7 +42,12 @@ export class OrdersComponent implements OnInit {
   }
 
   setUser(user: User) {
-    this.userToShow = false;
+    if (!user) {
+      this.userToShow = false;
+      return;
+    }
+
+    this.userToShow = user;
   }
 
   getOrders() {

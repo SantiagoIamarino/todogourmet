@@ -235,19 +235,7 @@ export class TiendaComponent implements OnInit {
       this.queryPage = 1;
     }
 
-    if (this.filtersToApply.termino) {
-      this.tiendaService.searchByQuery(this.filtersToApply.termino, this.queryPage)
-        .subscribe( (res: any) => {
-          this.products = res.products;
-          this.productsCount = res.productsLength;
-
-          this.getPagesQuantity(res);
-          this.searchType = 'query';
-          goToTop(0);
-        } );
-    } else {
-      this.applyFilters();
-    }
+    this.applyFilters();
   }
 
   applyFilters(applyRefrigerado = false, resetPages = true) {
