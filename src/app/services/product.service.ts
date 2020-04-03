@@ -16,6 +16,8 @@ export class ProductService {
 
   productsUpdated = new EventEmitter();
 
+  showProductInfoModal = new EventEmitter();
+
   constructor(
     private afs: AngularFirestore,
     private http: HttpClient,

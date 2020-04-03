@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit {
   }
 
   showProductInfoModal() {
-    this.tiendaService.showProductInfoModal.emit(this.product);
+    this.productService.showProductInfoModal.emit(this.product);
   }
 
   quantityChanges(moreOrLess: string, product) {

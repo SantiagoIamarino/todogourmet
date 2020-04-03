@@ -12,6 +12,8 @@ declare function scrollToDiv(slideTo, timing);
 
 declare function stopSliderMarcas();
 
+declare function showProductInfoModal();
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,6 +28,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   bannerImages: any[] = [];
   pricesList = '';
 
+  productToShowMoreInfo: Product;
+
   constructor(
     private homeService: HomeService,
     private route: ActivatedRoute,
@@ -36,6 +40,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getMarcas();
     this.getBannerImages();
     this.getPricesList();
+
+    this.productsService.showProductInfoModal.subscribe( (product: Product) => {
+      this.productToShowMoreInfo = product;
+      showProductInfoModal();
+    } );
    }
 
   ngOnInit() {

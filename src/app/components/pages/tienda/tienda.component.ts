@@ -6,6 +6,7 @@ import { Filters } from '../../../models/filters.model';
 import { LoginService } from '../../../services/login/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { PRODUCTS_PER_PAGE } from '../../../config/config';
+import { ProductService } from '../../../services/product.service';
 
 declare function goToTop(animationTime);
 
@@ -49,9 +50,10 @@ export class TiendaComponent implements OnInit {
   constructor(
     private tiendaService: TiendaService,
     public loginService: LoginService,
+    private productService: ProductService,
     public loadingService: LoadingService,
     private route: ActivatedRoute
-    ) {
+  ) {
     this.loadingService.loading = true;
 
     this.tiendaService.getAllFilters().then( (filters: any) => {
@@ -71,7 +73,7 @@ export class TiendaComponent implements OnInit {
         this.applyFilters(true);
     } );
 
-    this.tiendaService.showProductInfoModal.subscribe( (product: Product) => {
+    this.productService.showProductInfoModal.subscribe( (product: Product) => {
       this.productToShowMoreInfo = product;
       showProductInfoModal();
     } );

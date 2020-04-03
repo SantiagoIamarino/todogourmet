@@ -11,8 +11,6 @@ export class TiendaService {
 
   attentionShowed = false;
 
-  showProductInfoModal = new EventEmitter();
-
   filters = {
     marcas: [],
     certificaciones: [],

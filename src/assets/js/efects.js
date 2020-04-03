@@ -84,7 +84,9 @@ function handleFilters() {
 // login---------------------------------------------
 
 function showProductInfoModal() {
-    $('#productInfoModal').modal('show');
+    setTimeout(() => {
+        $('#productInfoModal').modal('show')
+    }, 100);
 }
 
 function showLoginModal() {
