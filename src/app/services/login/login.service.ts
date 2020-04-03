@@ -11,6 +11,7 @@ import sweetAlert from 'sweetalert';
 declare var swal;
 import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 declare function handleAdditionalInfoModal(option);
 
@@ -39,8 +40,21 @@ export class LoginService {
    }
 
 
-  get windowRef() {
+  windowRef() {
     return window;
+  }
+
+  renewToken() {
+    let url = BACKEND_URL + '/users/renew-token' ;
+    url += '?token=' + this.token;
+
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        this.token = res.token;
+        localStorage.setItem('token', this.token);
+        return true;
+      }));
+
   }
 
   saveInStorage(user, token) {

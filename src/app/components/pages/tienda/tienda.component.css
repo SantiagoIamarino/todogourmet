@@ -130,11 +130,32 @@
     margin-bottom: 20px;
 }
 
+.tienda .bottom-tienda .sidebar .filter .filter-title{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
 .tienda .bottom-tienda .sidebar .filter .filter-title label{
     margin-bottom: 5px !important;
     font-size: 16px;
     color: #5c5858;
     padding-left: 5px;
+    cursor: pointer;
+}
+
+.tienda .bottom-tienda .sidebar .filter.desplegable .filter-options{
+    display: none;
+}
+
+.tienda .bottom-tienda .sidebar .filter .filter-title i{
+    color: #DE1B1B;
+    transition: .3s all ease;
+}
+
+.tienda .bottom-tienda .sidebar .filter .filter-title i.opened{
+    transform: rotate(180deg);
+    margin-bottom: 7px;
 }
 
 .tienda .sidebar .filters .esta-refrigerado {

@@ -47,7 +47,8 @@
                                 </div>
                             </div>
 
-                            <div class='animated fadeIn faster verification-code' *ngIf="windowRef.confirmationResult">
+                            <div class='animated fadeIn faster verification-code' 
+                                *ngIf="windowRef && windowRef.confirmationResult">
                                 <hr>
                                 <h4>Ingresa tu codigo de verificación</h4>
                                 <div class="col-sm-6 code-input">

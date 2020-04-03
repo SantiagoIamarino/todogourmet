@@ -13,11 +13,48 @@ th, td{
     padding-left: 35px !important;
 }
 
+.table-responsive, td.product-name{
+    overflow: visible !important;
+}
+
 .product-name{
     max-width: 200px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+}
+
+.product-name:hover span{
+    transition: .3s all ease;
+    display: block;
+}
+
+.product-name span{
+    position: absolute;
+    top: 40px;
+    right: 2vw;
+    background: #db4545;
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: none;
+    z-index: 999;
+    box-shadow: 2px 2px 1px #db4545;
+}
+
+.product-name span:before{
+    position: absolute;
+    z-index: -1;
+    content: "";
+    left: 15px;
+    top: -5px;
+    border-style: solid;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent #db4545 transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
 }
 
 .user-name{

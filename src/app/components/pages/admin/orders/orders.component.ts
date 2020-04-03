@@ -19,7 +19,7 @@ export class OrdersComponent implements OnInit {
   orderToShow: any;
   productToShowBarCode: any;
 
-  userToShow: User;
+  userToShow: any;
 
   filter = {
     status: '',
@@ -42,8 +42,7 @@ export class OrdersComponent implements OnInit {
   }
 
   setUser(user: User) {
-    this.userToShow = user;
-    console.log(this.userToShow);
+    this.userToShow = false;
   }
 
   getOrders() {
@@ -51,7 +50,18 @@ export class OrdersComponent implements OnInit {
 
     this.ordersService.getOrders().subscribe( (res: any) => {
       this.orders = res.orders;
+      this.verifyOrders(this.orders );
       this.loadingService.loading = false;
+    });
+  }
+
+  verifyOrders(orders: any[]) {
+    orders.forEach(order => {
+      if (!order.user) {
+        order.user = {
+          name: 'Usuario invalido'
+        };
+      }
     });
   }
 

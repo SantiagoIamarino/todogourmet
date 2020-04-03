@@ -306,13 +306,39 @@
 .producto .info .certifications .other-certs{
     display: none;
     position: absolute;
-    bottom:-35px;
-    right:0;
+    top: 29px;
+    right: -5px;
     font-size: 14px;
     color: white;
     background: #DE1B1B;
     padding: 3px 8px;
     border-radius: 15px;
+    width: 220px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.producto .info .certifications .other-certs:before{
+    position: absolute;
+    z-index: 99;
+    content: "";
+    right: 9px;
+    top: -5px;
+    border-style: solid;
+    border-width: 0 6px 6px 6px;
+    border-color: transparent transparent #DE1B1B;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+
+.producto .info .certifications .other-certs:hover{
+    display: flex;
 }
 
 .producto .info .certifications .more-certs:hover + .other-certs{

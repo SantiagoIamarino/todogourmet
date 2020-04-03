@@ -162,7 +162,6 @@
         <tr>       
            <th>IDENTIFICADOR</th> 
            <th>PRODUCTO</th>  
-           <th>IMAGEN</th>
            <th>MARCA</th> 
            <th>PRECIOUNITARIO</th>
            <th>DESCPORBULTO</th>
@@ -181,7 +180,6 @@
         <tr *ngFor="let product of products; let i = index">
            <td>{{ product.idNumber }}</td>  
            <td>{{ product.name }}</td> 
-           <td>{{ (product.img && product.img.secure_url) ? product.img.secure_url : '' }}</td>
            <td>{{ product.marca.formatted }}</td>
            <td>{{ product.precioUnit }}</td>
            <td>{{ product.descuentoPorBulto }}</td>

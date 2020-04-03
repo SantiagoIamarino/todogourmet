@@ -97,7 +97,10 @@
                   <tbody>
                     <tr *ngFor='let product of orderToShow.products; let i = index'>
                       <th scope="row">{{ i +1 }}</th>
-                      <td class='product-name'>{{ product.name }}</td>
+                      <td class='product-name'>
+                        {{ product.name }}
+                        <span>{{ product.name }}</span>
+                      </td>
                       <td>{{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}</td>
                       <td>{{ product.marca }}</td>
                       <td>${{ product.unidad }}</td>
@@ -141,14 +144,20 @@
 
 <div class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" *ngIf='userToShow'>
-      <div class="modal-header">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf='userToShow'>
         <h5 class="modal-title" id="userInfoModalLabel">{{ (userToShow.name) ? userToShow.name : userToShow.commerceName }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-header" *ngIf='!userToShow'>
+        <h5 class="modal-title" id="userInfoModalLabel">Usuario invalido</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf='userToShow'>
         <div class="email">
           <p>Email: <span>{{ userToShow.userEmail }}</span></p>
         </div>
@@ -198,6 +207,9 @@
               </div>
           </div>
         </div>
+      </div>
+      <div class="invalid-user modal-body" *ngIf='!userToShow'>
+        <p>El usuario solicitado no es valido, probablemente haya sido eliminado</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

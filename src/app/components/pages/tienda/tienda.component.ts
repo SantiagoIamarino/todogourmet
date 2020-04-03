@@ -13,6 +13,8 @@ declare function showLoginModal();
 
 declare function showProductInfoModal();
 
+declare function handleOptions(filterClass);
+
 declare var swal;
 
 @Component({
@@ -29,7 +31,7 @@ export class TiendaComponent implements OnInit {
     certificaciones: [],
     rubros: [],
     tipos: [],
-    estaRefrigerado: false
+    estaRefrigerado: null
   };
 
   products: Product[] = [];
@@ -118,6 +120,10 @@ export class TiendaComponent implements OnInit {
     }
   }
 
+  handleOptions(filterClass: string){
+    handleOptions(filterClass);
+  }
+
   switchPage(actionOrPage: any) {
     if (actionOrPage === 'prev') {
       if (this.searchType === 'query') {
@@ -148,7 +154,7 @@ export class TiendaComponent implements OnInit {
     if (this.searchType === 'query') {
       this.searchProducts(false);
     } else if (this.searchType === 'filters') {
-      this.applyFilters(false, false);
+      this.applyFilters(true, false);
     } else {
       this.getPosts(false);
     }
@@ -215,7 +221,7 @@ export class TiendaComponent implements OnInit {
       certificaciones: [],
       rubros: [],
       tipos: [],
-      estaRefrigerado: false
+      estaRefrigerado: null
     };
 
     this.getPosts();
@@ -248,7 +254,7 @@ export class TiendaComponent implements OnInit {
       this.filtersPage = 1;
     }
 
-    if (!applyRefrigerado) {
+    if (!applyRefrigerado || this.filtersToApply.estaRefrigerado === null) {
       this.tiendaService.searchByFilters(this.filtersToApply, true, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;

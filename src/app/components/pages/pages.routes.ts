@@ -11,11 +11,13 @@ import { SurtidoComponent } from './surtido/surtido.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { FaqComponent } from './faq/faq.component';
+import { VerifyTokenGuard } from '../../guards/verify-token.guard';
 
 const PagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
+        canActivate: [VerifyTokenGuard],
         children: [
             { path: 'home/:scrollTo', component: HomeComponent },
             { path: 'home', component: HomeComponent },

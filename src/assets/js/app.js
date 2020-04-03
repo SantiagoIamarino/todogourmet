@@ -226,3 +226,17 @@ function showBarCode(product) {
         lineColor:"#000"
     });
 }
+
+// Show filters in "Tienda"
+
+function handleOptions(filterClass) {
+    const elementToShow = '.' + filterClass + ' .filter-options';
+    $(elementToShow).slideToggle(300);
+
+    const elementToRotate = '.' + filterClass + ' .filter-title i';
+    if($(elementToRotate).hasClass('opened')){
+        $(elementToRotate).removeClass('opened');
+    } else {
+        $(elementToRotate).addClass('opened');
+    }
+}

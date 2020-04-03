@@ -41,7 +41,7 @@
         <div class="product-info">
             <p>Cantidad: 
                 <span class='gramaje'>
-                    {{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}
+                    {{ (product.gramaje.number) ? product.gramaje.number + ' ' + ((product.gramaje.unity === 'unidades' && product.gramaje.number === '1' ) ? 'unidad' : product.gramaje.unity) + '.' : product.gramaje }}
                 </span>
             </p>
             <p>Marca: 

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   lastHour = {
     hour: '',
     moreHours: ''
-  }
+  };
 
   constructor(
     public loginService: LoginService,

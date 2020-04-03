@@ -39,7 +39,9 @@ export class ImportService {
       const productToAdd = new Product();
 
       productToAdd.name = product.PRODUCTO;
-      productToAdd.img = product.IMAGEN;
+      if (product.IMAGEN) {
+        productToAdd.img = (product.IMAGEN);
+      }
       productToAdd.marca.nombre = this.sanitizeValue(product.MARCA);
       productToAdd.marca = this.sanitizeValue(product.MARCA);
       productToAdd.precioUnit = product.PRECIOUNITARIO;

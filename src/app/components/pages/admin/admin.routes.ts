@@ -9,12 +9,13 @@ import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
 import { ImportComponent } from './import/import.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
+import { VerifyTokenGuard } from '../../../guards/verify-token.guard';
 
 const AdminRoutes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AdminGuard],
+        canActivate: [AdminGuard, VerifyTokenGuard],
         children: [
             { path: 'productos', component: ProductosComponent },
             { path: 'importar', component: ImportComponent },

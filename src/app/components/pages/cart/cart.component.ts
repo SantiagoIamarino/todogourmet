@@ -5,6 +5,7 @@ import { LoginService } from '../../../services/login/login.service';
 import { BACKEND_URL } from '../../../config/config';
 import { ConfigurationService } from '../admin/configuration.service';
 import { Router } from '@angular/router';
+import { Product } from '../../../models/product.model';
 
 declare function showButton(preferenceId);
 
@@ -65,8 +66,17 @@ export class CartComponent implements OnInit, OnDestroy {
     this.loadingService.loading = true;
     this.cartService.getProducts().subscribe( (res: any) => {
       this.products = res.products;
+      this.verifyProducts(this.products);
       this.loadingService.loading = false;
     } );
+  }
+
+  verifyProducts(products: Product[]) {
+    products.forEach((product: any) => {
+      if (!product.productId) {
+        this.removeProductFromCart(product);
+      }
+    });
   }
 
   getConfigs() {
@@ -162,13 +172,22 @@ export class CartComponent implements OnInit, OnDestroy {
       icon: 'warning'
     }).then( wantsToDelete => {
       if (wantsToDelete) {
-        this.cartService.removeProductFromCart(product._id).subscribe( (res: any) => {
+        this.removeProductFromCart(product).then((res: any) => {
           sweetAlert({text: res.message,  icon: 'success', timer: 2000 });
-          this.getProducts();
-          this.cartService.getProductsLength();
-        } );
+        });
       }
     } );
+  }
+
+  removeProductFromCart(product) {
+    return new Promise((resolve, reject) => {
+      this.cartService.removeProductFromCart(product._id).subscribe( (res: any) => {
+        this.getProducts();
+        this.cartService.getProductsLength();
+
+        resolve(res);
+    } );
+    });
   }
 
   payment(type: string) {
@@ -181,7 +200,7 @@ export class CartComponent implements OnInit, OnDestroy {
       subtotal: this.subtotal,
       discount: this.discounts,
       total : this.total,
-      shipping: (this.isPayingShipping) ? '$' + this.config.shippingCost : 'A acordar',
+      shipping: (this.isPayingShipping) ? '$' + this.config.shippingCost : 'Gratuito',
     };
 
 
