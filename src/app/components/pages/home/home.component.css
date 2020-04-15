@@ -209,6 +209,19 @@
     margin-top: 20px;
 }
 
+.main .nuestras-marcas .banners .precios{
+    position: relative;
+}
+
+.main .nuestras-marcas .banners .precios .prices-title{
+    position: absolute;
+    top: 60%;
+    left: 10.2%;
+    color: white;
+    font-weight: bold;
+    font-size: 1.6vh;
+}
+
 .main .nuestras-marcas .banners img {
     max-width: 100%;
     height: auto;

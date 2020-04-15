@@ -47,6 +47,8 @@ export class TiendaComponent implements OnInit {
 
   productToShowMoreInfo: Product;
 
+  isSearching = false;
+
   constructor(
     private tiendaService: TiendaService,
     public loginService: LoginService,
@@ -244,6 +246,10 @@ export class TiendaComponent implements OnInit {
       this.filtersPage = 1;
     }
 
+    if (this.isSearching) {
+      this.applyFilters();
+    }
+
     if (!applyRefrigerado || this.filtersToApply.estaRefrigerado === null) {
       this.tiendaService.searchByFilters(this.filtersToApply, true, this.filtersPage)
       .subscribe( (res: any) => {
@@ -257,6 +263,8 @@ export class TiendaComponent implements OnInit {
       return;
     }
 
+    this.isSearching = true;
+
     this.tiendaService.searchByFilters(this.filtersToApply, false, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;
@@ -264,6 +272,7 @@ export class TiendaComponent implements OnInit {
 
         this.getPagesQuantity(res);
         this.searchType = 'filters';
+        this.isSearching = false;
         goToTop(0);
       } );
   }

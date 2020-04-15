@@ -60,7 +60,7 @@
             <div class="imgs">
                 <div *ngFor='let certification of certificaciones; let i = index'
                      class="certification-img">
-                    <div class="img-content" *ngIf='i < 4'>
+                    <div class="img-content" *ngIf='i < 4 && certification'>
                         <img class='img-fluid' [src]='certification.imagen' alt=""
                             [routerLink]="['/tienda', 'certificacion', certification.formattedFilter]">
                         <div class="certification-popover">
@@ -122,9 +122,21 @@
         </div>
     </div>
     <div class="add-to-cart" *ngIf="loginService.user && loginService.user._id">
-        <button (click)='addToCart(product)'>
-            AGREGAR AL CARRITO
+        <button (click)='addToCart(product)'
+            class='d-flex justify-content-between align-items-center'>
+            <p>Agregar</p>
             <i class="fa fa-shopping-cart"></i>
+            <p>
+                (Stock: {{ (product.stock === 'ilimitado') ? '99u.' : (product.stock) ? product.stock + 'u.' : 's/n' }})
+            </p>
         </button>
+    </div>
+    <div class="out-of-stock" *ngIf='stockOut'>
+        <div class="cover">
+            <p>Stock agotado</p>
+        </div>
+        <div class="request-stock">
+            <button data-toggle="modal" data-target="#loNecesitoModal">Lo necesito!</button>
+        </div>
     </div>
 </div>

@@ -91,9 +91,12 @@
             </div>
 
             <div class="row banners">
-                <div class="col-md-6 text-center margin-bottom-30">
+                <div class="col-md-6 text-center margin-bottom-30 precios">
                     <a [href]="pricesList" target="_blank">
                         <img src="../../../../assets/img/banner-precios.jpg" class="img-responsive banners-bottom">
+                        <div class="prices-title">
+                            <p>COMERCIOS</p>
+                        </div>
                     </a>
                 </div>
                 <div class="col-md-6 text-center margin-bottom-30">
@@ -110,15 +113,15 @@
         </div>
         <div class="container">
             <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5279.061347640518!2d-57.60039682614583!3d-38.11812884965774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDA3JzA0LjQiUyA1N8KwMzUnNTMuNiJX!5e0!3m2!1ses-419!2sar!4v1572305504032!5m2!1ses-419!2sar"
-                    width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3142.192099204917!2d-57.56466138408987!3d-38.042610054946834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584de707401a847%3A0x3378e72b3fc2e20a!2sJuramento%201310%2C%20B7603ALF%20Mar%20del%20Plata%2C%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1586043669064!5m2!1ses-419!2sar" 
+                width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
             </div>
             <div class="contact-info">
                 <p class="street">
-                    <i class="fa-map-marker fa"></i> Calle 8 N°3750 | Mar del Plata, Argentina
+                    <i class="fa-map-marker fa"></i> Juramento 1310 | Mar del Plata, Argentina
                 </p>
-                <a href="tel:+5492235314209" class="phone">
-                    <i class="fa-phone fa"></i> +54 9 223 531 4209
+                <a href="tel:+5492234563639" class="phone">
+                    <i class="fa-phone fa"></i> +54 9 223 4563639
                 </a>
                 <a href="mailto:hola@todogourmet.com.ar" class="email">
                     <i class="fa-envelope fa"></i> hola@todogourmet.com.ar
@@ -164,4 +167,24 @@
             </div>
         </div>
     </div>
+</div>
+  
+<!-- Modal -->
+<div class="modal fade" id="loNecesitoModal" tabindex="-1" role="dialog" aria-labelledby="loNecesitoModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="loNecesitoModalLabel">Producto sin stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        El producto solicitado no se encuentra en stock actualmente, pero se le notificara a los administradores su necesidad de adquirir este producto.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+    </div>
+    </div>
+</div>
 </div>

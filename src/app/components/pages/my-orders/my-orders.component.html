@@ -77,7 +77,10 @@
                   <tbody>
                     <tr *ngFor='let product of orderToShow.products; let i = index'>
                       <th scope="row">{{ i +1 }}</th>
-                      <td class='product-name'>{{ product.name }}</td>
+                      <td class='product-name'>
+                        <p>{{ product.name }}</p>
+                        <span>{{ product.name }}</span>
+                      </td>
                       <td>{{ (product.gramaje.number) ? product.gramaje.number + ' ' + product.gramaje.unity + '.' : product.gramaje }}</td>
                       <td>{{ product.marca }}</td>
                       <td>${{ product.unidad }}</td>

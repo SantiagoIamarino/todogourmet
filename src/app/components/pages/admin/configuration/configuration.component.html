@@ -175,7 +175,9 @@
            <th>CANTIDAD</th>
            <th>VISIBILIDAD</th>
            <th>DESCRIPCION</th>
+           <th>CONTAGRAM</th>
            <th>CODIGO</th>
+           <th>STOCK</th>
         </tr>    
         <tr *ngFor="let product of products; let i = index">
            <td>{{ product.idNumber }}</td>  
@@ -196,7 +198,9 @@
                 {{ (product.visibleFor === 'CONSUMER_ROLE') ? 'FINAL' : 'COMERCIO' }}
            </td>
            <td>{{ product.moreInfo }}</td>
+           <td>{{ product.contagram }}</td>
            <td>{{ product.barCode }}</td>
+           <td>{{ product.stock }}</td>
         </tr> 
     </table>
 </div>

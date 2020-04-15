@@ -91,6 +91,21 @@
                         class='edit-input' placeholder="Codigo de barras">
                 </span>
             </div>
+            <div class="contagram-code bar-code">
+                <p>Contagram</p>
+                <span>
+                    <input type="text" [(ngModel)]="product.contagram" name='contagram'
+                        class='edit-input' placeholder="Codigo Contagram">
+                </span>
+            </div>
+
+            <div class="product-stock bar-code">
+                <p>Stock</p>
+                <span>
+                    <input type="text" [(ngModel)]="product.stock" name='stock'
+                        class='edit-input' placeholder="Stock producto">
+                </span>
+            </div>
         </div>
         <div class="more-info mt-1">
             <div class="more-info-top">

@@ -39,18 +39,21 @@ export class CartService {
     return this.http.get(url);
   }
 
-  addProductToCart( productId, quantity, isRefrigerado ) {
+  addProductToCart( product, lastStock ) {
 
     let url = BACKEND_URL + '/checkout/add-to-cart';
     url += '?token=' + this.loginService.token;
 
     const productToAdd = {
-      productId,
-      quantity
+      productId: product._id,
+      quantity: product.quantity,
+      lastStock,
+      stock: lastStock,
+      stockChanged: false
     };
 
     return new Promise( (resolve, reject) => {
-      if (isRefrigerado) {
+      if (product.estaRefrigerado) {
         const subscriber =
         this.configurationService.getLocations().subscribe( (res: any) => {
           if (res.locations.length !== this.locations.length) {

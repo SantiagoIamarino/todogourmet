@@ -6,6 +6,7 @@ import { BACKEND_URL } from '../../../config/config';
 import { ConfigurationService } from '../admin/configuration.service';
 import { Router } from '@angular/router';
 import { Product } from '../../../models/product.model';
+import { ProductService } from '../../../services/product.service';
 
 declare function showButton(preferenceId);
 
@@ -41,6 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
     public loginService: LoginService,
     private configurationService: ConfigurationService,
     public loadingService: LoadingService,
+    private productService: ProductService,
     private router: Router
   ) {
     this.getProducts();
@@ -86,6 +88,11 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   getSubtotal(moreOrLess: string, product) {
+    if (!product.stockChanged) {
+      product.lastStock = product.lastStock;
+    } else {
+      product.stock = product.lastStock;
+    }
 
     if (product.quantity >= 1000) {
       product.quantity = 999;
@@ -100,10 +107,46 @@ export class CartComponent implements OnInit, OnDestroy {
     if (moreOrLess !== 'changed') {
       if (moreOrLess === 'less') {
         if (product.quantity > 1) {
-          product.quantity = parseInt(product.quantity) - 1;
+          if (!product.stock || product.stock === 'ilimitado') {
+            product.quantity = parseInt(product.quantity) - 1;
+          } else if (parseInt(product.quantity) > 1) {
+            product.quantity = parseInt(product.quantity) - 1;
+            product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+            product.stockChanged = true;
+          }
         }
       } else {
-        product.quantity = parseInt(product.quantity) + 1;
+        if (!product.stock || product.stock === 'ilimitado') {
+          product.quantity = parseInt(product.quantity) + 1;
+        } else if (product.quantity < parseInt(product.stock)) {
+          product.quantity = parseInt(product.quantity) + 1;
+          product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+          product.stockChanged = true;
+        } else {
+          product.quantity = product.stock;
+          product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+          swal({
+            title: 'Error',
+            text: 'No puedes agregar mas productos, ya que excede el stock.',
+            icon: 'error',
+            timer: 2000
+          });
+        }
+      }
+    } else {
+      if (!product.stock || product.stock === 'ilimitado') {
+      } else if (product.quantity <= parseInt(product.stock)) {
+        product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+        product.stockChanged = true;
+      } else {
+        product.quantity = product.stock;
+        product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+        swal({
+          title: 'Error',
+          text: 'No puedes agregar mas productos, ya que excede el stock.',
+          icon: 'error',
+          timer: 2000
+        });
       }
     }
 
@@ -223,19 +266,39 @@ export class CartComponent implements OnInit, OnDestroy {
     });
 
     this.cartService.payment(body).subscribe( (res: any) => {
-        swal({
-          title: 'Pedido realizado correctamente',
-          text: 'Nos contactaremos a la brevedad para coordinar la entrega!',
-          icon: 'success'
-        }).then( () => {
-          this.router.navigate(['/tienda']);
-        } );
+        this.updateProductsStock().then(() => {
+          swal({
+            title: 'Pedido realizado correctamente',
+            text: 'Nos contactaremos a la brevedad para coordinar la entrega!',
+            icon: 'success'
+          }).then( () => {
+            this.router.navigate(['/tienda']);
+          } );
+        });
 
         this.cartService.removeAllProducts().subscribe( () => {
           this.cartService.getProductsLength();
         } );
         this.loginService.saveInStorage(res.userDB, this.loginService.token);
     } );
+  }
+
+  updateProductsStock() {
+    return new Promise((resolve, reject) => {
+
+      let taskIndex = 0;
+
+      this.products.forEach(product => {
+        this.products[taskIndex].productId.stock = this.products[taskIndex].stock;
+
+        this.productService.editProduct(this.products[taskIndex].productId).then(() => {
+          taskIndex++;
+          if (taskIndex === this.products.length) {
+            resolve();
+          }
+        });
+      });
+    });
   }
 
   checkout() {

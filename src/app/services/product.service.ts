@@ -86,13 +86,13 @@ export class ProductService {
     });
   }
 
-  getProductsByFilter(marca: string, currentPage = 1) {
-    let url = BACKEND_URL + '/products/marca/' + marca;
-    url += '?token=' + this.loginService.token;
+  getProductsByFilters(filters, currentPage = 1) {
+    let url = BACKEND_URL + '/products/search/';
+    url += '?deleteRefrigerado=yes';
 
-    url += '&page=' + currentPage;
+    filters.page = currentPage;
 
-    return this.http.get(url);
+    return this.http.post(url, filters);
   }
 
   searchProducts( term: string, currentPage = 1 ) {
@@ -107,7 +107,6 @@ export class ProductService {
 
 
   uploadProduct( product: Product) {
-    // console.log(product);
     let url = BACKEND_URL + '/products';
     url += '?token=' + this.loginService.token;
 

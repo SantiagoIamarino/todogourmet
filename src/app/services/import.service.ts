@@ -57,7 +57,9 @@ export class ImportService {
       productToAdd.gramaje.unity = (product.CANTIDAD) ? product.CANTIDAD.split(' ')[1] : '';
       productToAdd.visibleFor = 'BOTH';
       productToAdd.moreInfo = product.DESCRIPCION;
+      productToAdd.contagram = product.CONTAGRAM;
       productToAdd.barCode = product.CODIGO;
+      productToAdd.stock = product.STOCK;
 
       if (product.VISIBILIDAD !== 'AMBOS' && product.VISIBILIDAD === 'FINAL') {
         productToAdd.visibleFor = 'CONSUMER_ROLE';

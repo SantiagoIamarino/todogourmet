@@ -22,6 +22,11 @@ export class ProductComponent implements OnInit {
 
   imageLoaded = false;
 
+  originalProductStock: string;
+  stockChanged = false;
+
+  stockOut = false;
+
   constructor(
     private cartService: CartService,
     private router: Router,
@@ -38,6 +43,13 @@ export class ProductComponent implements OnInit {
         this.certificaciones = certifications;
       } );
     }
+
+    if (!this.product.stock || this.product.stock === 'ilimitado') {
+      this.stockOut = false;
+    // tslint:disable-next-line: radix
+    } else if (parseInt(this.product.stock) <= 0) {
+      this.stockOut = true;
+    }
   }
 
   showProductInfoModal() {
@@ -45,6 +57,12 @@ export class ProductComponent implements OnInit {
   }
 
   quantityChanges(moreOrLess: string, product) {
+
+    if (!this.stockChanged) {
+      this.originalProductStock = product.stock;
+    } else {
+      product.stock = this.originalProductStock;
+    }
 
     if (product.quantity >= 1000) {
       product.quantity = 999;
@@ -59,10 +77,46 @@ export class ProductComponent implements OnInit {
     if (moreOrLess !== 'changed') {
       if (moreOrLess === 'less') {
         if (product.quantity > 1) {
-          product.quantity = parseInt(product.quantity) - 1;
+          if (!product.stock || product.stock === 'ilimitado') {
+            product.quantity = parseInt(product.quantity) - 1;
+          } else if (parseInt(product.quantity) > 1) {
+            product.quantity = parseInt(product.quantity) - 1;
+            product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+            this.stockChanged = true;
+          }
         }
       } else {
-        product.quantity = parseInt(product.quantity) + 1;
+        if (!product.stock || product.stock === 'ilimitado') {
+          product.quantity = parseInt(product.quantity) + 1;
+        } else if (product.quantity < parseInt(product.stock)) {
+          product.quantity = parseInt(product.quantity) + 1;
+          product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+          this.stockChanged = true;
+        } else {
+          product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+          swal({
+            title: 'Error',
+            text: 'No puedes agregar mas productos, ya que excede el stock.',
+            icon: 'error',
+            timer: 2000
+          });
+        }
+      }
+    } else {
+      if (!product.stock || product.stock === 'ilimitado') {
+      } else if (product.quantity <= parseInt(product.stock)) {
+        product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
+        this.stockChanged = true;
+      } else {
+        product.quantity = this.originalProductStock.toString();
+        product.stock = '0';
+        this.stockChanged = true;
+        swal({
+          title: 'Error',
+          text: 'No puedes agregar mas productos, ya que excede el stock.',
+          icon: 'error',
+          timer: 2000
+        });
       }
     }
 
@@ -113,7 +167,7 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.addProductToCart(product._id, product.quantity, product.estaRefrigerado)
+    this.cartService.addProductToCart(product, this.originalProductStock)
           .then( (res: any) => {
             this.cartService.getProductsLength();
 

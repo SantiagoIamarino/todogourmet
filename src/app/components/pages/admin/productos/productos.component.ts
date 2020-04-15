@@ -21,16 +21,21 @@ export class ProductosComponent implements OnInit {
 
   pages = [];
   currentPage = 1;
-  queryPage = 1;
   filtersPage = 1;
 
   marcas: any[] = [];
-  term: string;
 
   productToEdit: Product;
 
-  filter = '';
-  destacados = false;
+  filtersToApply = {
+    termino: '',
+    marca: '',
+    certificaciones: [],
+    rubros: [],
+    tipos: [],
+    estaRefrigerado: null,
+    destacado: false
+  };
 
   constructor(
     private productService: ProductService,
@@ -55,7 +60,12 @@ export class ProductosComponent implements OnInit {
   ngOnInit() {
   }
 
-  getProducts() {
+  getProducts(resetPages = true) {
+
+    if (resetPages) {
+      this.currentPage = 1;
+    }
+
     this.loading = true;
     this.searchType = null;
 
@@ -81,25 +91,19 @@ export class ProductosComponent implements OnInit {
 
   switchPage(actionOrPage: any) {
     if (actionOrPage === 'prev') {
-      if (this.searchType === 'query') {
-        this.queryPage -= 1;
-      } else if (this.searchType === 'filters') {
+      if (this.searchType === 'filters') {
         this.filtersPage -= 1;
       } else {
         this.currentPage -= 1;
       }
     } else if (actionOrPage === 'next') {
-      if (this.searchType === 'query') {
-        this.queryPage += 1;
-      } else if (this.searchType === 'filters') {
+      if (this.searchType === 'filters') {
         this.filtersPage += 1;
       } else {
         this.currentPage += 1;
       }
     } else {
-      if (this.searchType === 'query') {
-        this.queryPage = actionOrPage;
-      } else if (this.searchType === 'filters') {
+      if (this.searchType === 'filters') {
         this.filtersPage = actionOrPage;
       } else {
         this.currentPage = actionOrPage;
@@ -109,9 +113,9 @@ export class ProductosComponent implements OnInit {
     if (this.searchType === 'query') {
       this.searchProducts();
     } else if (this.searchType === 'filters') {
-      this.applyFilter();
+      this.applyFilter(false);
     } else {
-      this.getProducts();
+      this.getProducts(false);
     }
   }
 
@@ -122,30 +126,17 @@ export class ProductosComponent implements OnInit {
   }
 
   searchProducts( ) {
-    if (this.term) {
-      this.loading = true;
-
-      this.productService.searchProducts(this.term, this.queryPage)
-      .subscribe( (res: any) => {
-          this.products = res.products;
-          this.loading = false;
-
-          this.getPagesQuantity(res);
-          this.searchType = 'query';
-          goToTop(0);
-      } );
-    } else {
-      this.getProducts();
-    }
+    this.applyFilter();
   }
 
-  applyFilter() {
-    if (!this.filter) {
-      this.getProducts();
-      return;
+  applyFilter(resetPages = true) {
+
+    if (resetPages) {
+      this.filtersPage = 1;
+      this.currentPage = 1;
     }
 
-    this.productService.getProductsByFilter(this.filter, this.filtersPage)
+    this.productService.getProductsByFilters(this.filtersToApply, this.filtersPage)
       .subscribe( (res: any) => {
         this.products = res.products;
 
@@ -156,15 +147,8 @@ export class ProductosComponent implements OnInit {
   }
 
   getDestacados(event) {
-    this.destacados = !this.destacados;
-    if (this.destacados) {
-      this.productService.getDestacados().subscribe( products => {
-        this.products = products;
-        this.pages = [];
-      } );
-    } else {
-      this.getProducts();
-    }
+    this.filtersToApply.destacado = !this.filtersToApply.destacado;
+    this.applyFilter();
   }
 
   openEditModal( product ) {

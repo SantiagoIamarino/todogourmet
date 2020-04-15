@@ -27,6 +27,8 @@ export class Product {
         public barCode?: string,
         public visibleFor?: string,
         public moreInfo?: string,
+        public contagram?: string,
+        public stock?: string,
         public _id?: string
     ) {}
 }
