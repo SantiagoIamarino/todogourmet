@@ -11,6 +11,8 @@ import { User } from '../../../models/user.model';
 import { CartService } from '../cart/cart.service';
 import { GobAPIService } from '../../../services/gob-api.service';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../shared/loading/loading.service';
+import { UsersService } from '../admin/users.service';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +48,9 @@ export class LoginComponent implements OnInit {
     public loginService: LoginService,
     public cartService: CartService,
     public gobAPIService: GobAPIService,
-    public router: Router
+    public router: Router,
+    private loadingService: LoadingService,
+    private usersService: UsersService
   ) {
     this.cartService.isOnCart.subscribe( showCart => {
       this.showCart = showCart;
@@ -217,37 +221,40 @@ export class LoginComponent implements OnInit {
     } );
   }
 
+  createOrLoginUser() {
+    this.loginService.getUser(this.user.phoneNumber).subscribe( (res: any) => {
+      this.getProvinces().then( () => {
+        if (res.user) {
+          this.loginService.login(this.user).then( () => {
+            sweetAlert({
+              title: 'Inicio de sesión',
+              text: 'Iniciaste sesión correctamente!',
+              icon: 'success',
+              timer: 2000
+            });
+            this.cartService.getProductsLength();
+          });
+        } else {
+          this.loginService.register(this.user).then( () => {
+            sweetAlert({
+              title: 'Inicio de sesión',
+              text: 'Iniciaste sesión correctamente!',
+              icon: 'success',
+              timer: 2000
+            });
+            this.cartService.getProductsLength();
+          } );
+        }
+      } );
+    } );
+  }
+
   verifyLoginCode() {
     this.windowRef.confirmationResult
         .confirm(this.verificationCode)
         .then( result => {
           this.user = result.user;
-          this.loginService.getUser(this.user.phoneNumber).subscribe( (res: any) => {
-            this.getProvinces().then( () => {
-              if (res.user) {
-                this.loginService.login(this.user).then( () => {
-                  sweetAlert({
-                    title: 'Inicio de sesión',
-                    text: 'Iniciaste sesión correctamente!',
-                    icon: 'success',
-                    timer: 2000
-                  });
-                  this.cartService.getProductsLength();
-                });
-              } else {
-                this.loginService.register(this.user).then( () => {
-                  sweetAlert({
-                    title: 'Inicio de sesión',
-                    text: 'Iniciaste sesión correctamente!',
-                    icon: 'success',
-                    timer: 2000
-                  });
-                  this.cartService.getProductsLength();
-                } );
-              }
-            } );
-          } );
-
+          this.createOrLoginUser();
           hideModal();
       })
     .catch( error => {
@@ -259,5 +266,43 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loginWithPassword() {
+    this.loadingService.loading = true;
+    const phoneNumber = this.phone.getPhoneNumer();
+
+    if (phoneNumber.indexOf('undefined') >= 0) {
+      sweetAlert('Error', 'Debes ingresar tu numero', 'error');
+      return;
+    }
+
+    this.usersService.getUserByPhone(phoneNumber)
+      .subscribe(((res: any) => {
+        this.loadingService.loading = false;
+
+        sweetAlert('Ingresa tu contraseña', {
+          content: 'input',
+        })
+        .then((password) => {
+          if (!res.user) {
+            sweetAlert('Repite tu contraseña', {
+              content: 'input',
+            })
+            .then((rePassword) => {
+              if (password === rePassword) {
+                this.user.password = password;
+                this.user.phoneNumber = phoneNumber;
+                this.createOrLoginUser();
+              } else {
+                sweetAlert('Error', 'Las contraseñas no coinciden', 'error');
+              }
+            });
+          } else {
+            this.user.password = password;
+            this.user.phoneNumber = phoneNumber;
+            this.createOrLoginUser();
+          }
+        });
+      }));
+  }
 
 }

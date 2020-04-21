@@ -87,6 +87,7 @@ export class User {
         public surtido = [],
         public commerceName?: string,
         public contactPerson?: string,
+        public password?: string,
         public _id = ''
     ) {}
 }

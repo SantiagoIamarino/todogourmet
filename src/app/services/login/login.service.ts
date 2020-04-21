@@ -221,7 +221,8 @@ export class LoginService {
       false,
       [],
       (user.commerceName) ? user.commerceName : '',
-      (user.contactPerson) ? user.contactPerson : ''
+      (user.contactPerson) ? user.contactPerson : '',
+      user.password
     );
 
     delete userToUpload._id;
@@ -274,9 +275,12 @@ export class LoginService {
 
     return new Promise( (resolve, reject) => {
       this.http.post(url, user).subscribe( (res: any) => {
-        if (res.user) {
+        if (res.user && res.ok) {
           this.saveInStorage(res.user, res.token);
           resolve('Logged');
+        } else {
+          sweetAlert('Error', res.message, 'error');
+          reject();
         }
       } );
     } );

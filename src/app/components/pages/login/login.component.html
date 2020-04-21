@@ -55,6 +55,11 @@
                                     <input name="code" [(ngModel)]="verificationCode" class='form-control' type="text" placeholder="Ingresa el código">
                                     <button class='mt-2 btn btn-success' (click)="verifyLoginCode()">Verificar</button>
                                 </div>
+
+                                <div (click)='loginWithPassword()'
+                                    class="login-with-password mt-4" data-dismiss="modal">
+                                    <p>¿No recibiste el codigo?</p>
+                                </div>
                             </div>
 
                         </div>
@@ -128,6 +133,7 @@
                     <input type="text" [(ngModel)]="loginService.user.userEmail" name='userEmail'
                         class="form-control" id="recipient-email" placeholder="tucorreo@correo.com">
                 </div>
+
                 <div class="form-group w-100 ml-2" *ngIf='!loginService.isCommerce'>
                     <label for="recipient-birthday" class="col-form-label">Fecha de nacimiento:</label>
                     <input type="text" [(ngModel)]="loginService.user.birthDay" 

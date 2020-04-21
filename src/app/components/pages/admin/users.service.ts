@@ -22,6 +22,13 @@ export class UsersService {
     return this.http.get(url);
   }
 
+  getUserByPhone(phoneNumber) {
+    let url = BACKEND_URL + '/users/' + phoneNumber;
+    url += '?token=' + this.loginService.token;
+
+    return this.http.get(url);
+  }
+
   updateUser(user: User) {
     let url = BACKEND_URL + '/users';
     url += '?token=' + this.loginService.token;
