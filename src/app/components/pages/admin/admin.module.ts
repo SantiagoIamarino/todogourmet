@@ -13,6 +13,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { OrdersComponent } from './orders/orders.component';
 import { UsersComponent } from './users/users.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
+import { StockComponent } from './stock/stock.component';
 
 
 
@@ -25,7 +26,8 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     ConfigurationComponent,
     OrdersComponent,
     UsersComponent,
-    NewsletterComponent
+    NewsletterComponent,
+    StockComponent
   ],
   imports: [
     CommonModule,

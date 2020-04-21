@@ -159,7 +159,6 @@
 }
 
 .tienda .sidebar .filters .esta-refrigerado {
-    padding-left: 10px;
     margin-top: 20px;
 }
 
@@ -223,18 +222,18 @@
     pointer-events: none;
 }
 
-.tienda .sidebar .filters .esta-refrigerado #refrigerado:checked+.toggle:before {
+.tienda .sidebar .filters .esta-refrigerado .checkbox-toggle:checked+.toggle:before {
     background: rgb(223, 144, 144);
 }
 
-.tienda .sidebar .filters .esta-refrigerado #refrigerado:checked+.toggle span {
+.tienda .sidebar .filters .esta-refrigerado .checkbox-toggle:checked+.toggle span {
     background: rgb(211, 45, 45);
     transform: translateX(20px);
     transition: all .2s cubic-bezier(.8, .4, .3, 1.25), background .15s ease;
     box-shadow: 0 3px 8px rgba(rgba(211, 45, 45), .2);
 }
 
-.tienda .sidebar .filters .esta-refrigerado #refrigerado:checked+.toggle span:before {
+.tienda .sidebar .filters .esta-refrigerado .checkbox-toggle:checked+.toggle span:before {
     transform: scale(1);
     opacity: 0;
     transition: all .4s ease;

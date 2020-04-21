@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users.component';
 import { ImportComponent } from './import/import.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import { VerifyTokenGuard } from '../../../guards/verify-token.guard';
+import { StockComponent } from './stock/stock.component';
 
 const AdminRoutes: Routes = [
     {
@@ -24,6 +25,7 @@ const AdminRoutes: Routes = [
             { path: 'mensajes', component: MensajesComponent },
             { path: 'newsletter', component: NewsletterComponent },
             { path: 'pedidos', component: OrdersComponent },
+            { path: 'stock', component: StockComponent },
             { path: 'configuracion', component: ConfigurationComponent },
             { path: '', pathMatch: 'full', redirectTo: 'productos' }
         ]

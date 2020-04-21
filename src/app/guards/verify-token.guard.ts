@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { LoginService } from '../services/login/login.service';
 
 declare var swal;
@@ -10,7 +10,8 @@ declare var swal;
 export class VerifyTokenGuard implements CanActivate {
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   canActivate(): Promise<boolean> | boolean {
@@ -29,6 +30,7 @@ export class VerifyTokenGuard implements CanActivate {
       swal('Su sesión ha expirado', 'Debe loguearse nuevamente para continuar', 'error');
 
       this.loginService.destroyStorage();
+      this.router.navigate(['/home']);
       return false;
     }
 

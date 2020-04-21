@@ -1,0 +1,36 @@
+<div class="container admin-products mt-2 animated fadeIn faster">
+    <div class="row">
+        <div class="col-md-12 productos">
+            <div class="admin-title d-flex justify-content-between">
+                <div class="title w-50">
+                    <h2>Lista de alertas de stock</h2>
+                </div>
+            </div>
+            <div class="alerts mt-4">
+                <div id="accordion">
+                    <div class="card" *ngFor='let alert of alerts'>
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                            <button class="btn btn-link w-100 collapsed d-flex justify-content-between" 
+                                data-toggle="collapse" [attr.data-target]="'#lol' + alert._id" aria-expanded="false" aria-controls="collapseTwo">
+                                Alerta de stock. Producto: '{{ alert.product.name }}' 
+                                - {{ alert.product.gramaje.number + alert.product.gramaje.unity }} 
+                                - {{ alert.product.marca.nombre }}
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            </h5>
+                        </div>
+                        <div [attr.id]="'lol' + alert._id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>Se han realizado
+                                    <strong>{{ alert.quantity }}</strong>
+                                     solicitudes de reposicion de stock del producto <strong>{{ alert.product.name }}</strong> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

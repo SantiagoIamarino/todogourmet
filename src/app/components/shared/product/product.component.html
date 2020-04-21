@@ -124,19 +124,28 @@
     <div class="add-to-cart" *ngIf="loginService.user && loginService.user._id">
         <button (click)='addToCart(product)'
             class='d-flex justify-content-between align-items-center'>
-            <p>Agregar</p>
-            <i class="fa fa-shopping-cart"></i>
-            <p>
+            <p>Agregar
+                <i class="fa fa-shopping-cart"></i>
+            </p>
+            <p class='product-stock'>
                 (Stock: {{ (product.stock === 'ilimitado') ? '99u.' : (product.stock) ? product.stock + 'u.' : 's/n' }})
             </p>
         </button>
     </div>
-    <div class="out-of-stock" *ngIf='stockOut'>
+    <div class="out-of-stock" *ngIf='stockOut && loginService.user && loginService.user._id'>
         <div class="cover">
-            <p>Stock agotado</p>
         </div>
-        <div class="request-stock">
-            <button data-toggle="modal" data-target="#loNecesitoModal">Lo necesito!</button>
+
+        <div class="stock-content">
+            <p class='w-100'>{{ product.name }}</p>
+            <p class='w-100'>Marca: {{ product.marca.nombre }}</p>
+            <p class='title w-100'>Stock agotado</p>
+
+            <div class="request-stock w-100">
+                <button (click)='sendAlert()'>
+                    Lo necesito!
+                </button>
+            </div>
         </div>
     </div>
 </div>

@@ -64,6 +64,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   getPosts() {
     this.loadingService.loading = true;
     this.productsService.getDestacados().subscribe( (products: any) => {
+
+      products = products.filter((product) => {
+        // tslint:disable-next-line: radix
+        if (!product.stock || product.stock === 'ilimitado' || parseInt(product.stock) > 0 ) {
+          return product;
+        }
+      });
+
       if (products.length > 4) {
         for (let i = 0; i < 4; i++) {
           const index = Math.floor(Math.random() * products.length);

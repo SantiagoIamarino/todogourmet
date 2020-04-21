@@ -248,4 +248,17 @@ export class ProductService {
 
     return this.http.delete(url);
   }
+
+  sendStockAlert(product: Product) {
+    const alert = {
+      user: this.loginService.user._id,
+      product: product._id
+    };
+
+    let url = BACKEND_URL + '/stock-alert';
+    url += '?token=' + this.loginService.token;
+
+    return this.http.post(url, alert);
+  }
+
 }

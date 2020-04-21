@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
 
   imageLoaded = false;
 
-  originalProductStock: string;
+  originalProductStock;
   stockChanged = false;
 
   stockOut = false;
@@ -37,6 +37,8 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.originalProductStock = this.product.stock;
+
     if (this.product.certificaciones.length > 0) {
       this.productService.getCertifications(this.product.certificaciones)
       .then( (certifications: any) => {
@@ -189,6 +191,20 @@ export class ProductComponent implements OnInit {
           });
           this.tiendaService.notAllowedSubscriber.emit('Shipping not allowed');
         } );
+  }
+
+  sendAlert() {
+    this.productService.sendStockAlert(this.product)
+      .subscribe((res) => {
+        swal({
+          title: 'Producto sin stock',
+          // tslint:disable-next-line: max-line-length
+          text: 'El producto solicitado no se encuentra en stock actualmente, pero se le notificara a los administradores su necesidad de adquirir este producto.',
+          icon: 'success',
+          timer: 3000
+        }
+        );
+      });
   }
 
 }

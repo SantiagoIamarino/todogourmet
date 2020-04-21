@@ -44,6 +44,7 @@
                             <th scope="col">Producto</th>
                             <th scope="col">Cons. final</th>
                             <th scope="col">Comercio</th>
+                            <th scope="col">Stock</th>
                             <th scope="col">Controles</th>
                         </tr>
                     </thead>
@@ -62,6 +63,7 @@
                             <td class='title'>{{ product.name }}</td>
                             <td class='price'>$ {{ product.precioUnit }}</td>
                             <td class='price'>$ {{ product.precioComercio }}</td>
+                            <td class='price'>{{ (product.stock) ? (product.stock === 'ilimitado') ? '99u.' : product.stock +  'u.' : 's/n' }}</td>
                             <td class='controls'>
                                 <div class="edit">
                                     <button (click)='openEditModal(product)'

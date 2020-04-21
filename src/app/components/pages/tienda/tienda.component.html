@@ -123,8 +123,28 @@
                                     <div class="checkbox-input">
                                         <input [(ngModel)]="filtersToApply.estaRefrigerado" (change)='applyFilters(true)'
                                             name="estaRefrigerado"
+                                            class='checkbox-toggle'
                                             type="checkbox" id="refrigerado" style="display:none" />
                                         <label for="refrigerado" class="toggle">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <p>Si</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter esta-refrigerado">    
+                            <div class="filter-title">
+                                <label for="stock">Con stock</label>
+                            </div>
+                            <div class="filter-options">
+                                <div class="checkbox-new">
+                                    <p>No</p>
+                                    <div class="checkbox-input">
+                                        <input [(ngModel)]="filtersToApply.conStock" (change)='applyFilters()'
+                                            name="conStock" class='checkbox-toggle'
+                                            type="checkbox" id="stock" style="display:none" />
+                                        <label for="stock" class="toggle">
                                             <span></span>
                                         </label>
                                     </div>

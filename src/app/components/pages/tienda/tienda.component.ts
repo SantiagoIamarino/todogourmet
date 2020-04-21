@@ -32,7 +32,8 @@ export class TiendaComponent implements OnInit {
     certificaciones: [],
     rubros: [],
     tipos: [],
-    estaRefrigerado: null
+    estaRefrigerado: null,
+    conStock: null
   };
 
   products: Product[] = [];

@@ -123,14 +123,17 @@ export class CartComponent implements OnInit, OnDestroy {
           product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
           product.stockChanged = true;
         } else {
+          if (parseInt(product.stock) <= 0) {
+           this.removeProductFromCart(product);
+          }
           product.quantity = product.stock;
           product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
-          swal({
-            title: 'Error',
-            text: 'No puedes agregar mas productos, ya que excede el stock.',
-            icon: 'error',
-            timer: 2000
-          });
+          // swal({
+          //   title: 'Error',
+          //   text: 'No puedes agregar mas productos, ya que excede el stock.',
+          //   icon: 'error',
+          //   timer: 2000
+          // });
         }
       }
     } else {
@@ -139,14 +142,17 @@ export class CartComponent implements OnInit, OnDestroy {
         product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
         product.stockChanged = true;
       } else {
+        if (parseInt(product.stock) <= 0) {
+           this.removeProductFromCart(product);
+        }
         product.quantity = product.stock;
         product.stock = (parseInt(product.stock) - parseInt(product.quantity)).toString();
-        swal({
-          title: 'Error',
-          text: 'No puedes agregar mas productos, ya que excede el stock.',
-          icon: 'error',
-          timer: 2000
-        });
+        // swal({
+        //   title: 'Error',
+        //   text: 'No puedes agregar mas productos, ya que excede el stock.',
+        //   icon: 'error',
+        //   timer: 2000
+        // });
       }
     }
 
@@ -290,9 +296,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
       this.products.forEach(product => {
         this.products[taskIndex].productId.stock = this.products[taskIndex].stock;
+        taskIndex++;
 
-        this.productService.editProduct(this.products[taskIndex].productId).then(() => {
-          taskIndex++;
+        this.productService.editProduct(this.products[taskIndex - 1].productId).then(() => {
           if (taskIndex === this.products.length) {
             resolve();
           }

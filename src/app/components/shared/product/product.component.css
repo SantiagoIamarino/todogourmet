@@ -449,7 +449,7 @@
     border: none;
     background: #DE1B1B;
     color: white;
-    padding: 1vh 1vw;
+    padding: 10px 15px;
 }
 
 .add-to-cart button:hover {
@@ -461,7 +461,12 @@
 }
 
 .add-to-cart button p{
-    font-size: 1.5vh;
+    font-size: 17px;
+}
+
+.add-to-cart button p.product-stock{
+    font-size: 15px;
+    align-self: flex-end;
 }
 
 .producto .out-of-stock{
@@ -470,13 +475,14 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 10;
 }
 
 .producto .out-of-stock .cover{
     width: 100%;
     height: 100%;
     background: black;
-    border-radius: 5px;
+    border-radius: 3px 3px 5px 5px;
     opacity: .65;
     display: flex;
     justify-content: center;
@@ -484,23 +490,40 @@
     padding: 5px 10px;
 }
 
-.producto .out-of-stock p{
-    color: white;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    font-size: 2vh;
-    width: 100%;
-    text-align: center;
-    margin-top: -3vh;
-}
-
-.producto .out-of-stock .request-stock{
+.producto .out-of-stock .stock-content{
+    /* margin-top: -45%; */
     position: absolute;
     bottom: 41.5%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 5px 10px;
+}
+
+.producto .out-of-stock p{
+    color: rgb(211, 208, 208);
+    font-weight: bold;
+}
+
+.producto .out-of-stock p.title{
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    font-size: 150%;
+    width: 100%;
+    text-align: center;
+    margin-top: 7%;
+}
+
+.producto .out-of-stock .request-stock{
+    /* position: absolute;
+    bottom: 41.5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px 10px; */
 }
 
 .producto .out-of-stock .request-stock button{
